@@ -11,6 +11,13 @@
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
 		AC3BF41A2922277A0096810E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3BF4192922277A0096810E /* Assets.xcassets */; };
 		AC3BF41D2922277A0096810E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3BF41C2922277A0096810E /* Preview Assets.xcassets */; };
+		AC5BAD1929276B0300A24BDD /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1829276B0300A24BDD /* SwiftSyntax */; };
+		AC5BAD1B29276B0300A24BDD /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1A29276B0300A24BDD /* SwiftSyntaxBuilder */; };
+		AC5BAD1D29276B0300A24BDD /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1C29276B0300A24BDD /* SwiftSyntaxParser */; };
+		AC5BAD2029276D2F00A24BDD /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */; };
+		AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */; };
+		AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */; };
+		AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD25292778CD00A24BDD /* TokenKind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +27,10 @@
 		AC3BF4192922277A0096810E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC3BF41C2922277A0096810E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC3BF41E2922277A0096810E /* SwiftDiagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDiagram.entitlements; sourceTree = "<group>"; };
+		AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenVisitor.swift; path = "../../../../.Trash/SwiftDiagram 16.36.00/SwiftDiagram/TokenVisitor.swift"; sourceTree = "<group>"; };
+		AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxTag.swift; sourceTree = "<group>"; };
+		AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxNodeType.swift; sourceTree = "<group>"; };
+		AC5BAD25292778CD00A24BDD /* TokenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKind.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5BAD1D29276B0300A24BDD /* SwiftSyntaxParser in Frameworks */,
+				AC5BAD1929276B0300A24BDD /* SwiftSyntax in Frameworks */,
+				AC5BAD1B29276B0300A24BDD /* SwiftSyntaxBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +68,7 @@
 			children = (
 				AC3BF415292227770096810E /* SwiftDiagramApp.swift */,
 				AC3BF417292227770096810E /* ContentView.swift */,
+				AC5BAD1E29276D1D00A24BDD /* Model */,
 				AC3BF4192922277A0096810E /* Assets.xcassets */,
 				AC3BF41E2922277A0096810E /* SwiftDiagram.entitlements */,
 				AC3BF41B2922277A0096810E /* Preview Content */,
@@ -67,6 +82,17 @@
 				AC3BF41C2922277A0096810E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AC5BAD1E29276D1D00A24BDD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */,
+				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
+				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
+				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +111,11 @@
 			dependencies = (
 			);
 			name = SwiftDiagram;
+			packageProductDependencies = (
+				AC5BAD1829276B0300A24BDD /* SwiftSyntax */,
+				AC5BAD1A29276B0300A24BDD /* SwiftSyntaxBuilder */,
+				AC5BAD1C29276B0300A24BDD /* SwiftSyntaxParser */,
+			);
 			productName = SwiftDiagram;
 			productReference = AC3BF412292227770096810E /* SwiftDiagram.app */;
 			productType = "com.apple.product-type.application";
@@ -97,7 +128,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					AC3BF411292227770096810E = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -113,6 +144,9 @@
 				Base,
 			);
 			mainGroup = AC3BF409292227770096810E;
+			packageReferences = (
+				AC5BAD1729276B0300A24BDD /* XCRemoteSwiftPackageReference "swift-syntax" */,
+			);
 			productRefGroup = AC3BF413292227770096810E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,7 +174,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
+				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
+				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
+				AC5BAD2029276D2F00A24BDD /* TokenVisitor.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
+				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +218,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -240,6 +279,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -266,9 +306,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftDiagram/SwiftDiagram.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftDiagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -291,9 +333,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftDiagram/SwiftDiagram.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftDiagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -332,6 +376,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AC5BAD1729276B0300A24BDD /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-syntax";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.50700.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AC5BAD1829276B0300A24BDD /* SwiftSyntax */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC5BAD1729276B0300A24BDD /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntax;
+		};
+		AC5BAD1A29276B0300A24BDD /* SwiftSyntaxBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC5BAD1729276B0300A24BDD /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxBuilder;
+		};
+		AC5BAD1C29276B0300A24BDD /* SwiftSyntaxParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC5BAD1729276B0300A24BDD /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntaxParser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC3BF40A292227770096810E /* Project object */;
 }
