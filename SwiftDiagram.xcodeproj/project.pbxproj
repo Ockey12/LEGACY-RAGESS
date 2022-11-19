@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
 		AC3BF41A2922277A0096810E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3BF4192922277A0096810E /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
 		AC3BF417292227770096810E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
+				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
 				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
@@ -219,6 +222,7 @@
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
+				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
