@@ -18,6 +18,9 @@
 		AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */; };
 		AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */; };
 		AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD25292778CD00A24BDD /* TokenKind.swift */; };
+		AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */; };
+		AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD292928C7C000A24BDD /* SampleCode.swift */; };
+		AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxTag.swift; sourceTree = "<group>"; };
 		AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxNodeType.swift; sourceTree = "<group>"; };
 		AC5BAD25292778CD00A24BDD /* TokenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKind.swift; sourceTree = "<group>"; };
+		AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorView.swift; sourceTree = "<group>"; };
+		AC5BAD292928C7C000A24BDD /* SampleCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCode.swift; sourceTree = "<group>"; };
+		AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +74,9 @@
 			children = (
 				AC3BF415292227770096810E /* SwiftDiagramApp.swift */,
 				AC3BF417292227770096810E /* ContentView.swift */,
+				AC5BAD2E2928C9B000A24BDD /* View */,
 				AC5BAD1E29276D1D00A24BDD /* Model */,
+				AC5BAD2B2928C85F00A24BDD /* Sample */,
 				AC3BF4192922277A0096810E /* Assets.xcassets */,
 				AC3BF41E2922277A0096810E /* SwiftDiagram.entitlements */,
 				AC3BF41B2922277A0096810E /* Preview Content */,
@@ -93,6 +101,23 @@
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AC5BAD2B2928C85F00A24BDD /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				AC5BAD292928C7C000A24BDD /* SampleCode.swift */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		AC5BAD2E2928C9B000A24BDD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
+				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,12 +198,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
+				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5BAD2029276D2F00A24BDD /* TokenVisitor.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
+				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -291,7 +319,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
