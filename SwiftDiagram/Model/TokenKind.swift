@@ -14,7 +14,7 @@ enum TokenKind {
     case varKeyword // var
     
     // アクセスレベル
-//    case openKeyword // open
+    case openKeyword // open
     case publicKeyword // public
     case internalKeyword // internal
     case fileprivateKeyword // fileprivate
@@ -31,6 +31,8 @@ enum TokenKind {
             return "structKeyword"
         case .varKeyword:
             return "varKeyword"
+        case .openKeyword:
+            return "openKeyword"
         case .publicKeyword:
             return "publicKeyword"
         case .internalKeyword:

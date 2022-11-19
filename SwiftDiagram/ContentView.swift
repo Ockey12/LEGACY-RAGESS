@@ -10,6 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+//        Text("Debug Now")
+//            .onAppear {
+//                let printer = TokenVisitorPrinter()
+//                printer.printResultArray()
+//            }
+//            .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
         ScrollView {
             TokenVisitorView()
                 .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)

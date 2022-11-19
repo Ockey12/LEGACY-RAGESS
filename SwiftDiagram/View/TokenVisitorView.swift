@@ -16,6 +16,9 @@ struct TokenVisitorView: View {
     @State private var sourceCode: String = ""
     @State private var rightContent: String = ""
     
+    @State private var url: URL?
+//    let printer = TokenVisitorPrinter()
+    
     var body: some View {
         VStack {
             HStack {
@@ -31,6 +34,15 @@ struct TokenVisitorView: View {
             }
             .padding()
             
+            Button {
+                if let url = url {
+                    let printer = TokenVisitorPrinter(url: url)
+                    printer.printResultArray()
+                }
+            } label: {
+                Text("TokenVisitorPrinter.printResultArray")
+            }
+            
         }// VStack
         .frame(minWidth: 1200, maxWidth: .infinity, minHeight: 700, maxHeight: .infinity)
         // 指定したSwiftファイル内のソースコードをcode変数に格納する
@@ -38,6 +50,8 @@ struct TokenVisitorView: View {
             switch result {
             // urlは指定したファイルのURL
             case .success(let url):
+                print("URL: \(url)")
+                self.url = url
                 // URL先のファイルからソースコードを取得する
                 guard let fileContent = try? String(contentsOf: url) else {
                     fatalError("failed to load contents")
@@ -48,9 +62,9 @@ struct TokenVisitorView: View {
                 let visitor = TokenVisitor()
                 _ = visitor.visit(parsedContent)
 
-                print("---TokenVisitorView")
+//                print("---TokenVisitorView")
                 for text in visitor.getResultArray() {
-                    print(text)
+//                    print(text)
                     rightContent += text + "\n"
                 }
             case .failure:

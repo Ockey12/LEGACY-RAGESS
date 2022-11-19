@@ -10,7 +10,7 @@ import Foundation
 // TokenVisitorクラスでresultArray配列に格納するタグ
 enum SyntaxTag {
     case startStructDeclSyntax // structの宣言開始
-//    case structAccessLevel // structのアクセスレベル
+    case structAccessLevel // structのアクセスレベル
     case endStructDeclSyntax // structの宣言終了
     case startVariableDeclSyntax // 変数の宣言開始
 //    case variableAccessLevel // 変数のアクセスレベル
@@ -26,9 +26,11 @@ enum SyntaxTag {
     var string: String {
         switch self {
         case .startStructDeclSyntax:
-            return "StartStructDeclSyntax{"
+            return "StartStructDeclSyntax"
+        case .structAccessLevel:
+            return "StructAccessLevel"
         case .endStructDeclSyntax:
-            return "EndStructDeclSyntax}"
+            return "EndStructDeclSyntax"
         case .startVariableDeclSyntax:
             return "StartVariableDeclSyntax"
         case .endVariableDeclSyntax:

@@ -14,5 +14,20 @@ enum SyntaxNodeType {
     case variableDeclSyntax // 変数の宣言
     case protocolDeclSyntax // プロトコルの宣言
     case codeBlockSyntax // メソッドの中身など
-    case declModifierSyntax // アクセスレベル
+//    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
+    
+    var string: String {
+        switch self {
+        case .declSyntax:
+            return "DeclSyntax"
+        case .structDeclSyntax:
+            return "StructDeclSyntax"
+        case .variableDeclSyntax:
+            return "VariableDeclSyntax"
+        case .protocolDeclSyntax:
+            return "ProtocolDeclSyntax"
+        case .codeBlockSyntax:
+            return "CodeBlockSyntax"
+        }
+    }
 }

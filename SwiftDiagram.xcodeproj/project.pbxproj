@@ -14,13 +14,14 @@
 		AC5BAD1929276B0300A24BDD /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1829276B0300A24BDD /* SwiftSyntax */; };
 		AC5BAD1B29276B0300A24BDD /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1A29276B0300A24BDD /* SwiftSyntaxBuilder */; };
 		AC5BAD1D29276B0300A24BDD /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = AC5BAD1C29276B0300A24BDD /* SwiftSyntaxParser */; };
-		AC5BAD2029276D2F00A24BDD /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */; };
 		AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */; };
 		AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */; };
 		AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD25292778CD00A24BDD /* TokenKind.swift */; };
 		AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */; };
 		AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD292928C7C000A24BDD /* SampleCode.swift */; };
 		AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */; };
+		AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */; };
+		AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,13 +31,14 @@
 		AC3BF4192922277A0096810E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC3BF41C2922277A0096810E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC3BF41E2922277A0096810E /* SwiftDiagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftDiagram.entitlements; sourceTree = "<group>"; };
-		AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenVisitor.swift; path = "../../../../.Trash/SwiftDiagram 16.36.00/SwiftDiagram/TokenVisitor.swift"; sourceTree = "<group>"; };
 		AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxTag.swift; sourceTree = "<group>"; };
 		AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxNodeType.swift; sourceTree = "<group>"; };
 		AC5BAD25292778CD00A24BDD /* TokenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKind.swift; sourceTree = "<group>"; };
 		AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorView.swift; sourceTree = "<group>"; };
 		AC5BAD292928C7C000A24BDD /* SampleCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCode.swift; sourceTree = "<group>"; };
 		AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScrollView.swift; sourceTree = "<group>"; };
+		AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorPrinter.swift; sourceTree = "<group>"; };
+		AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				AC5BAD2E2928C9B000A24BDD /* View */,
 				AC5BAD1E29276D1D00A24BDD /* Model */,
 				AC5BAD2B2928C85F00A24BDD /* Sample */,
+				AC5BAD2F2928D14400A24BDD /* Printer */,
 				AC3BF4192922277A0096810E /* Assets.xcassets */,
 				AC3BF41E2922277A0096810E /* SwiftDiagram.entitlements */,
 				AC3BF41B2922277A0096810E /* Preview Content */,
@@ -95,7 +98,7 @@
 		AC5BAD1E29276D1D00A24BDD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AC5BAD1F29276D2F00A24BDD /* TokenVisitor.swift */,
+				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
@@ -118,6 +121,14 @@
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AC5BAD2F2928D14400A24BDD /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */,
+			);
+			path = Printer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,11 +210,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
+				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
+				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
-				AC5BAD2029276D2F00A24BDD /* TokenVisitor.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
