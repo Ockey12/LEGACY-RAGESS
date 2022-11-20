@@ -29,16 +29,22 @@ final class TokenVisitor: SyntaxRewriter {
     override func visit(_ token: TokenSyntax) -> Syntax {
         let tokenKind = "\(token.tokenKind)"
         
-        if tokenKind == TokenKind.openKeyword.string {
-            addAccessLevelToResultArray(accessLevel: .open)
-        } else if tokenKind == TokenKind.publicKeyword.string {
-            addAccessLevelToResultArray(accessLevel: .public)
-        } else if tokenKind == TokenKind.internalKeyword.string {
-            addAccessLevelToResultArray(accessLevel: .internal)
-        } else if tokenKind == TokenKind.fileprivateKeyword.string {
-            addAccessLevelToResultArray(accessLevel: .fileprivate)
-        } else if tokenKind == TokenKind.privateKeyword.string {
-            addAccessLevelToResultArray(accessLevel: .private)
+        if 0 < syntaxNodeTypeStack.count {
+            if tokenKind == TokenKind.openKeyword.string {
+                addAccessLevelToResultArray(accessLevel: .open)
+            } else if tokenKind == TokenKind.publicKeyword.string {
+                addAccessLevelToResultArray(accessLevel: .public)
+            } else if tokenKind == TokenKind.internalKeyword.string {
+                addAccessLevelToResultArray(accessLevel: .internal)
+            } else if tokenKind == TokenKind.fileprivateKeyword.string {
+                addAccessLevelToResultArray(accessLevel: .fileprivate)
+            } else if tokenKind == TokenKind.privateKeyword.string {
+                addAccessLevelToResultArray(accessLevel: .private)
+            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // structの名前を宣言している
+                resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
+            }
         }
         
         return token._syntaxNode
@@ -104,7 +110,7 @@ final class TokenVisitor: SyntaxRewriter {
     // addAccessLevelToResultArray()で呼び出される
     private func addAccessLevelToResultArrayDependOnType(accessLevel: String) {
         if syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string {
-            resultArray.append(SyntaxTag.structAccessLevel.string + " " + accessLevel)
+            resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
         }
     }
     

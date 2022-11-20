@@ -11,10 +11,12 @@ import Foundation
 enum SyntaxTag {
     case startStructDeclSyntax // structの宣言開始
     case structAccessLevel // structのアクセスレベル
+    case structName // structの名前
     case endStructDeclSyntax // structの宣言終了
     case startVariableDeclSyntax // 変数の宣言開始
 //    case variableAccessLevel // 変数のアクセスレベル
     case endVariableDeclSyntax // 変数の宣言終了
+    case space // タグとタグの間のスペース
     
     // アクセスレベル
     case open
@@ -29,6 +31,8 @@ enum SyntaxTag {
             return "StartStructDeclSyntax"
         case .structAccessLevel:
             return "StructAccessLevel"
+        case .structName:
+            return "StructName"
         case .endStructDeclSyntax:
             return "EndStructDeclSyntax"
         case .startVariableDeclSyntax:
@@ -45,6 +49,8 @@ enum SyntaxTag {
             return "fileprivate"
         case .private:
             return "private"
+        case .space:
+            return " "
         }
     }
 }
