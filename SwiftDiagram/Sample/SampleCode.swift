@@ -10,7 +10,9 @@ import SwiftUI
 
 protocol Prtocol1 {}
 
-private struct SomeStruct: Prtocol1 {
+protocol Protocol2 {}
+
+private struct SomeStruct: Prtocol1, Protocol2 {
     @State private var statePrivateVariable: Int
     public var publicSample: Int
     internal var internalSample: Int

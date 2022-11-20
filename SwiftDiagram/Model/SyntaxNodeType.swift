@@ -13,6 +13,7 @@ enum SyntaxNodeType {
     case structDeclSyntax // structの宣言
     case variableDeclSyntax // 変数の宣言
     case protocolDeclSyntax // プロトコルの宣言
+    case inheritedTypeListSyntax // プロトコルへの準拠
     case codeBlockSyntax // メソッドの中身など
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
@@ -26,6 +27,8 @@ enum SyntaxNodeType {
             return "VariableDeclSyntax"
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"
+        case .inheritedTypeListSyntax:
+            return "InheritedTypeListSyntax"
         case .codeBlockSyntax:
             return "CodeBlockSyntax"
         }

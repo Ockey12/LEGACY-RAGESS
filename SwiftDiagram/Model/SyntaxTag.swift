@@ -9,10 +9,18 @@ import Foundation
 
 // TokenVisitorクラスでresultArray配列に格納するタグ
 enum SyntaxTag {
+    // struct
     case startStructDeclSyntax // structの宣言開始
     case structAccessLevel // structのアクセスレベル
     case structName // structの名前
     case endStructDeclSyntax // structの宣言終了
+    
+    // プロトコルへの準拠
+    case startInheritedTypeListSyntax // プロトコルへの準拠開始
+    case protocolConformedByStruct // structが準拠しているプロトコル
+    case endInheritedTypeListSyntax // プロトコルへの準拠終了
+    
+    //variable
     case startVariableDeclSyntax // 変数の宣言開始
 //    case variableAccessLevel // 変数のアクセスレベル
     case endVariableDeclSyntax // 変数の宣言終了
@@ -35,6 +43,12 @@ enum SyntaxTag {
             return "StructName"
         case .endStructDeclSyntax:
             return "EndStructDeclSyntax"
+        case .startInheritedTypeListSyntax:
+            return "StartInheritedTypeListSyntax"
+        case .protocolConformedByStruct:
+            return "ProtocolConformedByStruct"
+        case .endInheritedTypeListSyntax:
+            return "EndInheritedTypeListSyntax"
         case .startVariableDeclSyntax:
             return "StartVariableDeclSyntax"
         case .endVariableDeclSyntax:

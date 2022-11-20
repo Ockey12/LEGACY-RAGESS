@@ -23,6 +23,10 @@ final class TokenVisitor: SyntaxRewriter {
             resultArray.append(SyntaxTag.startStructDeclSyntax.string)
             pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax.string)
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
+            // プロトコルへの準拠開始
+            pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax.string)
+            printSyntaxNodeTypeStack()
         }
     }
     
@@ -44,6 +48,10 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // structの名前を宣言している
                 resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
+            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.inheritedTypeListSyntax.string) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // 準拠しているプロトコルの名前を宣言している
+                addConformedProtocolName(protocolName: token.text)
             }
         }
         
@@ -56,6 +64,10 @@ final class TokenVisitor: SyntaxRewriter {
         if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
             // structの宣言終了
             resultArray.append(SyntaxTag.endStructDeclSyntax.string)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
+            // プロトコルへの準拠終了
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         }
@@ -111,6 +123,15 @@ final class TokenVisitor: SyntaxRewriter {
     private func addAccessLevelToResultArrayDependOnType(accessLevel: String) {
         if syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string {
             resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
+        }
+    }
+    
+    // syntaxNodeTypeStackに応じて、準拠しているもの(struct, class, ...)とプロトコルの名前のタグをresultArrayに追加する
+    private func addConformedProtocolName(protocolName: String) {
+        let lastIndex = syntaxNodeTypeStack.endIndex - 1 // .endIndexは要素数を返すため、-1すると最後のインデックスになる
+        
+        if syntaxNodeTypeStack[lastIndex - 1] == SyntaxNodeType.structDeclSyntax.string {
+            resultArray.append(SyntaxTag.protocolConformedByStruct.string + SyntaxTag.space.string + protocolName)
         }
     }
     
