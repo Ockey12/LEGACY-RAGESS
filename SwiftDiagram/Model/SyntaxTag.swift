@@ -22,7 +22,10 @@ enum SyntaxTag {
     
     //variable
     case startVariableDeclSyntax // 変数の宣言開始
-//    case variableAccessLevel // 変数のアクセスレベル
+//    case startCustomAttributeSyntax // @Stateなどの宣言開始
+//    case endCustomAttributeSyntax // @Stateなどの宣言終了
+    case variableCustomAttribute // 後ろに@Stateなどの名前を持つ
+    case variableAccessLevel // 変数のアクセスレベル
     case endVariableDeclSyntax // 変数の宣言終了
     case space // タグとタグの間のスペース
     
@@ -51,6 +54,10 @@ enum SyntaxTag {
             return "EndInheritedTypeListSyntax"
         case .startVariableDeclSyntax:
             return "StartVariableDeclSyntax"
+        case .variableCustomAttribute:
+            return "VariableCustomAttribute"
+        case .variableAccessLevel:
+            return "VariableAccessLevel"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
         case .open:

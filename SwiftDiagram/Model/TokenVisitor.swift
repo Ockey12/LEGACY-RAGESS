@@ -11,9 +11,13 @@ import SwiftSyntax
 final class TokenVisitor: SyntaxRewriter {
     
     // visitPre()、visitPost()で検査したnodeの種類を記憶するためのスタック配列
-    private var syntaxNodeTypeStack = [String]()
+    private var syntaxNodeTypeStack = [SyntaxNodeType]()
     // 抽象構文木をvisitして抽出した結果の配列
     private var resultArray = [String]()
+    
+    // variableの@Stateなどの文字列を一時的に保存する
+    // @Stateの場合、@とStateが別のtokenなため
+    private var variableCustomAttribute = ""
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -21,16 +25,21 @@ final class TokenVisitor: SyntaxRewriter {
         if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
             // structの宣言開始
             resultArray.append(SyntaxTag.startStructDeclSyntax.string)
-            pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax.string)
+            pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax)
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
             // variableの宣言開始
             resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
-            pushSyntaxNodeTypeStack(SyntaxNodeType.variableDeclSyntax.string)
+            pushSyntaxNodeTypeStack(SyntaxNodeType.variableDeclSyntax)
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
+            // variableの@Stateなどの宣言開始
+            variableCustomAttribute = ""
+            pushSyntaxNodeTypeStack(SyntaxNodeType.customAttributeSyntax)
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
-            pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax.string)
+            pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
             printSyntaxNodeTypeStack()
         }
     }
@@ -54,14 +63,17 @@ final class TokenVisitor: SyntaxRewriter {
             } else if tokenKind == TokenKind.privateKeyword.string {
                 // アクセスレベルprivateを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .private)
-            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string) &&
+            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // structの名前を宣言しているとき
                 resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
-            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.inheritedTypeListSyntax.string) &&
+            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
                 addConformedProtocolName(protocolName: token.text)
+            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.customAttributeSyntax {
+                // variableで@Stateなどを宣言しているとき
+                variableCustomAttribute += token.text
             }
         }
         
@@ -81,6 +93,11 @@ final class TokenVisitor: SyntaxRewriter {
             resultArray.append(SyntaxTag.endVariableDeclSyntax.string)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
+            // variableの@Stateなどの宣言終了
+            resultArray.append(SyntaxTag.variableCustomAttribute.string + SyntaxTag.space.string + variableCustomAttribute)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠終了
             popSyntaxNodeTypeStack()
@@ -95,12 +112,12 @@ final class TokenVisitor: SyntaxRewriter {
     
     // デバッグ用
     // syntaxNodeTypeStackを返す
-    func getSyntaxNodeTypeStack() -> [String] {
+    func getSyntaxNodeTypeStack() -> [SyntaxNodeType] {
         return syntaxNodeTypeStack
     }
     
     // syntaxStack配列に引数の文字列をプッシュする
-    private func pushSyntaxNodeTypeStack(_ element: String) {
+    private func pushSyntaxNodeTypeStack(_ element: SyntaxNodeType) {
         self.syntaxNodeTypeStack.append(element)
     }
     
@@ -136,8 +153,10 @@ final class TokenVisitor: SyntaxRewriter {
     // syntaxNodeTypeStackに応じて、アクセスレベルの持ち主とアクセスレベルのタグをresultArrayに追加する
     // addAccessLevelToResultArray()で呼び出される
     private func addAccessLevelToResultArrayDependOnType(accessLevel: String) {
-        if syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string {
+        if syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax {
             resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
+        } else if syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax {
+            resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
         }
     }
     
@@ -145,7 +164,7 @@ final class TokenVisitor: SyntaxRewriter {
     private func addConformedProtocolName(protocolName: String) {
         let lastIndex = syntaxNodeTypeStack.endIndex - 1 // .endIndexは要素数を返すため、-1すると最後のインデックスになる
         
-        if syntaxNodeTypeStack[lastIndex - 1] == SyntaxNodeType.structDeclSyntax.string {
+        if syntaxNodeTypeStack[lastIndex - 1] == SyntaxNodeType.structDeclSyntax {
             resultArray.append(SyntaxTag.protocolConformedByStruct.string + SyntaxTag.space.string + protocolName)
         }
     }

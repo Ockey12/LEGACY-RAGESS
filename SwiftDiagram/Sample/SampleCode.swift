@@ -14,4 +14,5 @@ protocol Protocol2 {}
 
 private struct SomeStruct: Protocol1, Protocol2 {
     @State private var statePrivateVariable: Int
+    static let staticVariable = 100000000
 }

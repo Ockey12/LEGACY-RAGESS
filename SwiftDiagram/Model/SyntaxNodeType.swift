@@ -11,7 +11,8 @@ import Foundation
 enum SyntaxNodeType {
     case declSyntax // 宣言のsyntaxNodeTypeの末尾に共通しているキーワード
     case structDeclSyntax // structの宣言
-    case variableDeclSyntax // 変数の宣言
+    case variableDeclSyntax // variableの宣言
+    case customAttributeSyntax // variableの@ Stateなど
     case protocolDeclSyntax // プロトコルの宣言
     case inheritedTypeListSyntax // プロトコルへの準拠
     case codeBlockSyntax // メソッドの中身など
@@ -25,6 +26,8 @@ enum SyntaxNodeType {
             return "StructDeclSyntax"
         case .variableDeclSyntax:
             return "VariableDeclSyntax"
+        case .customAttributeSyntax:
+            return "CustomAttributeSyntax"
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"
         case .inheritedTypeListSyntax:
