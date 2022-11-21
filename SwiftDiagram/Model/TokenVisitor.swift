@@ -78,6 +78,9 @@ final class TokenVisitor: SyntaxRewriter {
                         tokenKind == TokenKind.lazy.string {
                 // variableのlazyキーワードを見つけたとき
                 resultArray.append(SyntaxTag.lazyVariable.string)
+            } else if tokenKind == TokenKind.letKeyword.string {
+                // variableのletキーワードを見つけたとき
+                resultArray.append(SyntaxTag.letVariable.string)
             }
         }
         

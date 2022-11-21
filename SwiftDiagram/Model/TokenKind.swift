@@ -23,6 +23,7 @@ enum TokenKind {
     case atSign // @
     case colon // :
     case lazy // identifier("lazy")
+    case letKeyword // variableのletキーワード
     
     var string: String {
         switch self {
@@ -48,6 +49,8 @@ enum TokenKind {
             return "colon"
         case .lazy:
             return "identifier(\"lazy\")"
+        case .letKeyword:
+            return "letKeyword"
         }
     }
 }
