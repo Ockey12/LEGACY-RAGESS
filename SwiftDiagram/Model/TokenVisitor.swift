@@ -76,7 +76,7 @@ final class TokenVisitor: SyntaxRewriter {
                 variableCustomAttribute += token.text
             } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax) &&
                         tokenKind == TokenKind.lazy.string {
-                // variableのlazyキーワード
+                // variableのlazyキーワードを見つけたとき
                 resultArray.append(SyntaxTag.lazyVariable.string)
             }
         }

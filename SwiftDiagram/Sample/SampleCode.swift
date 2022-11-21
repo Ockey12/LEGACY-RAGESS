@@ -15,5 +15,5 @@ protocol Protocol2 {}
 private struct SomeStruct: Protocol1, Protocol2 {
     @State private var statePrivateVariable: Int
     static let staticVariable = 100000000
-    lazy var lazyVariable = 222222222
+    lazy private var lazyVariable = 222222222
 }
