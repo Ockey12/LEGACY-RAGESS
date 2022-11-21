@@ -23,6 +23,11 @@ final class TokenVisitor: SyntaxRewriter {
             resultArray.append(SyntaxTag.startStructDeclSyntax.string)
             pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax.string)
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
+            // variableの宣言開始
+            resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
+            pushSyntaxNodeTypeStack(SyntaxNodeType.variableDeclSyntax.string)
+            printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax.string)
@@ -35,22 +40,27 @@ final class TokenVisitor: SyntaxRewriter {
         
         if 0 < syntaxNodeTypeStack.count {
             if tokenKind == TokenKind.openKeyword.string {
+                // アクセスレベルopenを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .open)
             } else if tokenKind == TokenKind.publicKeyword.string {
+                // アクセスレベルpublicを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .public)
             } else if tokenKind == TokenKind.internalKeyword.string {
+                // アクセスレベルinternalを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .internal)
             } else if tokenKind == TokenKind.fileprivateKeyword.string {
+                // アクセスレベルfileprivateを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .fileprivate)
             } else if tokenKind == TokenKind.privateKeyword.string {
+                // アクセスレベルprivateを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .private)
             } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax.string) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
-                // structの名前を宣言している
+                // structの名前を宣言しているとき
                 resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.inheritedTypeListSyntax.string) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
-                // 準拠しているプロトコルの名前を宣言している
+                // 準拠しているプロトコルの名前を宣言しているとき
                 addConformedProtocolName(protocolName: token.text)
             }
         }
@@ -64,6 +74,11 @@ final class TokenVisitor: SyntaxRewriter {
         if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
             // structの宣言終了
             resultArray.append(SyntaxTag.endStructDeclSyntax.string)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
+            // variableの宣言終了
+            resultArray.append(SyntaxTag.endVariableDeclSyntax.string)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {

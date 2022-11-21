@@ -9,7 +9,7 @@ import Foundation
 
 // visit()で検査するtoken.tokenKind
 enum TokenKind {
-    case identifier
+    case identifier // identifier
     case structKeyword // struct
     case varKeyword // var
     
