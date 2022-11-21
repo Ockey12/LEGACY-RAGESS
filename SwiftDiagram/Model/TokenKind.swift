@@ -22,6 +22,7 @@ enum TokenKind {
     
     case atSign // @
     case colon // :
+    case lazy // identifier("lazy")
     
     var string: String {
         switch self {
@@ -45,6 +46,8 @@ enum TokenKind {
             return "atSign"
         case .colon:
             return "colon"
+        case .lazy:
+            return "identifier(\"lazy\")"
         }
     }
 }

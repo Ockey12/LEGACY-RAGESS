@@ -74,6 +74,10 @@ final class TokenVisitor: SyntaxRewriter {
             } else if syntaxNodeTypeStack.last! == SyntaxNodeType.customAttributeSyntax {
                 // variableで@Stateなどを宣言しているとき
                 variableCustomAttribute += token.text
+            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax) &&
+                        tokenKind == TokenKind.lazy.string {
+                // variableのlazyキーワード
+                resultArray.append(SyntaxTag.lazyVariable.string)
             }
         }
         
