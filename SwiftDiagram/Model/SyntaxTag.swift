@@ -27,7 +27,8 @@ enum SyntaxTag {
     case variableCustomAttribute // 後ろに@Stateなどの名前を持つ
     case lazyVariable // lazyキーワードをもつvariable
     case variableAccessLevel // 変数のアクセスレベル
-    case haveLetKeyword // 定数
+    case haveLetKeyword // 定数のとき
+    case variableName // 変数の名前を後ろに持つ
     case endVariableDeclSyntax // 変数の宣言終了
     case space // タグとタグの間のスペース
     
@@ -64,6 +65,8 @@ enum SyntaxTag {
             return "VariableAccessLevel"
         case .haveLetKeyword:
             return "HaveLetKeyword"
+        case .variableName:
+            return "VariableName"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
         case .open:

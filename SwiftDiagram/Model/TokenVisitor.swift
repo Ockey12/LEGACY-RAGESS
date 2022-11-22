@@ -37,6 +37,10 @@ final class TokenVisitor: SyntaxRewriter {
             variableCustomAttribute = ""
             pushSyntaxNodeTypeStack(SyntaxNodeType.customAttributeSyntax)
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.identifierPatternSyntax.string {
+            // variableの名前を宣言開始
+            pushSyntaxNodeTypeStack(SyntaxNodeType.identifierPatternSyntax)
+            printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
@@ -81,6 +85,9 @@ final class TokenVisitor: SyntaxRewriter {
             } else if tokenKind == TokenKind.letKeyword.string {
                 // variableのletキーワードを見つけたとき
                 resultArray.append(SyntaxTag.haveLetKeyword.string)
+            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.identifierPatternSyntax {
+                // variableの名前を見つけたとき
+                resultArray.append(SyntaxTag.variableName.string + SyntaxTag.space.string + token.text)
             }
         }
         
@@ -103,6 +110,10 @@ final class TokenVisitor: SyntaxRewriter {
         } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
             // variableの@Stateなどの宣言終了
             resultArray.append(SyntaxTag.variableCustomAttribute.string + SyntaxTag.space.string + variableCustomAttribute)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.identifierPatternSyntax.string {
+            // variableの名前を宣言終了
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
