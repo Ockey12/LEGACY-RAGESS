@@ -15,6 +15,7 @@ enum SyntaxNodeType {
     case customAttributeSyntax // variableの@ Stateなど
     case identifierPatternSyntax // variableの名前
     case typeAnnotationSyntax // variableの型
+    case initializerClauseSyntax // variableの初期値
     case protocolDeclSyntax // プロトコルの宣言
     case inheritedTypeListSyntax // プロトコルへの準拠
     case codeBlockSyntax // メソッドの中身など
@@ -34,6 +35,8 @@ enum SyntaxNodeType {
             return "IdentifierPatternSyntax"
         case .typeAnnotationSyntax:
             return "TypeAnnotationSyntax"
+        case .initializerClauseSyntax:
+            return "InitializerClauseSyntax"
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"
         case .inheritedTypeListSyntax:

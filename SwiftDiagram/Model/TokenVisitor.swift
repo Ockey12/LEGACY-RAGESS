@@ -19,14 +19,22 @@ final class TokenVisitor: SyntaxRewriter {
     // @Stateの場合、@とStateが別のtokenなため
     // visitPre()で""に初期化する
     private var variableCustomAttribute = ""
+    
     // variableのTypeAnnotationSyntax内で最初の":"を検査した後trueになる
     // variable名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
     // visitPre()でfalseに初期化する
     private var passedTypeAnnotationFirstColon = false
+    
     // TypeAnnotation内で抽出したvariableの型を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
     private var variableTypeString = ""
+    
+    //variableの初期値を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    // visitPost()でresultArrayに.append()する
+    private var initialValueOfVariable = ""
+    
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -55,6 +63,11 @@ final class TokenVisitor: SyntaxRewriter {
             passedTypeAnnotationFirstColon = false
             variableTypeString = ""
             pushSyntaxNodeTypeStack(SyntaxNodeType.typeAnnotationSyntax)
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string {
+            // variableの初期値を宣言開始
+            initialValueOfVariable = ""
+            pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
@@ -125,6 +138,12 @@ final class TokenVisitor: SyntaxRewriter {
                     // ":"でなければ抽出する
                     variableTypeString += token.text
                 }
+            } else if syntaxNodeTypeStack.last == SyntaxNodeType.initializerClauseSyntax {
+                // variableの初期値を宣言しているとき
+                if tokenKind != TokenKind.equal.string {
+                    // 初期値を代入する"="以外を抽出する
+                    initialValueOfVariable += token.text
+                }
             }
         }
         
@@ -156,6 +175,11 @@ final class TokenVisitor: SyntaxRewriter {
         } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
             // variableの型を宣言終了
             resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + variableTypeString)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string {
+            // variableの初期値を宣言終了
+            resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {

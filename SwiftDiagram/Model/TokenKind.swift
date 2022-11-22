@@ -25,6 +25,7 @@ enum TokenKind {
     case lazy // identifier("lazy")
     case staticKeyword // staticキーワード variableとfunctionが持つ
     case letKeyword // variableのletキーワード
+    case equal // 代入などの"="
     
     var string: String {
         switch self {
@@ -54,6 +55,8 @@ enum TokenKind {
             return "staticKeyword"
         case .letKeyword:
             return "letKeyword"
+        case .equal:
+            return "equal"
         }
     }
 }
