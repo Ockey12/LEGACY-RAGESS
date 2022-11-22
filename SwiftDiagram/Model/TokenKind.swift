@@ -25,6 +25,8 @@ enum TokenKind {
     case letKeyword // variableのletキーワード
     case willSetKeyword // variableのwillSetキーワード
     case didSetKeyword // variableのdidSetキーワード
+    case getKeyword // variableのgetキーワード
+    case setKeyword // variableのsetキーワード
     
     case atSign // @
     case colon // :
@@ -59,6 +61,10 @@ enum TokenKind {
             return "contextualKeyword(\"willSet\")"
         case .didSetKeyword:
             return "contextualKeyword(\"didSet\")"
+        case .getKeyword:
+            return "contextualKeyword(\"get\")"
+        case .setKeyword:
+            return "contextualKeyword(\"set\")"
             
         case .atSign:
             return "atSign"

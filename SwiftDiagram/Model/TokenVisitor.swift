@@ -156,6 +156,12 @@ final class TokenVisitor: SyntaxRewriter {
                 } else if tokenKind == TokenKind.didSetKeyword.string {
                     // didSetのとき
                     resultArray.append(SyntaxTag.haveDidSet.string)
+                } else if tokenKind == TokenKind.getKeyword.string {
+                    // getのとき
+                    resultArray.append(SyntaxTag.haveGetter.string)
+                } else if tokenKind == TokenKind.setKeyword.string {
+                    // setのとき
+                    resultArray.append(SyntaxTag.haveSetter.string)
                 }
             }
         }

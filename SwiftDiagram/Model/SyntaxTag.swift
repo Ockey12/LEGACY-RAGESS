@@ -34,6 +34,8 @@ enum SyntaxTag {
     case initialValueOfVariable // variableの初期値
     case haveWillSet // willSetを持つvariable
     case haveDidSet // didSetを持つvariable
+    case haveGetter // getを持つvariable
+    case haveSetter // setを持つvariable
     case endVariableDeclSyntax // 変数の宣言終了
 
     // アクセスレベル
@@ -86,6 +88,10 @@ enum SyntaxTag {
             return "HaveWillSet"
         case .haveDidSet:
             return "HaveDidSet"
+        case .haveGetter:
+            return "HaveGetter"
+        case .haveSetter:
+            return "HaveSetter"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
         // アクセスレベル
