@@ -11,23 +11,33 @@ import Foundation
 enum SyntaxNodeType {
     case declSyntax // 宣言のsyntaxNodeTypeの末尾に共通しているキーワード
     case structDeclSyntax // structの宣言
+    
+    // variable
     case variableDeclSyntax // variableの宣言
     case customAttributeSyntax // variableの@ Stateなど
     case identifierPatternSyntax // variableの名前
     case typeAnnotationSyntax // variableの型
     case initializerClauseSyntax // variableの初期値
     case accessorBlockSyntax // variableのwillSet, didSet, get, setをまとめるブロック
+    
+    // function
+    case functionDeclSyntax // fanctionの宣言開始
+    case codeBlockSyntax // メソッドの中身など
+    
+    //protocol
     case protocolDeclSyntax // プロトコルの宣言
     case inheritedTypeListSyntax // プロトコルへの準拠
-    case codeBlockSyntax // メソッドの中身など
+    
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
     var string: String {
         switch self {
         case .declSyntax:
             return "DeclSyntax"
+        // struct
         case .structDeclSyntax:
             return "StructDeclSyntax"
+        // variable
         case .variableDeclSyntax:
             return "VariableDeclSyntax"
         case .customAttributeSyntax:
@@ -40,12 +50,16 @@ enum SyntaxNodeType {
             return "InitializerClauseSyntax"
         case .accessorBlockSyntax:
             return "AccessorBlockSyntax"
+        // function
+        case .functionDeclSyntax:
+            return "FunctionDeclSyntax"
+        case .codeBlockSyntax:
+            return "CodeBlockSyntax"
+        // protocol
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"
         case .inheritedTypeListSyntax:
             return "InheritedTypeListSyntax"
-        case .codeBlockSyntax:
-            return "CodeBlockSyntax"
         }
     }
 }

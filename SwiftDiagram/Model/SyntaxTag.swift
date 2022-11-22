@@ -20,7 +20,7 @@ enum SyntaxTag {
     case protocolConformedByStruct // structが準拠しているプロトコル
     case endInheritedTypeListSyntax // プロトコルへの準拠終了
     
-    //variable
+    // variable
     case startVariableDeclSyntax // 変数の宣言開始
 //    case startCustomAttributeSyntax // @Stateなどの宣言開始
 //    case endCustomAttributeSyntax // @Stateなどの宣言終了
@@ -37,6 +37,10 @@ enum SyntaxTag {
     case haveGetter // getを持つvariable
     case haveSetter // setを持つvariable
     case endVariableDeclSyntax // 変数の宣言終了
+    
+    // function
+    case startFunctionDeclSyntax // functionの宣言開始
+    case endFunctionDeclSyntax // functionの宣言終了
 
     // アクセスレベル
     case open
@@ -94,6 +98,11 @@ enum SyntaxTag {
             return "HaveSetter"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
+        // function
+        case .startFunctionDeclSyntax:
+            return "StartFunctionDeclSyntax"
+        case .endFunctionDeclSyntax:
+            return "EndFunctionDeclSyntax"
         // アクセスレベル
         case .open:
             return "open"

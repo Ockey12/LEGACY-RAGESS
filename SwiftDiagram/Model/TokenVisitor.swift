@@ -73,6 +73,11 @@ final class TokenVisitor: SyntaxRewriter {
             // variableのwillSet, didSet, get, setを宣言するブロック開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.accessorBlockSyntax)
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.functionDeclSyntax.string {
+            // functionの宣言開始
+            resultArray.append(SyntaxTag.startFunctionDeclSyntax.string)
+            pushSyntaxNodeTypeStack(SyntaxNodeType.functionDeclSyntax)
+            printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
@@ -203,6 +208,11 @@ final class TokenVisitor: SyntaxRewriter {
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.accessorBlockSyntax.string {
             // variableのwillSet, didSet, get, setを宣言するブロック終了
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.functionDeclSyntax.string {
+            // functionの宣言終了
+            resultArray.append(SyntaxTag.endFunctionDeclSyntax.string)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
