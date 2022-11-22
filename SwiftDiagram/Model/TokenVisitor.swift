@@ -88,6 +88,13 @@ final class TokenVisitor: SyntaxRewriter {
             } else if syntaxNodeTypeStack.last! == SyntaxNodeType.identifierPatternSyntax {
                 // variableの名前を見つけたとき
                 resultArray.append(SyntaxTag.variableName.string + SyntaxTag.space.string + token.text)
+            } else if tokenKind == TokenKind.staticKeyword.string {
+                // staticキーワードを見つけたとき
+                // variableとfunctionを区別する
+                if syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax {
+                    // variableの宣言中のとき
+                    resultArray.append(SyntaxTag.staticVariable.string)
+                }
             }
         }
         

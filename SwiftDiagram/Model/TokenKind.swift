@@ -23,6 +23,7 @@ enum TokenKind {
     case atSign // @
     case colon // :
     case lazy // identifier("lazy")
+    case staticKeyword // staticキーワード variableとfunctionが持つ
     case letKeyword // variableのletキーワード
     
     var string: String {
@@ -49,6 +50,8 @@ enum TokenKind {
             return "colon"
         case .lazy:
             return "identifier(\"lazy\")"
+        case .staticKeyword:
+            return "staticKeyword"
         case .letKeyword:
             return "letKeyword"
         }
