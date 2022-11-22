@@ -32,9 +32,10 @@ enum SyntaxTag {
     case variableName // 変数の名前を後ろに持つ
     case variableType // variableの型
     case initialValueOfVariable // variableの初期値
+    case haveWillSet // willSetを持つvariable
+    case haveDidSet // didSetを持つvariable
     case endVariableDeclSyntax // 変数の宣言終了
-    case space // タグとタグの間のスペース
-    
+
     // アクセスレベル
     case open
     case `public`
@@ -42,8 +43,11 @@ enum SyntaxTag {
     case `fileprivate`
     case `private`
     
+    case space // タグとタグの間のスペース
+    
     var string: String {
         switch self {
+        // struct
         case .startStructDeclSyntax:
             return "StartStructDeclSyntax"
         case .structAccessLevel:
@@ -52,12 +56,14 @@ enum SyntaxTag {
             return "StructName"
         case .endStructDeclSyntax:
             return "EndStructDeclSyntax"
+        // プロトコルへの準拠
         case .startInheritedTypeListSyntax:
             return "StartInheritedTypeListSyntax"
         case .protocolConformedByStruct:
             return "ProtocolConformedByStruct"
         case .endInheritedTypeListSyntax:
             return "EndInheritedTypeListSyntax"
+        // variable
         case .startVariableDeclSyntax:
             return "StartVariableDeclSyntax"
         case .variableCustomAttribute:
@@ -76,8 +82,13 @@ enum SyntaxTag {
             return "VariableType"
         case .initialValueOfVariable:
             return "InitialValueOfVariable"
+        case .haveWillSet:
+            return "HaveWillSet"
+        case .haveDidSet:
+            return "HaveDidSet"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
+        // アクセスレベル
         case .open:
             return "open"
         case .public:

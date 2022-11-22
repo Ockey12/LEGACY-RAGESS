@@ -20,11 +20,15 @@ enum TokenKind {
     case fileprivateKeyword // fileprivate
     case privateKeyword // private
     
+    // variable
+    case lazy // identifier("lazy")
+    case letKeyword // variableのletキーワード
+    case willSetKeyword // variableのwillSetキーワード
+    case didSetKeyword // variableのdidSetキーワード
+    
     case atSign // @
     case colon // :
-    case lazy // identifier("lazy")
     case staticKeyword // staticキーワード variableとfunctionが持つ
-    case letKeyword // variableのletキーワード
     case equal // 代入などの"="
     
     var string: String {
@@ -35,6 +39,7 @@ enum TokenKind {
             return "structKeyword"
         case .varKeyword:
             return "varKeyword"
+        // アクセスレベル
         case .openKeyword:
             return "openKeyword"
         case .publicKeyword:
@@ -45,16 +50,22 @@ enum TokenKind {
             return "fileprivateKeyword"
         case .privateKeyword:
             return "privateKeyword"
+        // variable
+        case .lazy:
+            return "identifier(\"lazy\")"
+        case .letKeyword:
+            return "letKeyword"
+        case .willSetKeyword:
+            return "contextualKeyword(\"willSet\")"
+        case .didSetKeyword:
+            return "contextualKeyword(\"didSet\")"
+            
         case .atSign:
             return "atSign"
         case .colon:
             return "colon"
-        case .lazy:
-            return "identifier(\"lazy\")"
         case .staticKeyword:
             return "staticKeyword"
-        case .letKeyword:
-            return "letKeyword"
         case .equal:
             return "equal"
         }

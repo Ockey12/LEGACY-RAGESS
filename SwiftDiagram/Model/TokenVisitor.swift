@@ -69,6 +69,10 @@ final class TokenVisitor: SyntaxRewriter {
             initialValueOfVariable = ""
             pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
             printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.accessorBlockSyntax.string {
+            // variableのwillSet, didSet, get, setを宣言するブロック開始
+            pushSyntaxNodeTypeStack(SyntaxNodeType.accessorBlockSyntax)
+            printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
@@ -138,11 +142,20 @@ final class TokenVisitor: SyntaxRewriter {
                     // ":"でなければ抽出する
                     variableTypeString += token.text
                 }
-            } else if syntaxNodeTypeStack.last == SyntaxNodeType.initializerClauseSyntax {
+            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.initializerClauseSyntax {
                 // variableの初期値を宣言しているとき
                 if tokenKind != TokenKind.equal.string {
                     // 初期値を代入する"="以外を抽出する
                     initialValueOfVariable += token.text
+                }
+            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.accessorBlockSyntax {
+                // variableのwillSet, didSet, get, setを宣言しているとき
+                if tokenKind == TokenKind.willSetKeyword.string {
+                    // willSetのとき
+                    resultArray.append(SyntaxTag.haveWillSet.string)
+                } else if tokenKind == TokenKind.didSetKeyword.string {
+                    // didSetのとき
+                    resultArray.append(SyntaxTag.haveDidSet.string)
                 }
             }
         }
@@ -180,6 +193,10 @@ final class TokenVisitor: SyntaxRewriter {
         } else if currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string {
             // variableの初期値を宣言終了
             resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.accessorBlockSyntax.string {
+            // variableのwillSet, didSet, get, setを宣言するブロック終了
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
