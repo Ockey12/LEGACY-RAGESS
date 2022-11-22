@@ -17,7 +17,16 @@ final class TokenVisitor: SyntaxRewriter {
     
     // variableの@Stateなどの文字列を一時的に保存する
     // @Stateの場合、@とStateが別のtokenなため
+    // visitPre()で""に初期化する
     private var variableCustomAttribute = ""
+    // variableのTypeAnnotationSyntax内で最初の":"を検査した後trueになる
+    // variable名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
+    // visitPre()でfalseに初期化する
+    private var passedTypeAnnotationFirstColon = false
+    // TypeAnnotation内で抽出したvariableの型を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    // visitPost()でresultArrayに.append()する
+    private var variableTypeString = ""
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -40,6 +49,12 @@ final class TokenVisitor: SyntaxRewriter {
         } else if currentSyntaxNodeType == SyntaxNodeType.identifierPatternSyntax.string {
             // variableの名前を宣言開始
             pushSyntaxNodeTypeStack(SyntaxNodeType.identifierPatternSyntax)
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
+            // variableの型を宣言開始
+            passedTypeAnnotationFirstColon = false
+            variableTypeString = ""
+            pushSyntaxNodeTypeStack(SyntaxNodeType.typeAnnotationSyntax)
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
             // プロトコルへの準拠開始
@@ -95,6 +110,21 @@ final class TokenVisitor: SyntaxRewriter {
                     // variableの宣言中のとき
                     resultArray.append(SyntaxTag.staticVariable.string)
                 }
+            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.typeAnnotationSyntax {
+                // variableの型を宣言しているとき
+                if tokenKind == TokenKind.colon.string {
+                    // ":"のとき
+                    if passedTypeAnnotationFirstColon {
+                        // TypeAnnotation内で最初の":"でなければ、型名内の文字列として抽出する
+                        variableTypeString += ":"
+                    } else {
+                        // TypeAnnotation内で最初の":"なら、variable名と型を区切るものなので抽出しない
+                        passedTypeAnnotationFirstColon = true
+                    }
+                } else {
+                    // ":"でなければ抽出する
+                    variableTypeString += token.text
+                }
             }
         }
         
@@ -121,6 +151,11 @@ final class TokenVisitor: SyntaxRewriter {
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.identifierPatternSyntax.string {
             // variableの名前を宣言終了
+            popSyntaxNodeTypeStack()
+            printSyntaxNodeTypeStack()
+        } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
+            // variableの型を宣言終了
+            resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + variableTypeString)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
         } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {

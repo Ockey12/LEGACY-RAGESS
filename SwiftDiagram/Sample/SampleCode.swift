@@ -17,5 +17,5 @@ private struct SomeStruct: Protocol1, Protocol2 {
     var toupleVariable: (String, Int)
     static let staticVariable = 100000000
     lazy private var lazyVariable = 222222222
-//    func sampleFunction() {}
+//    func sampleFunction(num: Int) {}
 }

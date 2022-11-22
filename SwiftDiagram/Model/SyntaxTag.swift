@@ -30,6 +30,7 @@ enum SyntaxTag {
     case variableAccessLevel // 変数のアクセスレベル
     case haveLetKeyword // 定数のとき
     case variableName // 変数の名前を後ろに持つ
+    case variableType // variableの型
     case endVariableDeclSyntax // 変数の宣言終了
     case space // タグとタグの間のスペース
     
@@ -70,6 +71,8 @@ enum SyntaxTag {
             return "HaveLetKeyword"
         case .variableName:
             return "VariableName"
+        case .variableType:
+            return "VariableType"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
         case .open:
