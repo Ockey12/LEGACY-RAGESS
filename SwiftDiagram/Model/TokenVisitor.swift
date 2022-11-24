@@ -12,6 +12,11 @@ final class TokenVisitor: SyntaxRewriter {
     
     // visitPre()、visitPost()で検査したnodeの種類を記憶するためのスタック配列
     private var syntaxNodeTypeStack = [SyntaxNodeType]()
+    // syntaxNodeTypeStackに最後に追加された要素のインデックス
+    // pushSyntaxNodeTypeStack()で1増える
+    // popSyntaxNodeTypeStack()で1減る
+    private var currentPositionInStack = -1
+    
     // 抽象構文木をvisitして抽出した結果の配列
     private var resultArray = [String]()
     
@@ -64,7 +69,8 @@ final class TokenVisitor: SyntaxRewriter {
             variableTypeString = ""
             pushSyntaxNodeTypeStack(SyntaxNodeType.typeAnnotationSyntax)
             printSyntaxNodeTypeStack()
-        } else if currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string {
+        } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                    (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax) {
             // variableの初期値を宣言開始
             initialValueOfVariable = ""
             pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
@@ -104,35 +110,35 @@ final class TokenVisitor: SyntaxRewriter {
             } else if tokenKind == TokenKind.privateKeyword.string {
                 // アクセスレベルprivateを見つけたとき
                 addAccessLevelToResultArray(accessLevel: .private)
-            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax) &&
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.structDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // structの名前を宣言しているとき
                 resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
-            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.inheritedTypeListSyntax) &&
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
                 addConformedProtocolName(protocolName: token.text)
-            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.customAttributeSyntax {
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.customAttributeSyntax {
                 // variableで@Stateなどを宣言しているとき
                 variableCustomAttribute += token.text
-            } else if (syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax) &&
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax) &&
                         tokenKind == TokenKind.lazy.string {
                 // variableのlazyキーワードを見つけたとき
                 resultArray.append(SyntaxTag.lazyVariable.string)
             } else if tokenKind == TokenKind.letKeyword.string {
                 // variableのletキーワードを見つけたとき
                 resultArray.append(SyntaxTag.haveLetKeyword.string)
-            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.identifierPatternSyntax {
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.identifierPatternSyntax {
                 // variableの名前を見つけたとき
                 resultArray.append(SyntaxTag.variableName.string + SyntaxTag.space.string + token.text)
             } else if tokenKind == TokenKind.staticKeyword.string {
                 // staticキーワードを見つけたとき
                 // variableとfunctionを区別する
-                if syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax {
+                if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
                     // variableの宣言中のとき
                     resultArray.append(SyntaxTag.staticVariable.string)
                 }
-            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.typeAnnotationSyntax {
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax {
                 // variableの型を宣言しているとき
                 if tokenKind == TokenKind.colon.string {
                     // ":"のとき
@@ -147,13 +153,14 @@ final class TokenVisitor: SyntaxRewriter {
                     // ":"でなければ抽出する
                     variableTypeString += token.text
                 }
-            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.initializerClauseSyntax {
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                 // variableの初期値を宣言しているとき
                 if tokenKind != TokenKind.equal.string {
                     // 初期値を代入する"="以外を抽出する
                     initialValueOfVariable += token.text
                 }
-            } else if syntaxNodeTypeStack.last! == SyntaxNodeType.accessorBlockSyntax {
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.accessorBlockSyntax {
                 // variableのwillSet, didSet, get, setを宣言しているとき
                 if tokenKind == TokenKind.willSetKeyword.string {
                     // willSetのとき
@@ -201,7 +208,8 @@ final class TokenVisitor: SyntaxRewriter {
             resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + variableTypeString)
             popSyntaxNodeTypeStack()
             printSyntaxNodeTypeStack()
-        } else if currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string {
+        } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                    (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax) {
             // variableの初期値を宣言終了
             resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
             popSyntaxNodeTypeStack()
@@ -236,11 +244,13 @@ final class TokenVisitor: SyntaxRewriter {
     // syntaxStack配列に引数の文字列をプッシュする
     private func pushSyntaxNodeTypeStack(_ element: SyntaxNodeType) {
         self.syntaxNodeTypeStack.append(element)
+        currentPositionInStack += 1
     }
     
     // syntaxStack配列の最後の要素を削除し、ポップする
     private func popSyntaxNodeTypeStack() {
         self.syntaxNodeTypeStack.removeLast()
+        currentPositionInStack -= 1
     }
     
 //    private enum AccessLevelHolder {
@@ -270,18 +280,18 @@ final class TokenVisitor: SyntaxRewriter {
     // syntaxNodeTypeStackに応じて、アクセスレベルの持ち主とアクセスレベルのタグをresultArrayに追加する
     // addAccessLevelToResultArray()で呼び出される
     private func addAccessLevelToResultArrayDependOnType(accessLevel: String) {
-        if syntaxNodeTypeStack.last! == SyntaxNodeType.structDeclSyntax {
+        if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.structDeclSyntax {
             resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
-        } else if syntaxNodeTypeStack.last! == SyntaxNodeType.variableDeclSyntax {
+        } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
             resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
         }
     }
     
     // syntaxNodeTypeStackに応じて、準拠しているもの(struct, class, ...)とプロトコルの名前のタグをresultArrayに追加する
     private func addConformedProtocolName(protocolName: String) {
-        let lastIndex = syntaxNodeTypeStack.endIndex - 1 // .endIndexは要素数を返すため、-1すると最後のインデックスになる
+//        let lastIndex = syntaxNodeTypeStack.endIndex - 1 // .endIndexは要素数を返すため、-1すると最後のインデックスになる
         
-        if syntaxNodeTypeStack[lastIndex - 1] == SyntaxNodeType.structDeclSyntax {
+        if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.structDeclSyntax {
             resultArray.append(SyntaxTag.protocolConformedByStruct.string + SyntaxTag.space.string + protocolName)
         }
     }
