@@ -15,27 +15,28 @@ protocol Protocol2 {}
 private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
 //    var toupleVariable: (String, Int)
-    static let staticVariable = 1111111111
+//    static let staticVariable = 1111111111
 //    let dictionaryVariable = ["KeyKeyKey": "ValueValueValue"]
 //    let toupleVariable = ("KeyKeyKey",2222222222)
 //    lazy private var lazyVariable = 222222222
-//    var willDidSetVariable = 3333333333 {
-//        willSet {
-//            print("willSet, willSet, willSet")
-//        }
-//        didSet {
-//            print("didSet, didSet, didSet")
-//        }
-//    }
-//    var computedProperty: Int {
-//        get {
-//            return 4444444444
-//        }
-//        set {
-//            self.num = newValue
-//        }
-//    }
-//    var num = 5555555555
+    var willDidSetVariable = 3333333333 {
+        willSet {
+            print("willSet, willSet, willSet")
+        }
+        didSet {
+            print("didSet, didSet, didSet")
+        }
+    }
+    var computedProperty: Int {
+        get {
+            print(9999999999)
+            return 4444444444
+        }
+        set {
+            self.num = newValue
+        }
+    }
+    var num = 5555555555
     
 //    static func staticFunction(num: Int = 6666666666) {}
     private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText") {

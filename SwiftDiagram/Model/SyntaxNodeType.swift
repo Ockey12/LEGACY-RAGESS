@@ -10,6 +10,8 @@ import Foundation
 // visitPre()、visitPost()で検査するnode.syntaxNodeType
 enum SyntaxNodeType {
     case declSyntax // 宣言のsyntaxNodeTypeの末尾に共通しているキーワード
+    
+    // struct
     case structDeclSyntax // structの宣言
     
     // variable
@@ -18,12 +20,12 @@ enum SyntaxNodeType {
     case identifierPatternSyntax // variableの名前
     case typeAnnotationSyntax // variableの型
     case initializerClauseSyntax // variableの初期値
+    case codeBlockSyntax // willSet, didSet, get, set, functionの中身
     case accessorBlockSyntax // variableのwillSet, didSet, get, setをまとめるブロック
     
     // function
     case functionDeclSyntax // fanctionの宣言開始
     case functionParameterSyntax // functionの個々の引数
-    case codeBlockSyntax // メソッドの中身など
     
     //protocol
     case protocolDeclSyntax // プロトコルの宣言
@@ -49,6 +51,8 @@ enum SyntaxNodeType {
             return "TypeAnnotationSyntax"
         case .initializerClauseSyntax:
             return "InitializerClauseSyntax"
+        case .codeBlockSyntax:
+            return "CodeBlockSyntax"
         case .accessorBlockSyntax:
             return "AccessorBlockSyntax"
         // function
@@ -56,8 +60,6 @@ enum SyntaxNodeType {
             return "FunctionDeclSyntax"
         case .functionParameterSyntax:
             return "FunctionParameterSyntax"
-        case .codeBlockSyntax:
-            return "CodeBlockSyntax"
         // protocol
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"

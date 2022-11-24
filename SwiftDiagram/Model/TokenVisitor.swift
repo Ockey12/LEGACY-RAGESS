@@ -43,11 +43,11 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
+        print("PRE-> \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
-            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) &&
-            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax){
-            // function宣言中のCodeBlockSyntax内の情報は無視する
+            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
+            // CodeBlockSyntax内の情報は無視する
         } else {
             if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
                 // structの宣言開始
@@ -110,9 +110,8 @@ final class TokenVisitor: SyntaxRewriter {
         let tokenKind = "\(token.tokenKind)"
         
         if (1 < currentPositionInStack) &&
-            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) &&
-            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax){
-            // function宣言中のCodeBlockSyntax内の情報は無視する
+            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
+            // CodeBlockSyntax内の情報は無視する
             return token._syntaxNode
         }
         
@@ -209,11 +208,11 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPost(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
+        print("POST<- \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
-            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) &&
-            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
-            // function宣言中のCodeBlockSyntax内の情報は、CodeBlockSyntaxを抜けること以外は無視する
+            (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
+            // CodeBlockSyntax内の情報は、CodeBlockSyntaxを抜けること以外は無視する
             if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
@@ -244,7 +243,7 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
-                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax) {
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                 // variableの初期値を宣言終了
                 resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
                 popSyntaxNodeTypeStack()
