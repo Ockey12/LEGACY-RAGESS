@@ -40,6 +40,8 @@ enum SyntaxTag {
     
     // function
     case startFunctionDeclSyntax // functionの宣言開始
+    case startFunctionParameterSyntax // functionの個々の引数を宣言開始
+    case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
 
     // アクセスレベル
@@ -101,6 +103,10 @@ enum SyntaxTag {
         // function
         case .startFunctionDeclSyntax:
             return "StartFunctionDeclSyntax"
+        case .startFunctionParameterSyntax:
+            return "StartFunctionParameterSyntax"
+        case .endFunctionParameterSyntax:
+            return "EndFunctionParameterSyntax"
         case .endFunctionDeclSyntax:
             return "EndFunctionDeclSyntax"
         // アクセスレベル

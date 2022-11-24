@@ -37,10 +37,10 @@ private struct SomeStruct: Protocol1, Protocol2 {
 //    }
 //    var num = 5555555555
     
-    static func staticFunction(num: Int = 6666666666) {}
-//    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText") {
-//        print("\(num)")
-//    }
+//    static func staticFunction(num: Int = 6666666666) {}
+    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText") {
+        print("\(num)")
+    }
 //    private func privateFunction(
 //    func sampleFunction(num: Int) {
 //        print("\(num)")
