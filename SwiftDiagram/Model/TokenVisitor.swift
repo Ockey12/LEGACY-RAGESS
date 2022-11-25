@@ -28,17 +28,27 @@ final class TokenVisitor: SyntaxRewriter {
     // variableのTypeAnnotationSyntax内で最初の":"を検査した後trueになる
     // variable名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
     // visitPre()でfalseに初期化する
-    private var passedTypeAnnotationFirstColon = false
+    private var passedTypeAnnotationFirstColonFlag = false
     
     // TypeAnnotation内で抽出したvariableの型を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
     private var variableTypeString = ""
     
-    //variableの初期値を文字列として一時的に保持する
+    // variableの初期値を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
     private var initialValueOfVariable = ""
+    
+    // functionの引数1つの外部引数名と内部引数名を文字列として一時的に保持する
+    // visitPre()で[]に初期化する
+    // visit()でFunctionParameterSyntax内の最初の":"を検査したとき、この配列の要素をresultArrayにタグとともに.append()する
+    private var functionParameterNames = [String]()
+    
+    // FunctionParameterSyntax内で最初の":"を検査した後trueになる
+    // 引数名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
+    // visitPre()でfalseに初期化する
+    private var passedFunctionParameterFirstColonFlag = false
     
     
     override func visitPre(_ node: Syntax) {
@@ -70,7 +80,7 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
                 // variableの型を宣言開始
-                passedTypeAnnotationFirstColon = false
+                passedTypeAnnotationFirstColonFlag = false
                 variableTypeString = ""
                 pushSyntaxNodeTypeStack(SyntaxNodeType.typeAnnotationSyntax)
                 printSyntaxNodeTypeStack()
@@ -91,6 +101,8 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string {
                 // functionの引数1つを宣言開始
+                functionParameterNames.removeAll()
+                passedFunctionParameterFirstColonFlag = false
                 resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
@@ -163,12 +175,12 @@ final class TokenVisitor: SyntaxRewriter {
                 // variableの型を宣言しているとき
                 if tokenKind == TokenKind.colon.string {
                     // ":"のとき
-                    if passedTypeAnnotationFirstColon {
+                    if passedTypeAnnotationFirstColonFlag {
                         // TypeAnnotation内で最初の":"でなければ、型名内の文字列として抽出する
                         variableTypeString += ":"
                     } else {
                         // TypeAnnotation内で最初の":"なら、variable名と型を区切るものなので抽出しない
-                        passedTypeAnnotationFirstColon = true
+                        passedTypeAnnotationFirstColonFlag = true
                     }
                 } else {
                     // ":"でなければ抽出する
@@ -200,6 +212,26 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // functionの名前を宣言しているとき
                 resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                        (!passedFunctionParameterFirstColonFlag) {
+                // FunctionParameterSyntax内でまだ最初の":"を検査していないとき
+                // 外部引数名、内部引数名、最初の":"が検査される
+                if tokenKind == TokenKind.colon.string {
+                    // 最初の":"なのでpassedFunctionParameterFirstColonFlagをtrueにする
+                    passedFunctionParameterFirstColonFlag = true
+                    // 引数名を抽出し終えているので、functionParameterNamesの要素をresultArrayに.append()する
+                    if functionParameterNames.count == 1 {
+                        // functionParameterNamesの要素が1つのとき、この引数は内部引数名を持ち、外部引数名を持たない
+                        resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
+                    } else if functionParameterNames.count == 2 {
+                        // functionParameterNamesの要素が2つのとき、この引数は外部引数名と内部引数名を持つ
+                        resultArray.append(SyntaxTag.externalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
+                        resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[1])
+                    }
+                } else {
+                    // 外部引数名または内部引数名を一時的に保持する
+                    functionParameterNames.append(token.text)
+                }
             }
         }
         
