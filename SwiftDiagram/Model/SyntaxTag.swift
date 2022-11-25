@@ -45,6 +45,9 @@ enum SyntaxTag {
     case startFunctionParameterSyntax // functionの個々の引数を宣言開始
     case externalParameterName // functionの外部引数名
     case internalParameterName // functionの内部引数名
+    case haveInoutKeyword // inoutキーワードを持つ
+    case isVariadicParameter // 可変長引数である
+    case parameterType // 引数の型
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
 
@@ -117,6 +120,12 @@ enum SyntaxTag {
             return "ExternalParameterName"
         case .internalParameterName:
             return "InternalParameterName"
+        case .haveInoutKeyword:
+            return "HaveInoutKeyword"
+        case .isVariadicParameter:
+            return "IsVariadicParameter"
+        case .parameterType:
+            return "ParameterType"
         case .endFunctionParameterSyntax:
             return "EndFunctionParameterSyntax"
         case .endFunctionDeclSyntax:

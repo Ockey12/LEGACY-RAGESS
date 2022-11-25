@@ -50,6 +50,10 @@ final class TokenVisitor: SyntaxRewriter {
     // visitPre()でfalseに初期化する
     private var passedFunctionParameterFirstColonFlag = false
     
+    // FunctionParameterSyntax内で引数の型を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    private var functionParameterTypeString = ""
+    
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -103,6 +107,7 @@ final class TokenVisitor: SyntaxRewriter {
                 // functionの引数1つを宣言開始
                 functionParameterNames.removeAll()
                 passedFunctionParameterFirstColonFlag = false
+                functionParameterTypeString = ""
                 resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
@@ -225,12 +230,26 @@ final class TokenVisitor: SyntaxRewriter {
                         resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
                     } else if functionParameterNames.count == 2 {
                         // functionParameterNamesの要素が2つのとき、この引数は外部引数名と内部引数名を持つ
+                        // 外部引数名
                         resultArray.append(SyntaxTag.externalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
+                        // 内部引数名
                         resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[1])
                     }
                 } else {
                     // 外部引数名または内部引数名を一時的に保持する
                     functionParameterNames.append(token.text)
+                }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                        (passedFunctionParameterFirstColonFlag) {
+                // FunctionParameterSyntax内で既に最初の":"を検査した後
+                if tokenKind == TokenKind.inoutKeyword.string {
+                    // inoutキーワードのとき
+                    resultArray.append(SyntaxTag.haveInoutKeyword.string)
+                } else if tokenKind == TokenKind.ellipsis.string {
+                    // "..."のとき、可変長引数
+                    resultArray.append(SyntaxTag.isVariadicParameter.string)
+                } else {
+                    functionParameterTypeString += token.text
                 }
             }
         }
@@ -291,6 +310,11 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string {
                 // functionの引数1つを宣言終了
+                if functionParameterTypeString.last == "," {
+                    // functionが引数を複数持つとき、最後の引数以外は型の末尾に","がついてしまうので、取り除く
+                    functionParameterTypeString = String(functionParameterTypeString.dropLast())
+                }
+                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
                 resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()

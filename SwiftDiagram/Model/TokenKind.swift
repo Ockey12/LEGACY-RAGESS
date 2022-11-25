@@ -28,10 +28,15 @@ enum TokenKind {
     case getKeyword // variableのgetキーワード
     case setKeyword // variableのsetキーワード
     
+    // function
+    case inoutKeyword // functionの引数のinoutキーワード
+    
     case atSign // @
     case colon // :
+    case comma // ,
     case staticKeyword // staticキーワード variableとfunctionが持つ
     case equal // 代入などの"="
+    case ellipsis // "..."
     
     var string: String {
         switch self {
@@ -65,15 +70,22 @@ enum TokenKind {
             return "contextualKeyword(\"get\")"
         case .setKeyword:
             return "contextualKeyword(\"set\")"
+        // function
+        case .inoutKeyword:
+            return "inoutKeyword"
             
         case .atSign:
             return "atSign"
         case .colon:
             return "colon"
+        case .comma:
+            return "comma"
         case .staticKeyword:
             return "staticKeyword"
         case .equal:
             return "equal"
+        case .ellipsis:
+            return "ellipsis"
         }
     }
 }
