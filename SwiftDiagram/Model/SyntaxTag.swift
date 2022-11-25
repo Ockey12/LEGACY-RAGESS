@@ -48,6 +48,7 @@ enum SyntaxTag {
     case haveInoutKeyword // inoutキーワードを持つ
     case isVariadicParameter // 可変長引数である
     case parameterType // 引数の型
+    case initialValueOfParameter // デフォルト引数のデフォルト値
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
 
@@ -126,6 +127,8 @@ enum SyntaxTag {
             return "IsVariadicParameter"
         case .parameterType:
             return "ParameterType"
+        case .initialValueOfParameter:
+            return "InitialValueOfParameter"
         case .endFunctionParameterSyntax:
             return "EndFunctionParameterSyntax"
         case .endFunctionDeclSyntax:

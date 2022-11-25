@@ -52,7 +52,12 @@ final class TokenVisitor: SyntaxRewriter {
     
     // FunctionParameterSyntax内で引数の型を文字列として一時的に保持する
     // visitPre()で""に初期化する
+    // visitPost()でresultArrayに.append()する
     private var functionParameterTypeString = ""
+    
+    // デフォルト引数のデフォルト値を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    private var initialValueOfParameter = ""
     
     
     override func visitPre(_ node: Syntax) {
@@ -114,6 +119,12 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
                 // functionのCodeBlock宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.codeBlockSyntax)
+                printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) {
+                // デフォルト引数のデフォルト値を宣言開始
+                initialValueOfParameter = ""
+                pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠開始
@@ -251,6 +262,13 @@ final class TokenVisitor: SyntaxRewriter {
                 } else {
                     functionParameterTypeString += token.text
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
+                // functionのデフォルト引数のデフォルト値を宣言しているとき
+                if tokenKind != TokenKind.equal.string {
+                    // 初期値を代入する"="以外を抽出する
+                    initialValueOfParameter += token.text
+                }
             }
         }
         
@@ -316,6 +334,12 @@ final class TokenVisitor: SyntaxRewriter {
                 }
                 resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
                 resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
+                // デフォルト引数のデフォルト値を宣言終了
+                resultArray.append(SyntaxTag.initialValueOfParameter.string + SyntaxTag.space.string + initialValueOfParameter)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
