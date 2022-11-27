@@ -18,6 +18,7 @@ final class TokenVisitor: SyntaxRewriter {
     private var currentPositionInStack = -1
     
     // 抽象構文木をvisitして抽出した結果の配列
+    // getResultArray()で出力する
     private var resultArray = [String]()
     
     // variableの@Stateなどの文字列を一時的に保存する
@@ -57,8 +58,15 @@ final class TokenVisitor: SyntaxRewriter {
     
     // デフォルト引数のデフォルト値を文字列として一時的に保持する
     // visitPre()で""に初期化する
+    // visit()でtoken.textを追加していく
     private var initialValueOfParameter = ""
     
+    // 抽出したclassの名前を格納する
+    // visit()でclassの名前を.append()する
+    // resultArrayを解析するとき、抽出したconformedProtocolOrInheritedClassByClassとこれの要素を比較して、一致したら継承しているクラスの名前
+    // 一致しなかったら準拠しているプロトコルの名前
+    // getClassNameArray()で出力する
+    private var classNameArray = [String]()
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -173,6 +181,8 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // classの名前を宣言しているとき
                 resultArray.append(SyntaxTag.className.string + SyntaxTag.space.string + token.text)
+                classNameArray.append(token.text)
+                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -444,6 +454,22 @@ final class TokenVisitor: SyntaxRewriter {
         }
     }
     
+    // classNameArrayを返す
+    func getClassNameArray() -> [String] {
+        return classNameArray
+    }
+    
+    // デバッグ
+    // classNameArrayの全要素をprint()する
+    private func printClassNameArray() {
+        print("-----ClassNameArray-----")
+        for element in self.classNameArray {
+            print(element)
+        }
+        print("------------------------")
+    }
+    
+    // デバッグ
     // syntaxNodeTypeStackの全要素をprint()する
     private func printSyntaxNodeTypeStack() {
         print("-----SyntaxNodeTypeStack-----")

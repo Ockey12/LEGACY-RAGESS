@@ -59,9 +59,20 @@ private struct SomeStruct: Protocol1, Protocol2 {
 //class ClassClassClass {}
 
 open class ParentClass: Protocol1 {
-
+    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
+        print("\(num)")
+    }
 }
 
 private class ChildClass: ParentClass, Protocol2 {
-
+    var computedProperty: Int {
+        get {
+            print(9999999999)
+            return 4444444444
+        }
+        set {
+            self.num = newValue
+        }
+    }
+    var num = 5555555555
 }
