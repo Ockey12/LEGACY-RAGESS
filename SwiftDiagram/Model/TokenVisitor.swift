@@ -132,7 +132,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
-                // プロトコルへの準拠開始
+                // プロトコルへの準拠、またはクラスの継承開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
                 printSyntaxNodeTypeStack()
             }
@@ -353,7 +353,7 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
-                // プロトコルへの準拠終了
+                // プロトコルへの準拠、またはクラスの継承終了
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             }
@@ -427,7 +427,12 @@ final class TokenVisitor: SyntaxRewriter {
 //        let lastIndex = syntaxNodeTypeStack.endIndex - 1 // .endIndexは要素数を返すため、-1すると最後のインデックスになる
         
         if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.structDeclSyntax {
-            resultArray.append(SyntaxTag.protocolConformedByStruct.string + SyntaxTag.space.string + protocolName)
+            // structの宣言中のとき
+            resultArray.append(SyntaxTag.conformedProtocolByStruct.string + SyntaxTag.space.string + protocolName)
+        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.classDeclSyntax {
+            // classの宣言中のとき
+            // 継承とプロトコルへの準拠のどちらか判別できない
+            resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByClass.string + SyntaxTag.space.string + protocolName)
         }
     }
     

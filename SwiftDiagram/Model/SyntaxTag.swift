@@ -21,7 +21,8 @@ enum SyntaxTag {
     
     // プロトコルへの準拠
     case startInheritedTypeListSyntax // プロトコルへの準拠開始
-    case protocolConformedByStruct // structが準拠しているプロトコル
+    case conformedProtocolByStruct // structが準拠しているプロトコル
+    case conformedProtocolOrInheritedClassByClass // classが準拠しているプロトコル、または継承しているクラス
     case endInheritedTypeListSyntax // プロトコルへの準拠終了
     
     // variable
@@ -84,8 +85,10 @@ enum SyntaxTag {
         // プロトコルへの準拠
         case .startInheritedTypeListSyntax:
             return "StartInheritedTypeListSyntax"
-        case .protocolConformedByStruct:
-            return "ProtocolConformedByStruct"
+        case .conformedProtocolByStruct:
+            return "ConformedProtocolByStruct"
+        case .conformedProtocolOrInheritedClassByClass:
+            return "ConformedProtocolOrInheritedClassByClass"
         case .endInheritedTypeListSyntax:
             return "EndInheritedTypeListSyntax"
         // variable
