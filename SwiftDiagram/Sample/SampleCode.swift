@@ -58,10 +58,10 @@ private struct SomeStruct: Protocol1, Protocol2 {
 
 //class ClassClassClass {}
 
-class ParentClass: Protocol1 {
+open class ParentClass: Protocol1 {
 
 }
 
-class ChildClass: ParentClass, Protocol2 {
+private class ChildClass: ParentClass, Protocol2 {
 
 }

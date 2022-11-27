@@ -48,7 +48,7 @@ enum TokenKind {
             return "varKeyword"
         // アクセスレベル
         case .openKeyword:
-            return "openKeyword"
+            return "identifier(\"open\")"
         case .publicKeyword:
             return "publicKeyword"
         case .internalKeyword:

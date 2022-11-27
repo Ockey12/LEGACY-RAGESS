@@ -140,6 +140,7 @@ final class TokenVisitor: SyntaxRewriter {
     }
     
     override func visit(_ token: TokenSyntax) -> Syntax {
+        print("      text: \(token.text)")
         let tokenKind = "\(token.tokenKind)"
         
         if (1 < currentPositionInStack) &&
@@ -413,6 +414,9 @@ final class TokenVisitor: SyntaxRewriter {
         if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.structDeclSyntax {
             // structのアクセスレベル
             resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
+        } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.classDeclSyntax {
+            // classのアクセスレベル
+            resultArray.append(SyntaxTag.classAccessLevel.string + SyntaxTag.space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
             // variableのアクセスレベル
             resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
