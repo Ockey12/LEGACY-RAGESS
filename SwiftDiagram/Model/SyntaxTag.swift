@@ -18,6 +18,7 @@ enum SyntaxTag {
     // class
     case startClassDeclSyntax // classの宣言開始
     case classAccessLevel // classのアクセスレベル
+    case className // classの名前
     case endClassDeclSyntax // classの宣言終了
     
     // プロトコルへの準拠
@@ -83,6 +84,8 @@ enum SyntaxTag {
             return "StartClassDeclSyntax"
         case .classAccessLevel:
             return "ClassAccessLevel"
+        case .className:
+            return "ClassName"
         case .endClassDeclSyntax:
             return "EndClassDeclSyntax"
         // プロトコルへの準拠

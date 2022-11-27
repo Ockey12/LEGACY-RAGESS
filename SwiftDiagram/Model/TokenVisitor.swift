@@ -169,6 +169,10 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // structの名前を宣言しているとき
                 resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.classDeclSyntax) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // classの名前を宣言しているとき
+                resultArray.append(SyntaxTag.className.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
