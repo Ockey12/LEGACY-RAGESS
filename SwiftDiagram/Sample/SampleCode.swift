@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import SwiftUI
+//import SwiftUI
 
-protocol Protocol1 {}
+//protocol Protocol1 {}
 
-protocol Protocol2 {}
+//protocol Protocol2 {}
 
-private struct SomeStruct: Protocol1, Protocol2 {
+//private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
 //    var toupleVariable: (String, Int)
 //    static let staticVariable = 1111111111
@@ -54,25 +54,29 @@ private struct SomeStruct: Protocol1, Protocol2 {
 //    let add = { (x: Int, y: Int) -> Int in
 //        return x + y
 //    }
-}
+//}
 
 //class ClassClassClass {}
 
-open class ParentClass: Protocol1 {
-    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
-        print("\(num)")
-    }
-}
+//open class ParentClass: Protocol1 {
+//    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
+//        print("\(num)")
+//    }
+//}
+//
+//private class ChildClass: ParentClass, Protocol2 {
+//    var computedProperty: Int {
+//        get {
+//            print(9999999999)
+//            return 4444444444
+//        }
+//        set {
+//            self.num = newValue
+//        }
+//    }
+//    var num = 5555555555
+//}
 
-private class ChildClass: ParentClass, Protocol2 {
-    var computedProperty: Int {
-        get {
-            print(9999999999)
-            return 4444444444
-        }
-        set {
-            self.num = newValue
-        }
-    }
-    var num = 5555555555
+private enum Weekday {
+    case sunday
 }

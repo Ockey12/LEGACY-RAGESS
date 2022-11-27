@@ -86,6 +86,11 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startClassDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.classDeclSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.enumDeclSyntax.string {
+                // enumの宣言開始
+                resultArray.append(SyntaxTag.startEnumDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.enumDeclSyntax)
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
@@ -315,6 +320,11 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.classDeclSyntax.string {
                 // classの宣言終了
                 resultArray.append(SyntaxTag.endClassDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.enumDeclSyntax.string {
+                // enumの宣言終了
+                resultArray.append(SyntaxTag.endEnumDeclSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {

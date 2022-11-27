@@ -17,6 +17,9 @@ enum SyntaxNodeType {
     // class
     case classDeclSyntax // classの宣言
     
+    // enum
+    case enumDeclSyntax // enumの宣言
+    
     // variable
     case variableDeclSyntax // variableの宣言
     case customAttributeSyntax // variableの@ Stateなど
@@ -46,6 +49,9 @@ enum SyntaxNodeType {
         // class
         case .classDeclSyntax:
             return "ClassDeclSyntax"
+        // enum
+        case .enumDeclSyntax:
+            return "EnumDeclSyntax"
         // variable
         case .variableDeclSyntax:
             return "VariableDeclSyntax"
