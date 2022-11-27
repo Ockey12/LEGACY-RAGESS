@@ -14,6 +14,9 @@ enum SyntaxNodeType {
     // struct
     case structDeclSyntax // structの宣言
     
+    // class
+    case classDeclSyntax // classの宣言
+    
     // variable
     case variableDeclSyntax // variableの宣言
     case customAttributeSyntax // variableの@ Stateなど
@@ -40,6 +43,9 @@ enum SyntaxNodeType {
         // struct
         case .structDeclSyntax:
             return "StructDeclSyntax"
+        // class
+        case .classDeclSyntax:
+            return "ClassDeclSyntax"
         // variable
         case .variableDeclSyntax:
             return "VariableDeclSyntax"

@@ -43,11 +43,25 @@ private struct SomeStruct: Protocol1, Protocol2 {
     
 //    static func staticFunction(num: Int = 6666666666) {}
 //    func defaultValueFunction(text: String = "sampl eText") {}
-    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
-        print("\(num)")
-    }
+//    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
+//        print("\(num)")
+//    }
 //    private func privateFunction(
 //    func sampleFunction(num: Int) {
 //        print("\(num)")
 //    }
+    
+//    let add = { (x: Int, y: Int) -> Int in
+//        return x + y
+//    }
 }
+
+class ClassClassClass {}
+
+//class ParentClass: Protocol1 {
+//
+//}
+//
+//class ChildClass: ParentClass, Protocol2 {
+//
+//}

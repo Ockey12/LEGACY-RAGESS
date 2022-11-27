@@ -73,6 +73,11 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startStructDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.classDeclSyntax.string {
+                // classの宣言開始
+                resultArray.append(SyntaxTag.startClassDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.classDeclSyntax)
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
@@ -290,6 +295,11 @@ final class TokenVisitor: SyntaxRewriter {
             if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
                 // structの宣言終了
                 resultArray.append(SyntaxTag.endStructDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.classDeclSyntax.string {
+                // classの宣言終了
+                resultArray.append(SyntaxTag.endClassDeclSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {

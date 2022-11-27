@@ -15,6 +15,10 @@ enum SyntaxTag {
     case structName // structの名前
     case endStructDeclSyntax // structの宣言終了
     
+    // class
+    case startClassDeclSyntax // classの宣言開始
+    case endClassDeclSyntax // classの宣言終了
+    
     // プロトコルへの準拠
     case startInheritedTypeListSyntax // プロトコルへの準拠開始
     case protocolConformedByStruct // structが準拠しているプロトコル
@@ -72,6 +76,11 @@ enum SyntaxTag {
             return "StructName"
         case .endStructDeclSyntax:
             return "EndStructDeclSyntax"
+        // class
+        case .startClassDeclSyntax:
+            return "StartClassDeclSyntax"
+        case .endClassDeclSyntax:
+            return "EndClassDeclSyntax"
         // プロトコルへの準拠
         case .startInheritedTypeListSyntax:
             return "StartInheritedTypeListSyntax"
