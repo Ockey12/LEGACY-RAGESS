@@ -77,15 +77,15 @@ protocol Protocol2 {}
 //    var num = 5555555555
 //}
 
-private enum Weekday:Protocol1 {
-    case sunday
-    case monday
-    
-    
-}
+//private enum Weekday:Protocol1 {
+//    case sunday
+//    case monday
+//
+//
+//}
 
 enum StringEnum: String, Protocol1, Protocol2 {
-    case north
+    case north = "NORTH"
     
 //    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
 //        print("\(num)")

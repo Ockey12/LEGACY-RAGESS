@@ -73,6 +73,11 @@ final class TokenVisitor: SyntaxRewriter {
     // 配列の要素のどれかと一致したら、準拠しているプロトコルではなく、ローバリューの型
     private let rawvalueType = ["String", "Character", "Int", "Double", "Float"]
     
+    // enumのローバリューを文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    // visit()でtoken.textを追加していく
+    private var rawvalueString = ""
+    
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
         print("PRE-> \(currentSyntaxNodeType)")
@@ -100,6 +105,12 @@ final class TokenVisitor: SyntaxRewriter {
                 // enumのcaseを宣言開始
                 resultArray.append(SyntaxTag.startEnumCaseElementSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.enumCaseElementSyntax)
+                printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのローバリューを宣言開始
+                rawvalueString = ""
+                pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
@@ -206,6 +217,13 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumのcaseを宣言しているとき
                 resultArray.append(SyntaxTag.enumCase.string + SyntaxTag.space.string + token.text)
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのローバリューを宣言しているとき
+                if tokenKind != TokenKind.equal.string {
+                    // 初期値を代入する"="以外を抽出する
+                    rawvalueString += token.text
+                }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -348,6 +366,13 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.enumCaseElementSyntax.string {
                 // enumのcaseを宣言終了
                 resultArray.append(SyntaxTag.endEnumCaseElementSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (1 < currentPositionInStack) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのローバリューを宣言終了
+                resultArray.append(SyntaxTag.rawvalue.string + SyntaxTag.space.string + rawvalueString)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
