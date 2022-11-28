@@ -68,6 +68,11 @@ final class TokenVisitor: SyntaxRewriter {
     // getClassNameArray()で出力する
     private var classNameArray = [String]()
     
+    // enumのローバリューの基本的な型
+    // addConformedProtocolName()でenumのInheritedTypeListSyntaxを抽出するとき、token.textと比較する
+    // 配列の要素のどれかと一致したら、準拠しているプロトコルではなく、ローバリューの型
+    private let rawvalueType = ["String", "Character", "Int", "Double", "Float"]
+    
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
         print("PRE-> \(currentSyntaxNodeType)")
@@ -487,8 +492,25 @@ final class TokenVisitor: SyntaxRewriter {
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumDeclSyntax {
             // enumの宣言中のとき
             // ローバリューの型の宣言と、プロトコルへの準拠のどちらか判別できない
-            resultArray.append(SyntaxTag.conformedProtocolOrRawvaluetypeByEnum.string + SyntaxTag.space.string + protocolName)
+            if compareRawvalueType(with: protocolName) {
+                // ローバリューの型を宣言しているとき
+                resultArray.append(SyntaxTag.rawvalueType.string + SyntaxTag.space.string + protocolName)
+            } else {
+                // 準拠しているプロトコルを宣言しているとき
+                resultArray.append(SyntaxTag.conformedProtocolByEnum.string + SyntaxTag.space.string + protocolName)
+            }
         }
+    }
+    
+    // enumのInheritedTypeListSyntaxで抽出したtoken.textが、ローバリューの型を宣言しているかを調べる
+    // addConformedProtocolName()内で呼び出す
+    private func compareRawvalueType(with string: String) -> Bool {
+        for type in rawvalueType {
+            if string == type {
+                return true
+            }
+        }
+        return false
     }
     
     // classNameArrayを返す

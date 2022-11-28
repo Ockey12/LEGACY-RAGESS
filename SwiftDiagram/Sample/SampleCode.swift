@@ -10,7 +10,7 @@ import Foundation
 
 protocol Protocol1 {}
 
-//protocol Protocol2 {}
+protocol Protocol2 {}
 
 //private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
@@ -80,8 +80,30 @@ protocol Protocol1 {}
 private enum Weekday:Protocol1 {
     case sunday
     case monday
+    
+    
 }
 
-enum Direction: Protocol1 {
+enum StringEnum: String, Protocol1, Protocol2 {
     case north
+    
+//    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
+//        print("\(num)")
+//    }
+}
+
+enum CharacterEnum: Character, Protocol1 {
+    case c = "C"
+}
+
+enum IntEnum: Int, Protocol1 {
+    case one = 1
+}
+
+enum DoubleEnum: Double, Protocol1 {
+    case one = 1
+}
+
+enum FloatEnum: Float {
+    case one = 1
 }
