@@ -19,6 +19,7 @@ enum SyntaxNodeType {
     
     // enum
     case enumDeclSyntax // enumの宣言
+    case enumCaseElementSyntax // enumのcase
     
     // variable
     case variableDeclSyntax // variableの宣言
@@ -52,6 +53,8 @@ enum SyntaxNodeType {
         // enum
         case .enumDeclSyntax:
             return "EnumDeclSyntax"
+        case .enumCaseElementSyntax:
+            return "EnumCaseElementSyntax"
         // variable
         case .variableDeclSyntax:
             return "VariableDeclSyntax"

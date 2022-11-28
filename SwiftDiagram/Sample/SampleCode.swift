@@ -8,7 +8,7 @@
 import Foundation
 //import SwiftUI
 
-//protocol Protocol1 {}
+protocol Protocol1 {}
 
 //protocol Protocol2 {}
 
@@ -77,6 +77,11 @@ import Foundation
 //    var num = 5555555555
 //}
 
-private enum Weekday {
+private enum Weekday:Protocol1 {
     case sunday
+    case monday
+}
+
+enum Direction: Protocol1 {
+    case north
 }

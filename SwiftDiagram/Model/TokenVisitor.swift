@@ -91,6 +91,11 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startEnumDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.enumDeclSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.enumCaseElementSyntax.string {
+                // enumのcaseを宣言開始
+                resultArray.append(SyntaxTag.startEnumCaseElementSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.enumCaseElementSyntax)
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
@@ -145,7 +150,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
-                // プロトコルへの準拠、またはクラスの継承開始
+                // プロトコルへの準拠、またはクラスの継承、またはローバリューの型を宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
                 printSyntaxNodeTypeStack()
             }
@@ -188,6 +193,10 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.className.string + SyntaxTag.space.string + token.text)
                 classNameArray.append(token.text)
                 printClassNameArray()
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // enumの名前を宣言しているとき
+                resultArray.append(SyntaxTag.enumName.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -327,6 +336,11 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.endEnumDeclSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.enumCaseElementSyntax.string {
+                // enumのcaseを宣言終了
+                resultArray.append(SyntaxTag.endEnumCaseElementSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言終了
                 resultArray.append(SyntaxTag.endVariableDeclSyntax.string)
@@ -347,6 +361,7 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                 // variableの初期値を宣言終了
                 resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
@@ -372,6 +387,7 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
                 // デフォルト引数のデフォルト値を宣言終了
                 resultArray.append(SyntaxTag.initialValueOfParameter.string + SyntaxTag.space.string + initialValueOfParameter)
@@ -441,6 +457,9 @@ final class TokenVisitor: SyntaxRewriter {
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.classDeclSyntax {
             // classのアクセスレベル
             resultArray.append(SyntaxTag.classAccessLevel.string + SyntaxTag.space.string + accessLevel)
+        } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax {
+            // enumのアクセスレベル
+            resultArray.append(SyntaxTag.enumAccessLevel.string + SyntaxTag.space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
             // variableのアクセスレベル
             resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
@@ -459,8 +478,12 @@ final class TokenVisitor: SyntaxRewriter {
             resultArray.append(SyntaxTag.conformedProtocolByStruct.string + SyntaxTag.space.string + protocolName)
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.classDeclSyntax {
             // classの宣言中のとき
-            // 継承とプロトコルへの準拠のどちらか判別できない
+            // 継承と、プロトコルへの準拠のどちらか判別できない
             resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByClass.string + SyntaxTag.space.string + protocolName)
+        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumDeclSyntax {
+            // enumの宣言中のとき
+            // ローバリューの型の宣言と、プロトコルへの準拠のどちらか判別できない
+            resultArray.append(SyntaxTag.conformedProtocolOrRawvaluetypeByEnum.string + SyntaxTag.space.string + protocolName)
         }
     }
     

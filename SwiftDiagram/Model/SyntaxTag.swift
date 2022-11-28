@@ -23,12 +23,17 @@ enum SyntaxTag {
     
     // enum
     case startEnumDeclSyntax // enumの宣言開始
+    case enumAccessLevel // enumのアクセスレベル
+    case enumName // enumの名前
+    case startEnumCaseElementSyntax // enumのcaseを宣言開始
+    case endEnumCaseElementSyntax // enumのcaseを宣言終了
     case endEnumDeclSyntax // enumの宣言終了
     
     // プロトコルへの準拠
     case startInheritedTypeListSyntax // プロトコルへの準拠開始
     case conformedProtocolByStruct // structが準拠しているプロトコル
     case conformedProtocolOrInheritedClassByClass // classが準拠しているプロトコル、または継承しているクラス
+    case conformedProtocolOrRawvaluetypeByEnum // enumが準拠しているプロトコル、またはローバリューの型
     case endInheritedTypeListSyntax // プロトコルへの準拠終了
     
     // variable
@@ -95,6 +100,14 @@ enum SyntaxTag {
         // enum
         case .startEnumDeclSyntax:
             return "StartEnumDeclSyntax"
+        case .enumAccessLevel:
+            return "EnumAccessLevel"
+        case .enumName:
+            return "EnumName"
+        case .startEnumCaseElementSyntax:
+            return "StartEnumCaseElementSyntax"
+        case .endEnumCaseElementSyntax:
+            return "EndEnumCaseElementSyntax"
         case .endEnumDeclSyntax:
             return "EndEnumDeclSyntax"
         // プロトコルへの準拠
@@ -104,6 +117,8 @@ enum SyntaxTag {
             return "ConformedProtocolByStruct"
         case .conformedProtocolOrInheritedClassByClass:
             return "ConformedProtocolOrInheritedClassByClass"
+        case .conformedProtocolOrRawvaluetypeByEnum:
+            return "ConformedProtocolOrRawvaluetypeByEnum"
         case .endInheritedTypeListSyntax:
             return "EndInheritedTypeListSyntax"
         // variable
