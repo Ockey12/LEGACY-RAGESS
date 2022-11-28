@@ -197,6 +197,10 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumの名前を宣言しているとき
                 resultArray.append(SyntaxTag.enumName.string + SyntaxTag.space.string + token.text)
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // enumのcaseを宣言しているとき
+                resultArray.append(SyntaxTag.enumCase.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき

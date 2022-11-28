@@ -26,6 +26,7 @@ enum SyntaxTag {
     case enumAccessLevel // enumのアクセスレベル
     case enumName // enumの名前
     case startEnumCaseElementSyntax // enumのcaseを宣言開始
+    case enumCase // enumのcase
     case endEnumCaseElementSyntax // enumのcaseを宣言終了
     case endEnumDeclSyntax // enumの宣言終了
     
@@ -106,6 +107,8 @@ enum SyntaxTag {
             return "EnumName"
         case .startEnumCaseElementSyntax:
             return "StartEnumCaseElementSyntax"
+        case .enumCase:
+            return "EnumCase"
         case .endEnumCaseElementSyntax:
             return "EndEnumCaseElementSyntax"
         case .endEnumDeclSyntax:
