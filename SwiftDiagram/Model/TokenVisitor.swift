@@ -78,6 +78,11 @@ final class TokenVisitor: SyntaxRewriter {
     // visit()でtoken.textを追加していく
     private var rawvalueString = ""
     
+    // enumのcaseの連想値を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    // visit()でtoken.textを追加していく
+//    private var caseAssociatedValueString = ""
+    
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
         print("PRE-> \(currentSyntaxNodeType)")
@@ -105,6 +110,11 @@ final class TokenVisitor: SyntaxRewriter {
                 // enumのcaseを宣言開始
                 resultArray.append(SyntaxTag.startEnumCaseElementSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.enumCaseElementSyntax)
+                printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.parameterClauseSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのcaseの連想値の型を宣言開始
+                pushSyntaxNodeTypeStack(SyntaxNodeType.parameterClauseSyntax)
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
@@ -147,7 +157,8 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startFunctionDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionDeclSyntax)
                 printSyntaxNodeTypeStack()
-            } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string {
+            } else if (currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax){
                 // functionの引数1つを宣言開始
                 functionParameterNames.removeAll()
                 passedFunctionParameterFirstColonFlag = false
@@ -223,6 +234,15 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind != TokenKind.equal.string {
                     // 初期値を代入する"="以外を抽出する
                     rawvalueString += token.text
+                }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.parameterClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのcaseの連想値の型を宣言しているとき
+                if (tokenKind != TokenKind.leftParen.string) &&
+                    (tokenKind != TokenKind.comma.string) &&
+                    (tokenKind != TokenKind.rightParen.string) {
+                    // "(", commma, ")"以外を抽出する
+                    resultArray.append(SyntaxTag.caseAssociatedValue.string + SyntaxTag.space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
@@ -368,6 +388,12 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.endEnumCaseElementSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.parameterClauseSyntax.string) &&
+                        (1 < currentPositionInStack) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
+                // enumのcaseの連想値の型を宣言終了
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
@@ -410,7 +436,9 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.endFunctionDeclSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
-            } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string {
+            } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string &&
+                        (1 < currentPositionInStack) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax){
                 // functionの引数1つを宣言終了
                 if functionParameterTypeString.last == "," {
                     // functionが引数を複数持つとき、最後の引数以外は型の末尾に","がついてしまうので、取り除く

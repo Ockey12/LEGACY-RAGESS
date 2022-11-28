@@ -20,6 +20,7 @@ enum SyntaxNodeType {
     // enum
     case enumDeclSyntax // enumの宣言
     case enumCaseElementSyntax // enumのcase
+    case parameterClauseSyntax // caseの連想値
     
     // variable
     case variableDeclSyntax // variableの宣言
@@ -55,6 +56,8 @@ enum SyntaxNodeType {
             return "EnumDeclSyntax"
         case .enumCaseElementSyntax:
             return "EnumCaseElementSyntax"
+        case .parameterClauseSyntax:
+            return "ParameterClauseSyntax"
         // variable
         case .variableDeclSyntax:
             return "VariableDeclSyntax"

@@ -27,6 +27,7 @@ enum SyntaxTag {
     case enumName // enumの名前
     case rawvalueType // ローバリューの型
     case rawvalue // ローバリューの値
+    case caseAssociatedValue // caseの連想値
     case startEnumCaseElementSyntax // enumのcaseを宣言開始
     case enumCase // enumのcase
     case endEnumCaseElementSyntax // enumのcaseを宣言終了
@@ -111,6 +112,8 @@ enum SyntaxTag {
             return "RawvalueType"
         case .rawvalue:
             return "Rawvalue"
+        case .caseAssociatedValue:
+            return "CaseAssociatedValue"
         case .startEnumCaseElementSyntax:
             return "StartEnumCaseElementSyntax"
         case .enumCase:

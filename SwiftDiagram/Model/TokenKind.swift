@@ -37,6 +37,8 @@ enum TokenKind {
     case staticKeyword // staticキーワード variableとfunctionが持つ
     case equal // 代入などの"="
     case ellipsis // "..."
+    case leftParen // "("
+    case rightParen // ")"
     
     var string: String {
         switch self {
@@ -86,6 +88,10 @@ enum TokenKind {
             return "equal"
         case .ellipsis:
             return "ellipsis"
+        case .leftParen:
+            return "leftParen"
+        case .rightParen:
+            return "rightParen"
         }
     }
 }
