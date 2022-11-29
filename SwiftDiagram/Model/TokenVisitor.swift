@@ -167,7 +167,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
-                // functionのCodeBlock宣言開始
+                // functionまたはinitializerのCodeBlock宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.codeBlockSyntax)
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
@@ -179,6 +179,11 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承、またはローバリューの型を宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
+                // initializerの宣言開始
+                resultArray.append(SyntaxTag.startInitializerDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.initializerDeclSyntax)
                 printSyntaxNodeTypeStack()
             }
         }
@@ -457,6 +462,11 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承終了
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
+                // initializerの宣言終了
+                resultArray.append(SyntaxTag.endInitializerDeclSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             }

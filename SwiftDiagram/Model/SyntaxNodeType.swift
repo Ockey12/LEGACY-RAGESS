@@ -39,6 +39,9 @@ enum SyntaxNodeType {
     case protocolDeclSyntax // プロトコルの宣言
     case inheritedTypeListSyntax // プロトコルへの準拠
     
+    // initializer
+    case initializerDeclSyntax // initializerの宣言
+    
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
     var string: String {
@@ -83,6 +86,9 @@ enum SyntaxNodeType {
             return "ProtocolDeclSyntax"
         case .inheritedTypeListSyntax:
             return "InheritedTypeListSyntax"
+        // initializer
+        case .initializerDeclSyntax:
+            return "InitializerDeclSyntax"
         }
     }
 }

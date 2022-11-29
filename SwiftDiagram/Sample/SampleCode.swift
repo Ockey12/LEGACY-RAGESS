@@ -84,13 +84,13 @@ protocol Protocol2 {}
 //
 //}
 
-enum StringEnum: String, Protocol1, Protocol2 {
-    case north = "NORTH"
-    
-    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
-        print("\(num)")
-    }
-}
+//enum StringEnum: String, Protocol1, Protocol2 {
+//    case north = "NORTH"
+//
+//    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {
+//        print("\(num)")
+//    }
+//}
 
 //enum CharacterEnum: Character, Protocol1 {
 //    case c = "C"
@@ -108,7 +108,27 @@ enum StringEnum: String, Protocol1, Protocol2 {
 //    case one = 1
 //}
 
-enum Color {
-    case rgb(Int, Float, Double)
-    case cmyk(Float, Float ,Float, Float)
+//enum Color {
+//    case rgb(Int, Float, Double)
+//    case cmyk(Float, Float ,Float, Float)
+//}
+
+struct SomeStruct {
+    var variableVariableVariable: String = "texttexttexttext"
+    
+    init?(parameter1: String, parameter2: Int) {
+        self.variableVariableVariable = parameter1
+    }
+}
+
+class SomeClass {
+    var variableVariableVariable: String
+    
+    init(parameter1: String) {
+        self.variableVariableVariable = parameter1
+    }
+    
+    convenience init(parameter2: String) {
+        self.init(parameter1: parameter2 + parameter2)
+    }
 }

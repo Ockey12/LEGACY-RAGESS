@@ -71,6 +71,10 @@ enum SyntaxTag {
     case initialValueOfParameter // デフォルト引数のデフォルト値
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
+    
+    // initializer
+    case startInitializerDeclSyntax // initializerの宣言開始
+    case endInitializerDeclSyntax // initializerの宣言終了
 
     // アクセスレベル
     case open
@@ -162,6 +166,11 @@ enum SyntaxTag {
             return "HaveSetter"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
+        // initializer
+        case .startInitializerDeclSyntax:
+            return "StartInitializerDeclSyntax"
+        case .endInitializerDeclSyntax:
+            return "EndInitializerDeclSyntax"
         // function
         case .startFunctionDeclSyntax:
             return "StartFunctionDeclSyntax"
