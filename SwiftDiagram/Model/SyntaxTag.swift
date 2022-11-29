@@ -51,6 +51,7 @@ enum SyntaxTag {
     case haveLetKeyword // 定数のとき
     case variableName // 変数の名前を後ろに持つ
     case variableType // variableの型
+    case isOptionalType // optional型である
     case initialValueOfVariable // variableの初期値
     case haveWillSet // willSetを持つvariable
     case haveDidSet // didSetを持つvariable
@@ -154,6 +155,8 @@ enum SyntaxTag {
             return "VariableName"
         case .variableType:
             return "VariableType"
+        case .isOptionalType:
+            return "IsOptionalType"
         case .initialValueOfVariable:
             return "InitialValueOfVariable"
         case .haveWillSet:

@@ -115,6 +115,7 @@ protocol Protocol2 {}
 
 struct SomeStruct {
     var variableVariableVariable: String = "texttexttexttext"
+    var optionalVariable: Int?
     
     init?(parameter1: String, parameter2: Int) {
         self.variableVariableVariable = parameter1

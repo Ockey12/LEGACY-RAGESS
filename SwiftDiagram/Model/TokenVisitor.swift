@@ -284,7 +284,11 @@ final class TokenVisitor: SyntaxRewriter {
                         // TypeAnnotation内で最初の":"なら、variable名と型を区切るものなので抽出しない
                         passedTypeAnnotationFirstColonFlag = true
                     }
-                } else {
+                } else if tokenKind == TokenKind.postfixQuestionMark.string {
+                    // "?"のとき
+                    // "?"は型名には含めず、オプショナル型であることをタグで表す
+                    resultArray.append(SyntaxTag.isOptionalType.string)
+                }else {
                     // ":"でなければ抽出する
                     variableTypeString += token.text
                 }

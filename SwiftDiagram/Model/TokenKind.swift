@@ -39,6 +39,7 @@ enum TokenKind {
     case ellipsis // "..."
     case leftParen // "("
     case rightParen // ")"
+    case postfixQuestionMark // "?"
     
     var string: String {
         switch self {
@@ -92,6 +93,8 @@ enum TokenKind {
             return "leftParen"
         case .rightParen:
             return "rightParen"
+        case .postfixQuestionMark:
+            return "postfixQuestionMark"
         }
     }
 }
