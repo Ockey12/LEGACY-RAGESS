@@ -75,6 +75,8 @@ enum SyntaxTag {
     
     // initializer
     case startInitializerDeclSyntax // initializerの宣言開始
+    case haveConvenienceKeyword // convenience initializerである
+    case isFailableInitializer // 失敗可能イニシャライザである
     case endInitializerDeclSyntax // initializerの宣言終了
 
     // アクセスレベル
@@ -172,6 +174,10 @@ enum SyntaxTag {
         // initializer
         case .startInitializerDeclSyntax:
             return "StartInitializerDeclSyntax"
+        case .haveConvenienceKeyword:
+            return "HaveConvenienceKeyword"
+        case .isFailableInitializer:
+            return "IsFailableInitializer"
         case .endInitializerDeclSyntax:
             return "EndInitializerDeclSyntax"
         // function

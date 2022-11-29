@@ -359,6 +359,13 @@ final class TokenVisitor: SyntaxRewriter {
                     // 初期値を代入する"="以外を抽出する
                     initialValueOfParameter += token.text
                 }
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax {
+                // initializerの宣言中
+                if tokenKind == TokenKind.convenienceKeyword.string {
+                    resultArray.append(SyntaxTag.haveConvenienceKeyword.string)
+                } else if tokenKind == TokenKind.postfixQuestionMark.string {
+                    resultArray.append(SyntaxTag.isFailableInitializer.string)
+                }
             }
         }
         

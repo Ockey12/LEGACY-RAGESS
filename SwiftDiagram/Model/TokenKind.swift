@@ -31,6 +31,9 @@ enum TokenKind {
     // function
     case inoutKeyword // functionの引数のinoutキーワード
     
+    // initializer
+    case convenienceKeyword // initializerのconvenienceキーワード
+    
     case atSign // @
     case colon // :
     case comma // ,
@@ -76,6 +79,9 @@ enum TokenKind {
         // function
         case .inoutKeyword:
             return "inoutKeyword"
+        // initializer
+        case .convenienceKeyword:
+            return "identifier(\"convenience\")"
             
         case .atSign:
             return "atSign"
