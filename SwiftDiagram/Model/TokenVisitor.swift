@@ -29,12 +29,12 @@ final class TokenVisitor: SyntaxRewriter {
     // variableのTypeAnnotationSyntax内で最初の":"を検査した後trueになる
     // variable名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
     // visitPre()でfalseに初期化する
-    private var passedTypeAnnotationFirstColonFlag = false
+//    private var passedTypeAnnotationFirstColonFlag = false
     
     // TypeAnnotation内で抽出したvariableの型を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
-    private var variableTypeString = ""
+//    private var variableTypeString = ""
     
     // variableの初期値を文字列として一時的に保持する
     // visitPre()で""に初期化する
@@ -138,8 +138,8 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
                 // variableの型を宣言開始
-                passedTypeAnnotationFirstColonFlag = false
-                variableTypeString = ""
+//                passedTypeAnnotationFirstColonFlag = false
+//                variableTypeString = ""
                 pushSyntaxNodeTypeStack(SyntaxNodeType.typeAnnotationSyntax)
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
@@ -297,6 +297,8 @@ final class TokenVisitor: SyntaxRewriter {
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax {
                 // variableの型を宣言しているとき
+                // ここでは、StringやDoubleのような、1つのtokenで表される型のみを抽出する
+                // 配列や辞書は別のelse if節で抽出する
                 if (tokenKind != TokenKind.colon.string) &&
                     (tokenKind != TokenKind.postfixQuestionMark.string) {
                     resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + token.text)
@@ -382,8 +384,10 @@ final class TokenVisitor: SyntaxRewriter {
                 } else if tokenKind == TokenKind.ellipsis.string {
                     // "..."のとき、可変長引数
                     resultArray.append(SyntaxTag.isVariadicParameter.string)
-                } else {
-                    functionParameterTypeString += token.text
+                } else if (tokenKind != TokenKind.comma.string) &&
+                            (tokenKind != TokenKind.postfixQuestionMark.string){
+//                    functionParameterTypeString += token.text
+                    resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
@@ -504,11 +508,11 @@ final class TokenVisitor: SyntaxRewriter {
                         (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax){
                 // functionの引数1つを宣言終了
-                if functionParameterTypeString.last == "," {
-                    // functionが引数を複数持つとき、最後の引数以外は型の末尾に","がついてしまうので、取り除く
-                    functionParameterTypeString = String(functionParameterTypeString.dropLast())
-                }
-                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
+//                if functionParameterTypeString.last == "," {
+//                    // functionが引数を複数持つとき、最後の引数以外は型の末尾に","がついてしまうので、取り除く
+//                    functionParameterTypeString = String(functionParameterTypeString.dropLast())
+//                }
+//                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
                 resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
