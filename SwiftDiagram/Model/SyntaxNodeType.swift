@@ -44,6 +44,8 @@ enum SyntaxNodeType {
     
     case arrayTypeSyntax // 配列の宣言
     
+    case optionalTypeSyntax // 配列などがオプショナルのとき、これにラップされている
+    
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
     var string: String {
@@ -94,6 +96,9 @@ enum SyntaxNodeType {
             
         case .arrayTypeSyntax:
             return "ArrayTypeSyntax"
+            
+        case .optionalTypeSyntax:
+            return "OptionalTypeSyntax"
         }
     }
 }

@@ -137,7 +137,8 @@ protocol Protocol2 {}
 struct SomeStruct {
 //    func SomeFunc(arrayParam: [Double], dictionaryParam: [String: Int], toupleParam: (Character, Float)) {}
     func arrayFunc(arrayParam: [Double]) {}
-    var arrayParam: [Double]
+    var arrayParam: [Double]?
+    var doubleOptionalParam: Double?
     init(arrayParam: [Double]) {
         self.arrayParam = arrayParam
     }

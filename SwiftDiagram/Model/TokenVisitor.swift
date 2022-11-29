@@ -200,6 +200,10 @@ final class TokenVisitor: SyntaxRewriter {
                     (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として配列を宣言開始するとき
                     resultArray.append(SyntaxTag.startArrayTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型として配列を宣言開始するとき
+                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfFunction.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
                 printSyntaxNodeTypeStack()
@@ -293,23 +297,34 @@ final class TokenVisitor: SyntaxRewriter {
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax {
                 // variableの型を宣言しているとき
-                if tokenKind == TokenKind.colon.string {
-                    // ":"のとき
-                    if passedTypeAnnotationFirstColonFlag {
-                        // TypeAnnotation内で最初の":"でなければ、型名内の文字列として抽出する
-                        variableTypeString += ":"
-                    } else {
-                        // TypeAnnotation内で最初の":"なら、variable名と型を区切るものなので抽出しない
-                        passedTypeAnnotationFirstColonFlag = true
-                    }
-                } else if tokenKind == TokenKind.postfixQuestionMark.string {
-                    // "?"のとき
-                    // "?"は型名には含めず、オプショナル型であることをタグで表す
-                    resultArray.append(SyntaxTag.isOptionalType.string)
-                }else {
-                    // ":"でなければ抽出する
-                    variableTypeString += token.text
+                if (tokenKind != TokenKind.colon.string) &&
+                    (tokenKind != TokenKind.postfixQuestionMark.string) {
+                    resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + token.text)
+//                    if tokenKind == TokenKind.postfixQuestionMark.string {
+//                        // "?"のとき
+//                        // "?"は型名には含めず、オプショナル型であることをタグで表す
+//                        resultArray.append(SyntaxTag.isOptionalType.string)
+//                    } else {
+//                        resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + token.text)
+//                    }
                 }
+//                if tokenKind == TokenKind.colon.string {
+//                    // ":"のとき
+//                    if passedTypeAnnotationFirstColonFlag {
+//                        // TypeAnnotation内で最初の":"でなければ、型名内の文字列として抽出する
+//                        variableTypeString += ":"
+//                    } else {
+//                        // TypeAnnotation内で最初の":"なら、variable名と型を区切るものなので抽出しない
+//                        passedTypeAnnotationFirstColonFlag = true
+//                    }
+//                } else if tokenKind == TokenKind.postfixQuestionMark.string {
+//                    // "?"のとき
+//                    // "?"は型名には含めず、オプショナル型であることをタグで表す
+//                    resultArray.append(SyntaxTag.isOptionalType.string)
+//                }else {
+//                    // ":"でなければ抽出する
+//                    variableTypeString += token.text
+//                }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                 // variableの初期値を宣言しているとき
@@ -393,6 +408,10 @@ final class TokenVisitor: SyntaxRewriter {
                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                         // variableの型として配列を宣言中のとき
                         resultArray.append(SyntaxTag.arrayTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                        // functionの引数の型として配列を宣言中のとき
+                        resultArray.append(SyntaxTag.arrayTypeOfFunction.string + SyntaxTag.space.string + token.text)
                     }
                 }
             }
@@ -462,7 +481,7 @@ final class TokenVisitor: SyntaxRewriter {
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.typeAnnotationSyntax.string {
                 // variableの型を宣言終了
-                resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + variableTypeString)
+//                resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + variableTypeString)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
@@ -527,9 +546,16 @@ final class TokenVisitor: SyntaxRewriter {
                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として配列を宣言終了するとき
                     resultArray.append(SyntaxTag.endArrayTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型として配列を宣言終了するとき
+                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfFunction.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {
+                // オプショナル型の配列などを宣言終了したとき
+                resultArray.append(SyntaxTag.isOptionalType.string)
             }
         }
     }
