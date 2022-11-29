@@ -42,6 +42,8 @@ enum SyntaxNodeType {
     // initializer
     case initializerDeclSyntax // initializerの宣言
     
+    case arrayTypeSyntax // 配列の宣言
+    
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
     var string: String {
@@ -89,6 +91,9 @@ enum SyntaxNodeType {
         // initializer
         case .initializerDeclSyntax:
             return "InitializerDeclSyntax"
+            
+        case .arrayTypeSyntax:
+            return "ArrayTypeSyntax"
         }
     }
 }

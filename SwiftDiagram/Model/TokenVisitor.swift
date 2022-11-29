@@ -194,6 +194,15 @@ final class TokenVisitor: SyntaxRewriter {
 //                resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
+                // 配列の宣言開始
+                if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型として配列を宣言開始するとき
+                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfVariable.string)
+                }
+                pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
+                printSyntaxNodeTypeStack()
             }
         }
     }
@@ -375,6 +384,17 @@ final class TokenVisitor: SyntaxRewriter {
                 } else if tokenKind == TokenKind.postfixQuestionMark.string {
                     resultArray.append(SyntaxTag.isFailableInitializer.string)
                 }
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
+                // 配列の宣言中
+                if (tokenKind != TokenKind.leftSquareBracket.string) &&
+                    (tokenKind != TokenKind.rightSquareBracket.string) {
+                    // "[" と "]"は抽出しない
+                    if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                        // variableの型として配列を宣言中のとき
+                        resultArray.append(SyntaxTag.arrayTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                    }
+                }
             }
         }
         
@@ -499,6 +519,15 @@ final class TokenVisitor: SyntaxRewriter {
 //                }
 //                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
 //                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
+                // 配列の宣言終了
+                if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型として配列を宣言終了するとき
+                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfVariable.string)
+                }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             }

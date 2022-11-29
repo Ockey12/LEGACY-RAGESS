@@ -113,23 +113,32 @@ protocol Protocol2 {}
 //    case cmyk(Float, Float ,Float, Float)
 //}
 
-struct SomeStruct {
-    var variableVariableVariable: String = "texttexttexttext"
-    var optionalVariable: Int?
-    
-    init?(parameter1: String, parameter2: Int) {
-        self.variableVariableVariable = parameter1
-    }
-}
+//struct SomeStruct {
+//    var variableVariableVariable: String = "texttexttexttext"
+//    var optionalVariable: Int?
+//
+//    init?(parameter1: String, parameter2: Int) {
+//        self.variableVariableVariable = parameter1
+//    }
+//}
+//
+//class SomeClass {
+//    var variableVariableVariable: String
+//
+//    init(parameter1: String) {
+//        self.variableVariableVariable = parameter1
+//    }
+//
+//    convenience init(parameter2: String) {
+//        self.init(parameter1: parameter2 + parameter2)
+//    }
+//}
 
-class SomeClass {
-    var variableVariableVariable: String
-    
-    init(parameter1: String) {
-        self.variableVariableVariable = parameter1
-    }
-    
-    convenience init(parameter2: String) {
-        self.init(parameter1: parameter2 + parameter2)
+struct SomeStruct {
+//    func SomeFunc(arrayParam: [Double], dictionaryParam: [String: Int], toupleParam: (Character, Float)) {}
+    func arrayFunc(arrayParam: [Double]) {}
+    var arrayParam: [Double]
+    init(arrayParam: [Double]) {
+        self.arrayParam = arrayParam
     }
 }
