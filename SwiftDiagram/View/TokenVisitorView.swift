@@ -18,6 +18,8 @@ struct TokenVisitorView: View {
     
     @State private var url: URL?
 //    let printer = TokenVisitorPrinter()
+    @State private var numberOfIndent = 1
+    private let indentSpace = "  "
     
     var body: some View {
         VStack {
@@ -65,7 +67,16 @@ struct TokenVisitorView: View {
 //                print("---TokenVisitorView")
                 for text in visitor.getResultArray() {
 //                    print(text)
-                    rightContent += text + "\n"
+                    if text.hasPrefix("End") {
+                        numberOfIndent -= 1
+                    }
+                    
+                    let space = Array(repeating: indentSpace, count: numberOfIndent).joined(separator: "|")
+                    rightContent += space + text + "\n"
+                    
+                    if text.hasPrefix("Start") {
+                        numberOfIndent += 1
+                    }
                 }
             case .failure:
                 print("failure")

@@ -185,6 +185,15 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startInitializerDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerDeclSyntax)
                 printSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string) &&
+                        (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax){
+                // initializerの引数1つを宣言開始
+//                functionParameterNames.removeAll()
+//                passedFunctionParameterFirstColonFlag = false
+//                functionParameterTypeString = ""
+//                resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
+                printSyntaxNodeTypeStack()
             }
         }
     }
@@ -478,6 +487,18 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
                 // initializerの宣言終了
                 resultArray.append(SyntaxTag.endInitializerDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string &&
+                        (1 < currentPositionInStack) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax){
+                // initializerの引数1つを宣言終了
+//                if functionParameterTypeString.last == "," {
+//                    // initializerが引数を複数持つとき、最後の引数以外は型の末尾に","がついてしまうので、取り除く
+//                    functionParameterTypeString = String(functionParameterTypeString.dropLast())
+//                }
+//                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
+//                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             }
