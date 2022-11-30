@@ -43,6 +43,7 @@ enum SyntaxNodeType {
     case initializerDeclSyntax // initializerの宣言
     
     case arrayTypeSyntax // 配列の宣言
+    case dictionaryTypeSyntax // 辞書の宣言
     
     case optionalTypeSyntax // 配列などがオプショナルのとき、これにラップされている
     
@@ -96,6 +97,8 @@ enum SyntaxNodeType {
             
         case .arrayTypeSyntax:
             return "ArrayTypeSyntax"
+        case .dictionaryTypeSyntax:
+            return "DictionaryTypeSyntax"
             
         case .optionalTypeSyntax:
             return "OptionalTypeSyntax"

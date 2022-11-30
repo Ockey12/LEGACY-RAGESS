@@ -46,15 +46,15 @@ final class TokenVisitor: SyntaxRewriter {
     // visit()でFunctionParameterSyntax内の最初の":"を検査したとき、この配列の要素をresultArrayにタグとともに.append()する
     private var functionParameterNames = [String]()
     
-    // FunctionParameterSyntax内で最初の":"を検査した後trueになる
+    // FunctionDeclSyntax内のFunctionParameterSyntax内で最初の":"を検査した後trueになる
     // 引数名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
     // visitPre()でfalseに初期化する
-    private var passedFunctionParameterFirstColonFlag = false
+    private var passedFunctionParameterOfFunctionDeclFirstColonFlag = false
     
     // FunctionParameterSyntax内で引数の型を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
-    private var functionParameterTypeString = ""
+//    private var functionParameterTypeString = ""
     
     // デフォルト引数のデフォルト値を文字列として一時的に保持する
     // visitPre()で""に初期化する
@@ -82,6 +82,11 @@ final class TokenVisitor: SyntaxRewriter {
     // visitPre()で""に初期化する
     // visit()でtoken.textを追加していく
 //    private var caseAssociatedValueString = ""
+    
+    // InitializerDeclSyntax内のFunctionParameterSyntax内で最初の":"を検査した後trueになる
+    // 引数名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
+    // visitPre()でfalseに初期化する
+//    private var passedFunctionParameterOfInitializerDeclFirstColonFlag = false
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -161,8 +166,8 @@ final class TokenVisitor: SyntaxRewriter {
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax){
                 // functionの引数1つを宣言開始
                 functionParameterNames.removeAll()
-                passedFunctionParameterFirstColonFlag = false
-                functionParameterTypeString = ""
+                passedFunctionParameterOfFunctionDeclFirstColonFlag = false
+//                functionParameterTypeString = ""
                 resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
@@ -206,6 +211,19 @@ final class TokenVisitor: SyntaxRewriter {
                     resultArray.append(SyntaxTag.startArrayTypeSyntaxOfFunction.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {
+                // 辞書の宣言開始
+                if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型として辞書を宣言開始するとき
+                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型として辞書を宣言開始するとき
+                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunction.string)
+                }
+                pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
                 printSyntaxNodeTypeStack()
             }
         }
@@ -354,12 +372,13 @@ final class TokenVisitor: SyntaxRewriter {
                 // functionの名前を宣言しているとき
                 resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
-                        (!passedFunctionParameterFirstColonFlag) {
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) &&
+                        (!passedFunctionParameterOfFunctionDeclFirstColonFlag) {
                 // FunctionParameterSyntax内でまだ最初の":"を検査していないとき
                 // 外部引数名、内部引数名、最初の":"が検査される
                 if tokenKind == TokenKind.colon.string {
                     // 最初の":"なのでpassedFunctionParameterFirstColonFlagをtrueにする
-                    passedFunctionParameterFirstColonFlag = true
+                    passedFunctionParameterOfFunctionDeclFirstColonFlag = true
                     // 引数名を抽出し終えているので、functionParameterNamesの要素をresultArrayに.append()する
                     if functionParameterNames.count == 1 {
                         // functionParameterNamesの要素が1つのとき、この引数は内部引数名を持ち、外部引数名を持たない
@@ -376,7 +395,8 @@ final class TokenVisitor: SyntaxRewriter {
                     functionParameterNames.append(token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
-                        (passedFunctionParameterFirstColonFlag) {
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) &&
+                        (passedFunctionParameterOfFunctionDeclFirstColonFlag) {
                 // FunctionParameterSyntax内で既に最初の":"を検査した後
                 if tokenKind == TokenKind.inoutKeyword.string {
                     // inoutキーワードのとき
@@ -554,6 +574,19 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として配列を宣言終了するとき
                     resultArray.append(SyntaxTag.endArrayTypeSyntaxOfFunction.string)
+                }
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {
+                // 辞書の宣言終了
+                if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型として辞書を宣言終了するとき
+                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型として辞書を宣言終了するとき
+                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunction.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()

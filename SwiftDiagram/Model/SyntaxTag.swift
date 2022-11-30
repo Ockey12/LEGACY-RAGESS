@@ -54,6 +54,9 @@ enum SyntaxTag {
     case startArrayTypeSyntaxOfVariable // variableの配列の型を宣言開始
     case arrayTypeOfVariable // 配列の型
     case endArrayTypeSyntaxOfVariable // variableの配列の型を宣言終了
+    case startDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言開始
+    case dictionaryTypeOfVariable // 辞書の型
+    case endDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言終了
     case isOptionalType // optional型である
     case initialValueOfVariable // variableの初期値
     case haveWillSet // willSetを持つvariable
@@ -75,6 +78,9 @@ enum SyntaxTag {
     case startArrayTypeSyntaxOfFunction // 引数の配列の型を宣言開始
     case arrayTypeOfFunction // 配列の型
     case endArrayTypeSyntaxOfFunction // 引数の配列の型を宣言終了
+    case startDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言開始
+    case dictionaryTypeOfFunction // 辞書の型
+    case endDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言終了
     case initialValueOfParameter // デフォルト引数のデフォルト値
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
@@ -169,6 +175,12 @@ enum SyntaxTag {
             return "ArrayTypeOfVariable"
         case .endArrayTypeSyntaxOfVariable:
             return "EndArrayTypeSyntaxOfVariable"
+        case .startDictionaryTypeSyntaxOfVariable:
+            return "StartDictionaryTypeSyntaxOfVariable"
+        case .dictionaryTypeOfVariable:
+            return "DictionaryTypeOfVariable"
+        case .endDictionaryTypeSyntaxOfVariable:
+            return "EndDictionaryTypeSyntaxOfVariable"
         case .isOptionalType:
             return "IsOptionalType"
         case .initialValueOfVariable:
@@ -217,6 +229,12 @@ enum SyntaxTag {
             return "ArrayTypeOfFunction"
         case .endArrayTypeSyntaxOfFunction:
             return "EndArrayTypeSyntaxOfFunction"
+        case .startDictionaryTypeSyntaxOfFunction:
+            return "StartDictionaryTypeSyntaxOfFunction"
+        case .dictionaryTypeOfFunction:
+            return "DictionaryTypeOfFunction"
+        case .endDictionaryTypeSyntaxOfFunction:
+            return "EndDictionaryTypeSyntaxOfFunction"
         case .initialValueOfParameter:
             return "InitialValueOfParameter"
         case .endFunctionParameterSyntax:
