@@ -226,6 +226,19 @@ final class TokenVisitor: SyntaxRewriter {
                 passedFunctionParameterOfInitializerDeclFirstColonFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
+                // タプルの宣言開始
+                if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型としてタプルを宣言開始するとき
+                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型としてタプルを宣言開始するとき
+                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunction.string)
+                }
+                pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
+                printSyntaxNodeTypeStack()
             }
         }
     }
@@ -623,6 +636,19 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言終了するとき
                     resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunction.string)
+                }
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
+                // タプルの宣言終了
+                if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                    // variableの型としてタプルを宣言終了するとき
+                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfVariable.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの引数の型としてタプルを宣言終了するとき
+                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunction.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()

@@ -44,6 +44,7 @@ enum SyntaxNodeType {
     
     case arrayTypeSyntax // 配列の宣言
     case dictionaryTypeSyntax // 辞書の宣言
+    case tupleTypeSyntax // タプルの宣言
     
     case optionalTypeSyntax // 配列などがオプショナルのとき、これにラップされている
     
@@ -99,6 +100,8 @@ enum SyntaxNodeType {
             return "ArrayTypeSyntax"
         case .dictionaryTypeSyntax:
             return "DictionaryTypeSyntax"
+        case .tupleTypeSyntax:
+            return "TupleTypeSyntax"
             
         case .optionalTypeSyntax:
             return "OptionalTypeSyntax"

@@ -143,7 +143,12 @@ struct SomeStruct {
 //        self.arrayParam = arrayParam
 //    }
     
-    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
-    var dicVariable: [Character: Double]?
-    init(dicInitParam: [String: Float]?, doubleParam: Double) {}
+//    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
+//    var dicVariable: [Character: Double]?
+//    init(dicInitParam: [String: Float]?, doubleParam: Double) {}
+    
+    func toupleFunc(toupleParam: (String, Int, Double)? , floatParam: Float) {}
+    var toupleVariable: (String, Int, Double)?
+    var initializedToupleVariable = (stringName: "TEXTTEXTTEXTTEXT", intName: 1111111111)
+    init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
 }
