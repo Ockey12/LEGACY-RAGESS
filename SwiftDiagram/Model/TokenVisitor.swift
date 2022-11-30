@@ -84,9 +84,9 @@ final class TokenVisitor: SyntaxRewriter {
 //    private var caseAssociatedValueString = ""
     
     // InitializerDeclSyntax内のFunctionParameterSyntax内で最初の":"を検査した後trueになる
-    // 引数名と型を区切る":"と、辞書やタプル中の":"を区別するために使う
+    // visit()内でtokenKindがidentifier()のとき、これがfalseならKey、trueならValue
     // visitPre()でfalseに初期化する
-//    private var passedFunctionParameterOfInitializerDeclFirstColonFlag = false
+    private var passedFunctionParameterOfInitializerDeclFirstColonFlag = false
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -223,6 +223,7 @@ final class TokenVisitor: SyntaxRewriter {
                     // functionの引数の型として辞書を宣言開始するとき
                     resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunction.string)
                 }
+                passedFunctionParameterOfInitializerDeclFirstColonFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
                 printSyntaxNodeTypeStack()
             }
@@ -436,6 +437,41 @@ final class TokenVisitor: SyntaxRewriter {
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの引数の型として配列を宣言中のとき
                         resultArray.append(SyntaxTag.arrayTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                    }
+                }
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.dictionaryTypeSyntax {
+                // 辞書の宣言中
+                if (tokenKind != TokenKind.leftSquareBracket.string) &&
+                    (tokenKind != TokenKind.rightSquareBracket.string) {
+                    // "[" と "]"は抽出しない
+                    if passedFunctionParameterOfInitializerDeclFirstColonFlag {
+                        // ":"を検査した後なので、token.textはValueの型
+                        if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                            // variableの型として辞書を宣言中のとき
+                            resultArray.append(SyntaxTag.dictionaryValueTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                        } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                            // functionの引数の型として辞書を宣言中のとき
+                            resultArray.append(SyntaxTag.dictionaryValueTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                        }
+                    } else {
+                        // ":"を検査する前
+                        if tokenKind == TokenKind.colon.string {
+                            // ":"を見つけたとき、フラグをtrueにする
+                            passedFunctionParameterOfInitializerDeclFirstColonFlag = true
+                        } else {
+                            // Keyの型
+                            if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                                // variableの型として辞書を宣言中のとき
+                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                            } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                                // functionの引数の型として辞書を宣言中のとき
+                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                            }
+                        }
                     }
                 }
             }

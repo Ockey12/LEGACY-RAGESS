@@ -55,7 +55,8 @@ enum SyntaxTag {
     case arrayTypeOfVariable // 配列の型
     case endArrayTypeSyntaxOfVariable // variableの配列の型を宣言終了
     case startDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言開始
-    case dictionaryTypeOfVariable // 辞書の型
+    case dictionaryKeyTypeOfVariable // 辞書のKeyの型
+    case dictionaryValueTypeOfVariable // 辞書のValueの型
     case endDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言終了
     case isOptionalType // optional型である
     case initialValueOfVariable // variableの初期値
@@ -79,7 +80,8 @@ enum SyntaxTag {
     case arrayTypeOfFunction // 配列の型
     case endArrayTypeSyntaxOfFunction // 引数の配列の型を宣言終了
     case startDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言開始
-    case dictionaryTypeOfFunction // 辞書の型
+    case dictionaryKeyTypeOfFunction // 辞書のKeyの型
+    case dictionaryValueTypeOfFunction // 辞書のValueの型
     case endDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言終了
     case initialValueOfParameter // デフォルト引数のデフォルト値
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
@@ -177,8 +179,10 @@ enum SyntaxTag {
             return "EndArrayTypeSyntaxOfVariable"
         case .startDictionaryTypeSyntaxOfVariable:
             return "StartDictionaryTypeSyntaxOfVariable"
-        case .dictionaryTypeOfVariable:
-            return "DictionaryTypeOfVariable"
+        case .dictionaryKeyTypeOfVariable:
+            return "DictionaryKeyTypeOfVariable"
+        case .dictionaryValueTypeOfVariable:
+            return "DictionaryValueTypeOfVariable"
         case .endDictionaryTypeSyntaxOfVariable:
             return "EndDictionaryTypeSyntaxOfVariable"
         case .isOptionalType:
@@ -231,8 +235,10 @@ enum SyntaxTag {
             return "EndArrayTypeSyntaxOfFunction"
         case .startDictionaryTypeSyntaxOfFunction:
             return "StartDictionaryTypeSyntaxOfFunction"
-        case .dictionaryTypeOfFunction:
-            return "DictionaryTypeOfFunction"
+        case .dictionaryKeyTypeOfFunction:
+            return "DictionaryKeyTypeOfFunction"
+        case .dictionaryValueTypeOfFunction:
+            return "DictionaryValueTypeOfFunction"
         case .endDictionaryTypeSyntaxOfFunction:
             return "EndDictionaryTypeSyntaxOfFunction"
         case .initialValueOfParameter:
