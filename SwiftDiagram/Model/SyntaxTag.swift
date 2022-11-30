@@ -100,6 +100,9 @@ enum SyntaxTag {
     case startInitializerParameter // 引数1つの宣言開始
     case initializerParameterName // 引数名
     case initializerParameterType // 引数の型
+    case startArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言開始
+    case arrayTypeOfInitializer // 配列の型
+    case endArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言終了
     case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
 
@@ -273,6 +276,12 @@ enum SyntaxTag {
             return "InitializerParameterName"
         case .initializerParameterType:
             return "InitializerParameterType"
+        case .startArrayTypeSyntaxOfInitializer:
+            return "StartArrayTypeSyntaxOfInitializer"
+        case .arrayTypeOfInitializer:
+            return "arrayTypeOfInitializer"
+        case .endArrayTypeSyntaxOfInitializer:
+            return "EndArrayTypeSyntaxOfInitializer"
         case .endInitializerParameter:
             return "EndInitializerParameter"
         case .endInitializerDeclSyntax:

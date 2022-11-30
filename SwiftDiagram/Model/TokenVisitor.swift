@@ -211,6 +211,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として配列を宣言開始するとき
                     resultArray.append(SyntaxTag.startArrayTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型として配列を宣言開始するとき
+                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfInitializer.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
                 printSyntaxNodeTypeStack()
@@ -458,7 +462,9 @@ final class TokenVisitor: SyntaxRewriter {
                 // ":"を検査した後
                 // 型を抽出する
                 // StringやIntのみ抽出する
-                resultArray.append(SyntaxTag.initializerParameterType.string + SyntaxTag.space.string + token.text)
+                if tokenKind != TokenKind.comma.string {
+                    resultArray.append(SyntaxTag.initializerParameterType.string + SyntaxTag.space.string + token.text)
+                }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
                 // 配列の宣言中
                 if (tokenKind != TokenKind.leftSquareBracket.string) &&
@@ -472,6 +478,10 @@ final class TokenVisitor: SyntaxRewriter {
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの引数の型として配列を宣言中のとき
                         resultArray.append(SyntaxTag.arrayTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                        // initializerの引数の型として配列を宣言中のとき
+                        resultArray.append(SyntaxTag.arrayTypeOfInitializer.string + SyntaxTag.space.string + token.text)
                     }
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.dictionaryTypeSyntax {
@@ -646,6 +656,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として配列を宣言終了するとき
                     resultArray.append(SyntaxTag.endArrayTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型として配列を宣言開始するとき
+                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfInitializer.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
