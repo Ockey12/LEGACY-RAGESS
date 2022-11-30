@@ -423,7 +423,8 @@ final class TokenVisitor: SyntaxRewriter {
                 } else if (tokenKind != TokenKind.comma.string) &&
                             (tokenKind != TokenKind.postfixQuestionMark.string){
 //                    functionParameterTypeString += token.text
-                    resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + token.text)
+                    // StringやIntのみ抽出する
+                    resultArray.append(SyntaxTag.functionParameterType.string + SyntaxTag.space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
@@ -447,8 +448,17 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind == TokenKind.colon.string {
                     passedFunctionParameterOfInitializerDeclFirstColonFlag = true
                 } else {
-                    resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+                    if tokenKind != TokenKind.comma.string {
+                        resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+                    }
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) &&
+                        (passedFunctionParameterOfInitializerDeclFirstColonFlag) {
+                // ":"を検査した後
+                // 型を抽出する
+                // StringやIntのみ抽出する
+                resultArray.append(SyntaxTag.initializerParameterType.string + SyntaxTag.space.string + token.text)
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
                 // 配列の宣言中
                 if (tokenKind != TokenKind.leftSquareBracket.string) &&

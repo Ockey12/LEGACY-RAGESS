@@ -78,7 +78,7 @@ enum SyntaxTag {
     case internalParameterName // functionの内部引数名
     case haveInoutKeyword // inoutキーワードを持つ
     case isVariadicParameter // 可変長引数である
-    case parameterType // 引数の型
+    case functionParameterType // 引数の型
     case startArrayTypeSyntaxOfFunction // 引数の配列の型を宣言開始
     case arrayTypeOfFunction // 配列の型
     case endArrayTypeSyntaxOfFunction // 引数の配列の型を宣言終了
@@ -99,6 +99,7 @@ enum SyntaxTag {
     case isFailableInitializer // 失敗可能イニシャライザである
     case startInitializerParameter // 引数1つの宣言開始
     case initializerParameterName // 引数名
+    case initializerParameterType // 引数の型
     case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
 
@@ -231,8 +232,8 @@ enum SyntaxTag {
             return "HaveInoutKeyword"
         case .isVariadicParameter:
             return "IsVariadicParameter"
-        case .parameterType:
-            return "ParameterType"
+        case .functionParameterType:
+            return "FunctionParameterType"
         case .startArrayTypeSyntaxOfFunction:
             return "StartArrayTypeSyntaxOfFunction"
         case .arrayTypeOfFunction:
@@ -270,6 +271,8 @@ enum SyntaxTag {
             return "StartInitializerParameter"
         case .initializerParameterName:
             return "InitializerParameterName"
+        case .initializerParameterType:
+            return "InitializerParameterType"
         case .endInitializerParameter:
             return "EndInitializerParameter"
         case .endInitializerDeclSyntax:
