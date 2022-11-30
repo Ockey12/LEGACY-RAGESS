@@ -97,6 +97,9 @@ enum SyntaxTag {
     case startInitializerDeclSyntax // initializerの宣言開始
     case haveConvenienceKeyword // convenience initializerである
     case isFailableInitializer // 失敗可能イニシャライザである
+    case startInitializerParameter // 引数1つの宣言開始
+    case initializerParameterName // 引数名
+    case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
 
     // アクセスレベル
@@ -211,15 +214,6 @@ enum SyntaxTag {
             return "HaveSetter"
         case .endVariableDeclSyntax:
             return "EndVariableDeclSyntax"
-        // initializer
-        case .startInitializerDeclSyntax:
-            return "StartInitializerDeclSyntax"
-        case .haveConvenienceKeyword:
-            return "HaveConvenienceKeyword"
-        case .isFailableInitializer:
-            return "IsFailableInitializer"
-        case .endInitializerDeclSyntax:
-            return "EndInitializerDeclSyntax"
         // function
         case .startFunctionDeclSyntax:
             return "StartFunctionDeclSyntax"
@@ -265,6 +259,21 @@ enum SyntaxTag {
             return "EndFunctionParameterSyntax"
         case .endFunctionDeclSyntax:
             return "EndFunctionDeclSyntax"
+        // initializer
+        case .startInitializerDeclSyntax:
+            return "StartInitializerDeclSyntax"
+        case .haveConvenienceKeyword:
+            return "HaveConvenienceKeyword"
+        case .isFailableInitializer:
+            return "IsFailableInitializer"
+        case .startInitializerParameter:
+            return "StartInitializerParameter"
+        case .initializerParameterName:
+            return "InitializerParameterName"
+        case .endInitializerParameter:
+            return "EndInitializerParameter"
+        case .endInitializerDeclSyntax:
+            return "EndInitializerDeclSyntax"
         // アクセスレベル
         case .open:
             return "open"

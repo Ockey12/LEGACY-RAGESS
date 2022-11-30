@@ -197,6 +197,8 @@ final class TokenVisitor: SyntaxRewriter {
 //                passedFunctionParameterFirstColonFlag = false
 //                functionParameterTypeString = ""
 //                resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
+                passedFunctionParameterOfInitializerDeclFirstColonFlag = false
+                resultArray.append(SyntaxTag.startInitializerParameter.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
@@ -437,6 +439,16 @@ final class TokenVisitor: SyntaxRewriter {
                 } else if tokenKind == TokenKind.postfixQuestionMark.string {
                     resultArray.append(SyntaxTag.isFailableInitializer.string)
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) &&
+                        (!passedFunctionParameterOfInitializerDeclFirstColonFlag) {
+                // ":"を検査するより前
+                // 引数名を抽出する
+                if tokenKind == TokenKind.colon.string {
+                    passedFunctionParameterOfInitializerDeclFirstColonFlag = true
+                } else {
+                    resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+                }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
                 // 配列の宣言中
                 if (tokenKind != TokenKind.leftSquareBracket.string) &&
@@ -611,6 +623,7 @@ final class TokenVisitor: SyntaxRewriter {
 //                }
 //                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
 //                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
+                resultArray.append(SyntaxTag.endInitializerParameter.string)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {

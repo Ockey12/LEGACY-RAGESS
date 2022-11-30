@@ -148,7 +148,7 @@ struct SomeStruct {
 //    init(dicInitParam: [String: Float]?, doubleParam: Double) {}
     
     func toupleFunc(toupleParam: (String, Int, Double)? , floatParam: Float) {}
-    var toupleVariable: (String, Int, Double)?
+    var toupleVariable: (String, Int, Double)? = (stringName: "STRINGSTRINGSTRING", intName: 2222222222, doubleName: 3333333333)
     var initializedToupleVariable = (stringName: "TEXTTEXTTEXTTEXT", intName: 1111111111)
     init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
 }
