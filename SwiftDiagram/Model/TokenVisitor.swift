@@ -462,9 +462,11 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind == TokenKind.colon.string {
                     passedFunctionParameterOfInitializerDeclFirstColonFlag = true
                 } else {
-                    if tokenKind != TokenKind.comma.string {
-                        resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
-                    }
+                    resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+//                    if (tokenKind != TokenKind.comma.string){
+//                        // 複数の引数を区切る","と、オプショナル型の"?"は抽出しない
+//                        resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+//                    }
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) &&
@@ -472,7 +474,9 @@ final class TokenVisitor: SyntaxRewriter {
                 // ":"を検査した後
                 // 型を抽出する
                 // StringやIntのみ抽出する
-                if tokenKind != TokenKind.comma.string {
+                if tokenKind != TokenKind.comma.string &&
+                    (tokenKind != TokenKind.postfixQuestionMark.string)  {
+                    // 複数の引数を区切る","と、オプショナル型の"?"は抽出しない
                     resultArray.append(SyntaxTag.initializerParameterType.string + SyntaxTag.space.string + token.text)
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
@@ -509,6 +513,10 @@ final class TokenVisitor: SyntaxRewriter {
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                             // functionの引数の型として辞書を宣言中のとき
                             resultArray.append(SyntaxTag.dictionaryValueTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                        } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                            // initializerの引数の型として辞書を宣言中のとき
+                            resultArray.append(SyntaxTag.dictionaryValueTypeOfInitializer.string + SyntaxTag.space.string + token.text)
                         }
                     } else {
                         // ":"を検査する前
@@ -525,6 +533,10 @@ final class TokenVisitor: SyntaxRewriter {
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                                 // functionの引数の型として辞書を宣言中のとき
                                 resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                            } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                                // initializerの引数の型として辞書を宣言中のとき
+                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfInitializer.string + SyntaxTag.space.string + token.text)
                             }
                         }
                     }

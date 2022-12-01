@@ -139,12 +139,12 @@ struct SomeStruct {
 //    func arrayFunc(arrayParam: [Double]?, intParam: Int) {}
 //    var arrayParam: [Double]?
 //    var doubleOptionalParam: Double?
-//    init(arrayParam: [Double], intParam: Int) {
+    init(arrayParam: [Double]?, intParam: Int) {
 //        self.arrayParam = arrayParam
-//    }
+    }
     
-    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
-    var dicVariable: [Character: Double]?
+//    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
+//    var dicVariable: [Character: Double]?
     init(dicInitParam: [String: Float]?, doubleParam: Double) {}
     
 //    func toupleFunc(toupleParam: (String, Int, Double)? , floatParam: Float) {}
