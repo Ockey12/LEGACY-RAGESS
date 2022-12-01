@@ -107,6 +107,9 @@ enum SyntaxTag {
     case dictionaryKeyTypeOfInitializer // 辞書のKeyの型
     case dictionaryValueTypeOfInitializer // 辞書のValueの型
     case endDictionaryTypeSyntaxOfInitializer // 引数の辞書の型を宣言終了
+    case startTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言開始
+    case tupleTypeOfInitializer // タプルの型
+    case endTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言終了
     case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
 
@@ -294,6 +297,12 @@ enum SyntaxTag {
             return "DictionaryValueTypeOfInitializer"
         case .endDictionaryTypeSyntaxOfInitializer:
             return "EndDictionaryTypeSyntaxOfInitializer"
+        case .startTupleTypeSyntaxOfInitializer:
+            return "StartTupleTypeSyntaxOfInitializer"
+        case .tupleTypeOfInitializer:
+            return "TupleTypeOfInitializer"
+        case .endTupleTypeSyntaxOfInitializer:
+            return "EndTupleTypeSyntaxOfInitializer"
         case .endInitializerParameter:
             return "EndInitializerParameter"
         case .endInitializerDeclSyntax:

@@ -252,6 +252,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言開始するとき
                     resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型としてタプルを宣言開始するとき
+                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfInitializer.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
                 printSyntaxNodeTypeStack()
@@ -541,6 +545,26 @@ final class TokenVisitor: SyntaxRewriter {
                         }
                     }
                 }
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.tupleTypeSyntax {
+                // タプルの宣言中
+                if (tokenKind != TokenKind.leftParen.string) &&
+                    (tokenKind != TokenKind.rightParen.string) &&
+                    (tokenKind != TokenKind.comma.string){
+                    // "(" と ")" と ","は抽出しない
+                    if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                        // variableの型としてタプルを宣言中のとき
+                        resultArray.append(SyntaxTag.tupleTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                        // functionの引数の型としてタプルを宣言中のとき
+                        resultArray.append(SyntaxTag.tupleTypeOfFunction.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                        // initializerの引数の型としてタプルを宣言中のとき
+                        resultArray.append(SyntaxTag.tupleTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                    }
+                }
             }
         }
         
@@ -712,6 +736,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言終了するとき
                     resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型としてタプルを宣言終了するとき
+                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfInitializer.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
