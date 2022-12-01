@@ -84,9 +84,15 @@ final class TokenVisitor: SyntaxRewriter {
 //    private var caseAssociatedValueString = ""
     
     // InitializerDeclSyntax内のFunctionParameterSyntax内で最初の":"を検査した後trueになる
-    // visit()内でtokenKindがidentifier()のとき、これがfalseならKey、trueならValue
+    // visit()内でtokenKindがidentifier()のとき、これがfalseなら引数名、trueなら型
     // visitPre()でfalseに初期化する
     private var passedFunctionParameterOfInitializerDeclFirstColonFlag = false
+    
+    // 辞書のKeyとValueを区別するために使う
+    // Keyを抽出後、":"を検査したときにtrueになる
+    // visit()内でtokenKindがidentifier()のとき、これがfalseならKey、trueならValue
+    // visitPre()でfalseに初期化する
+    private var passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -228,8 +234,12 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言開始するとき
                     resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型として辞書を宣言開始するとき
+                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfInitializer.string)
                 }
-                passedFunctionParameterOfInitializerDeclFirstColonFlag = false
+                passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
                 printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
@@ -489,7 +499,7 @@ final class TokenVisitor: SyntaxRewriter {
                 if (tokenKind != TokenKind.leftSquareBracket.string) &&
                     (tokenKind != TokenKind.rightSquareBracket.string) {
                     // "[" と "]"は抽出しない
-                    if passedFunctionParameterOfInitializerDeclFirstColonFlag {
+                    if passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag {
                         // ":"を検査した後なので、token.textはValueの型
                         if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
@@ -504,7 +514,7 @@ final class TokenVisitor: SyntaxRewriter {
                         // ":"を検査する前
                         if tokenKind == TokenKind.colon.string {
                             // ":"を見つけたとき、フラグをtrueにする
-                            passedFunctionParameterOfInitializerDeclFirstColonFlag = true
+                            passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = true
                         } else {
                             // Keyの型
                             if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
@@ -673,6 +683,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言終了するとき
                     resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunction.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
+                    // initializerの引数の型として辞書を宣言終了するとき
+                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfInitializer.string)
                 }
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
