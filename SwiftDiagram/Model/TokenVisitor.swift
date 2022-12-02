@@ -467,6 +467,14 @@ final class TokenVisitor: SyntaxRewriter {
                     // 初期値を代入する"="以外を抽出する
                     initialValueOfParameter += token.text
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                // functionの返り値の型を宣言しているとき
+                if tokenKind != TokenKind.arrow.string {
+                    // "->"以外を抽出する
+                    // StringやIntのみ抽出する
+                    resultArray.append(SyntaxTag.functionReturnValueType.string + SyntaxTag.space.string + token.text)
+                }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax {
                 // initializerの宣言中
                 if tokenKind == TokenKind.convenienceKeyword.string {
