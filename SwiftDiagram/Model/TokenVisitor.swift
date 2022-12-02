@@ -248,6 +248,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言開始するとき
                     resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunctionParameter.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの返り値の型としてタプルを宣言開始するとき
+                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言開始するとき
@@ -579,6 +583,10 @@ final class TokenVisitor: SyntaxRewriter {
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの引数の型としてタプルを宣言中のとき
                         resultArray.append(SyntaxTag.tupleTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                        // functionの返り値の型としてタプルを宣言中のとき
+                        resultArray.append(SyntaxTag.tupleTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                         // initializerの引数の型としてタプルを宣言中のとき
@@ -752,6 +760,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言終了するとき
                     resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunctionParameter.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの返り値の型としてタプルを宣言終了するとき
+                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言終了するとき

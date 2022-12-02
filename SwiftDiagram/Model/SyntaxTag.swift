@@ -103,10 +103,13 @@ enum SyntaxTag {
     case startArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言開始
     case arrayTypeOfFunctionReturnValue // 返り値の配列の型
     case endArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfFunctionReturnValue // 引数の辞書の型を宣言開始
-    case dictionaryKeyTypeOfFunctionReturnValue // 引数の辞書のKeyの型
-    case dictionaryValueTypeOfFunctionReturnValue // 引数の辞書のValueの型
-    case endDictionaryTypeSyntaxOfFunctionReturnValue // 引数の辞書の型を宣言終了
+    case startDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言開始
+    case dictionaryKeyTypeOfFunctionReturnValue // 返り値の辞書のKeyの型
+    case dictionaryValueTypeOfFunctionReturnValue // 返り値の辞書のValueの型
+    case endDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言終了
+    case startTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言開始
+    case tupleTypeOfFunctionReturnValue // 返り値のタプルの型
+    case endTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言終了
     case endFunctionReturnValueType // functionの返り値の型の宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
     
@@ -314,6 +317,12 @@ enum SyntaxTag {
             return "DictionaryValueTypeOfFunctionReturnValue"
         case .endDictionaryTypeSyntaxOfFunctionReturnValue:
             return "EndDictionaryTypeSyntaxOfFunctionReturnValue"
+        case .startTupleTypeSyntaxOfFunctionReturnValue:
+            return "StartTupleTypeSyntaxOfFunctionReturnValue"
+        case .tupleTypeOfFunctionReturnValue:
+            return "TupleTypeOfFunctionReturnValue"
+        case .endTupleTypeSyntaxOfFunctionReturnValue:
+            return "EndTupleTypeSyntaxOfFunctionReturnValue"
         case .endFunctionReturnValueType:
             return "EndFunctionReturnValueType"
         case .endFunctionDeclSyntax:
