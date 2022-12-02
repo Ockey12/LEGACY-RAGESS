@@ -153,7 +153,23 @@ import Foundation
 //    init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
 //}
 
-protocol SuperSuperProtocol {}
-protocol SuperProtocol {}
-private protocol SomeProtocol: SuperSuperProtocol, SuperProtocol {}
-struct SomeStruct: SuperSuperProtocol, SuperProtocol {}
+//protocol SuperSuperProtocol {}
+//protocol SuperProtocol {}
+private protocol SomeProtocol {
+    var variable: String { get }
+}
+struct SomeStruct {
+    var structVariable: Int {
+        get {
+            return 1111111111
+        }
+        set {
+            
+        }
+    }
+}
+//struct SomeStruct: SuperSuperProtocol, SuperProtocol {
+//    func somefunc(num: Int) -> String {
+//        return "9999999999"
+//    }
+//}
