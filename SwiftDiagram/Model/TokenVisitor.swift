@@ -133,6 +133,11 @@ final class TokenVisitor: SyntaxRewriter {
                 rawvalueString = ""
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
+                // protocolの宣言開始
+                resultArray.append(SyntaxTag.startProtocolDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.protocolDeclSyntax)
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
@@ -259,11 +264,6 @@ final class TokenVisitor: SyntaxRewriter {
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
                 printSyntaxNodeTypeStack()
-            } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
-                // protocolの宣言開始
-                resultArray.append(SyntaxTag.startProtocolDeclSyntax.string)
-                pushSyntaxNodeTypeStack(SyntaxNodeType.protocolDeclSyntax)
-                printSyntaxNodeTypeStack()
             }
         }
     }
@@ -328,6 +328,11 @@ final class TokenVisitor: SyntaxRewriter {
                     // "(", commma, ")"以外を抽出する
                     resultArray.append(SyntaxTag.caseAssociatedValue.string + SyntaxTag.space.string + token.text)
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // protocolの名前を宣言しているとき
+                resultArray.append(SyntaxTag.protocolName.string + SyntaxTag.space.string + token.text)
+                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -621,6 +626,11 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.rawvalue.string + SyntaxTag.space.string + rawvalueString)
                 popSyntaxNodeTypeStack()
                 printSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
+                // protocolの宣言終了
+                resultArray.append(SyntaxTag.endProtocolDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+                printSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言終了
                 resultArray.append(SyntaxTag.endVariableDeclSyntax.string)
@@ -751,11 +761,6 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {
                 // オプショナル型の配列などを宣言終了したとき
                 resultArray.append(SyntaxTag.isOptionalType.string)
-            } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
-                // protocolの宣言終了
-                resultArray.append(SyntaxTag.endProtocolDeclSyntax.string)
-                popSyntaxNodeTypeStack()
-                printSyntaxNodeTypeStack()
             }
         }
     }

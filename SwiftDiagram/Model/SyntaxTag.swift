@@ -36,6 +36,7 @@ enum SyntaxTag {
     // protocol
     case startProtocolDeclSyntax // protocolの宣言開始
     case protocolAccessLevel // protocolのアクセスレベル
+    case protocolName // protocolの名前
     case endProtocolDeclSyntax // protocolの宣言終了
     
     // プロトコルへの準拠
@@ -173,6 +174,8 @@ enum SyntaxTag {
             return "StartProtocolDeclSyntax"
         case .protocolAccessLevel:
             return "ProtocolAccessLevel"
+        case .protocolName:
+            return "ProtocolName"
         case .endProtocolDeclSyntax:
             return "EndProtocolDeclSyntax"
         // プロトコルへの準拠
