@@ -408,7 +408,11 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // functionの名前を宣言しているとき
-                resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
+                if tokenKind == TokenKind.mutatingKeyword.string {
+                    resultArray.append(SyntaxTag.isMutatingFunction.string)
+                } else {
+                    resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
+                }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) &&
                         (!passedFunctionParameterOfFunctionDeclFirstColonFlag) {
