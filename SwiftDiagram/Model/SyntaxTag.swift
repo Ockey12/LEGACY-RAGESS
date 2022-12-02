@@ -86,18 +86,21 @@ enum SyntaxTag {
     case haveInoutKeyword // inoutキーワードを持つ
     case isVariadicParameter // 可変長引数である
     case functionParameterType // 引数の型
-    case startArrayTypeSyntaxOfFunction // 引数の配列の型を宣言開始
-    case arrayTypeOfFunction // 配列の型
-    case endArrayTypeSyntaxOfFunction // 引数の配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言開始
-    case dictionaryKeyTypeOfFunction // 辞書のKeyの型
-    case dictionaryValueTypeOfFunction // 辞書のValueの型
-    case endDictionaryTypeSyntaxOfFunction // 引数の辞書の型を宣言終了
-    case startTupleTypeSyntaxOfFunction // 引数のタプルの型を宣言開始
-    case tupleTypeOfFunction // タプルの型
-    case endTupleTypeSyntaxOfFunction // 引数のタプルの型を宣言終了
+    case startArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言開始
+    case arrayTypeOfFunctionParameter // 引数の配列の型
+    case endArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言終了
+    case startDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言開始
+    case dictionaryKeyTypeOfFunctionParameter // 引数の辞書のKeyの型
+    case dictionaryValueTypeOfFunctionParameter // 引数の辞書のValueの型
+    case endDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言終了
+    case startTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言開始
+    case tupleTypeOfFunctionParameter // 引数のタプルの型
+    case endTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言終了
     case initialValueOfParameter // デフォルト引数のデフォルト値
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
+    case startFunctionReturnValueType // functionの返り値の型の宣言開始
+    case functionReturnValueType // functionの返り値の型
+    case endFunctionReturnValueType // functionの返り値の型の宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
     
     // initializer
@@ -262,30 +265,36 @@ enum SyntaxTag {
             return "IsVariadicParameter"
         case .functionParameterType:
             return "FunctionParameterType"
-        case .startArrayTypeSyntaxOfFunction:
-            return "StartArrayTypeSyntaxOfFunction"
-        case .arrayTypeOfFunction:
-            return "ArrayTypeOfFunction"
-        case .endArrayTypeSyntaxOfFunction:
-            return "EndArrayTypeSyntaxOfFunction"
-        case .startDictionaryTypeSyntaxOfFunction:
-            return "StartDictionaryTypeSyntaxOfFunction"
-        case .dictionaryKeyTypeOfFunction:
-            return "DictionaryKeyTypeOfFunction"
-        case .dictionaryValueTypeOfFunction:
-            return "DictionaryValueTypeOfFunction"
-        case .endDictionaryTypeSyntaxOfFunction:
-            return "EndDictionaryTypeSyntaxOfFunction"
-        case .startTupleTypeSyntaxOfFunction:
-            return "StartTupleTypeSyntaxOfFunction"
-        case .tupleTypeOfFunction:
-            return "TupleTypeOfFunction"
-        case .endTupleTypeSyntaxOfFunction:
-            return "EndTupleTypeSyntaxOfFunction"
+        case .startArrayTypeSyntaxOfFunctionParameter:
+            return "StartArrayTypeSyntaxOfFunctionParameter"
+        case .arrayTypeOfFunctionParameter:
+            return "ArrayTypeOfFunctionParameter"
+        case .endArrayTypeSyntaxOfFunctionParameter:
+            return "EndArrayTypeSyntaxOfFunctionParameter"
+        case .startDictionaryTypeSyntaxOfFunctionParameter:
+            return "StartDictionaryTypeSyntaxOfFunctionParameter"
+        case .dictionaryKeyTypeOfFunctionParameter:
+            return "DictionaryKeyTypeOfFunctionParameter"
+        case .dictionaryValueTypeOfFunctionParameter:
+            return "DictionaryValueTypeOfFunctionParameter"
+        case .endDictionaryTypeSyntaxOfFunctionParameter:
+            return "EndDictionaryTypeSyntaxOfFunctionParameter"
+        case .startTupleTypeSyntaxOfFunctionParameter:
+            return "StartTupleTypeSyntaxOfFunctionParameter"
+        case .tupleTypeOfFunctionParameter:
+            return "TupleTypeOfFunctionParameter"
+        case .endTupleTypeSyntaxOfFunctionParameter:
+            return "EndTupleTypeSyntaxOfFunctionParameter"
         case .initialValueOfParameter:
             return "InitialValueOfParameter"
         case .endFunctionParameterSyntax:
             return "EndFunctionParameterSyntax"
+        case .startFunctionReturnValueType:
+            return "StartFunctionReturnValueType"
+        case .functionReturnValueType:
+            return "FunctionReturnValueType"
+        case .endFunctionReturnValueType:
+            return "EndFunctionReturnValueType"
         case .endFunctionDeclSyntax:
             return "EndFunctionDeclSyntax"
         // initializer

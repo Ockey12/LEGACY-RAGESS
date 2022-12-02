@@ -34,6 +34,7 @@ enum SyntaxNodeType {
     // function
     case functionDeclSyntax // fanctionの宣言開始
     case functionParameterSyntax // functionの個々の引数
+    case returnClauseSyntax // functionの返り値
     
     //protocol
     case protocolDeclSyntax // プロトコルの宣言
@@ -87,6 +88,8 @@ enum SyntaxNodeType {
             return "FunctionDeclSyntax"
         case .functionParameterSyntax:
             return "FunctionParameterSyntax"
+        case .returnClauseSyntax:
+            return "ReturnClauseSyntax"
         // protocol
         case .protocolDeclSyntax:
             return "ProtocolDeclSyntax"

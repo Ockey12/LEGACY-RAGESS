@@ -155,21 +155,21 @@ import Foundation
 
 //protocol SuperSuperProtocol {}
 //protocol SuperProtocol {}
-private protocol SomeProtocol {
-    var variable: String { get }
-}
-struct SomeStruct {
-    var structVariable: Int {
-        get {
-            return 1111111111
-        }
-        set {
-            
-        }
-    }
-}
-//struct SomeStruct: SuperSuperProtocol, SuperProtocol {
-//    func somefunc(num: Int) -> String {
-//        return "9999999999"
+//private protocol SomeProtocol {
+//    var variable: String { get }
+//}
+//struct SomeStruct {
+//    var structVariable: Int {
+//        get {
+//            return 1111111111
+//        }
+//        set {
+//
+//        }
 //    }
 //}
+struct SomeStruct {
+    func somefunc(num: Int) -> String {
+        return "9999999999"
+    }
+}
