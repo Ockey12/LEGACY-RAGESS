@@ -156,3 +156,4 @@ import Foundation
 protocol SuperSuperProtocol {}
 protocol SuperProtocol {}
 private protocol SomeProtocol: SuperSuperProtocol, SuperProtocol {}
+struct SomeStruct: SuperSuperProtocol, SuperProtocol {}

@@ -857,6 +857,9 @@ final class TokenVisitor: SyntaxRewriter {
                 // 準拠しているプロトコルを宣言しているとき
                 resultArray.append(SyntaxTag.conformedProtocolByEnum.string + SyntaxTag.space.string + protocolName)
             }
+        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.protocolDeclSyntax {
+            // protocolの宣言中のとき
+            resultArray.append(SyntaxTag.conformedProtocolByProtocol.string + SyntaxTag.space.string + protocolName)
         }
     }
     
