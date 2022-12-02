@@ -134,7 +134,7 @@ import Foundation
 //    }
 //}
 
-//struct SomeStruct {
+struct SomeStruct {
 //    func SomeFunc(arrayParam: [Double], dictionaryParam: [String: Int], toupleParam: (Character, Float)) {}
 //    func arrayFunc(arrayParam: [Double]?, intParam: Int) {}
 //    var arrayParam: [Double]?
@@ -143,7 +143,9 @@ import Foundation
 //        self.arrayParam = arrayParam
 //    }
 //
-//    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
+    func dicFunc(dicParam: [String: Int]?, intParame: Int) -> [Character: Float] {
+        return ["#": 0.3333]
+    }
 //    var dicVariable: [Character: Double]?
 //    init(dicInitParam: [String: Float]?, doubleParam: Double) {}
 //
@@ -151,7 +153,7 @@ import Foundation
 //    fileprivate var toupleVariable: (String, Int, Double)? = (stringName: "STRINGSTRINGSTRING", intName: 2222222222, doubleName: 3333333333)
 //    public var initializedToupleVariable = (stringName: "TEXTTEXTTEXTTEXT", intName: 1111111111)
 //    init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
-//}
+}
 
 //protocol SuperSuperProtocol {}
 //protocol SuperProtocol {}
@@ -168,8 +170,8 @@ import Foundation
 //        }
 //    }
 //}
-struct SomeStruct {
-    func somefunc(num: Int) -> [String] {
-        return ["9999999999"]
-    }
-}
+//struct SomeStruct {
+//    func somefunc(num: Int) -> [String] {
+//        return ["9999999999"]
+//    }
+//}

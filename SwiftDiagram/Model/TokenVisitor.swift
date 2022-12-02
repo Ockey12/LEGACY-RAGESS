@@ -227,6 +227,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言開始するとき
                     resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunctionParameter.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの返り値の型として辞書を宣言開始するとき
+                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言開始するとき
@@ -525,6 +529,10 @@ final class TokenVisitor: SyntaxRewriter {
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                             // functionの引数の型として辞書を宣言中のとき
                             resultArray.append(SyntaxTag.dictionaryValueTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                        } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                                    (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                            // functionの返り値の型として辞書を宣言中のとき
+                            resultArray.append(SyntaxTag.dictionaryValueTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
                         } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                             // initializerの引数の型として辞書を宣言中のとき
@@ -545,6 +553,10 @@ final class TokenVisitor: SyntaxRewriter {
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                                 // functionの引数の型として辞書を宣言中のとき
                                 resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                            } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                                // functionの返り値の型として辞書を宣言中のとき
+                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
                             } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                                 // initializerの引数の型として辞書を宣言中のとき
@@ -720,6 +732,10 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言終了するとき
                     resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunctionParameter.string)
+                } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                    // functionの返り値の型として辞書を宣言終了するとき
+                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言終了するとき
