@@ -819,6 +819,9 @@ final class TokenVisitor: SyntaxRewriter {
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax {
             // enumのアクセスレベル
             resultArray.append(SyntaxTag.enumAccessLevel.string + SyntaxTag.space.string + accessLevel)
+        } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax {
+            // protocolのアクセスレベル
+            resultArray.append(SyntaxTag.protocolAccessLevel.string + SyntaxTag.space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
             // variableのアクセスレベル
             resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
