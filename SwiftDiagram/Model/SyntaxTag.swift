@@ -100,6 +100,9 @@ enum SyntaxTag {
     case endFunctionParameterSyntax // functionの個々の引数を宣言終了
     case startFunctionReturnValueType // functionの返り値の型の宣言開始
     case functionReturnValueType // functionの返り値の型
+    case startArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言開始
+    case arrayTypeOfFunctionReturnValue // 返り値の配列の型
+    case endArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言終了
     case endFunctionReturnValueType // functionの返り値の型の宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
     
@@ -293,6 +296,12 @@ enum SyntaxTag {
             return "StartFunctionReturnValueType"
         case .functionReturnValueType:
             return "FunctionReturnValueType"
+        case .startArrayTypeSyntaxOfFunctionReturnValue:
+            return "StartArrayTypeSyntaxOfFunctionReturnValue"
+        case .arrayTypeOfFunctionReturnValue:
+            return "ArrayTypeOfFunctionReturnValue"
+        case .endArrayTypeSyntaxOfFunctionReturnValue:
+            return "EndArrayTypeSyntaxOfFunctionReturnValue"
         case .endFunctionReturnValueType:
             return "EndFunctionReturnValueType"
         case .endFunctionDeclSyntax:

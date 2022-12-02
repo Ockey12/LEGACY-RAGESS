@@ -169,7 +169,7 @@ import Foundation
 //    }
 //}
 struct SomeStruct {
-    func somefunc(num: Int) -> String {
-        return "9999999999"
+    func somefunc(num: Int) -> [String] {
+        return ["9999999999"]
     }
 }
