@@ -33,6 +33,10 @@ enum SyntaxTag {
     case endEnumCaseElementSyntax // enumのcaseを宣言終了
     case endEnumDeclSyntax // enumの宣言終了
     
+    // protocol
+    case startProtocolDeclSyntax // protocolの宣言開始
+    case endProtocolDeclSyntax // protocolの宣言終了
+    
     // プロトコルへの準拠
     case startInheritedTypeListSyntax // プロトコルへの準拠開始
     case conformedProtocolByStruct // structが準拠しているプロトコル
@@ -163,6 +167,11 @@ enum SyntaxTag {
             return "EndEnumCaseElementSyntax"
         case .endEnumDeclSyntax:
             return "EndEnumDeclSyntax"
+        // protocol
+        case .startProtocolDeclSyntax:
+            return "StartProtocolDeclSyntax"
+        case .endProtocolDeclSyntax:
+            return "EndProtocolDeclSyntax"
         // プロトコルへの準拠
         case .startInheritedTypeListSyntax:
             return "StartInheritedTypeListSyntax"

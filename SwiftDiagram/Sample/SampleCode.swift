@@ -8,9 +8,9 @@
 import Foundation
 //import SwiftUI
 
-protocol Protocol1 {}
-
-protocol Protocol2 {}
+//protocol Protocol1 {}
+//
+//protocol Protocol2 {}
 
 //private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
@@ -134,7 +134,7 @@ protocol Protocol2 {}
 //    }
 //}
 
-struct SomeStruct {
+//struct SomeStruct {
 //    func SomeFunc(arrayParam: [Double], dictionaryParam: [String: Int], toupleParam: (Character, Float)) {}
 //    func arrayFunc(arrayParam: [Double]?, intParam: Int) {}
 //    var arrayParam: [Double]?
@@ -142,13 +142,17 @@ struct SomeStruct {
 //    init(arrayParam: [Double]?, intParam: Int) {
 //        self.arrayParam = arrayParam
 //    }
-    
+//
 //    func dicFunc(dicParam: [String: Int]?, intParame: Int) {}
 //    var dicVariable: [Character: Double]?
 //    init(dicInitParam: [String: Float]?, doubleParam: Double) {}
-    
-    func toupleFunc(toupleParam: (String, Int, Double)? , floatParam: Float) {}
-    var toupleVariable: (String, Int, Double)? = (stringName: "STRINGSTRINGSTRING", intName: 2222222222, doubleName: 3333333333)
-    var initializedToupleVariable = (stringName: "TEXTTEXTTEXTTEXT", intName: 1111111111)
-    init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
-}
+//
+//    private func toupleFunc(toupleParam: (String, Int, Double)? , floatParam: Float) {}
+//    fileprivate var toupleVariable: (String, Int, Double)? = (stringName: "STRINGSTRINGSTRING", intName: 2222222222, doubleName: 3333333333)
+//    public var initializedToupleVariable = (stringName: "TEXTTEXTTEXTTEXT", intName: 1111111111)
+//    init(toupleInitParam: (String, Int, Double)?, floatParam: Float) {}
+//}
+
+protocol SuperSuperProtocol {}
+protocol SuperProtocol {}
+private protocol SomeProtocol: SuperSuperProtocol, SuperProtocol {}
