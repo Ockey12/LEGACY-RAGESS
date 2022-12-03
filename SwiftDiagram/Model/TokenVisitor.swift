@@ -36,6 +36,12 @@ final class TokenVisitor: SyntaxRewriter {
     // visitPost()でresultArrayに.append()する
 //    private var variableTypeString = ""
     
+    // コンピューテッドプロパティで、getキーワードを省略したときのreturnを抽出するかを判断するために使う
+    // getキーワードを検査したときにtrueにする
+    // このフラグがfalseのときにreturnを検査したら、getキーワードが省略されているので、returnを抽出する
+    // visitPre()でfalseに初期化する
+    private var passedGetKeywordOfVariableFlag = false
+    
     // variableの初期値を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visitPost()でresultArrayに.append()する
@@ -142,6 +148,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.associatedtypeDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
+                passedGetKeywordOfVariableFlag = false
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.variableDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
@@ -177,7 +184,7 @@ final class TokenVisitor: SyntaxRewriter {
                 resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
-                // functionまたはinitializerのCodeBlock宣言開始
+                // function、initializer、コンピューテッドプロパティのCodeBlock宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.codeBlockSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) {
@@ -295,6 +302,13 @@ final class TokenVisitor: SyntaxRewriter {
         
         if (1 < currentPositionInStack) &&
             (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
+            if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) &&
+                (tokenKind == TokenKind.returnKeyword.string) &&
+                (!passedGetKeywordOfVariableFlag) {
+                // variableの宣言中、passedGetKeywordOfVariableFlagがfalseのときにreturnを検査したとき、それはgetキーワードを省略したコンピューテッドプロパティ
+                // getキーワードを抽出したことにする
+                resultArray.append(SyntaxTag.haveGetter.string)
+            }
             // CodeBlockSyntax内の情報は無視する
             return token._syntaxNode
         }
@@ -431,6 +445,7 @@ final class TokenVisitor: SyntaxRewriter {
                     resultArray.append(SyntaxTag.haveDidSet.string)
                 } else if tokenKind == TokenKind.getKeyword.string {
                     // getのとき
+                    passedGetKeywordOfVariableFlag = true
                     resultArray.append(SyntaxTag.haveGetter.string)
                 } else if tokenKind == TokenKind.setKeyword.string {
                     // setのとき
