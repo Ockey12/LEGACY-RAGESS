@@ -626,6 +626,11 @@ final class TokenVisitor: SyntaxRewriter {
                     // "="を検査したのでフラグをtrueにする
                     passedEqualOfTypealiasDeclFlag = true
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax) &&
+                        (passedEqualOfTypealiasDeclFlag) {
+                // typealiasの宣言中
+                // 既に"="を検査した後
+                resultArray.append(SyntaxTag.typealiasType.string + SyntaxTag.space.string + token.text)
             }
         }
         

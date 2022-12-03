@@ -166,6 +166,7 @@ private protocol SomeProtocol {
 struct AssociatedStruct: SomeProtocol {
     typealias ASSOCIATEDTYPE = [String: Int]
 }
+
 //struct SomeStruct {
 //    func sorted<T: Collection>(_ argument: T) -> [T.Element] where T.Element: Comparable {
 //        return argument.sorted()
