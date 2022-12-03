@@ -184,10 +184,10 @@ import Foundation
 //    }
 //}
 
-class SuperClass {
+open class SuperClass {
     func methodOfSuperClass() {}
 }
-class ChildClass: SuperClass {
+fileprivate class ChildClass: SuperClass {
     override func methodOfSuperClass() {
         super.methodOfSuperClass()
     }

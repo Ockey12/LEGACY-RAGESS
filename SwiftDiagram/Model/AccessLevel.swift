@@ -14,6 +14,21 @@ enum AccessLevel {
     case `fileprivate`
     case `private`
     
+    var string: String {
+        switch self {
+        case .open:
+            return "open"
+        case .public:
+            return "public"
+        case .internal:
+            return "internal"
+        case .fileprivate:
+            return "fileprivate"
+        case .private:
+            return "private"
+        }
+    }
+    
     var icon: String {
         switch self {
         case .open:

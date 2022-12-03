@@ -897,15 +897,15 @@ final class TokenVisitor: SyntaxRewriter {
     private func addAccessLevelToResultArray(accessLevel: AccessLevel) {
         switch accessLevel {
         case .open:
-            addAccessLevelToResultArrayDependOnType(accessLevel: SyntaxTag.open.string)
+            addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.open.string)
         case .public:
-            addAccessLevelToResultArrayDependOnType(accessLevel: SyntaxTag.public.string)
+            addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.public.string)
         case .internal:
-            addAccessLevelToResultArrayDependOnType(accessLevel: SyntaxTag.internal.string)
+            addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.internal.string)
         case .fileprivate:
-            addAccessLevelToResultArrayDependOnType(accessLevel: SyntaxTag.fileprivate.string)
+            addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.fileprivate.string)
         case .private:
-            addAccessLevelToResultArrayDependOnType(accessLevel: SyntaxTag.private.string)
+            addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.private.string)
         }
     }
     
