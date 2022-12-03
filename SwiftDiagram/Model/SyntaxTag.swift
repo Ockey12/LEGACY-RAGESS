@@ -39,6 +39,7 @@ enum SyntaxTag {
     case protocolName // protocolの名前
     case startAssociatedtypeDeclSyntax // 連想型の宣言開始
     case associatedType // 連想型の名前
+    case conformedProtocolOrInheritedClassByAssociatedType // 連想型の型制約で指定するプロトコルかスーパークラス
     case endAssociatedtypeDeclSyntax // 連想型の宣言終了
     case endProtocolDeclSyntax // protocolの宣言終了
     
@@ -214,6 +215,8 @@ enum SyntaxTag {
             return "StartAssociatedtypeDeclSyntax"
         case .associatedType:
             return "AssociatedType"
+        case .conformedProtocolOrInheritedClassByAssociatedType:
+            return "ConformedProtocolOrInheritedClassByAssociatedType"
         case .endAssociatedtypeDeclSyntax:
             return "EndAssociatedtypeDeclSyntax"
         case .endProtocolDeclSyntax:

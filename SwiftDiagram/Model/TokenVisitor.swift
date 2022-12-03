@@ -138,7 +138,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.protocolDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
                 // protocolの連想型の宣言開始
-//                resultArray.append(SyntaxTag.startAssociatedtypeDeclSyntax.string)
+                resultArray.append(SyntaxTag.startAssociatedtypeDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.associatedtypeDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
@@ -704,7 +704,7 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
                 // protocolの連想型の宣言終了
-//                resultArray.append(SyntaxTag.endAssociatedtypeDeclSyntax.string)
+                resultArray.append(SyntaxTag.endAssociatedtypeDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言終了
@@ -952,6 +952,9 @@ final class TokenVisitor: SyntaxRewriter {
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.protocolDeclSyntax {
             // protocolの宣言中のとき
             resultArray.append(SyntaxTag.conformedProtocolByProtocol.string + SyntaxTag.space.string + protocolName)
+        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.associatedtypeDeclSyntax {
+            // protocolで連想型の型制約を宣言中のとき
+            resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByAssociatedType.string + SyntaxTag.space.string + protocolName)
         }
     }
     
