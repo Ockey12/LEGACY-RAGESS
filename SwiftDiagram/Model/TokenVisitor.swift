@@ -247,6 +247,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言開始するとき
                     resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型として辞書を宣言開始するとき
+                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfTypealias.string)
                 }
                 passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
@@ -569,6 +572,9 @@ final class TokenVisitor: SyntaxRewriter {
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                             // initializerの引数の型として辞書を宣言中のとき
                             resultArray.append(SyntaxTag.dictionaryValueTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                            // typealiasの型として辞書を宣言中のとき
+                            resultArray.append(SyntaxTag.dictionaryValueTypeOfTypealias.string + SyntaxTag.space.string + token.text)
                         }
                     } else {
                         // ":"を検査する前
@@ -593,6 +599,9 @@ final class TokenVisitor: SyntaxRewriter {
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                                 // initializerの引数の型として辞書を宣言中のとき
                                 resultArray.append(SyntaxTag.dictionaryKeyTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                            } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                                // typealiasの型として辞書を宣言中のとき
+                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfTypealias.string + SyntaxTag.space.string + token.text)
                             }
                         }
                     }
@@ -799,6 +808,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言終了するとき
                     resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型として辞書を宣言終了するとき
+                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
