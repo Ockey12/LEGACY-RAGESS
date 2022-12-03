@@ -968,6 +968,9 @@ final class TokenVisitor: SyntaxRewriter {
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.associatedtypeDeclSyntax {
             // protocolで連想型の型制約を宣言中のとき
             resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByAssociatedType.string + SyntaxTag.space.string + protocolName)
+        } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.extensionDeclSyntax {
+            // extensionの宣言中のとき
+            resultArray.append(SyntaxTag.conformedProtocolByExtension.string + SyntaxTag.space.string + protocolName)
         }
     }
     

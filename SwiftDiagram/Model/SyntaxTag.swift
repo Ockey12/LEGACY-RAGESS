@@ -142,6 +142,7 @@ enum SyntaxTag {
     // extension
     case startExtensionDeclSyntax // extensionの宣言開始
     case endExtensionDeclSyntax // extensionの宣言終了
+    case conformedProtocolByExtension // extensionで準拠しているprotocol名
     
     // typealias
     case startTypealiasDecl // typealiasの宣言開始
@@ -407,6 +408,8 @@ enum SyntaxTag {
             return "StartExtensionDeclSyntax"
         case .endExtensionDeclSyntax:
             return "EndExtensionDeclSyntax"
+        case .conformedProtocolByExtension:
+            return "ConformedProtocolByExtension"
         // typealias
         case .startTypealiasDecl:
             return "StartTypealiasDecl"
