@@ -262,6 +262,10 @@ final class TokenVisitor: SyntaxRewriter {
                     resultArray.append(SyntaxTag.startTupleTypeSyntaxOfInitializer.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
+            } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
+                // typealiasの宣言開始
+                resultArray.append(SyntaxTag.startTypealiasDecl.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.typealiasDeclSyntax)
             }
         }
     }
@@ -789,6 +793,10 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {
                 // オプショナル型の配列などを宣言終了したとき
                 resultArray.append(SyntaxTag.isOptionalType.string)
+            } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
+                // typealiasの宣言終了
+                resultArray.append(SyntaxTag.endTypealiasDecl.string)
+                popSyntaxNodeTypeStack()
             }
         }
     }

@@ -47,9 +47,8 @@ enum SyntaxNodeType {
     case arrayTypeSyntax // 配列の宣言
     case dictionaryTypeSyntax // 辞書の宣言
     case tupleTypeSyntax // タプルの宣言
-    
     case optionalTypeSyntax // 配列などがオプショナルのとき、これにラップされている
-//    case
+    case typealiasDeclSyntax // typealiasの宣言
     
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
@@ -109,9 +108,10 @@ enum SyntaxNodeType {
             return "DictionaryTypeSyntax"
         case .tupleTypeSyntax:
             return "TupleTypeSyntax"
-            
         case .optionalTypeSyntax:
             return "OptionalTypeSyntax"
+        case .typealiasDeclSyntax:
+            return "TypealiasDeclSyntax"
         }
     }
 }

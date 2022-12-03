@@ -136,6 +136,12 @@ enum SyntaxTag {
     case endTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言終了
     case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
+    
+    // typealias
+    case startTypealiasDecl // typealiasの宣言開始
+    case typealiasAssociatedTypeName // 連想型の名前
+    case typealiasType // 連想型に指定する型
+    case endTypealiasDecl // typealiasの宣言終了
 
     // アクセスレベル
     case open
@@ -376,6 +382,15 @@ enum SyntaxTag {
             return "EndInitializerParameter"
         case .endInitializerDeclSyntax:
             return "EndInitializerDeclSyntax"
+        // typealias
+        case .startTypealiasDecl:
+            return "StartTypealiasDecl"
+        case .typealiasAssociatedTypeName:
+            return "TypealiasAssociatedTypeName"
+        case .typealiasType:
+            return "TypealiasType"
+        case .endTypealiasDecl:
+            return "EndTypealiasDecl"
         // アクセスレベル
         case .open:
             return "open"
