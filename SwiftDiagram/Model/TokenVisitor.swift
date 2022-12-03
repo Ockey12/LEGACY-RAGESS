@@ -94,6 +94,11 @@ final class TokenVisitor: SyntaxRewriter {
     // visitPre()でfalseに初期化する
     private var passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
     
+    // typealiasの連想型名と型を区別するために使う
+    // 連想型を抽出後、"="を検査したときにtrueになる
+    // visitPre()でfalseに初期化する
+    private var passedEqualOfTypealiasDeclFlag = false
+    
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
         print("PRE-> \(currentSyntaxNodeType)")
@@ -264,6 +269,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言開始
+                passedEqualOfTypealiasDeclFlag = false
                 resultArray.append(SyntaxTag.startTypealiasDecl.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.typealiasDeclSyntax)
             }
@@ -608,6 +614,17 @@ final class TokenVisitor: SyntaxRewriter {
                         // initializerの引数の型としてタプルを宣言中のとき
                         resultArray.append(SyntaxTag.tupleTypeOfInitializer.string + SyntaxTag.space.string + token.text)
                     }
+                }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax) &&
+                        (!passedEqualOfTypealiasDeclFlag) {
+                // typealiasの宣言中
+                // まだ"="を検査していない
+                if tokenKind.hasPrefix(TokenKind.identifier.string) {
+                    // 連想型名を抽出する
+                    resultArray.append(SyntaxTag.typealiasAssociatedTypeName.string + SyntaxTag.space.string + token.text)
+                } else if tokenKind == TokenKind.equal.string {
+                    // "="を検査したのでフラグをtrueにする
+                    passedEqualOfTypealiasDeclFlag = true
                 }
             }
         }
