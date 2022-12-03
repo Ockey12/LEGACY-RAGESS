@@ -224,6 +224,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として配列を宣言開始するとき
                     resultArray.append(SyntaxTag.startArrayTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型として配列を宣言開始するとき
+                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfTypealias.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {
@@ -538,6 +541,9 @@ final class TokenVisitor: SyntaxRewriter {
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                         // initializerの引数の型として配列を宣言中のとき
                         resultArray.append(SyntaxTag.arrayTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                    } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                        // typealiasの型として配列を宣言中のとき
+                        resultArray.append(SyntaxTag.arrayTypeOfTypealias.string + SyntaxTag.space.string + token.text)
                     }
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.dictionaryTypeSyntax {
@@ -770,6 +776,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として配列を宣言開始するとき
                     resultArray.append(SyntaxTag.endArrayTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型として配列を宣言終了するとき
+                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {

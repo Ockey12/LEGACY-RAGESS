@@ -141,6 +141,16 @@ enum SyntaxTag {
     case startTypealiasDecl // typealiasの宣言開始
     case typealiasAssociatedTypeName // 連想型の名前
     case typealiasType // 連想型に指定する型
+    case startArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言開始
+    case arrayTypeOfTypealias // 配列の型
+    case endArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言終了
+    case startDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言開始
+    case dictionaryKeyTypeOfTypealias // 辞書のKeyの型
+    case dictionaryValueTypeOfTypealias // 辞書のValueの型
+    case endDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言終了
+    case startTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言開始
+    case tupleTypeOfTypealias // タプルの型
+    case endTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言終了
     case endTypealiasDecl // typealiasの宣言終了
 
     // アクセスレベル
@@ -389,6 +399,26 @@ enum SyntaxTag {
             return "TypealiasAssociatedTypeName"
         case .typealiasType:
             return "TypealiasType"
+        case .startArrayTypeSyntaxOfTypealias:
+            return "StartArrayTypeSyntaxOfTypealias"
+        case .arrayTypeOfTypealias:
+            return "ArrayTypeOfTypealias"
+        case .endArrayTypeSyntaxOfTypealias:
+            return "EndArrayTypeSyntaxOfTypealias"
+        case .startDictionaryTypeSyntaxOfTypealias:
+            return "StartDictionaryTypeSyntaxOfTypealias"
+        case .dictionaryKeyTypeOfTypealias:
+            return "DictionaryKeyTypeOfTypealias"
+        case .dictionaryValueTypeOfTypealias:
+            return "DictionaryValueTypeOfTypealias"
+        case .endDictionaryTypeSyntaxOfTypealias:
+            return "EndDictionaryTypeSyntaxOfTypealias"
+        case .startTupleTypeSyntaxOfTypealias:
+            return "StartTupleTypeSyntaxOfTypealias"
+        case .tupleTypeOfTypealias:
+            return "TupleTypeOfTypealias"
+        case .endTupleTypeSyntaxOfTypealias:
+            return "EndTupleTypeSyntaxOfTypealias"
         case .endTypealiasDecl:
             return "EndTypealiasDecl"
         // アクセスレベル
