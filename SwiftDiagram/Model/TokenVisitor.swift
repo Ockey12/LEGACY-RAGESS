@@ -271,6 +271,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言開始するとき
                     resultArray.append(SyntaxTag.startTupleTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型としてタプルを宣言開始するとき
+                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfTypealias.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
@@ -628,6 +631,9 @@ final class TokenVisitor: SyntaxRewriter {
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                         // initializerの引数の型としてタプルを宣言中のとき
                         resultArray.append(SyntaxTag.tupleTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                    }else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                        // typealiasの型としてタプルを宣言中のとき
+                        resultArray.append(SyntaxTag.tupleTypeOfTypealias.string + SyntaxTag.space.string + token.text)
                     }
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax) &&
@@ -642,9 +648,11 @@ final class TokenVisitor: SyntaxRewriter {
                     passedEqualOfTypealiasDeclFlag = true
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax) &&
-                        (passedEqualOfTypealiasDeclFlag) {
+                        (passedEqualOfTypealiasDeclFlag) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // typealiasの宣言中
                 // 既に"="を検査した後
+                // optional型の"?"がつく可能性があるため、tokenKindがidentifierのときのみ抽出する
                 resultArray.append(SyntaxTag.typealiasType.string + SyntaxTag.space.string + token.text)
             }
         }
@@ -831,6 +839,9 @@ final class TokenVisitor: SyntaxRewriter {
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言終了するとき
                     resultArray.append(SyntaxTag.endTupleTypeSyntaxOfInitializer.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
+                    // typealiasの型としてタプルを宣言終了するとき
+                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {

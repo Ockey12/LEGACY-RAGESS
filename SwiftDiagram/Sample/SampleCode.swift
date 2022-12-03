@@ -164,7 +164,7 @@ private protocol SomeProtocol {
 //    var variable: String { get }
 }
 struct AssociatedStruct: SomeProtocol {
-    typealias ASSOCIATEDTYPE = [String: Int]
+    typealias ASSOCIATEDTYPE = (String, Int, Double)?
 }
 
 //struct SomeStruct {
