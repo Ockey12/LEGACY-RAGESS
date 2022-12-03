@@ -98,12 +98,18 @@ final class TokenVisitor: SyntaxRewriter {
     // Keyを抽出後、":"を検査したときにtrueになる
     // visit()内でtokenKindがidentifier()のとき、これがfalseならKey、trueならValue
     // visitPre()でfalseに初期化する
-    private var passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
+    private var passedColonOfDictionaryTypeSyntaxFlag = false
     
     // typealiasの連想型名と型を区別するために使う
     // 連想型を抽出後、"="を検査したときにtrueになる
     // visitPre()でfalseに初期化する
     private var passedEqualOfTypealiasDeclFlag = false
+    
+    // genericsの型引数と、それが準拠しているprotocolまたはスーパークラスを区別するために使う
+    // ":"を検査したときにtrueになる
+    // falseなら型引数、trueならprotocolまたはスーパークラス
+    // visitPre()でfalseに初期化する
+    private var passedColonOfGenericParameterFlag = false
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -185,6 +191,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
                 // genericsの型引数の宣言開始
+                passedColonOfGenericParameterFlag = false
                 resultArray.append(SyntaxTag.startGenericParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.genericParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
@@ -266,7 +273,7 @@ final class TokenVisitor: SyntaxRewriter {
                     // typealiasの型として辞書を宣言開始するとき
                     resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfTypealias.string)
                 }
-                passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = false
+                passedColonOfDictionaryTypeSyntaxFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
                 // タプルの宣言開始
@@ -522,6 +529,24 @@ final class TokenVisitor: SyntaxRewriter {
                     // StringやIntのみ抽出する
                     resultArray.append(SyntaxTag.functionReturnValueType.string + SyntaxTag.space.string + token.text)
                 }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.genericParameterSyntax) &&
+                        (!passedColonOfGenericParameterFlag) {
+                // genericsを宣言しているとき
+                // まだ":"を検査していないとき
+                // 型引数を抽出する
+                if tokenKind == TokenKind.colon.string {
+                    passedColonOfGenericParameterFlag = true
+                } else {
+                    resultArray.append(SyntaxTag.parameterTypeOfGenerics.string + SyntaxTag.space.string + token.text)
+                }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.genericParameterSyntax) &&
+                        (passedColonOfGenericParameterFlag) {
+                // genericsを宣言しているとき
+                // 既に":"を検査した後
+                // 準拠しているprotocolまたはスーパークラスを抽出する
+                if tokenKind != TokenKind.comma.string {
+                    resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByGenerics.string + SyntaxTag.space.string + token.text)
+                }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax {
                 // initializerの宣言中
                 if tokenKind == TokenKind.convenienceKeyword.string {
@@ -585,7 +610,7 @@ final class TokenVisitor: SyntaxRewriter {
                 if (tokenKind != TokenKind.leftSquareBracket.string) &&
                     (tokenKind != TokenKind.rightSquareBracket.string) {
                     // "[" と "]"は抽出しない
-                    if passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag {
+                    if passedColonOfDictionaryTypeSyntaxFlag {
                         // ":"を検査した後なので、token.textはValueの型
                         if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
@@ -611,7 +636,7 @@ final class TokenVisitor: SyntaxRewriter {
                         // ":"を検査する前
                         if tokenKind == TokenKind.colon.string {
                             // ":"を見つけたとき、フラグをtrueにする
-                            passedFunctionParameterOfDictionaryTypeSyntaxFirstColonFlag = true
+                            passedColonOfDictionaryTypeSyntaxFlag = true
                         } else {
                             // Keyの型
                             if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&

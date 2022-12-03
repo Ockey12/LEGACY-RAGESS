@@ -199,4 +199,7 @@ struct SomeStruct: Protocol1, Protocol2 {
         return "TextTextTextText"
     }
 }
+struct GenericsStruct<GGGGGGGGGG: Protocol1, HHHHHHHHHH: Protocol2> {
+    
+}
 //extension SomeStruct: Protocol1, Protocol2 {}
