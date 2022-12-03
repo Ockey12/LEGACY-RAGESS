@@ -144,6 +144,12 @@ enum SyntaxTag {
     case endExtensionDeclSyntax // extensionの宣言終了
     case conformedProtocolByExtension // extensionで準拠しているprotocol名
     
+    // generics
+    case startGenericParameterSyntax // genericsの型引数の宣言開始
+    case parameterTypeOfGenerics // 型引数名
+    case conformedProtocolOrInheritedClassByGenerics // 型引数が準拠しているprotocol、または継承しているclass
+    case endGenericParameterSyntax // genericsの型引数の宣言終了
+    
     // typealias
     case startTypealiasDecl // typealiasの宣言開始
     case typealiasAssociatedTypeName // 連想型の名前
@@ -410,6 +416,15 @@ enum SyntaxTag {
             return "EndExtensionDeclSyntax"
         case .conformedProtocolByExtension:
             return "ConformedProtocolByExtension"
+        // generics
+        case .startGenericParameterSyntax:
+            return "StartGenericParameterSyntax"
+        case .parameterTypeOfGenerics:
+            return "ParameterTypeOfGenerics"
+        case .conformedProtocolOrInheritedClassByGenerics:
+            return "ConformedProtocolOrInheritedClassByGenerics"
+        case .endGenericParameterSyntax:
+            return "EndGenericParameterSyntax"
         // typealias
         case .startTypealiasDecl:
             return "StartTypealiasDecl"

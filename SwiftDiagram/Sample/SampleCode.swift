@@ -192,19 +192,11 @@ import Foundation
 //        super.methodOfSuperClass()
 //    }
 //}
-//protocol Protocol1 {}
-//protocol Protocol2 {}
-struct SomeStructAAAAAA {
-    var returnStringVariable: String {
-        get {
-            return "AAAAAAAAAAAAAAAAAAAA"
-        }
-//        return "TextTextTextText"
-    }
-}
-struct SomeStructBBBBBB {
-    var returnStringVariable: String {
-        return "BBBBBBBBBBBBBBBBBBBB"
+protocol Protocol1 {}
+protocol Protocol2 {}
+struct SomeStruct: Protocol1, Protocol2 {
+    func genericsFunction<TTTTTTTTTT: Protocol1, FFFFFFFFFF: Protocol2>(xxxxxxxxxx: TTTTTTTTTT, yyyyyyyyyy: FFFFFFFFFF) -> String {
+        return "TextTextTextText"
     }
 }
 //extension SomeStruct: Protocol1, Protocol2 {}

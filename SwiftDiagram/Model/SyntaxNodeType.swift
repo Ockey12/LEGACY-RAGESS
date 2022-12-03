@@ -47,6 +47,9 @@ enum SyntaxNodeType {
     // extension
     case extensionDeclSyntax // extensionの宣言
     
+    // generics
+    case genericParameterSyntax // genericsの型引数の宣言
+    
     case arrayTypeSyntax // 配列の宣言
     case dictionaryTypeSyntax // 辞書の宣言
     case tupleTypeSyntax // タプルの宣言
@@ -107,6 +110,9 @@ enum SyntaxNodeType {
         // extension
         case .extensionDeclSyntax:
             return "ExtensionDeclSyntax"
+        // generics
+        case .genericParameterSyntax:
+            return "GenericParameterSyntax"
             
         case .arrayTypeSyntax:
             return "ArrayTypeSyntax"

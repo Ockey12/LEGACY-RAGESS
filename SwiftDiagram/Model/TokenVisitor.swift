@@ -183,6 +183,10 @@ final class TokenVisitor: SyntaxRewriter {
 //                functionParameterTypeString = ""
                 resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
+            } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
+                // genericsの型引数の宣言開始
+                resultArray.append(SyntaxTag.startGenericParameterSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.genericParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
                 // function、initializer、コンピューテッドプロパティのCodeBlock宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.codeBlockSyntax)
@@ -779,6 +783,10 @@ final class TokenVisitor: SyntaxRewriter {
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                 // functionの返り値の宣言終了
                 resultArray.append(SyntaxTag.endFunctionReturnValueType.string)
+                popSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
+                // genericsの型引数の宣言終了
+                resultArray.append(SyntaxTag.endGenericParameterSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承終了
