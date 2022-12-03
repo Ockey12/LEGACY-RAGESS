@@ -161,6 +161,7 @@ import Foundation
 //protocol SuperProtocol {}
 private protocol SomeProtocol {
     associatedtype ASSOCIATEDTYPE: Equatable
+    func somefunc(num: Int) -> [String]?
 //    var variable: String { get }
 }
 

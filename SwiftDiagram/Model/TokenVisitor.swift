@@ -489,8 +489,9 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                 // functionの返り値の型を宣言しているとき
-                if tokenKind != TokenKind.arrow.string {
-                    // "->"以外を抽出する
+                if (tokenKind != TokenKind.arrow.string) &&
+                    (tokenKind != TokenKind.postfixQuestionMark.string) {
+                    // "->" と "?" 以外を抽出する
                     // StringやIntのみ抽出する
                     resultArray.append(SyntaxTag.functionReturnValueType.string + SyntaxTag.space.string + token.text)
                 }
