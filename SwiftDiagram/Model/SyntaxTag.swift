@@ -83,6 +83,7 @@ enum SyntaxTag {
     // function
     case startFunctionDeclSyntax // functionの宣言開始
     case functionAccessLevel // functionのアクセスレベル
+    case isOverrideFunction // overrideキーワードを持つ
     case isMutatingFunction // mutatingキーワードを持つ
     case functionName // functionの名前
     case startFunctionParameterSyntax // functionの個々の引数を宣言開始
@@ -290,6 +291,8 @@ enum SyntaxTag {
             return "StartFunctionDeclSyntax"
         case .functionAccessLevel:
             return "FunctionAccessLevel"
+        case .isOverrideFunction:
+            return "IsOverrideFunction"
         case .isMutatingFunction:
             return "IsMutatingFunction"
         case .functionName:

@@ -159,11 +159,11 @@ import Foundation
 
 //protocol SuperSuperProtocol {}
 //protocol SuperProtocol {}
-private protocol SomeProtocol {
-    associatedtype ASSOCIATEDTYPE: Equatable
-    func somefunc(num: Int) -> [String]?
+//private protocol SomeProtocol {
+//    associatedtype ASSOCIATEDTYPE: Equatable
+//    func somefunc(num: Int) -> [String]?
 //    var variable: String { get }
-}
+//}
 
 //struct SomeStruct {
 //    func sorted<T: Collection>(_ argument: T) -> [T.Element] where T.Element: Comparable {
@@ -183,3 +183,12 @@ private protocol SomeProtocol {
 //        return ["9999999999"]
 //    }
 //}
+
+class SuperClass {
+    func methodOfSuperClass() {}
+}
+class ChildClass: SuperClass {
+    override func methodOfSuperClass() {
+        super.methodOfSuperClass()
+    }
+}

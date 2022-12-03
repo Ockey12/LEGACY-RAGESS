@@ -436,8 +436,12 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // functionの名前を宣言しているとき
                 if tokenKind == TokenKind.mutatingKeyword.string {
+                    // mutatingキーワードを見つけたとき
                     resultArray.append(SyntaxTag.isMutatingFunction.string)
-                } else {
+                } else if tokenKind == TokenKind.overrideKeyword.string {
+                    // overrideキーワードを見つけたとき
+                    resultArray.append(SyntaxTag.isOverrideFunction.string)
+                }else {
                     resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&

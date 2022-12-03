@@ -29,6 +29,7 @@ enum TokenKind {
     case setKeyword // variableのsetキーワード
     
     // function
+    case overrideKeyword // functionのoverrideキーワード
     case mutatingKeyword // functionのmutatingキーワード
     case inoutKeyword // functionの引数のinoutキーワード
     case arrow // functionの返り値の"->"
@@ -81,6 +82,8 @@ enum TokenKind {
         case .setKeyword:
             return "contextualKeyword(\"set\")"
         // function
+        case .overrideKeyword:
+            return "identifier(\"override\")"
         case .mutatingKeyword:
             return "identifier(\"mutating\")"
         case .inoutKeyword:
