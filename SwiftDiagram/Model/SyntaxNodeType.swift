@@ -44,6 +44,9 @@ enum SyntaxNodeType {
     // initializer
     case initializerDeclSyntax // initializerの宣言
     
+    // extension
+    case extensionDeclSyntax // extensionの宣言
+    
     case arrayTypeSyntax // 配列の宣言
     case dictionaryTypeSyntax // 辞書の宣言
     case tupleTypeSyntax // タプルの宣言
@@ -101,6 +104,9 @@ enum SyntaxNodeType {
         // initializer
         case .initializerDeclSyntax:
             return "InitializerDeclSyntax"
+        // extension
+        case .extensionDeclSyntax:
+            return "ExtensionDeclSyntax"
             
         case .arrayTypeSyntax:
             return "ArrayTypeSyntax"

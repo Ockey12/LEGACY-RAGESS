@@ -184,11 +184,15 @@ import Foundation
 //    }
 //}
 
-open class SuperClass {
-    func methodOfSuperClass() {}
-}
-fileprivate class ChildClass: SuperClass {
-    override func methodOfSuperClass() {
-        super.methodOfSuperClass()
-    }
-}
+//open class SuperClass {
+//    func methodOfSuperClass() {}
+//}
+//fileprivate class ChildClass: SuperClass {
+//    override func methodOfSuperClass() {
+//        super.methodOfSuperClass()
+//    }
+//}
+protocol Protocol1 {}
+protocol Protocol2 {}
+struct SomeStruct {}
+extension SomeStruct: Protocol1, Protocol2 {}

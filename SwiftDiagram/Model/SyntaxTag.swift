@@ -139,6 +139,10 @@ enum SyntaxTag {
     case endInitializerParameter // 引数1つの宣言終了
     case endInitializerDeclSyntax // initializerの宣言終了
     
+    // extension
+    case startExtensionDeclSyntax // extensionの宣言開始
+    case endExtensionDeclSyntax // extensionの宣言終了
+    
     // typealias
     case startTypealiasDecl // typealiasの宣言開始
     case typealiasAssociatedTypeName // 連想型の名前
@@ -398,6 +402,11 @@ enum SyntaxTag {
             return "EndInitializerParameter"
         case .endInitializerDeclSyntax:
             return "EndInitializerDeclSyntax"
+        // extension
+        case .startExtensionDeclSyntax:
+            return "StartExtensionDeclSyntax"
+        case .endExtensionDeclSyntax:
+            return "EndExtensionDeclSyntax"
         // typealias
         case .startTypealiasDecl:
             return "StartTypealiasDecl"

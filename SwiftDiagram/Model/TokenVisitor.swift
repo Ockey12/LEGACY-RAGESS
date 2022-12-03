@@ -206,6 +206,10 @@ final class TokenVisitor: SyntaxRewriter {
                 passedFunctionParameterOfInitializerDeclFirstColonFlag = false
                 resultArray.append(SyntaxTag.startInitializerParameter.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
+            } else if currentSyntaxNodeType == SyntaxNodeType.extensionDeclSyntax.string {
+                // extensionの宣言開始
+                resultArray.append(SyntaxTag.startExtensionDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.extensionDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
                 // 配列の宣言開始
                 if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
@@ -779,6 +783,10 @@ final class TokenVisitor: SyntaxRewriter {
 //                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
 //                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
                 resultArray.append(SyntaxTag.endInitializerParameter.string)
+                popSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.extensionDeclSyntax.string {
+                // extensionの宣言終了
+                resultArray.append(SyntaxTag.endExtensionDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
                 // 配列の宣言終了
