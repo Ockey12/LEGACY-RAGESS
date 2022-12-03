@@ -39,6 +39,7 @@ enum SyntaxNodeType {
     //protocol
     case protocolDeclSyntax // プロトコルの宣言
     case inheritedTypeListSyntax // プロトコルへの準拠
+    case associatedtypeDeclSyntax // protocol内での連想型の宣言
     
     // initializer
     case initializerDeclSyntax // initializerの宣言
@@ -48,6 +49,7 @@ enum SyntaxNodeType {
     case tupleTypeSyntax // タプルの宣言
     
     case optionalTypeSyntax // 配列などがオプショナルのとき、これにラップされている
+//    case
     
 //    case declModifierSyntax // アクセスレベル そのまま抽出できるから考慮しなくて良い？
     
@@ -95,6 +97,8 @@ enum SyntaxNodeType {
             return "ProtocolDeclSyntax"
         case .inheritedTypeListSyntax:
             return "InheritedTypeListSyntax"
+        case .associatedtypeDeclSyntax:
+            return "AssociatedtypeDeclSyntax"
         // initializer
         case .initializerDeclSyntax:
             return "InitializerDeclSyntax"

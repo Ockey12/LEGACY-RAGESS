@@ -131,6 +131,10 @@ final class TokenVisitor: SyntaxRewriter {
                 // protocolの宣言開始
                 resultArray.append(SyntaxTag.startProtocolDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.protocolDeclSyntax)
+            } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
+                // protocolの連想型の宣言開始
+//                resultArray.append(SyntaxTag.startAssociatedtypeDeclSyntax.string)
+                pushSyntaxNodeTypeStack(SyntaxNodeType.associatedtypeDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
@@ -327,6 +331,10 @@ final class TokenVisitor: SyntaxRewriter {
                 // protocolの名前を宣言しているとき
                 resultArray.append(SyntaxTag.protocolName.string + SyntaxTag.space.string + token.text)
                 printClassNameArray()
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.associatedtypeDeclSyntax) &&
+                        (tokenKind.hasPrefix(TokenKind.identifier.string)) {
+                // protocol内の連想型を宣言しているとき
+                resultArray.append(SyntaxTag.associatedType.string + SyntaxTag.space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -644,6 +652,10 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
                 // protocolの宣言終了
                 resultArray.append(SyntaxTag.endProtocolDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
+                // protocolの連想型の宣言終了
+//                resultArray.append(SyntaxTag.endAssociatedtypeDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言終了
