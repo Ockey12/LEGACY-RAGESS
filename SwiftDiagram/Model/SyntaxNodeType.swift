@@ -50,6 +50,9 @@ enum SyntaxNodeType {
     // generics
     case genericParameterSyntax // genericsの型引数の宣言
     
+    // opaque result type
+    case constrainedSugarTypeSyntax // opaque result typeの宣言
+    
     case arrayTypeSyntax // 配列の宣言
     case dictionaryTypeSyntax // 辞書の宣言
     case tupleTypeSyntax // タプルの宣言
@@ -113,6 +116,9 @@ enum SyntaxNodeType {
         // generics
         case .genericParameterSyntax:
             return "GenericParameterSyntax"
+        // opaque result type
+        case .constrainedSugarTypeSyntax:
+            return "ConstrainedSugarTypeSyntax"
             
         case .arrayTypeSyntax:
             return "ArrayTypeSyntax"

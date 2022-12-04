@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//import SwiftUI
+import SwiftUI
 
 //protocol Protocol1 {}
 //
@@ -192,24 +192,54 @@ import Foundation
 //        super.methodOfSuperClass()
 //    }
 //}
-protocol Protocol1 {}
-protocol Protocol2 {}
-struct SomeStruct {
-    var name: String
-    var age: Int
-}
+//protocol Protocol1 {}
+//protocol Protocol2 {}
+//struct SomeStruct {
+//    var name: String
+//    var age: Int
+//}
 //struct GenericsStruct<GGGGGGGGGG: Protocol1, HHHHHHHHHH: Protocol2> {
 //
 //}
-extension SomeStruct: Protocol1, Protocol2 {
-    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
-        return [11111]
+//extension SomeStruct: Protocol1, Protocol2 {
+//    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
+//        return [11111]
+//    }
+//    var eddedProperty: String {
+//        return "TextTextText"
+//    }
+//    init (age: [Int]) {
+//        self.name = "unknown"
+//        self.age = age[0]
+//    }
+//}
+protocol SomeProtocol: Hashable {}
+struct SomeClass: SomeProtocol {
+    static func == (lhs: SomeClass, rhs: SomeClass) -> Bool {
+        true
     }
-    var eddedProperty: String {
-        return "TextTextText"
-    }
-    init (age: [Int]) {
-        self.name = "unknown"
-        self.age = age[0]
-    }
+    var x: Int
+    var y: Int
 }
+struct SomeStruct {
+    var someVariable: some SomeProtocol {
+        return SomeClass(x: 999999, y: 000000)
+    }
+    func someFunction() -> some SomeProtocol {
+        return SomeClass(x: 111111, y: 222222)
+    }
+//    func arrayFunction() -> [some SomeProtocol] {
+//        return [SomeClass(x: 111111, y: 222222)]
+//    }
+//    func dictionaryFunction() -> [some SomeProtocol: some SomeProtocol] {
+//        return [SomeClass(x: 333333, y: 444444): SomeClass(x: 555555, y: 666666)]
+//    }
+//    func tupleFunction() -> (some SomeProtocol, some SomeProtocol, some SomeProtocol) {
+//        return (SomeClass(x: 777777, y: 888888), SomeClass(x: 999999, y: 000000), SomeClass(x: 111111, y: 222222))
+//    }
+}
+//struct ViewStruct: View {
+//    var body: some View {
+//        Text("TextTextTextText")
+//    }
+//}

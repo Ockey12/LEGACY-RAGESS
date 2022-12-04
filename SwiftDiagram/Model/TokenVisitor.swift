@@ -303,6 +303,9 @@ final class TokenVisitor: SyntaxRewriter {
                 passedEqualOfTypealiasDeclFlag = false
                 resultArray.append(SyntaxTag.startTypealiasDecl.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.typealiasDeclSyntax)
+            } else if currentSyntaxNodeType == SyntaxNodeType.constrainedSugarTypeSyntax.string {
+                // opaque result typeを宣言開始するとき
+                pushSyntaxNodeTypeStack(SyntaxNodeType.constrainedSugarTypeSyntax)
             }
         }
     }
@@ -911,6 +914,9 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言終了
                 resultArray.append(SyntaxTag.endTypealiasDecl.string)
+                popSyntaxNodeTypeStack()
+            } else if currentSyntaxNodeType == SyntaxNodeType.constrainedSugarTypeSyntax.string {
+                // opaque result typeを宣言終了するとき
                 popSyntaxNodeTypeStack()
             }
         }
