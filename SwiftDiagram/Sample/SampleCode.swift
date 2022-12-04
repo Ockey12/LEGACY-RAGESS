@@ -215,18 +215,19 @@ import SwiftUI
 //}
 protocol SomeProtocol: Hashable {}
 struct SomeClass: SomeProtocol {
+//    static var staticVariable = "StaticStaticStatic"
     static func == (lhs: SomeClass, rhs: SomeClass) -> Bool {
         true
     }
     var x: Int
-    var y: Int
+//    var y: Int
 }
 struct SomeStruct {
     var someVariable: some SomeProtocol {
-        return SomeClass(x: 999999, y: 000000)
+        return SomeClass(x: 1111111111)
     }
     func someFunction() -> some SomeProtocol {
-        return SomeClass(x: 111111, y: 222222)
+        return SomeClass(x: 2222222222)
     }
 //    func arrayFunction() -> [some SomeProtocol] {
 //        return [SomeClass(x: 111111, y: 222222)]

@@ -37,6 +37,9 @@ enum TokenKind {
     // initializer
     case convenienceKeyword // initializerのconvenienceキーワード
     
+    // opaque result type
+    case someKeyword // "some"
+    
     case atSign // @
     case colon // :
     case comma // ,
@@ -94,6 +97,9 @@ enum TokenKind {
         // initializer
         case .convenienceKeyword:
             return "identifier(\"convenience\")"
+        // opaque result type
+        case .someKeyword:
+            return "identifier(\"some\")"
             
         case .atSign:
             return "atSign"

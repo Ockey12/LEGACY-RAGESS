@@ -710,6 +710,21 @@ final class TokenVisitor: SyntaxRewriter {
                 // 既に"="を検査した後
                 // optional型の"?"がつく可能性があるため、tokenKindがidentifierのときのみ抽出する
                 resultArray.append(SyntaxTag.typealiasType.string + SyntaxTag.space.string + token.text)
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.constrainedSugarTypeSyntax {
+                // opaque result typeの宣言中
+                // "some"は抽出しない
+                // 準拠するprotocolのみ抽出する
+                if tokenKind != TokenKind.someKeyword.string {
+                    if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
+                        // variableの型としてopaque result typeを宣言しているとき
+                        resultArray.append(SyntaxTag.conformedProtocolByOpaqueResultTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                    } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
+                                (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
+                        // functionの返り値の型としてopaque result typeを宣言しているとき
+                        resultArray.append(SyntaxTag.conformedProtocolByOpaqueResultTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                    }
+                }
             }
         }
         

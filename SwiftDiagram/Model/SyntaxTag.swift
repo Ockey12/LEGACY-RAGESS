@@ -72,6 +72,7 @@ enum SyntaxTag {
     case startTupleTypeSyntaxOfVariable // variableのタプルの型を宣言開始
     case tupleTypeOfVariable // タプルの型
     case endTupleTypeSyntaxOfVariable // variableのタプルの型を宣言終了
+    case conformedProtocolByOpaqueResultTypeOfVariable // variableの型がopaque result typeのとき、それが準拠するprotocol
     case isOptionalType // optional型である
     case initialValueOfVariable // variableの初期値
     case haveWillSet // willSetを持つvariable
@@ -116,6 +117,7 @@ enum SyntaxTag {
     case startTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言開始
     case tupleTypeOfFunctionReturnValue // 返り値のタプルの型
     case endTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言終了
+    case conformedProtocolByOpaqueResultTypeOfFunctionReturnValue // 返り値の型がopaque result typeのとき、それが準拠するprotocol
     case endFunctionReturnValueType // functionの返り値の型の宣言終了
     case endFunctionDeclSyntax // functionの宣言終了
     
@@ -283,6 +285,8 @@ enum SyntaxTag {
             return "TupleTypeOfVariable"
         case .endTupleTypeSyntaxOfVariable:
             return "EndTupleTypeSyntaxOfVariable"
+        case .conformedProtocolByOpaqueResultTypeOfVariable:
+            return "ConformedProtocolByOpaqueResultTypeOfVariable"
         case .isOptionalType:
             return "IsOptionalType"
         case .initialValueOfVariable:
@@ -368,6 +372,8 @@ enum SyntaxTag {
             return "TupleTypeOfFunctionReturnValue"
         case .endTupleTypeSyntaxOfFunctionReturnValue:
             return "EndTupleTypeSyntaxOfFunctionReturnValue"
+        case .conformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
+            return "ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue"
         case .endFunctionReturnValueType:
             return "EndFunctionReturnValueType"
         case .endFunctionDeclSyntax:
