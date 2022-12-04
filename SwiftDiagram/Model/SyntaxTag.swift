@@ -56,7 +56,7 @@ enum SyntaxTag {
 //    case startCustomAttributeSyntax // @Stateなどの宣言開始
 //    case endCustomAttributeSyntax // @Stateなどの宣言終了
     case variableCustomAttribute // 後ろに@Stateなどの名前を持つ
-    case staticVariable // staticキーワードを持つvariable
+    case isStaticVariable // staticキーワードを持つvariable
     case lazyVariable // lazyキーワードをもつvariable
     case variableAccessLevel // 変数のアクセスレベル
     case haveLetKeyword // 定数のとき
@@ -83,6 +83,7 @@ enum SyntaxTag {
     
     // function
     case startFunctionDeclSyntax // functionの宣言開始
+    case isStaticFunction // staticキーワードを持つfunction
     case functionAccessLevel // functionのアクセスレベル
     case isOverrideFunction // overrideキーワードを持つ
     case isMutatingFunction // mutatingキーワードを持つ
@@ -253,8 +254,8 @@ enum SyntaxTag {
             return "StartVariableDeclSyntax"
         case .variableCustomAttribute:
             return "VariableCustomAttribute"
-        case .staticVariable:
-            return "StaticVariable"
+        case .isStaticVariable:
+            return "IsStaticVariable"
         case .lazyVariable:
             return "LazyVariable"
         case .variableAccessLevel:
@@ -304,6 +305,8 @@ enum SyntaxTag {
         // function
         case .startFunctionDeclSyntax:
             return "StartFunctionDeclSyntax"
+        case .isStaticFunction:
+            return "IsStaticFunction"
         case .functionAccessLevel:
             return "FunctionAccessLevel"
         case .isOverrideFunction:

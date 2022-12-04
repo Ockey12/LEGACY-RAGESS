@@ -408,7 +408,10 @@ final class TokenVisitor: SyntaxRewriter {
                 // variableとfunctionを区別する
                 if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
                     // variableの宣言中のとき
-                    resultArray.append(SyntaxTag.staticVariable.string)
+                    resultArray.append(SyntaxTag.isStaticVariable.string)
+                } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax {
+                    // functionの宣言中のとき
+                    resultArray.append(SyntaxTag.isStaticFunction.string)
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax {
                 // variableの型を宣言しているとき
