@@ -8,7 +8,7 @@
 import Foundation
 
 // TokenVisitorクラスでresultArray配列に格納するタグ
-enum SyntaxTag {
+enum SyntaxTag: String {
     // struct
     case StartStructDeclSyntax // structの宣言開始
     case StructAccessLevel // structのアクセスレベル
