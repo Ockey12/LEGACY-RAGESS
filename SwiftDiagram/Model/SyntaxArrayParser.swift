@@ -42,5 +42,21 @@ struct SyntaxArrayParser {
             var holderType: HolderType
             var name: String
         }
+        
+        print("-----SyntaxArrayParser.parseResultArray")
+        // resultArrayに格納されているタグを1つずつ取り出して解析する
+        for element in resultArray {
+            print(element)
+            
+            // elementを" "で分割する
+            // parsedElementArray[0]: SyntaxTag
+            let parsedElementArray = element.components(separatedBy: " ")
+            
+            // parsedElementArray[0]をSyntaxTag型にキャストする
+            guard let syntaxTag = SyntaxTag(rawValue: parsedElementArray[0]) else {
+                fatalError("ERROR: Failed to convert \"\(parsedElementArray[0])\" to SyntaxTag")
+            }
+        }
+        print("---------------------------------------")
     }
 }
