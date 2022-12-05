@@ -34,6 +34,7 @@
 		AC5F0061293DB872001221C2 /* FunctionParameterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0060293DB872001221C2 /* FunctionParameterHolder.swift */; };
 		AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0062293DCAD9001221C2 /* Holder.swift */; };
 		AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0064293DCAE9001221C2 /* TypeHolder.swift */; };
+		AC5F0067293DCCCC001221C2 /* HaveAccessLevelHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		AC5F0060293DB872001221C2 /* FunctionParameterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionParameterHolder.swift; sourceTree = "<group>"; };
 		AC5F0062293DCAD9001221C2 /* Holder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		AC5F0064293DCAE9001221C2 /* TypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeHolder.swift; sourceTree = "<group>"; };
+		AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveAccessLevelHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			children = (
 				AC5F0062293DCAD9001221C2 /* Holder.swift */,
 				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
+				AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */,
 				AC5F0052293DB794001221C2 /* StructHolder.swift */,
 				AC5F0054293DB7A0001221C2 /* ClassHolder.swift */,
 				AC5F0056293DB7AE001221C2 /* EnumHolder.swift */,
@@ -253,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5F0067293DCCCC001221C2 /* HaveAccessLevelHolder.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
