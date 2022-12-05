@@ -8,5 +8,5 @@
 import Foundation
 
 protocol Holder {
-    
+    var name: String { get set }
 }
