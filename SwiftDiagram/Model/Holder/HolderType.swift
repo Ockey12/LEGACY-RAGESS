@@ -14,5 +14,8 @@ enum HolderType {
     case `protocol`
     case variable
     case function
+    case functionParameter
+    case initializer
+    case initializerParameter
     case `extension`
 }
