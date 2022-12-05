@@ -26,6 +26,10 @@ struct SyntaxArrayParser {
         // あるHolderをネストしている親Holderを記憶するために使う
         var holderStackArray = [HolderStackArrayElement]()
         
+        var positionInHolderStackArray = -1
+        
+        var parsedElementArray = [String]()
+        
         // 各Holderの名前とインスタンスを保持する辞書
         // Key: Holder.name
         // Value: Holderインスタンス
@@ -46,6 +50,9 @@ struct SyntaxArrayParser {
         var currentProtocolHolder = ProtocolHolder()
         var currentVariableHolder = VariableHolder()
         var currentFunctionHolder = FunctionHolder()
+        var currentFunctionParameterHolder = FunctionParameterHolder()
+        var currentInitializerHolder = InitializerHolder()
+        var currentInitializerParameterHolder = InitializerParameterHolder()
         var currentExtensionHolder = ExtensionHolder()
         
         // holderStackArrayの要素
@@ -61,11 +68,11 @@ struct SyntaxArrayParser {
             
             // elementを" "で分割する
             // parsedElementArray[0]: SyntaxTag
-            let parsedElementArray = element.components(separatedBy: " ")
+            parsedElementArray = element.components(separatedBy: " ")
             
             // parsedElementArray[0]をSyntaxTag型にキャストする
             guard let syntaxTag = SyntaxTag(rawValue: parsedElementArray[0]) else {
-                fatalError("ERROR: Failed to convert \"\(parsedElementArray[0])\" to SyntaxTag")
+                fatalError("ERROR: Failed to convert \"\(parsedElementArray[0])\" to SyntaxTag.")
             }
             
             // syntaxTagのcaseに応じた処理をする
@@ -73,7 +80,7 @@ struct SyntaxArrayParser {
             case .StartStructDeclSyntax:
                 currentStructHolder = StructHolder()
             case .StructAccessLevel:
-                break
+                currentStructHolder.accessLevel = convertParsedElementToAccessLevel()
             case .StructName:
                 break
             case .EndStructDeclSyntax:
@@ -81,7 +88,7 @@ struct SyntaxArrayParser {
             case .StartClassDeclSyntax:
                 currentClassHolder = ClassHolder()
             case .ClassAccessLevel:
-                break
+                currentClassHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
                 break
             case .EndClassDeclSyntax:
@@ -89,7 +96,7 @@ struct SyntaxArrayParser {
             case .StartEnumDeclSyntax:
                 currentEnumHolder = EnumHolder()
             case .EnumAccessLevel:
-                break
+                currentEnumHolder.accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
                 break
             case .RawvalueType:
@@ -109,7 +116,7 @@ struct SyntaxArrayParser {
             case .StartProtocolDeclSyntax:
                 currentProtocolHolder = ProtocolHolder()
             case .ProtocolAccessLevel:
-                break
+                currentProtocolHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ProtocolName:
                 break
             case .StartAssociatedtypeDeclSyntax:
@@ -143,7 +150,7 @@ struct SyntaxArrayParser {
             case .LazyVariable:
                 break
             case .VariableAccessLevel:
-                break
+                currentVariableHolder.accessLevel = convertParsedElementToAccessLevel()
             case .HaveLetKeyword:
                 break
             case .VariableName:
@@ -191,7 +198,7 @@ struct SyntaxArrayParser {
             case .IsStaticFunction:
                 break
             case .FunctionAccessLevel:
-                break
+                currentFunctionHolder.accessLevel = convertParsedElementToAccessLevel()
             case .IsOverrideFunction:
                 break
             case .IsMutatingFunction:
@@ -344,8 +351,43 @@ struct SyntaxArrayParser {
                 break
             case .Space:
                 break
-            }
-        }
+            } // end switch syntaxTag
+        } // end for resultArray
         print("---------------------------------------")
-    }
-}
+        
+        // parsedElementArray[1]に格納されている文字列を、AccessLevel型にキャストして返す
+        func convertParsedElementToAccessLevel() -> AccessLevel {
+            let string = parsedElementArray[1]
+            guard let accessLevel = AccessLevel(rawValue: string) else {
+                fatalError("ERROR: Failed to convert \"\(string)\" to AccessLevel.")
+            }
+            return accessLevel
+        } // end onvertParsedElementToAccessLevel()
+        
+        func pushHolderStackArray(holderType: HolderType) {
+            switch holderType {
+            case .struct:
+                holderStackArray.append(HolderStackArrayElement(holderType: .struct, name: currentStructHolder.name))
+            case .class:
+                holderStackArray.append(HolderStackArrayElement(holderType: .class, name: currentClassHolder.name))
+            case .enum:
+                holderStackArray.append(HolderStackArrayElement(holderType: .enum, name: currentEnumHolder.name))
+            case .protocol:
+                holderStackArray.append(HolderStackArrayElement(holderType: .protocol, name: currentProtocolHolder.name))
+            case .variable:
+                holderStackArray.append(HolderStackArrayElement(holderType: .variable, name: currentVariableHolder.name))
+            case .function:
+                holderStackArray.append(HolderStackArrayElement(holderType: .function, name: currentFunctionHolder.name))
+            case .functionParameter:
+                break
+            case .initializer:
+                break
+            case .initializerParameter:
+                break
+            case .extension:
+                break
+            }
+            positionInHolderStackArray += 1
+        } // end func pushHolderStackArray()
+    } // end func parseResultArray()
+} // end struct SyntaxArrayParser
