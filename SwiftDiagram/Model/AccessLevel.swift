@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AccessLevel {
+enum AccessLevel: String {
     case `open`
     case `public`
     case `internal`
