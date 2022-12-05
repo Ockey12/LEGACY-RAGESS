@@ -26,6 +26,9 @@ struct SyntaxArrayParser {
         // あるHolderをネストしている親Holderを記憶するために使う
         var holderStackArray = [HolderStackArrayElement]()
         
+        // 各Holderの名前とインスタンスを保持する辞書
+        // Key: Holder.name
+        // Value: Holderインスタンス
         var structHolders = [String: StructHolder]()
         var classHolders = [String: ClassHolder]()
         var enumHolders = [String: EnumHolder]()
@@ -34,6 +37,7 @@ struct SyntaxArrayParser {
         var functionHolders = [String: FunctionHolder]()
         var extensionHolders = [String: ExtensionHolder]()
         
+        // holderStackArrayの要素
         struct HolderStackArrayElement {
             var holderType: HolderType
             var name: String
