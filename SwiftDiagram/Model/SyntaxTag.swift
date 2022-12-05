@@ -10,454 +10,454 @@ import Foundation
 // TokenVisitorクラスでresultArray配列に格納するタグ
 enum SyntaxTag {
     // struct
-    case startStructDeclSyntax // structの宣言開始
-    case structAccessLevel // structのアクセスレベル
-    case structName // structの名前
-    case endStructDeclSyntax // structの宣言終了
+    case StartStructDeclSyntax // structの宣言開始
+    case StructAccessLevel // structのアクセスレベル
+    case StructName // structの名前
+    case EndStructDeclSyntax // structの宣言終了
     
     // class
-    case startClassDeclSyntax // classの宣言開始
-    case classAccessLevel // classのアクセスレベル
-    case className // classの名前
-    case endClassDeclSyntax // classの宣言終了
+    case StartClassDeclSyntax // classの宣言開始
+    case ClassAccessLevel // classのアクセスレベル
+    case ClassName // classの名前
+    case EndClassDeclSyntax // classの宣言終了
     
     // enum
-    case startEnumDeclSyntax // enumの宣言開始
-    case enumAccessLevel // enumのアクセスレベル
-    case enumName // enumの名前
-    case rawvalueType // ローバリューの型
-    case rawvalue // ローバリューの値
-    case caseAssociatedValue // caseの連想値
-    case startEnumCaseElementSyntax // enumのcaseを宣言開始
-    case enumCase // enumのcase
-    case endEnumCaseElementSyntax // enumのcaseを宣言終了
-    case endEnumDeclSyntax // enumの宣言終了
+    case StartEnumDeclSyntax // enumの宣言開始
+    case EnumAccessLevel // enumのアクセスレベル
+    case EnumName // enumの名前
+    case RawvalueType // ローバリューの型
+    case Rawvalue // ローバリューの値
+    case CaseAssociatedValue // caseの連想値
+    case StartEnumCaseElementSyntax // enumのcaseを宣言開始
+    case EnumCase // enumのcase
+    case EndEnumCaseElementSyntax // enumのcaseを宣言終了
+    case EndEnumDeclSyntax // enumの宣言終了
     
     // protocol
-    case startProtocolDeclSyntax // protocolの宣言開始
-    case protocolAccessLevel // protocolのアクセスレベル
-    case protocolName // protocolの名前
-    case startAssociatedtypeDeclSyntax // 連想型の宣言開始
-    case associatedType // 連想型の名前
-    case conformedProtocolOrInheritedClassByAssociatedType // 連想型の型制約で指定するプロトコルかスーパークラス
-    case endAssociatedtypeDeclSyntax // 連想型の宣言終了
-    case endProtocolDeclSyntax // protocolの宣言終了
+    case StartProtocolDeclSyntax // protocolの宣言開始
+    case ProtocolAccessLevel // protocolのアクセスレベル
+    case ProtocolName // protocolの名前
+    case StartAssociatedtypeDeclSyntax // 連想型の宣言開始
+    case AssociatedType // 連想型の名前
+    case ConformedProtocolOrInheritedClassByAssociatedType // 連想型の型制約で指定するプロトコルかスーパークラス
+    case EndAssociatedtypeDeclSyntax // 連想型の宣言終了
+    case EndProtocolDeclSyntax // protocolの宣言終了
     
     // プロトコルへの準拠
-    case startInheritedTypeListSyntax // プロトコルへの準拠開始
-    case conformedProtocolByStruct // structが準拠しているプロトコル
-    case conformedProtocolOrInheritedClassByClass // classが準拠しているプロトコル、または継承しているクラス
-    case conformedProtocolByEnum // enumが準拠しているプロトコル
-    case conformedProtocolByProtocol // protocolが準拠しているprotocol
-    case endInheritedTypeListSyntax // プロトコルへの準拠終了
+    case StartInheritedTypeListSyntax // プロトコルへの準拠開始
+    case ConformedProtocolByStruct // structが準拠しているプロトコル
+    case ConformedProtocolOrInheritedClassByClass // classが準拠しているプロトコル、または継承しているクラス
+    case ConformedProtocolByEnum // enumが準拠しているプロトコル
+    case ConformedProtocolByProtocol // protocolが準拠しているprotocol
+    case EndInheritedTypeListSyntax // プロトコルへの準拠終了
     
     // variable
-    case startVariableDeclSyntax // 変数の宣言開始
+    case StartVariableDeclSyntax // 変数の宣言開始
 //    case startCustomAttributeSyntax // @Stateなどの宣言開始
 //    case endCustomAttributeSyntax // @Stateなどの宣言終了
-    case variableCustomAttribute // 後ろに@Stateなどの名前を持つ
-    case isStaticVariable // staticキーワードを持つvariable
-    case lazyVariable // lazyキーワードをもつvariable
-    case variableAccessLevel // 変数のアクセスレベル
-    case haveLetKeyword // 定数のとき
-    case variableName // 変数の名前を後ろに持つ
-    case variableType // variableの型
-    case startArrayTypeSyntaxOfVariable // variableの配列の型を宣言開始
-    case arrayTypeOfVariable // 配列の型
-    case endArrayTypeSyntaxOfVariable // variableの配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言開始
-    case dictionaryKeyTypeOfVariable // 辞書のKeyの型
-    case dictionaryValueTypeOfVariable // 辞書のValueの型
-    case endDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言終了
-    case startTupleTypeSyntaxOfVariable // variableのタプルの型を宣言開始
-    case tupleTypeOfVariable // タプルの型
-    case endTupleTypeSyntaxOfVariable // variableのタプルの型を宣言終了
-    case conformedProtocolByOpaqueResultTypeOfVariable // variableの型がopaque result typeのとき、それが準拠するprotocol
-    case isOptionalType // optional型である
-    case initialValueOfVariable // variableの初期値
-    case haveWillSet // willSetを持つvariable
-    case haveDidSet // didSetを持つvariable
-    case haveGetter // getを持つvariable
-    case haveSetter // setを持つvariable
-    case endVariableDeclSyntax // 変数の宣言終了
+    case VariableCustomAttribute // 後ろに@Stateなどの名前を持つ
+    case IsStaticVariable // staticキーワードを持つvariable
+    case LazyVariable // lazyキーワードをもつvariable
+    case VariableAccessLevel // 変数のアクセスレベル
+    case HaveLetKeyword // 定数のとき
+    case VariableName // 変数の名前を後ろに持つ
+    case VariableType // variableの型
+    case StartArrayTypeSyntaxOfVariable // variableの配列の型を宣言開始
+    case ArrayTypeOfVariable // 配列の型
+    case EndArrayTypeSyntaxOfVariable // variableの配列の型を宣言終了
+    case StartDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言開始
+    case DictionaryKeyTypeOfVariable // 辞書のKeyの型
+    case DictionaryValueTypeOfVariable // 辞書のValueの型
+    case EndDictionaryTypeSyntaxOfVariable // variableの辞書の型を宣言終了
+    case StartTupleTypeSyntaxOfVariable // variableのタプルの型を宣言開始
+    case TupleTypeOfVariable // タプルの型
+    case EndTupleTypeSyntaxOfVariable // variableのタプルの型を宣言終了
+    case ConformedProtocolByOpaqueResultTypeOfVariable // variableの型がopaque result typeのとき、それが準拠するprotocol
+    case IsOptionalType // optional型である
+    case InitialValueOfVariable // variableの初期値
+    case HaveWillSet // willSetを持つvariable
+    case HaveDidSet // didSetを持つvariable
+    case HaveGetter // getを持つvariable
+    case HaveSetter // setを持つvariable
+    case EndVariableDeclSyntax // 変数の宣言終了
     
     // function
-    case startFunctionDeclSyntax // functionの宣言開始
-    case isStaticFunction // staticキーワードを持つfunction
-    case functionAccessLevel // functionのアクセスレベル
-    case isOverrideFunction // overrideキーワードを持つ
-    case isMutatingFunction // mutatingキーワードを持つ
-    case functionName // functionの名前
-    case startFunctionParameterSyntax // functionの個々の引数を宣言開始
-    case externalParameterName // functionの外部引数名
-    case internalParameterName // functionの内部引数名
-    case haveInoutKeyword // inoutキーワードを持つ
-    case isVariadicParameter // 可変長引数である
-    case functionParameterType // 引数の型
-    case startArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言開始
-    case arrayTypeOfFunctionParameter // 引数の配列の型
-    case endArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言開始
-    case dictionaryKeyTypeOfFunctionParameter // 引数の辞書のKeyの型
-    case dictionaryValueTypeOfFunctionParameter // 引数の辞書のValueの型
-    case endDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言終了
-    case startTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言開始
-    case tupleTypeOfFunctionParameter // 引数のタプルの型
-    case endTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言終了
-    case initialValueOfParameter // デフォルト引数のデフォルト値
-    case endFunctionParameterSyntax // functionの個々の引数を宣言終了
-    case startFunctionReturnValueType // functionの返り値の型の宣言開始
-    case functionReturnValueType // functionの返り値の型
-    case startArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言開始
-    case arrayTypeOfFunctionReturnValue // 返り値の配列の型
-    case endArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言開始
-    case dictionaryKeyTypeOfFunctionReturnValue // 返り値の辞書のKeyの型
-    case dictionaryValueTypeOfFunctionReturnValue // 返り値の辞書のValueの型
-    case endDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言終了
-    case startTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言開始
-    case tupleTypeOfFunctionReturnValue // 返り値のタプルの型
-    case endTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言終了
-    case conformedProtocolByOpaqueResultTypeOfFunctionReturnValue // 返り値の型がopaque result typeのとき、それが準拠するprotocol
-    case endFunctionReturnValueType // functionの返り値の型の宣言終了
-    case endFunctionDeclSyntax // functionの宣言終了
+    case StartFunctionDeclSyntax // functionの宣言開始
+    case IsStaticFunction // staticキーワードを持つfunction
+    case FunctionAccessLevel // functionのアクセスレベル
+    case IsOverrideFunction // overrideキーワードを持つ
+    case IsMutatingFunction // mutatingキーワードを持つ
+    case FunctionName // functionの名前
+    case StartFunctionParameterSyntax // functionの個々の引数を宣言開始
+    case ExternalParameterName // functionの外部引数名
+    case InternalParameterName // functionの内部引数名
+    case HaveInoutKeyword // inoutキーワードを持つ
+    case IsVariadicParameter // 可変長引数である
+    case FunctionParameterType // 引数の型
+    case StartArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言開始
+    case ArrayTypeOfFunctionParameter // 引数の配列の型
+    case EndArrayTypeSyntaxOfFunctionParameter // 引数の配列の型を宣言終了
+    case StartDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言開始
+    case DictionaryKeyTypeOfFunctionParameter // 引数の辞書のKeyの型
+    case DictionaryValueTypeOfFunctionParameter // 引数の辞書のValueの型
+    case EndDictionaryTypeSyntaxOfFunctionParameter // 引数の辞書の型を宣言終了
+    case StartTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言開始
+    case TupleTypeOfFunctionParameter // 引数のタプルの型
+    case EndTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言終了
+    case InitialValueOfParameter // デフォルト引数のデフォルト値
+    case EndFunctionParameterSyntax // functionの個々の引数を宣言終了
+    case StartFunctionReturnValueType // functionの返り値の型の宣言開始
+    case FunctionReturnValueType // functionの返り値の型
+    case StartArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言開始
+    case ArrayTypeOfFunctionReturnValue // 返り値の配列の型
+    case EndArrayTypeSyntaxOfFunctionReturnValue // 返り値の配列の型を宣言終了
+    case StartDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言開始
+    case DictionaryKeyTypeOfFunctionReturnValue // 返り値の辞書のKeyの型
+    case DictionaryValueTypeOfFunctionReturnValue // 返り値の辞書のValueの型
+    case EndDictionaryTypeSyntaxOfFunctionReturnValue // 返り値の辞書の型を宣言終了
+    case StartTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言開始
+    case TupleTypeOfFunctionReturnValue // 返り値のタプルの型
+    case EndTupleTypeSyntaxOfFunctionReturnValue // 返り値のタプルの型を宣言終了
+    case ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue // 返り値の型がopaque result typeのとき、それが準拠するprotocol
+    case EndFunctionReturnValueType // functionの返り値の型の宣言終了
+    case EndFunctionDeclSyntax // functionの宣言終了
     
     // initializer
-    case startInitializerDeclSyntax // initializerの宣言開始
-    case haveConvenienceKeyword // convenience initializerである
-    case isFailableInitializer // 失敗可能イニシャライザである
-    case startInitializerParameter // 引数1つの宣言開始
-    case initializerParameterName // 引数名
-    case initializerParameterType // 引数の型
-    case startArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言開始
-    case arrayTypeOfInitializer // 配列の型
-    case endArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfInitializer // 引数の辞書の型を宣言開始
-    case dictionaryKeyTypeOfInitializer // 辞書のKeyの型
-    case dictionaryValueTypeOfInitializer // 辞書のValueの型
-    case endDictionaryTypeSyntaxOfInitializer // 引数の辞書の型を宣言終了
-    case startTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言開始
-    case tupleTypeOfInitializer // タプルの型
-    case endTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言終了
-    case endInitializerParameter // 引数1つの宣言終了
-    case endInitializerDeclSyntax // initializerの宣言終了
+    case StartInitializerDeclSyntax // initializerの宣言開始
+    case HaveConvenienceKeyword // convenience initializerである
+    case IsFailableInitializer // 失敗可能イニシャライザである
+    case StartInitializerParameter // 引数1つの宣言開始
+    case InitializerParameterName // 引数名
+    case InitializerParameterType // 引数の型
+    case StartArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言開始
+    case ArrayTypeOfInitializer // 配列の型
+    case EndArrayTypeSyntaxOfInitializer // 引数の配列の型を宣言終了
+    case StartDictionaryTypeSyntaxOfInitializer // 引数の辞書の型を宣言開始
+    case DictionaryKeyTypeOfInitializer // 辞書のKeyの型
+    case DictionaryValueTypeOfInitializer // 辞書のValueの型
+    case EndDictionaryTypeSyntaxOfInitializer // 引数の辞書の型を宣言終了
+    case StartTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言開始
+    case TupleTypeOfInitializer // タプルの型
+    case EndTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言終了
+    case EndInitializerParameter // 引数1つの宣言終了
+    case EndInitializerDeclSyntax // initializerの宣言終了
     
     // extension
-    case startExtensionDeclSyntax // extensionの宣言開始
-    case endExtensionDeclSyntax // extensionの宣言終了
-    case conformedProtocolByExtension // extensionで準拠しているprotocol名
+    case StartExtensionDeclSyntax // extensionの宣言開始
+    case EndExtensionDeclSyntax // extensionの宣言終了
+    case ConformedProtocolByExtension // extensionで準拠しているprotocol名
     
     // generics
-    case startGenericParameterSyntax // genericsの型引数の宣言開始
-    case parameterTypeOfGenerics // 型引数名
-    case conformedProtocolOrInheritedClassByGenerics // 型引数が準拠しているprotocol、または継承しているclass
-    case endGenericParameterSyntax // genericsの型引数の宣言終了
+    case StartGenericParameterSyntax // genericsの型引数の宣言開始
+    case ParameterTypeOfGenerics // 型引数名
+    case ConformedProtocolOrInheritedClassByGenerics // 型引数が準拠しているprotocol、または継承しているclass
+    case EndGenericParameterSyntax // genericsの型引数の宣言終了
     
     // typealias
-    case startTypealiasDecl // typealiasの宣言開始
-    case typealiasAssociatedTypeName // 連想型の名前
-    case typealiasType // 連想型に指定する型
-    case startArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言開始
-    case arrayTypeOfTypealias // 配列の型
-    case endArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言終了
-    case startDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言開始
-    case dictionaryKeyTypeOfTypealias // 辞書のKeyの型
-    case dictionaryValueTypeOfTypealias // 辞書のValueの型
-    case endDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言終了
-    case startTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言開始
-    case tupleTypeOfTypealias // タプルの型
-    case endTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言終了
-    case endTypealiasDecl // typealiasの宣言終了
+    case StartTypealiasDecl // typealiasの宣言開始
+    case TypealiasAssociatedTypeName // 連想型の名前
+    case TypealiasType // 連想型に指定する型
+    case StartArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言開始
+    case ArrayTypeOfTypealias // 配列の型
+    case EndArrayTypeSyntaxOfTypealias // typealiasの配列の型を宣言終了
+    case StartDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言開始
+    case DictionaryKeyTypeOfTypealias // 辞書のKeyの型
+    case DictionaryValueTypeOfTypealias // 辞書のValueの型
+    case EndDictionaryTypeSyntaxOfTypealias // typealiasの辞書の型を宣言終了
+    case StartTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言開始
+    case TupleTypeOfTypealias // タプルの型
+    case EndTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言終了
+    case EndTypealiasDecl // typealiasの宣言終了
     
-    case space // タグとタグの間のスペース
+    case Space // タグとタグの間のスペース
     
     var string: String {
         switch self {
         // struct
-        case .startStructDeclSyntax:
+        case .StartStructDeclSyntax:
             return "StartStructDeclSyntax"
-        case .structAccessLevel:
+        case .StructAccessLevel:
             return "StructAccessLevel"
-        case .structName:
+        case .StructName:
             return "StructName"
-        case .endStructDeclSyntax:
+        case .EndStructDeclSyntax:
             return "EndStructDeclSyntax"
         // class
-        case .startClassDeclSyntax:
+        case .StartClassDeclSyntax:
             return "StartClassDeclSyntax"
-        case .classAccessLevel:
+        case .ClassAccessLevel:
             return "ClassAccessLevel"
-        case .className:
+        case .ClassName:
             return "ClassName"
-        case .endClassDeclSyntax:
+        case .EndClassDeclSyntax:
             return "EndClassDeclSyntax"
         // enum
-        case .startEnumDeclSyntax:
+        case .StartEnumDeclSyntax:
             return "StartEnumDeclSyntax"
-        case .enumAccessLevel:
+        case .EnumAccessLevel:
             return "EnumAccessLevel"
-        case .enumName:
+        case .EnumName:
             return "EnumName"
-        case .rawvalueType:
+        case .RawvalueType:
             return "RawvalueType"
-        case .rawvalue:
+        case .Rawvalue:
             return "Rawvalue"
-        case .caseAssociatedValue:
+        case .CaseAssociatedValue:
             return "CaseAssociatedValue"
-        case .startEnumCaseElementSyntax:
+        case .StartEnumCaseElementSyntax:
             return "StartEnumCaseElementSyntax"
-        case .enumCase:
+        case .EnumCase:
             return "EnumCase"
-        case .endEnumCaseElementSyntax:
+        case .EndEnumCaseElementSyntax:
             return "EndEnumCaseElementSyntax"
-        case .endEnumDeclSyntax:
+        case .EndEnumDeclSyntax:
             return "EndEnumDeclSyntax"
         // protocol
-        case .startProtocolDeclSyntax:
+        case .StartProtocolDeclSyntax:
             return "StartProtocolDeclSyntax"
-        case .protocolAccessLevel:
+        case .ProtocolAccessLevel:
             return "ProtocolAccessLevel"
-        case .protocolName:
+        case .ProtocolName:
             return "ProtocolName"
-        case .startAssociatedtypeDeclSyntax:
+        case .StartAssociatedtypeDeclSyntax:
             return "StartAssociatedtypeDeclSyntax"
-        case .associatedType:
+        case .AssociatedType:
             return "AssociatedType"
-        case .conformedProtocolOrInheritedClassByAssociatedType:
+        case .ConformedProtocolOrInheritedClassByAssociatedType:
             return "ConformedProtocolOrInheritedClassByAssociatedType"
-        case .endAssociatedtypeDeclSyntax:
+        case .EndAssociatedtypeDeclSyntax:
             return "EndAssociatedtypeDeclSyntax"
-        case .endProtocolDeclSyntax:
+        case .EndProtocolDeclSyntax:
             return "EndProtocolDeclSyntax"
         // プロトコルへの準拠
-        case .startInheritedTypeListSyntax:
+        case .StartInheritedTypeListSyntax:
             return "StartInheritedTypeListSyntax"
-        case .conformedProtocolByStruct:
+        case .ConformedProtocolByStruct:
             return "ConformedProtocolByStruct"
-        case .conformedProtocolOrInheritedClassByClass:
+        case .ConformedProtocolOrInheritedClassByClass:
             return "ConformedProtocolOrInheritedClassByClass"
-        case .conformedProtocolByEnum:
+        case .ConformedProtocolByEnum:
             return "ConformedProtocolByEnum"
-        case .conformedProtocolByProtocol:
+        case .ConformedProtocolByProtocol:
             return "ConformedProtocolByProtocol"
-        case .endInheritedTypeListSyntax:
+        case .EndInheritedTypeListSyntax:
             return "EndInheritedTypeListSyntax"
         // variable
-        case .startVariableDeclSyntax:
+        case .StartVariableDeclSyntax:
             return "StartVariableDeclSyntax"
-        case .variableCustomAttribute:
+        case .VariableCustomAttribute:
             return "VariableCustomAttribute"
-        case .isStaticVariable:
+        case .IsStaticVariable:
             return "IsStaticVariable"
-        case .lazyVariable:
+        case .LazyVariable:
             return "LazyVariable"
-        case .variableAccessLevel:
+        case .VariableAccessLevel:
             return "VariableAccessLevel"
-        case .haveLetKeyword:
+        case .HaveLetKeyword:
             return "HaveLetKeyword"
-        case .variableName:
+        case .VariableName:
             return "VariableName"
-        case .variableType:
+        case .VariableType:
             return "VariableType"
-        case .startArrayTypeSyntaxOfVariable:
+        case .StartArrayTypeSyntaxOfVariable:
             return "StartArrayTypeSyntaxOfVariable"
-        case .arrayTypeOfVariable:
+        case .ArrayTypeOfVariable:
             return "ArrayTypeOfVariable"
-        case .endArrayTypeSyntaxOfVariable:
+        case .EndArrayTypeSyntaxOfVariable:
             return "EndArrayTypeSyntaxOfVariable"
-        case .startDictionaryTypeSyntaxOfVariable:
+        case .StartDictionaryTypeSyntaxOfVariable:
             return "StartDictionaryTypeSyntaxOfVariable"
-        case .dictionaryKeyTypeOfVariable:
+        case .DictionaryKeyTypeOfVariable:
             return "DictionaryKeyTypeOfVariable"
-        case .dictionaryValueTypeOfVariable:
+        case .DictionaryValueTypeOfVariable:
             return "DictionaryValueTypeOfVariable"
-        case .endDictionaryTypeSyntaxOfVariable:
+        case .EndDictionaryTypeSyntaxOfVariable:
             return "EndDictionaryTypeSyntaxOfVariable"
-        case .startTupleTypeSyntaxOfVariable:
+        case .StartTupleTypeSyntaxOfVariable:
             return "StartTupleTypeSyntaxOfVariable"
-        case .tupleTypeOfVariable:
+        case .TupleTypeOfVariable:
             return "TupleTypeOfVariable"
-        case .endTupleTypeSyntaxOfVariable:
+        case .EndTupleTypeSyntaxOfVariable:
             return "EndTupleTypeSyntaxOfVariable"
-        case .conformedProtocolByOpaqueResultTypeOfVariable:
+        case .ConformedProtocolByOpaqueResultTypeOfVariable:
             return "ConformedProtocolByOpaqueResultTypeOfVariable"
-        case .isOptionalType:
+        case .IsOptionalType:
             return "IsOptionalType"
-        case .initialValueOfVariable:
+        case .InitialValueOfVariable:
             return "InitialValueOfVariable"
-        case .haveWillSet:
+        case .HaveWillSet:
             return "HaveWillSet"
-        case .haveDidSet:
+        case .HaveDidSet:
             return "HaveDidSet"
-        case .haveGetter:
+        case .HaveGetter:
             return "HaveGetter"
-        case .haveSetter:
+        case .HaveSetter:
             return "HaveSetter"
-        case .endVariableDeclSyntax:
+        case .EndVariableDeclSyntax:
             return "EndVariableDeclSyntax"
         // function
-        case .startFunctionDeclSyntax:
+        case .StartFunctionDeclSyntax:
             return "StartFunctionDeclSyntax"
-        case .isStaticFunction:
+        case .IsStaticFunction:
             return "IsStaticFunction"
-        case .functionAccessLevel:
+        case .FunctionAccessLevel:
             return "FunctionAccessLevel"
-        case .isOverrideFunction:
+        case .IsOverrideFunction:
             return "IsOverrideFunction"
-        case .isMutatingFunction:
+        case .IsMutatingFunction:
             return "IsMutatingFunction"
-        case .functionName:
+        case .FunctionName:
             return "FunctionName"
-        case .startFunctionParameterSyntax:
+        case .StartFunctionParameterSyntax:
             return "StartFunctionParameterSyntax"
-        case .externalParameterName:
+        case .ExternalParameterName:
             return "ExternalParameterName"
-        case .internalParameterName:
+        case .InternalParameterName:
             return "InternalParameterName"
-        case .haveInoutKeyword:
+        case .HaveInoutKeyword:
             return "HaveInoutKeyword"
-        case .isVariadicParameter:
+        case .IsVariadicParameter:
             return "IsVariadicParameter"
-        case .functionParameterType:
+        case .FunctionParameterType:
             return "FunctionParameterType"
-        case .startArrayTypeSyntaxOfFunctionParameter:
+        case .StartArrayTypeSyntaxOfFunctionParameter:
             return "StartArrayTypeSyntaxOfFunctionParameter"
-        case .arrayTypeOfFunctionParameter:
+        case .ArrayTypeOfFunctionParameter:
             return "ArrayTypeOfFunctionParameter"
-        case .endArrayTypeSyntaxOfFunctionParameter:
+        case .EndArrayTypeSyntaxOfFunctionParameter:
             return "EndArrayTypeSyntaxOfFunctionParameter"
-        case .startDictionaryTypeSyntaxOfFunctionParameter:
+        case .StartDictionaryTypeSyntaxOfFunctionParameter:
             return "StartDictionaryTypeSyntaxOfFunctionParameter"
-        case .dictionaryKeyTypeOfFunctionParameter:
+        case .DictionaryKeyTypeOfFunctionParameter:
             return "DictionaryKeyTypeOfFunctionParameter"
-        case .dictionaryValueTypeOfFunctionParameter:
+        case .DictionaryValueTypeOfFunctionParameter:
             return "DictionaryValueTypeOfFunctionParameter"
-        case .endDictionaryTypeSyntaxOfFunctionParameter:
+        case .EndDictionaryTypeSyntaxOfFunctionParameter:
             return "EndDictionaryTypeSyntaxOfFunctionParameter"
-        case .startTupleTypeSyntaxOfFunctionParameter:
+        case .StartTupleTypeSyntaxOfFunctionParameter:
             return "StartTupleTypeSyntaxOfFunctionParameter"
-        case .tupleTypeOfFunctionParameter:
+        case .TupleTypeOfFunctionParameter:
             return "TupleTypeOfFunctionParameter"
-        case .endTupleTypeSyntaxOfFunctionParameter:
+        case .EndTupleTypeSyntaxOfFunctionParameter:
             return "EndTupleTypeSyntaxOfFunctionParameter"
-        case .initialValueOfParameter:
+        case .InitialValueOfParameter:
             return "InitialValueOfParameter"
-        case .endFunctionParameterSyntax:
+        case .EndFunctionParameterSyntax:
             return "EndFunctionParameterSyntax"
-        case .startFunctionReturnValueType:
+        case .StartFunctionReturnValueType:
             return "StartFunctionReturnValueType"
-        case .functionReturnValueType:
+        case .FunctionReturnValueType:
             return "FunctionReturnValueType"
-        case .startArrayTypeSyntaxOfFunctionReturnValue:
+        case .StartArrayTypeSyntaxOfFunctionReturnValue:
             return "StartArrayTypeSyntaxOfFunctionReturnValue"
-        case .arrayTypeOfFunctionReturnValue:
+        case .ArrayTypeOfFunctionReturnValue:
             return "ArrayTypeOfFunctionReturnValue"
-        case .endArrayTypeSyntaxOfFunctionReturnValue:
+        case .EndArrayTypeSyntaxOfFunctionReturnValue:
             return "EndArrayTypeSyntaxOfFunctionReturnValue"
-        case .startDictionaryTypeSyntaxOfFunctionReturnValue:
+        case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
             return "StartDictionaryTypeSyntaxOfFunctionReturnValue"
-        case .dictionaryKeyTypeOfFunctionReturnValue:
+        case .DictionaryKeyTypeOfFunctionReturnValue:
             return "DictionaryKeyTypeOfFunctionReturnValue"
-        case .dictionaryValueTypeOfFunctionReturnValue:
+        case .DictionaryValueTypeOfFunctionReturnValue:
             return "DictionaryValueTypeOfFunctionReturnValue"
-        case .endDictionaryTypeSyntaxOfFunctionReturnValue:
+        case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
             return "EndDictionaryTypeSyntaxOfFunctionReturnValue"
-        case .startTupleTypeSyntaxOfFunctionReturnValue:
+        case .StartTupleTypeSyntaxOfFunctionReturnValue:
             return "StartTupleTypeSyntaxOfFunctionReturnValue"
-        case .tupleTypeOfFunctionReturnValue:
+        case .TupleTypeOfFunctionReturnValue:
             return "TupleTypeOfFunctionReturnValue"
-        case .endTupleTypeSyntaxOfFunctionReturnValue:
+        case .EndTupleTypeSyntaxOfFunctionReturnValue:
             return "EndTupleTypeSyntaxOfFunctionReturnValue"
-        case .conformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
+        case .ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
             return "ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue"
-        case .endFunctionReturnValueType:
+        case .EndFunctionReturnValueType:
             return "EndFunctionReturnValueType"
-        case .endFunctionDeclSyntax:
+        case .EndFunctionDeclSyntax:
             return "EndFunctionDeclSyntax"
         // initializer
-        case .startInitializerDeclSyntax:
+        case .StartInitializerDeclSyntax:
             return "StartInitializerDeclSyntax"
-        case .haveConvenienceKeyword:
+        case .HaveConvenienceKeyword:
             return "HaveConvenienceKeyword"
-        case .isFailableInitializer:
+        case .IsFailableInitializer:
             return "IsFailableInitializer"
-        case .startInitializerParameter:
+        case .StartInitializerParameter:
             return "StartInitializerParameter"
-        case .initializerParameterName:
+        case .InitializerParameterName:
             return "InitializerParameterName"
-        case .initializerParameterType:
+        case .InitializerParameterType:
             return "InitializerParameterType"
-        case .startArrayTypeSyntaxOfInitializer:
+        case .StartArrayTypeSyntaxOfInitializer:
             return "StartArrayTypeSyntaxOfInitializer"
-        case .arrayTypeOfInitializer:
+        case .ArrayTypeOfInitializer:
             return "arrayTypeOfInitializer"
-        case .endArrayTypeSyntaxOfInitializer:
+        case .EndArrayTypeSyntaxOfInitializer:
             return "EndArrayTypeSyntaxOfInitializer"
-        case .startDictionaryTypeSyntaxOfInitializer:
+        case .StartDictionaryTypeSyntaxOfInitializer:
             return "StartDictionaryTypeSyntaxOfInitializer"
-        case .dictionaryKeyTypeOfInitializer:
+        case .DictionaryKeyTypeOfInitializer:
             return "DictionaryKeyTypeOfInitializer"
-        case .dictionaryValueTypeOfInitializer:
+        case .DictionaryValueTypeOfInitializer:
             return "DictionaryValueTypeOfInitializer"
-        case .endDictionaryTypeSyntaxOfInitializer:
+        case .EndDictionaryTypeSyntaxOfInitializer:
             return "EndDictionaryTypeSyntaxOfInitializer"
-        case .startTupleTypeSyntaxOfInitializer:
+        case .StartTupleTypeSyntaxOfInitializer:
             return "StartTupleTypeSyntaxOfInitializer"
-        case .tupleTypeOfInitializer:
+        case .TupleTypeOfInitializer:
             return "TupleTypeOfInitializer"
-        case .endTupleTypeSyntaxOfInitializer:
+        case .EndTupleTypeSyntaxOfInitializer:
             return "EndTupleTypeSyntaxOfInitializer"
-        case .endInitializerParameter:
+        case .EndInitializerParameter:
             return "EndInitializerParameter"
-        case .endInitializerDeclSyntax:
+        case .EndInitializerDeclSyntax:
             return "EndInitializerDeclSyntax"
         // extension
-        case .startExtensionDeclSyntax:
+        case .StartExtensionDeclSyntax:
             return "StartExtensionDeclSyntax"
-        case .endExtensionDeclSyntax:
+        case .EndExtensionDeclSyntax:
             return "EndExtensionDeclSyntax"
-        case .conformedProtocolByExtension:
+        case .ConformedProtocolByExtension:
             return "ConformedProtocolByExtension"
         // generics
-        case .startGenericParameterSyntax:
+        case .StartGenericParameterSyntax:
             return "StartGenericParameterSyntax"
-        case .parameterTypeOfGenerics:
+        case .ParameterTypeOfGenerics:
             return "ParameterTypeOfGenerics"
-        case .conformedProtocolOrInheritedClassByGenerics:
+        case .ConformedProtocolOrInheritedClassByGenerics:
             return "ConformedProtocolOrInheritedClassByGenerics"
-        case .endGenericParameterSyntax:
+        case .EndGenericParameterSyntax:
             return "EndGenericParameterSyntax"
         // typealias
-        case .startTypealiasDecl:
+        case .StartTypealiasDecl:
             return "StartTypealiasDecl"
-        case .typealiasAssociatedTypeName:
+        case .TypealiasAssociatedTypeName:
             return "TypealiasAssociatedTypeName"
-        case .typealiasType:
+        case .TypealiasType:
             return "TypealiasType"
-        case .startArrayTypeSyntaxOfTypealias:
+        case .StartArrayTypeSyntaxOfTypealias:
             return "StartArrayTypeSyntaxOfTypealias"
-        case .arrayTypeOfTypealias:
+        case .ArrayTypeOfTypealias:
             return "ArrayTypeOfTypealias"
-        case .endArrayTypeSyntaxOfTypealias:
+        case .EndArrayTypeSyntaxOfTypealias:
             return "EndArrayTypeSyntaxOfTypealias"
-        case .startDictionaryTypeSyntaxOfTypealias:
+        case .StartDictionaryTypeSyntaxOfTypealias:
             return "StartDictionaryTypeSyntaxOfTypealias"
-        case .dictionaryKeyTypeOfTypealias:
+        case .DictionaryKeyTypeOfTypealias:
             return "DictionaryKeyTypeOfTypealias"
-        case .dictionaryValueTypeOfTypealias:
+        case .DictionaryValueTypeOfTypealias:
             return "DictionaryValueTypeOfTypealias"
-        case .endDictionaryTypeSyntaxOfTypealias:
+        case .EndDictionaryTypeSyntaxOfTypealias:
             return "EndDictionaryTypeSyntaxOfTypealias"
-        case .startTupleTypeSyntaxOfTypealias:
+        case .StartTupleTypeSyntaxOfTypealias:
             return "StartTupleTypeSyntaxOfTypealias"
-        case .tupleTypeOfTypealias:
+        case .TupleTypeOfTypealias:
             return "TupleTypeOfTypealias"
-        case .endTupleTypeSyntaxOfTypealias:
+        case .EndTupleTypeSyntaxOfTypealias:
             return "EndTupleTypeSyntaxOfTypealias"
-        case .endTypealiasDecl:
+        case .EndTypealiasDecl:
             return "EndTypealiasDecl"
             
-        case .space:
+        case .Space:
             return " "
         }
     }
