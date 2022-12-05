@@ -23,6 +23,7 @@
 		AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */; };
 		AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */; };
 		AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */; };
+		AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScrollView.swift; sourceTree = "<group>"; };
 		AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorPrinter.swift; sourceTree = "<group>"; };
 		AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
+		AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
+				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
 				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
@@ -221,6 +224,7 @@
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
+				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 			);
