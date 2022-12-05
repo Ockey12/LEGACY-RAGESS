@@ -35,6 +35,7 @@
 		AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0062293DCAD9001221C2 /* Holder.swift */; };
 		AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0064293DCAE9001221C2 /* TypeHolder.swift */; };
 		AC5F0067293DCCCC001221C2 /* HaveAccessLevelHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */; };
+		AC5F0069293DD418001221C2 /* HolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0068293DD418001221C2 /* HolderType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		AC5F0062293DCAD9001221C2 /* Holder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		AC5F0064293DCAE9001221C2 /* TypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeHolder.swift; sourceTree = "<group>"; };
 		AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveAccessLevelHolder.swift; sourceTree = "<group>"; };
+		AC5F0068293DD418001221C2 /* HolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolderType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				AC5F0062293DCAD9001221C2 /* Holder.swift */,
+				AC5F0068293DD418001221C2 /* HolderType.swift */,
 				AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */,
 				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
 				AC5F0052293DB794001221C2 /* StructHolder.swift */,
@@ -275,6 +278,7 @@
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
+				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,

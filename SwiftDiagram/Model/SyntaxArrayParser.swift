@@ -9,7 +9,34 @@ import Foundation
 
 // TokenVisitorクラスが出力したresultArrayを解析し、各Holder構造体のインスタンスを生成する
 struct SyntaxArrayParser {
+    // 解析結果を保持する各Holderの配列
+    private var resultStructHolders = [StructHolder]()
+    private var resultClassHolders = [ClassHolder]()
+    private var resultEnumHolders = [EnumHolder]()
+    private var resultProtocolHolders = [ProtocolHolder]()
+    private var resultVariableHolders = [VariableHolder]()
+    private var resultFunctionHolders = [FunctionHolder]()
+    private var resultExtensionHolders = [ExtensionHolder]()
+    
+    
+    
     mutating func parseResultArray(resultArray: [String]) {
+        // 解析して生成したHolderの生成順を記憶しておくスタック配列
+        // 解析した全てのHolderを記憶し続けるわけではない
+        // あるHolderをネストしている親Holderを記憶するために使う
+        var holderStackArray = [HolderStackArrayElement]()
         
+        var structHolders = [String: StructHolder]()
+        var classHolders = [String: ClassHolder]()
+        var enumHolders = [String: EnumHolder]()
+        var protocolHolders = [String: ProtocolHolder]()
+        var variableHolders = [String: VariableHolder]()
+        var functionHolders = [String: FunctionHolder]()
+        var extensionHolders = [String: ExtensionHolder]()
+        
+        struct HolderStackArrayElement {
+            var holderType: HolderType
+            var name: String
+        }
     }
 }
