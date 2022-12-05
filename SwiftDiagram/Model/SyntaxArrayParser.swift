@@ -26,8 +26,10 @@ struct SyntaxArrayParser {
         // あるHolderをネストしている親Holderを記憶するために使う
         var holderStackArray = [HolderStackArrayElement]()
         
+        // holderStackArrayの現在の位置
         var positionInHolderStackArray = -1
         
+        // resultArrayの要素1つをスペースで分割した結果を保持する
         var parsedElementArray = [String]()
         
         // 各Holderの名前とインスタンスを保持する辞書
@@ -206,7 +208,7 @@ struct SyntaxArrayParser {
             case .FunctionName:
                 break
             case .StartFunctionParameterSyntax:
-                break
+                currentFunctionParameterHolder = FunctionParameterHolder()
             case .ExternalParameterName:
                 break
             case .InternalParameterName:
@@ -272,13 +274,13 @@ struct SyntaxArrayParser {
             case .EndFunctionDeclSyntax:
                 break
             case .StartInitializerDeclSyntax:
-                break
+                currentInitializerHolder = InitializerHolder()
             case .HaveConvenienceKeyword:
                 break
             case .IsFailableInitializer:
                 break
             case .StartInitializerParameter:
-                break
+                currentInitializerParameterHolder = InitializerParameterHolder()
             case .InitializerParameterName:
                 break
             case .InitializerParameterType:
