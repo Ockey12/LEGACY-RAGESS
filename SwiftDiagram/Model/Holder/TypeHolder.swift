@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TypeHolder {
+protocol TypeHolder: HaveAccessLevelHolder {
     // この型が準拠しているプロトコル
     var conformingProtocols: [String] { get set }
     

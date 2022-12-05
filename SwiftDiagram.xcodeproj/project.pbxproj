@@ -164,8 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				AC5F0062293DCAD9001221C2 /* Holder.swift */,
-				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
 				AC5F0066293DCCCC001221C2 /* HaveAccessLevelHolder.swift */,
+				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
 				AC5F0052293DB794001221C2 /* StructHolder.swift */,
 				AC5F0054293DB7A0001221C2 /* ClassHolder.swift */,
 				AC5F0056293DB7AE001221C2 /* EnumHolder.swift */,

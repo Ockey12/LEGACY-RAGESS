@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol Holder {
-    var name: String { get set }
-}
+protocol Holder {}

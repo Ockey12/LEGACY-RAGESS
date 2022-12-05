@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol HaveAccessLevelHolder {
+protocol HaveAccessLevelHolder: Holder {
+    var name: String { get set }
     var accessLevel: AccessLevel { get set }
 }
 
