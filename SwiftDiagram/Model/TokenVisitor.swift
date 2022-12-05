@@ -121,19 +121,19 @@ final class TokenVisitor: SyntaxRewriter {
         } else {
             if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
                 // structの宣言開始
-                resultArray.append(SyntaxTag.startStructDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartStructDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.structDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.classDeclSyntax.string {
                 // classの宣言開始
-                resultArray.append(SyntaxTag.startClassDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartClassDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.classDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.enumDeclSyntax.string {
                 // enumの宣言開始
-                resultArray.append(SyntaxTag.startEnumDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartEnumDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.enumDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.enumCaseElementSyntax.string {
                 // enumのcaseを宣言開始
-                resultArray.append(SyntaxTag.startEnumCaseElementSyntax.string)
+                resultArray.append(SyntaxTag.StartEnumCaseElementSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.enumCaseElementSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.parameterClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
@@ -146,16 +146,16 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
                 // protocolの宣言開始
-                resultArray.append(SyntaxTag.startProtocolDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartProtocolDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.protocolDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
                 // protocolの連想型の宣言開始
-                resultArray.append(SyntaxTag.startAssociatedtypeDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartAssociatedtypeDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.associatedtypeDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言開始
                 passedGetKeywordOfVariableFlag = false
-                resultArray.append(SyntaxTag.startVariableDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartVariableDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.variableDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
                 // variableの@Stateなどの宣言開始
@@ -179,7 +179,7 @@ final class TokenVisitor: SyntaxRewriter {
                 pushSyntaxNodeTypeStack(SyntaxNodeType.accessorBlockSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.functionDeclSyntax.string {
                 // functionの宣言開始
-                resultArray.append(SyntaxTag.startFunctionDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartFunctionDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionDeclSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax){
@@ -187,12 +187,12 @@ final class TokenVisitor: SyntaxRewriter {
                 functionParameterNames.removeAll()
                 passedFunctionParameterOfFunctionDeclFirstColonFlag = false
 //                functionParameterTypeString = ""
-                resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
+                resultArray.append(SyntaxTag.StartFunctionParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
                 // genericsの型引数の宣言開始
                 passedColonOfGenericParameterFlag = false
-                resultArray.append(SyntaxTag.startGenericParameterSyntax.string)
+                resultArray.append(SyntaxTag.StartGenericParameterSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.genericParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.codeBlockSyntax.string {
                 // function、initializer、コンピューテッドプロパティのCodeBlock宣言開始
@@ -205,14 +205,14 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (currentSyntaxNodeType == SyntaxNodeType.returnClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax) {
                 // functionの返り値の宣言開始
-                resultArray.append(SyntaxTag.startFunctionReturnValueType.string)
+                resultArray.append(SyntaxTag.StartFunctionReturnValueType.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.returnClauseSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承、またはローバリューの型を宣言開始
                 pushSyntaxNodeTypeStack(SyntaxNodeType.inheritedTypeListSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
                 // initializerの宣言開始
-                resultArray.append(SyntaxTag.startInitializerDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartInitializerDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerDeclSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax){
@@ -222,33 +222,33 @@ final class TokenVisitor: SyntaxRewriter {
 //                functionParameterTypeString = ""
 //                resultArray.append(SyntaxTag.startFunctionParameterSyntax.string)
                 passedFunctionParameterOfInitializerDeclFirstColonFlag = false
-                resultArray.append(SyntaxTag.startInitializerParameter.string)
+                resultArray.append(SyntaxTag.StartInitializerParameter.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.extensionDeclSyntax.string {
                 // extensionの宣言開始
-                resultArray.append(SyntaxTag.startExtensionDeclSyntax.string)
+                resultArray.append(SyntaxTag.StartExtensionDeclSyntax.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.extensionDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
                 // 配列の宣言開始
                 if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.StartArrayTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.StartArrayTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.StartArrayTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.StartArrayTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.startArrayTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.StartArrayTypeSyntaxOfTypealias.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.arrayTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {
@@ -256,22 +256,22 @@ final class TokenVisitor: SyntaxRewriter {
                 if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として辞書を宣言開始するとき
-                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.StartDictionaryTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言開始するとき
-                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.StartDictionaryTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型として辞書を宣言開始するとき
-                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.StartDictionaryTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言開始するとき
-                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.StartDictionaryTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型として辞書を宣言開始するとき
-                    resultArray.append(SyntaxTag.startDictionaryTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.StartDictionaryTypeSyntaxOfTypealias.string)
                 }
                 passedColonOfDictionaryTypeSyntaxFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.dictionaryTypeSyntax)
@@ -280,28 +280,28 @@ final class TokenVisitor: SyntaxRewriter {
                 if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型としてタプルを宣言開始するとき
-                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.StartTupleTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言開始するとき
-                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.StartTupleTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型としてタプルを宣言開始するとき
-                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.StartTupleTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言開始するとき
-                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.StartTupleTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型としてタプルを宣言開始するとき
-                    resultArray.append(SyntaxTag.startTupleTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.StartTupleTypeSyntaxOfTypealias.string)
                 }
                 pushSyntaxNodeTypeStack(SyntaxNodeType.tupleTypeSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言開始
                 passedEqualOfTypealiasDeclFlag = false
-                resultArray.append(SyntaxTag.startTypealiasDecl.string)
+                resultArray.append(SyntaxTag.StartTypealiasDecl.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.typealiasDeclSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.constrainedSugarTypeSyntax.string {
                 // opaque result typeを宣言開始するとき
@@ -321,7 +321,7 @@ final class TokenVisitor: SyntaxRewriter {
                 (!passedGetKeywordOfVariableFlag) {
                 // variableの宣言中、passedGetKeywordOfVariableFlagがfalseのときにreturnを検査したとき、それはgetキーワードを省略したコンピューテッドプロパティ
                 // getキーワードを抽出したことにする
-                resultArray.append(SyntaxTag.haveGetter.string)
+                resultArray.append(SyntaxTag.HaveGetter.string)
             }
             // CodeBlockSyntax内の情報は無視する
             return token._syntaxNode
@@ -346,21 +346,21 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.structDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // structの名前を宣言しているとき
-                resultArray.append(SyntaxTag.structName.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.StructName.string + SyntaxTag.Space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.classDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // classの名前を宣言しているとき
-                resultArray.append(SyntaxTag.className.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.ClassName.string + SyntaxTag.Space.string + token.text)
                 classNameArray.append(token.text)
                 printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumの名前を宣言しているとき
-                resultArray.append(SyntaxTag.enumName.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.EnumName.string + SyntaxTag.Space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumのcaseを宣言しているとき
-                resultArray.append(SyntaxTag.enumCase.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.EnumCase.string + SyntaxTag.Space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
                 // enumのローバリューを宣言しているとき
@@ -375,17 +375,17 @@ final class TokenVisitor: SyntaxRewriter {
                     (tokenKind != TokenKind.comma.string) &&
                     (tokenKind != TokenKind.rightParen.string) {
                     // "(", commma, ")"以外を抽出する
-                    resultArray.append(SyntaxTag.caseAssociatedValue.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.CaseAssociatedValue.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocolの名前を宣言しているとき
-                resultArray.append(SyntaxTag.protocolName.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.ProtocolName.string + SyntaxTag.Space.string + token.text)
                 printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.associatedtypeDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocol内の連想型を宣言しているとき
-                resultArray.append(SyntaxTag.associatedType.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.AssociatedType.string + SyntaxTag.Space.string + token.text)
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.inheritedTypeListSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // 準拠しているプロトコルの名前を宣言しているとき
@@ -396,22 +396,22 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax) &&
                         tokenKind == TokenKind.lazy.string {
                 // variableのlazyキーワードを見つけたとき
-                resultArray.append(SyntaxTag.lazyVariable.string)
+                resultArray.append(SyntaxTag.LazyVariable.string)
             } else if tokenKind == TokenKind.letKeyword.string {
                 // variableのletキーワードを見つけたとき
-                resultArray.append(SyntaxTag.haveLetKeyword.string)
+                resultArray.append(SyntaxTag.HaveLetKeyword.string)
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.identifierPatternSyntax {
                 // variableの名前を見つけたとき
-                resultArray.append(SyntaxTag.variableName.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.VariableName.string + SyntaxTag.Space.string + token.text)
             } else if tokenKind == TokenKind.staticKeyword.string {
                 // staticキーワードを見つけたとき
                 // variableとfunctionを区別する
                 if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
                     // variableの宣言中のとき
-                    resultArray.append(SyntaxTag.isStaticVariable.string)
+                    resultArray.append(SyntaxTag.IsStaticVariable.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax {
                     // functionの宣言中のとき
-                    resultArray.append(SyntaxTag.isStaticFunction.string)
+                    resultArray.append(SyntaxTag.IsStaticFunction.string)
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typeAnnotationSyntax {
                 // variableの型を宣言しているとき
@@ -419,7 +419,7 @@ final class TokenVisitor: SyntaxRewriter {
                 // 配列や辞書は別のelse if節で抽出する
                 if (tokenKind != TokenKind.colon.string) &&
                     (tokenKind != TokenKind.postfixQuestionMark.string) {
-                    resultArray.append(SyntaxTag.variableType.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.VariableType.string + SyntaxTag.Space.string + token.text)
 //                    if tokenKind == TokenKind.postfixQuestionMark.string {
 //                        // "?"のとき
 //                        // "?"は型名には含めず、オプショナル型であることをタグで表す
@@ -456,29 +456,29 @@ final class TokenVisitor: SyntaxRewriter {
                 // variableのwillSet, didSet, get, setを宣言しているとき
                 if tokenKind == TokenKind.willSetKeyword.string {
                     // willSetのとき
-                    resultArray.append(SyntaxTag.haveWillSet.string)
+                    resultArray.append(SyntaxTag.HaveWillSet.string)
                 } else if tokenKind == TokenKind.didSetKeyword.string {
                     // didSetのとき
-                    resultArray.append(SyntaxTag.haveDidSet.string)
+                    resultArray.append(SyntaxTag.HaveDidSet.string)
                 } else if tokenKind == TokenKind.getKeyword.string {
                     // getのとき
                     passedGetKeywordOfVariableFlag = true
-                    resultArray.append(SyntaxTag.haveGetter.string)
+                    resultArray.append(SyntaxTag.HaveGetter.string)
                 } else if tokenKind == TokenKind.setKeyword.string {
                     // setのとき
-                    resultArray.append(SyntaxTag.haveSetter.string)
+                    resultArray.append(SyntaxTag.HaveSetter.string)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // functionの名前を宣言しているとき
                 if tokenKind == TokenKind.mutatingKeyword.string {
                     // mutatingキーワードを見つけたとき
-                    resultArray.append(SyntaxTag.isMutatingFunction.string)
+                    resultArray.append(SyntaxTag.IsMutatingFunction.string)
                 } else if tokenKind == TokenKind.overrideKeyword.string {
                     // overrideキーワードを見つけたとき
-                    resultArray.append(SyntaxTag.isOverrideFunction.string)
+                    resultArray.append(SyntaxTag.IsOverrideFunction.string)
                 }else {
-                    resultArray.append(SyntaxTag.functionName.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.FunctionName.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) &&
@@ -491,13 +491,13 @@ final class TokenVisitor: SyntaxRewriter {
                     // 引数名を抽出し終えているので、functionParameterNamesの要素をresultArrayに.append()する
                     if functionParameterNames.count == 1 {
                         // functionParameterNamesの要素が1つのとき、この引数は内部引数名を持ち、外部引数名を持たない
-                        resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
+                        resultArray.append(SyntaxTag.InternalParameterName.string + SyntaxTag.Space.string + functionParameterNames[0])
                     } else if functionParameterNames.count == 2 {
                         // functionParameterNamesの要素が2つのとき、この引数は外部引数名と内部引数名を持つ
                         // 外部引数名
-                        resultArray.append(SyntaxTag.externalParameterName.string + SyntaxTag.space.string + functionParameterNames[0])
+                        resultArray.append(SyntaxTag.ExternalParameterName.string + SyntaxTag.Space.string + functionParameterNames[0])
                         // 内部引数名
-                        resultArray.append(SyntaxTag.internalParameterName.string + SyntaxTag.space.string + functionParameterNames[1])
+                        resultArray.append(SyntaxTag.InternalParameterName.string + SyntaxTag.Space.string + functionParameterNames[1])
                     }
                 } else {
                     // 外部引数名または内部引数名を一時的に保持する
@@ -509,15 +509,15 @@ final class TokenVisitor: SyntaxRewriter {
                 // FunctionParameterSyntax内で既に最初の":"を検査した後
                 if tokenKind == TokenKind.inoutKeyword.string {
                     // inoutキーワードのとき
-                    resultArray.append(SyntaxTag.haveInoutKeyword.string)
+                    resultArray.append(SyntaxTag.HaveInoutKeyword.string)
                 } else if tokenKind == TokenKind.ellipsis.string {
                     // "..."のとき、可変長引数
-                    resultArray.append(SyntaxTag.isVariadicParameter.string)
+                    resultArray.append(SyntaxTag.IsVariadicParameter.string)
                 } else if (tokenKind != TokenKind.comma.string) &&
                             (tokenKind != TokenKind.postfixQuestionMark.string){
 //                    functionParameterTypeString += token.text
                     // StringやIntのみ抽出する
-                    resultArray.append(SyntaxTag.functionParameterType.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.FunctionParameterType.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
@@ -533,7 +533,7 @@ final class TokenVisitor: SyntaxRewriter {
                     (tokenKind != TokenKind.postfixQuestionMark.string) {
                     // "->" と "?" 以外を抽出する
                     // StringやIntのみ抽出する
-                    resultArray.append(SyntaxTag.functionReturnValueType.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.FunctionReturnValueType.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.genericParameterSyntax) &&
                         (!passedColonOfGenericParameterFlag) {
@@ -543,7 +543,7 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind == TokenKind.colon.string {
                     passedColonOfGenericParameterFlag = true
                 } else {
-                    resultArray.append(SyntaxTag.parameterTypeOfGenerics.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.ParameterTypeOfGenerics.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.genericParameterSyntax) &&
                         (passedColonOfGenericParameterFlag) {
@@ -551,14 +551,14 @@ final class TokenVisitor: SyntaxRewriter {
                 // 既に":"を検査した後
                 // 準拠しているprotocolまたはスーパークラスを抽出する
                 if tokenKind != TokenKind.comma.string {
-                    resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByGenerics.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.ConformedProtocolOrInheritedClassByGenerics.string + SyntaxTag.Space.string + token.text)
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax {
                 // initializerの宣言中
                 if tokenKind == TokenKind.convenienceKeyword.string {
-                    resultArray.append(SyntaxTag.haveConvenienceKeyword.string)
+                    resultArray.append(SyntaxTag.HaveConvenienceKeyword.string)
                 } else if tokenKind == TokenKind.postfixQuestionMark.string {
-                    resultArray.append(SyntaxTag.isFailableInitializer.string)
+                    resultArray.append(SyntaxTag.IsFailableInitializer.string)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) &&
@@ -568,7 +568,7 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind == TokenKind.colon.string {
                     passedFunctionParameterOfInitializerDeclFirstColonFlag = true
                 } else {
-                    resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.InitializerParameterName.string + SyntaxTag.Space.string + token.text)
 //                    if (tokenKind != TokenKind.comma.string){
 //                        // 複数の引数を区切る","と、オプショナル型の"?"は抽出しない
 //                        resultArray.append(SyntaxTag.initializerParameterName.string + SyntaxTag.space.string + token.text)
@@ -583,7 +583,7 @@ final class TokenVisitor: SyntaxRewriter {
                 if tokenKind != TokenKind.comma.string &&
                     (tokenKind != TokenKind.postfixQuestionMark.string)  {
                     // 複数の引数を区切る","と、オプショナル型の"?"は抽出しない
-                    resultArray.append(SyntaxTag.initializerParameterType.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.InitializerParameterType.string + SyntaxTag.Space.string + token.text)
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.arrayTypeSyntax {
                 // 配列の宣言中
@@ -593,22 +593,22 @@ final class TokenVisitor: SyntaxRewriter {
                     if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                         // variableの型として配列を宣言中のとき
-                        resultArray.append(SyntaxTag.arrayTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ArrayTypeOfVariable.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの引数の型として配列を宣言中のとき
-                        resultArray.append(SyntaxTag.arrayTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ArrayTypeOfFunctionParameter.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの返り値の型として配列を宣言中のとき
-                        resultArray.append(SyntaxTag.arrayTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ArrayTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                         // initializerの引数の型として配列を宣言中のとき
-                        resultArray.append(SyntaxTag.arrayTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ArrayTypeOfInitializer.string + SyntaxTag.Space.string + token.text)
                     } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                         // typealiasの型として配列を宣言中のとき
-                        resultArray.append(SyntaxTag.arrayTypeOfTypealias.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ArrayTypeOfTypealias.string + SyntaxTag.Space.string + token.text)
                     }
                 }
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.dictionaryTypeSyntax {
@@ -621,22 +621,22 @@ final class TokenVisitor: SyntaxRewriter {
                         if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                             // variableの型として辞書を宣言中のとき
-                            resultArray.append(SyntaxTag.dictionaryValueTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                            resultArray.append(SyntaxTag.DictionaryValueTypeOfVariable.string + SyntaxTag.Space.string + token.text)
                         } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                             // functionの引数の型として辞書を宣言中のとき
-                            resultArray.append(SyntaxTag.dictionaryValueTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                            resultArray.append(SyntaxTag.DictionaryValueTypeOfFunctionParameter.string + SyntaxTag.Space.string + token.text)
                         } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                             // functionの返り値の型として辞書を宣言中のとき
-                            resultArray.append(SyntaxTag.dictionaryValueTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                            resultArray.append(SyntaxTag.DictionaryValueTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                         } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                             // initializerの引数の型として辞書を宣言中のとき
-                            resultArray.append(SyntaxTag.dictionaryValueTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                            resultArray.append(SyntaxTag.DictionaryValueTypeOfInitializer.string + SyntaxTag.Space.string + token.text)
                         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                             // typealiasの型として辞書を宣言中のとき
-                            resultArray.append(SyntaxTag.dictionaryValueTypeOfTypealias.string + SyntaxTag.space.string + token.text)
+                            resultArray.append(SyntaxTag.DictionaryValueTypeOfTypealias.string + SyntaxTag.Space.string + token.text)
                         }
                     } else {
                         // ":"を検査する前
@@ -648,22 +648,22 @@ final class TokenVisitor: SyntaxRewriter {
                             if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                                 // variableの型として辞書を宣言中のとき
-                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                                resultArray.append(SyntaxTag.DictionaryKeyTypeOfVariable.string + SyntaxTag.Space.string + token.text)
                             } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                                 // functionの引数の型として辞書を宣言中のとき
-                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                                resultArray.append(SyntaxTag.DictionaryKeyTypeOfFunctionParameter.string + SyntaxTag.Space.string + token.text)
                             } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                                 // functionの返り値の型として辞書を宣言中のとき
-                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                                resultArray.append(SyntaxTag.DictionaryKeyTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                             } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                                 // initializerの引数の型として辞書を宣言中のとき
-                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                                resultArray.append(SyntaxTag.DictionaryKeyTypeOfInitializer.string + SyntaxTag.Space.string + token.text)
                             } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                                 // typealiasの型として辞書を宣言中のとき
-                                resultArray.append(SyntaxTag.dictionaryKeyTypeOfTypealias.string + SyntaxTag.space.string + token.text)
+                                resultArray.append(SyntaxTag.DictionaryKeyTypeOfTypealias.string + SyntaxTag.Space.string + token.text)
                             }
                         }
                     }
@@ -677,22 +677,22 @@ final class TokenVisitor: SyntaxRewriter {
                     if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                         // variableの型としてタプルを宣言中のとき
-                        resultArray.append(SyntaxTag.tupleTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.TupleTypeOfVariable.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの引数の型としてタプルを宣言中のとき
-                        resultArray.append(SyntaxTag.tupleTypeOfFunctionParameter.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.TupleTypeOfFunctionParameter.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの返り値の型としてタプルを宣言中のとき
-                        resultArray.append(SyntaxTag.tupleTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.TupleTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                         // initializerの引数の型としてタプルを宣言中のとき
-                        resultArray.append(SyntaxTag.tupleTypeOfInitializer.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.TupleTypeOfInitializer.string + SyntaxTag.Space.string + token.text)
                     }else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                         // typealiasの型としてタプルを宣言中のとき
-                        resultArray.append(SyntaxTag.tupleTypeOfTypealias.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.TupleTypeOfTypealias.string + SyntaxTag.Space.string + token.text)
                     }
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.typealiasDeclSyntax) &&
@@ -701,7 +701,7 @@ final class TokenVisitor: SyntaxRewriter {
                 // まだ"="を検査していない
                 if tokenKind.hasPrefix(TokenKind.identifier.string) {
                     // 連想型名を抽出する
-                    resultArray.append(SyntaxTag.typealiasAssociatedTypeName.string + SyntaxTag.space.string + token.text)
+                    resultArray.append(SyntaxTag.TypealiasAssociatedTypeName.string + SyntaxTag.Space.string + token.text)
                 } else if tokenKind == TokenKind.equal.string {
                     // "="を検査したのでフラグをtrueにする
                     passedEqualOfTypealiasDeclFlag = true
@@ -712,7 +712,7 @@ final class TokenVisitor: SyntaxRewriter {
                 // typealiasの宣言中
                 // 既に"="を検査した後
                 // optional型の"?"がつく可能性があるため、tokenKindがidentifierのときのみ抽出する
-                resultArray.append(SyntaxTag.typealiasType.string + SyntaxTag.space.string + token.text)
+                resultArray.append(SyntaxTag.TypealiasType.string + SyntaxTag.Space.string + token.text)
             } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.constrainedSugarTypeSyntax {
                 // opaque result typeの宣言中
                 // "some"は抽出しない
@@ -721,11 +721,11 @@ final class TokenVisitor: SyntaxRewriter {
                     if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                         // variableの型としてopaque result typeを宣言しているとき
-                        resultArray.append(SyntaxTag.conformedProtocolByOpaqueResultTypeOfVariable.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ConformedProtocolByOpaqueResultTypeOfVariable.string + SyntaxTag.Space.string + token.text)
                     } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                                 (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                         // functionの返り値の型としてopaque result typeを宣言しているとき
-                        resultArray.append(SyntaxTag.conformedProtocolByOpaqueResultTypeOfFunctionReturnValue.string + SyntaxTag.space.string + token.text)
+                        resultArray.append(SyntaxTag.ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                     }
                 }
             }
@@ -747,19 +747,19 @@ final class TokenVisitor: SyntaxRewriter {
         } else {
             if currentSyntaxNodeType == SyntaxNodeType.structDeclSyntax.string {
                 // structの宣言終了
-                resultArray.append(SyntaxTag.endStructDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndStructDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.classDeclSyntax.string {
                 // classの宣言終了
-                resultArray.append(SyntaxTag.endClassDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndClassDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.enumDeclSyntax.string {
                 // enumの宣言終了
-                resultArray.append(SyntaxTag.endEnumDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndEnumDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.enumCaseElementSyntax.string {
                 // enumのcaseを宣言終了
-                resultArray.append(SyntaxTag.endEnumCaseElementSyntax.string)
+                resultArray.append(SyntaxTag.EndEnumCaseElementSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.parameterClauseSyntax.string) &&
                         (1 < currentPositionInStack) &&
@@ -770,23 +770,23 @@ final class TokenVisitor: SyntaxRewriter {
                         (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
                 // enumのローバリューを宣言終了
-                resultArray.append(SyntaxTag.rawvalue.string + SyntaxTag.space.string + rawvalueString)
+                resultArray.append(SyntaxTag.Rawvalue.string + SyntaxTag.Space.string + rawvalueString)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.protocolDeclSyntax.string {
                 // protocolの宣言終了
-                resultArray.append(SyntaxTag.endProtocolDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndProtocolDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.associatedtypeDeclSyntax.string {
                 // protocolの連想型の宣言終了
-                resultArray.append(SyntaxTag.endAssociatedtypeDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndAssociatedtypeDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.variableDeclSyntax.string {
                 // variableの宣言終了
-                resultArray.append(SyntaxTag.endVariableDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndVariableDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.customAttributeSyntax.string {
                 // variableの@Stateなどの宣言終了
-                resultArray.append(SyntaxTag.variableCustomAttribute.string + SyntaxTag.space.string + variableCustomAttribute)
+                resultArray.append(SyntaxTag.VariableCustomAttribute.string + SyntaxTag.Space.string + variableCustomAttribute)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.identifierPatternSyntax.string {
                 // variableの名前を宣言終了
@@ -799,14 +799,14 @@ final class TokenVisitor: SyntaxRewriter {
                         (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax) {
                 // variableの初期値を宣言終了
-                resultArray.append(SyntaxTag.initialValueOfVariable.string + SyntaxTag.space.string + initialValueOfVariable)
+                resultArray.append(SyntaxTag.InitialValueOfVariable.string + SyntaxTag.Space.string + initialValueOfVariable)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.accessorBlockSyntax.string {
                 // variableのwillSet, didSet, get, setを宣言するブロック終了
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionDeclSyntax.string {
                 // functionの宣言終了
-                resultArray.append(SyntaxTag.endFunctionDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndFunctionDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string &&
                         (1 < currentPositionInStack) &&
@@ -817,29 +817,29 @@ final class TokenVisitor: SyntaxRewriter {
 //                    functionParameterTypeString = String(functionParameterTypeString.dropLast())
 //                }
 //                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
-                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
+                resultArray.append(SyntaxTag.EndFunctionParameterSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (1 < currentPositionInStack) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
                 // デフォルト引数のデフォルト値を宣言終了
-                resultArray.append(SyntaxTag.initialValueOfParameter.string + SyntaxTag.space.string + initialValueOfParameter)
+                resultArray.append(SyntaxTag.InitialValueOfParameter.string + SyntaxTag.Space.string + initialValueOfParameter)
                 popSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.returnClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
                 // functionの返り値の宣言終了
-                resultArray.append(SyntaxTag.endFunctionReturnValueType.string)
+                resultArray.append(SyntaxTag.EndFunctionReturnValueType.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
                 // genericsの型引数の宣言終了
-                resultArray.append(SyntaxTag.endGenericParameterSyntax.string)
+                resultArray.append(SyntaxTag.EndGenericParameterSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承終了
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
                 // initializerの宣言終了
-                resultArray.append(SyntaxTag.endInitializerDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndInitializerDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string &&
                         (1 < currentPositionInStack) &&
@@ -851,33 +851,33 @@ final class TokenVisitor: SyntaxRewriter {
 //                }
 //                resultArray.append(SyntaxTag.parameterType.string + SyntaxTag.space.string + functionParameterTypeString)
 //                resultArray.append(SyntaxTag.endFunctionParameterSyntax.string)
-                resultArray.append(SyntaxTag.endInitializerParameter.string)
+                resultArray.append(SyntaxTag.EndInitializerParameter.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.extensionDeclSyntax.string {
                 // extensionの宣言終了
-                resultArray.append(SyntaxTag.endExtensionDeclSyntax.string)
+                resultArray.append(SyntaxTag.EndExtensionDeclSyntax.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.arrayTypeSyntax.string {
                 // 配列の宣言終了
                 if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として配列を宣言終了するとき
-                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.EndArrayTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として配列を宣言終了するとき
-                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.EndArrayTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型として配列を宣言終了するとき
-                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.EndArrayTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として配列を宣言開始するとき
-                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.EndArrayTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型として配列を宣言終了するとき
-                    resultArray.append(SyntaxTag.endArrayTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.EndArrayTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.dictionaryTypeSyntax.string {
@@ -885,22 +885,22 @@ final class TokenVisitor: SyntaxRewriter {
                 if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型として辞書を宣言終了するとき
-                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.EndDictionaryTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型として辞書を宣言終了するとき
-                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.EndDictionaryTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型として辞書を宣言終了するとき
-                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.EndDictionaryTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型として辞書を宣言終了するとき
-                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.EndDictionaryTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型として辞書を宣言終了するとき
-                    resultArray.append(SyntaxTag.endDictionaryTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.EndDictionaryTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.tupleTypeSyntax.string {
@@ -908,30 +908,30 @@ final class TokenVisitor: SyntaxRewriter {
                 if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typeAnnotationSyntax) &&
                     (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.variableDeclSyntax) {
                     // variableの型としてタプルを宣言終了するとき
-                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfVariable.string)
+                    resultArray.append(SyntaxTag.EndTupleTypeSyntaxOfVariable.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの引数の型としてタプルを宣言終了するとき
-                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunctionParameter.string)
+                    resultArray.append(SyntaxTag.EndTupleTypeSyntaxOfFunctionParameter.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.returnClauseSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax) {
                     // functionの返り値の型としてタプルを宣言終了するとき
-                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfFunctionReturnValue.string)
+                    resultArray.append(SyntaxTag.EndTupleTypeSyntaxOfFunctionReturnValue.string)
                 } else if (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
                             (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax) {
                     // initializerの引数の型としてタプルを宣言終了するとき
-                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfInitializer.string)
+                    resultArray.append(SyntaxTag.EndTupleTypeSyntaxOfInitializer.string)
                 } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.typealiasDeclSyntax {
                     // typealiasの型としてタプルを宣言終了するとき
-                    resultArray.append(SyntaxTag.endTupleTypeSyntaxOfTypealias.string)
+                    resultArray.append(SyntaxTag.EndTupleTypeSyntaxOfTypealias.string)
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {
                 // オプショナル型の配列などを宣言終了したとき
-                resultArray.append(SyntaxTag.isOptionalType.string)
+                resultArray.append(SyntaxTag.IsOptionalType.string)
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言終了
-                resultArray.append(SyntaxTag.endTypealiasDecl.string)
+                resultArray.append(SyntaxTag.EndTypealiasDecl.string)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.constrainedSugarTypeSyntax.string {
                 // opaque result typeを宣言終了するとき
@@ -994,22 +994,22 @@ final class TokenVisitor: SyntaxRewriter {
     private func addAccessLevelToResultArrayDependOnType(accessLevel: String) {
         if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.structDeclSyntax {
             // structのアクセスレベル
-            resultArray.append(SyntaxTag.structAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.StructAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.classDeclSyntax {
             // classのアクセスレベル
-            resultArray.append(SyntaxTag.classAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.ClassAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax {
             // enumのアクセスレベル
-            resultArray.append(SyntaxTag.enumAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.EnumAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax {
             // protocolのアクセスレベル
-            resultArray.append(SyntaxTag.protocolAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.ProtocolAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.variableDeclSyntax {
             // variableのアクセスレベル
-            resultArray.append(SyntaxTag.variableAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.VariableAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax {
             // functionのアクセスレベル
-            resultArray.append(SyntaxTag.functionAccessLevel.string + SyntaxTag.space.string + accessLevel)
+            resultArray.append(SyntaxTag.FunctionAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         }
     }
     
@@ -1019,30 +1019,30 @@ final class TokenVisitor: SyntaxRewriter {
         
         if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.structDeclSyntax {
             // structの宣言中のとき
-            resultArray.append(SyntaxTag.conformedProtocolByStruct.string + SyntaxTag.space.string + protocolName)
+            resultArray.append(SyntaxTag.ConformedProtocolByStruct.string + SyntaxTag.Space.string + protocolName)
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.classDeclSyntax {
             // classの宣言中のとき
             // 継承と、プロトコルへの準拠のどちらか判別できない
-            resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByClass.string + SyntaxTag.space.string + protocolName)
+            resultArray.append(SyntaxTag.ConformedProtocolOrInheritedClassByClass.string + SyntaxTag.Space.string + protocolName)
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumDeclSyntax {
             // enumの宣言中のとき
             // ローバリューの型の宣言と、プロトコルへの準拠のどちらか判別できない
             if compareRawvalueType(with: protocolName) {
                 // ローバリューの型を宣言しているとき
-                resultArray.append(SyntaxTag.rawvalueType.string + SyntaxTag.space.string + protocolName)
+                resultArray.append(SyntaxTag.RawvalueType.string + SyntaxTag.Space.string + protocolName)
             } else {
                 // 準拠しているプロトコルを宣言しているとき
-                resultArray.append(SyntaxTag.conformedProtocolByEnum.string + SyntaxTag.space.string + protocolName)
+                resultArray.append(SyntaxTag.ConformedProtocolByEnum.string + SyntaxTag.Space.string + protocolName)
             }
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.protocolDeclSyntax {
             // protocolの宣言中のとき
-            resultArray.append(SyntaxTag.conformedProtocolByProtocol.string + SyntaxTag.space.string + protocolName)
+            resultArray.append(SyntaxTag.ConformedProtocolByProtocol.string + SyntaxTag.Space.string + protocolName)
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.associatedtypeDeclSyntax {
             // protocolで連想型の型制約を宣言中のとき
-            resultArray.append(SyntaxTag.conformedProtocolOrInheritedClassByAssociatedType.string + SyntaxTag.space.string + protocolName)
+            resultArray.append(SyntaxTag.ConformedProtocolOrInheritedClassByAssociatedType.string + SyntaxTag.Space.string + protocolName)
         } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.extensionDeclSyntax {
             // extensionの宣言中のとき
-            resultArray.append(SyntaxTag.conformedProtocolByExtension.string + SyntaxTag.space.string + protocolName)
+            resultArray.append(SyntaxTag.ConformedProtocolByExtension.string + SyntaxTag.Space.string + protocolName)
         }
     }
     
