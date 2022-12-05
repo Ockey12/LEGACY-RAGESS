@@ -9,5 +9,7 @@ import Foundation
 
 // TokenVisitorクラスが出力したresultArrayを解析し、各Holder構造体のインスタンスを生成する
 struct SyntaxArrayParser {
-    
+    mutating func parseResultArray(resultArray: [String]) {
+        
+    }
 }

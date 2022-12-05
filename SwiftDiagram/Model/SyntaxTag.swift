@@ -168,13 +168,6 @@ enum SyntaxTag {
     case tupleTypeOfTypealias // タプルの型
     case endTupleTypeSyntaxOfTypealias // typealiasのタプルの型を宣言終了
     case endTypealiasDecl // typealiasの宣言終了
-
-    // アクセスレベル
-//    case open
-//    case `public`
-//    case `internal`
-//    case `fileprivate`
-//    case `private`
     
     case space // タグとタグの間のスペース
     
@@ -463,17 +456,6 @@ enum SyntaxTag {
             return "EndTupleTypeSyntaxOfTypealias"
         case .endTypealiasDecl:
             return "EndTypealiasDecl"
-        // アクセスレベル
-//        case .open:
-//            return "open"
-//        case .public:
-//            return "public"
-//        case .internal:
-//            return "internal"
-//        case .fileprivate:
-//            return "fileprivate"
-//        case .private:
-//            return "private"
             
         case .space:
             return " "

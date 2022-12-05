@@ -24,6 +24,14 @@
 		AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */; };
 		AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */; };
 		AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */; };
+		AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0052293DB794001221C2 /* StructHolder.swift */; };
+		AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0054293DB7A0001221C2 /* ClassHolder.swift */; };
+		AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0056293DB7AE001221C2 /* EnumHolder.swift */; };
+		AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0058293DB7BB001221C2 /* FunctionHolder.swift */; };
+		AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F005A293DB7CA001221C2 /* VariableHolder.swift */; };
+		AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F005C293DB7D8001221C2 /* ProtocolHolder.swift */; };
+		AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */; };
+		AC5F0061293DB872001221C2 /* FunctionParameterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0060293DB872001221C2 /* FunctionParameterHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +51,14 @@
 		AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorPrinter.swift; sourceTree = "<group>"; };
 		AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
 		AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParser.swift; sourceTree = "<group>"; };
+		AC5F0052293DB794001221C2 /* StructHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructHolder.swift; sourceTree = "<group>"; };
+		AC5F0054293DB7A0001221C2 /* ClassHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassHolder.swift; sourceTree = "<group>"; };
+		AC5F0056293DB7AE001221C2 /* EnumHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumHolder.swift; sourceTree = "<group>"; };
+		AC5F0058293DB7BB001221C2 /* FunctionHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionHolder.swift; sourceTree = "<group>"; };
+		AC5F005A293DB7CA001221C2 /* VariableHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableHolder.swift; sourceTree = "<group>"; };
+		AC5F005C293DB7D8001221C2 /* ProtocolHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolHolder.swift; sourceTree = "<group>"; };
+		AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHolder.swift; sourceTree = "<group>"; };
+		AC5F0060293DB872001221C2 /* FunctionParameterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionParameterHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,7 @@
 		AC5BAD1E29276D1D00A24BDD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC5F0051293DB781001221C2 /* Holder */,
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
 				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
@@ -135,6 +152,21 @@
 				AC5BAD302928D17F00A24BDD /* TokenVisitorPrinter.swift */,
 			);
 			path = Printer;
+			sourceTree = "<group>";
+		};
+		AC5F0051293DB781001221C2 /* Holder */ = {
+			isa = PBXGroup;
+			children = (
+				AC5F0052293DB794001221C2 /* StructHolder.swift */,
+				AC5F0054293DB7A0001221C2 /* ClassHolder.swift */,
+				AC5F0056293DB7AE001221C2 /* EnumHolder.swift */,
+				AC5F005C293DB7D8001221C2 /* ProtocolHolder.swift */,
+				AC5F005A293DB7CA001221C2 /* VariableHolder.swift */,
+				AC5F0058293DB7BB001221C2 /* FunctionHolder.swift */,
+				AC5F0060293DB872001221C2 /* FunctionParameterHolder.swift */,
+				AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */,
+			);
+			path = Holder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,18 +247,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
+				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
+				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
+				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
+				AC5F0061293DB872001221C2 /* FunctionParameterHolder.swift in Sources */,
+				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
+				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
+				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
