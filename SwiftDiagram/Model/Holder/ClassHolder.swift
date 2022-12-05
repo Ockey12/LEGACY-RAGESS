@@ -9,7 +9,7 @@ import Foundation
 
 struct ClassHolder: TypeHolder {
     var name: String = ""
-    var accessLevel: AccessLevel
+    var accessLevel: AccessLevel = .internal
     
     var conformingProtocols = [String]()
     
