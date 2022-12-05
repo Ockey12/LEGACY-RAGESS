@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct VariableHolder {
-    
+struct VariableHolder: HaveAccessLevelHolder {
+    var name: String = ""
+    var accessLevel: AccessLevel = .internal
 }
