@@ -7,7 +7,20 @@
 
 import Foundation
 
-struct StructHolder {
+struct StructHolder: TypeHolder {
+    var name: String = ""
+    var accessLevel: AccessLevel
     
+    var conformingProtocols = [String]()
+    
+    var variables = [VariableHolder]()
+    
+    var functions = [FunctionHolder]()
+    
+    var nestingStructs = [StructHolder]()
+    var nestingClasses = [ClassHolder]()
+    var nestingEnums = [EnumHolder]()
+    
+    var nestSuperTypeName: String? = nil
 }
 
