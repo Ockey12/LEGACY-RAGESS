@@ -45,6 +45,9 @@ struct SyntaxArrayParser {
         var protocolHolders = [Int: ProtocolHolder]()
         var variableHolders = [Int: VariableHolder]()
         var functionHolders = [Int: FunctionHolder]()
+        var functionParameterHolders = [Int: FunctionParameterHolder]()
+        var initializerHolders = [Int: InitializerHolder]()
+        var initializerParameterHolders = [Int: InitializerParameterHolder]()
         var extensionHolders = [Int: ExtensionHolder]()
         
         // 要素が宣言されてから、Holders辞書にインスタンスを格納するまでの間、一時的に情報を保持する
@@ -84,7 +87,8 @@ struct SyntaxArrayParser {
             // syntaxTagのcaseに応じた処理をする
             switch syntaxTag {
             case .StartStructDeclSyntax:
-                currentStructHolder = StructHolder(ID: publishNewID())
+                let id = publishNewID()
+                structHolders[id] = StructHolder(ID: id)
             case .StructAccessLevel:
                 currentStructHolder.accessLevel = convertParsedElementToAccessLevel()
             case .StructName:
@@ -92,7 +96,8 @@ struct SyntaxArrayParser {
             case .EndStructDeclSyntax:
                 break
             case .StartClassDeclSyntax:
-                currentClassHolder = ClassHolder(ID: publishNewID())
+                let id = publishNewID()
+                classHolders[id] = ClassHolder(ID: id)
             case .ClassAccessLevel:
                 currentClassHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
@@ -100,7 +105,8 @@ struct SyntaxArrayParser {
             case .EndClassDeclSyntax:
                 break
             case .StartEnumDeclSyntax:
-                currentEnumHolder = EnumHolder(ID: publishNewID())
+                let id = publishNewID()
+                enumHolders[id] = EnumHolder(ID: id)
             case .EnumAccessLevel:
                 currentEnumHolder.accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
@@ -120,7 +126,8 @@ struct SyntaxArrayParser {
             case .EndEnumDeclSyntax:
                 break
             case .StartProtocolDeclSyntax:
-                currentProtocolHolder = ProtocolHolder(ID: publishNewID())
+                let id = publishNewID()
+                protocolHolders[id] = ProtocolHolder(ID: id)
             case .ProtocolAccessLevel:
                 currentProtocolHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ProtocolName:
@@ -148,7 +155,8 @@ struct SyntaxArrayParser {
             case .EndInheritedTypeListSyntax:
                 break
             case .StartVariableDeclSyntax:
-                currentVariableHolder = VariableHolder(ID: publishNewID())
+                let id = publishNewID()
+                variableHolders[id] = VariableHolder(ID: id)
             case .VariableCustomAttribute:
                 break
             case .IsStaticVariable:
@@ -200,7 +208,8 @@ struct SyntaxArrayParser {
             case .EndVariableDeclSyntax:
                 break
             case .StartFunctionDeclSyntax:
-                currentFunctionHolder = FunctionHolder(ID: publishNewID())
+                let id = publishNewID()
+                functionHolders[id] = FunctionHolder(ID: id)
             case .IsStaticFunction:
                 break
             case .FunctionAccessLevel:
@@ -212,7 +221,8 @@ struct SyntaxArrayParser {
             case .FunctionName:
                 break
             case .StartFunctionParameterSyntax:
-                currentFunctionParameterHolder = FunctionParameterHolder(ID: publishNewID())
+                let id = publishNewID()
+                functionParameterHolders[id] = FunctionParameterHolder(ID: id)
             case .ExternalParameterName:
                 break
             case .InternalParameterName:
@@ -278,13 +288,15 @@ struct SyntaxArrayParser {
             case .EndFunctionDeclSyntax:
                 break
             case .StartInitializerDeclSyntax:
-                currentInitializerHolder = InitializerHolder(ID: publishNewID())
+                let id = publishNewID()
+                initializerHolders[id] = InitializerHolder(ID: id)
             case .HaveConvenienceKeyword:
                 break
             case .IsFailableInitializer:
                 break
             case .StartInitializerParameter:
-                currentInitializerParameterHolder = InitializerParameterHolder(ID: publishNewID())
+                let id = publishNewID()
+                initializerParameterHolders[id] = InitializerParameterHolder(ID: id)
             case .InitializerParameterName:
                 break
             case .InitializerParameterType:
@@ -314,7 +326,8 @@ struct SyntaxArrayParser {
             case .EndInitializerDeclSyntax:
                 break
             case .StartExtensionDeclSyntax:
-                currentExtensionHolder = ExtensionHolder(ID: publishNewID())
+                let id = publishNewID()
+                extensionHolders[id] = ExtensionHolder(ID: id)
             case .EndExtensionDeclSyntax:
                 break
             case .ConformedProtocolByExtension:
