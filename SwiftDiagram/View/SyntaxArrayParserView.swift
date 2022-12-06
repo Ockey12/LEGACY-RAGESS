@@ -88,6 +88,16 @@ struct SyntaxArrayParserView: View {
                             rightContent += "conformingProtocolName: \(name)\n"
                         }
                     }
+                    
+                    rightContent += "\n"
+                }
+                
+                rightContent += "===== Dependencies =====\n"
+                for element in syntaxArrayParser.getWhomThisTypeAffectArray() {
+                    let affectingTypeName = element.affectingTypeName
+                    for affectedTypeName in element.affectedTypesName {
+                        rightContent += "\(affectingTypeName) -> \(affectedTypeName)\n"
+                    }
                 }
             case .failure:
                 print("failure")

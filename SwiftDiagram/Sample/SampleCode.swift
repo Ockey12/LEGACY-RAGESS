@@ -12,7 +12,11 @@ protocol Protocol1 {}
 
 protocol Protocol2 {}
 
-private struct SomeStruct: Protocol1, Protocol2 {
+private struct Struct1: Protocol1, Protocol2 {
+    
+}
+
+private struct Struct2: Protocol1 {
     
 }
 

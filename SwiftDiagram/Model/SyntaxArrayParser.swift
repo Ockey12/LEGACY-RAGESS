@@ -18,6 +18,11 @@ struct SyntaxArrayParser {
     private var resultFunctionHolders = [FunctionHolder]()
     private var resultExtensionHolders = [ExtensionHolder]()
     
+    // 型の依存関係を保持する
+    private var whomThisTypeAffectDict = [String: WhomThisTypeAffect]()
+    
+    // 抽出した全ての型の名前を保持する
+    private var allTypeNames = [String]()
     
     
     mutating func parseResultArray(resultArray: [String]) {
@@ -26,7 +31,7 @@ struct SyntaxArrayParser {
         
         var structHolderStackArray = [StructHolder]()
         var positionInStructHolderStackArray = -1
-        
+   
         // 解析して生成したHolderの生成順を記憶しておくスタック配列
         // 解析した全てのHolderを記憶し続けるわけではない
         // あるHolderをネストしている親Holderを記憶するために使う
@@ -105,7 +110,9 @@ struct SyntaxArrayParser {
             case .StructName:
 //                let id = getCurrentIDInHolderStackArray()
 //                structHolders[id]?.name = parsedElementArray[1]
-                structHolderStackArray[positionInStructHolderStackArray].name = parsedElementArray[1]
+                let name = parsedElementArray[1]
+                structHolderStackArray[positionInStructHolderStackArray].name = name
+                allTypeNames.append(name)
             case .EndStructDeclSyntax:
 //                let id = getCurrentIDInHolderStackArray()
 //                guard let structHolder = structHolders[id] else {
@@ -173,7 +180,10 @@ struct SyntaxArrayParser {
             case .StartInheritedTypeListSyntax:
                 break
             case .ConformedProtocolByStruct:
-                structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.append(parsedElementArray[1])
+                let protocolName = parsedElementArray[1]
+                let structName = structHolderStackArray[positionInStructHolderStackArray].name
+                structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.append(protocolName)
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: structName)
             case .ConformedProtocolOrInheritedClassByClass:
                 break
             case .ConformedProtocolByEnum:
@@ -506,5 +516,28 @@ struct SyntaxArrayParser {
     
     func getResultStructHolders() -> [StructHolder] {
         return resultStructHolders
+    }
+    
+    func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
+        var array = [WhomThisTypeAffect]()
+        for dict in whomThisTypeAffectDict {
+            array.append(dict.value)
+        }
+        return array
+    }
+    
+    // 型の依存関係を抽出する
+    // affectingTypeName: 影響を及ぼす側の型の名前
+    // affectedTypeName: 影響を受ける側の型の名前
+    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String) {
+        if let _ = whomThisTypeAffectDict[affectingTypeName] {
+            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyに既に登録されているとき
+            // affectingTypeNameをKeyに持つ要素のaffectedTypesNameに、affectedTypeNameを追加する
+            whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(affectedTypeName)
+        } else {
+            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyにまだ登録されていないとき
+            // affectingTypeNameをKeyとした、新しい要素を追加する
+            whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [affectedTypeName])
+        }
     }
 } // end struct SyntaxArrayParser
