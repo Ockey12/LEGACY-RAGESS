@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct FunctionHolder: HaveAccessLevelHolder {
+struct FunctionHolder: HaveNameAndAccessLevelHolder {
+    var ID: Int?
     var name: String = ""
     var accessLevel: AccessLevel = .internal
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ExtensionHolder {
-    
+struct ExtensionHolder: Holder {
+    var ID: Int?
 }

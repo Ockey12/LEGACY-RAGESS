@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol Holder {}
+protocol Holder {
+    var ID: Int? { get }
+}

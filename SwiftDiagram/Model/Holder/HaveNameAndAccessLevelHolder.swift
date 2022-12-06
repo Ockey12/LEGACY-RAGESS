@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol HaveAccessLevelHolder: Holder {
+protocol HaveNameAndAccessLevelHolder: Holder {
     var name: String { get set }
     var accessLevel: AccessLevel { get set }
 }
 
-extension HaveAccessLevelHolder {
+extension HaveNameAndAccessLevelHolder {
     var accessLevel: AccessLevel {
         return .internal
     }

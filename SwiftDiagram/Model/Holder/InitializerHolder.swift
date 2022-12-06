@@ -8,7 +8,7 @@
 import Foundation
 
 struct InitializerHolder: Holder {
+    var ID: Int?
     var isConvenience = false
     var isFailable = false
-    
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct FunctionParameterHolder {
-    
+struct FunctionParameterHolder: Holder {
+    var ID: Int?
 }

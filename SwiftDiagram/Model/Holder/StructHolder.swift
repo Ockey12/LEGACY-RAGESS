@@ -8,6 +8,7 @@
 import Foundation
 
 struct StructHolder: TypeHolder {
+    var ID: Int?
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
