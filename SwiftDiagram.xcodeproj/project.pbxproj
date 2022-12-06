@@ -39,6 +39,9 @@
 		AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006A293E44A0001221C2 /* InitializerHolder.swift */; };
 		AC5F006D293E4539001221C2 /* InitializerParameterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006C293E4539001221C2 /* InitializerParameterHolder.swift */; };
 		AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */; };
+		AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0070293F7B53001221C2 /* VariableKind.swift */; };
+		AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */; };
+		AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		AC5F006A293E44A0001221C2 /* InitializerHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerHolder.swift; sourceTree = "<group>"; };
 		AC5F006C293E4539001221C2 /* InitializerParameterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerParameterHolder.swift; sourceTree = "<group>"; };
 		AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParserView.swift; sourceTree = "<group>"; };
+		AC5F0070293F7B53001221C2 /* VariableKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableKind.swift; sourceTree = "<group>"; };
+		AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveTypeHolder.swift; sourceTree = "<group>"; };
+		AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhomThisTypeAffect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +140,7 @@
 			children = (
 				AC5F0051293DB781001221C2 /* Holder */,
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
+				AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */,
 				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
 				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
 				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
@@ -173,8 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				AC5F0068293DD418001221C2 /* HolderType.swift */,
+				AC5F0070293F7B53001221C2 /* VariableKind.swift */,
 				AC5F0062293DCAD9001221C2 /* Holder.swift */,
 				AC5F0066293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift */,
+				AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */,
 				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
 				AC5F0052293DB794001221C2 /* StructHolder.swift */,
 				AC5F0054293DB7A0001221C2 /* ClassHolder.swift */,
@@ -277,10 +286,13 @@
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
 				AC5F006D293E4539001221C2 /* InitializerParameterHolder.swift in Sources */,
+				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
+				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
+				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
 				AC5F0061293DB872001221C2 /* FunctionParameterHolder.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
