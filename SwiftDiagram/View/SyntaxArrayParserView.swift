@@ -89,6 +89,63 @@ struct SyntaxArrayParserView: View {
                         }
                     }
                     
+                    for variableHolder in structHolder.variables {
+                        rightContent += "Variable\n"
+                        rightContent += "name: \(variableHolder.name)\n"
+                        rightContent += "accessLevel: \(variableHolder.accessLevel)\n"
+                        rightContent += "kind: \(variableHolder.kind)\n"
+                        if let customAttribute = variableHolder.customAttribute {
+                            rightContent += "customAttribute: \(customAttribute)\n"
+                        }
+                        if variableHolder.isStatic {
+                            rightContent += "isStatic\n"
+                        }
+                        if variableHolder.isLazy {
+                            rightContent += "isLazy\n"
+                        }
+                        if variableHolder.isConstant {
+                            rightContent += "isConstant\n"
+                        }
+                        if let literalType = variableHolder.literalType {
+                            rightContent += "literalType: \(literalType)\n"
+                        }
+                        if let arrayType = variableHolder.arrayType {
+                            rightContent += "arrayType: \(arrayType)\n"
+                        }
+                        if let key = variableHolder.dictionaryKeyType {
+                            rightContent += "dictionaryKeyType: \(key)\n"
+                        }
+                        if let value = variableHolder.dictionaryValueType {
+                            rightContent += "dictionaryValueType: \(value)\n"
+                        }
+                        if 0 < variableHolder.tupleTypes.count {
+                            for element in variableHolder.tupleTypes {
+                                rightContent += "tupleType: \(element)\n"
+                            }
+                        }
+                        if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
+                            rightContent += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
+                        }
+                        if variableHolder.isOptionalType {
+                            rightContent += "isOptional\n"
+                        }
+                        if let initialValue = variableHolder.initialValue {
+                            rightContent += "initialValue: \(initialValue)\n"
+                        }
+                        if variableHolder.haveWillSet {
+                            rightContent += "haveWillSet\n"
+                        }
+                        if variableHolder.haveDidSet {
+                            rightContent += "haveDidSet\n"
+                        }
+                        if variableHolder.haveGetter {
+                            rightContent += "haveGetter\n"
+                        }
+                        if variableHolder.haveSetter {
+                            rightContent += "haveSetter\n"
+                        }
+                    }
+                    
                     rightContent += "\n"
                 }
                 

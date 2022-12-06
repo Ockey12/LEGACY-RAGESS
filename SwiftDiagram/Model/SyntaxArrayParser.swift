@@ -24,14 +24,28 @@ struct SyntaxArrayParser {
     // 抽出した全ての型の名前を保持する
     private var allTypeNames = [String]()
     
+    var holderTypeStackArray = [HolderType]()
+    var positionInHolderTypeStackArray = -1
+    
+    var structHolderStackArray = [StructHolder]()
+    var positionInStructHolderStackArray = -1
+    
+    var variableHolderStackArray = [VariableHolder]()
+    var positionInVariableHolderStackArray = -1
+    
     
     mutating func parseResultArray(resultArray: [String]) {
-        var holderTypeStackArray = [HolderType]()
-        var positionInHolderTypeStackArray = -1
+        // 変数の初期化
+        allTypeNames = []
         
-        var structHolderStackArray = [StructHolder]()
-        var positionInStructHolderStackArray = -1
-   
+        holderTypeStackArray = []
+        positionInHolderTypeStackArray = -1
+        
+        structHolderStackArray = []
+        positionInStructHolderStackArray = -1
+        
+        variableHolderStackArray = []
+        positionInVariableHolderStackArray = -1
         // 解析して生成したHolderの生成順を記憶しておくスタック配列
         // 解析した全てのHolderを記憶し続けるわけではない
         // あるHolderをネストしている親Holderを記憶するために使う
@@ -195,58 +209,82 @@ struct SyntaxArrayParser {
             case .StartVariableDeclSyntax:
 //                let id = publishNewID()
 //                variableHolders[id] = VariableHolder(ID: id)
+                pushHolderTypeStackArray(.variable)
+                variableHolderStackArray.append(VariableHolder())
+                positionInVariableHolderStackArray += 1
                 break
             case .VariableCustomAttribute:
-                break
+                let customAttribute = parsedElementArray[1]
+                variableHolderStackArray[positionInVariableHolderStackArray].customAttribute = customAttribute
             case .IsStaticVariable:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].isStatic = true
             case .LazyVariable:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].isLazy = true
             case .VariableAccessLevel:
 //                currentVariableHolder.accessLevel = convertParsedElementToAccessLevel()
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .HaveLetKeyword:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].isConstant = true
             case .VariableName:
-                break
+                let name = parsedElementArray[1]
+                variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
-                break
+                let type = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
+                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
             case .StartArrayTypeSyntaxOfVariable:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
-                break
+                let type = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
+                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
             case .EndArrayTypeSyntaxOfVariable:
                 break
             case .StartDictionaryTypeSyntaxOfVariable:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
-                break
+                let type = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
+                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
             case .DictionaryValueTypeOfVariable:
-                break
+                let type = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
+                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
             case .EndDictionaryTypeSyntaxOfVariable:
                 break
             case .StartTupleTypeSyntaxOfVariable:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
-                break
+                let type = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
-                break
+                let protocolName = parsedElementArray[1]
+                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: variableName)
             case .IsOptionalType:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].isOptionalType = true
             case .InitialValueOfVariable:
-                break
+                let initialValue = parsedElementArray[1]
+                variableHolderStackArray[positionInVariableHolderStackArray].initialValue = initialValue
             case .HaveWillSet:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].haveWillSet = true
             case .HaveDidSet:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].haveDidSet = true
             case .HaveGetter:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].haveGetter = true
             case .HaveSetter:
-                break
+                variableHolderStackArray[positionInVariableHolderStackArray].haveSetter = true
             case .EndVariableDeclSyntax:
-                break
+                addVariableHolderToSuperHolder()
             case .StartFunctionDeclSyntax:
 //                let id = publishNewID()
 //                functionHolders[id] = FunctionHolder(ID: id)
@@ -429,15 +467,6 @@ struct SyntaxArrayParser {
             return accessLevel
         } // end onvertParsedElementToAccessLevel()
         
-        func pushHolderTypeStackArray(_ holderType: HolderType) {
-            holderTypeStackArray.append(holderType)
-            positionInHolderTypeStackArray += 1
-        }
-        
-        func popHolderTypeStackArray() {
-            holderTypeStackArray.removeLast()
-            positionInHolderTypeStackArray -= 1
-        }
         // IDCounterをインクリメントして返す
 //        func publishNewID() -> Int {
 //            IDCounter += 1
@@ -526,6 +555,16 @@ struct SyntaxArrayParser {
         return array
     }
     
+    mutating func pushHolderTypeStackArray(_ holderType: HolderType) {
+        holderTypeStackArray.append(holderType)
+        positionInHolderTypeStackArray += 1
+    }
+    
+    mutating func popHolderTypeStackArray() {
+        holderTypeStackArray.removeLast()
+        positionInHolderTypeStackArray -= 1
+    }
+    
     // 型の依存関係を抽出する
     // affectingTypeName: 影響を及ぼす側の型の名前
     // affectedTypeName: 影響を受ける側の型の名前
@@ -539,5 +578,25 @@ struct SyntaxArrayParser {
             // affectingTypeNameをKeyとした、新しい要素を追加する
             whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [affectedTypeName])
         }
+    }
+    
+    // VariableHolderを、親のvariableプロパティに追加する
+    // variableの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // variableHolderStackArrayのポップ操作を行う
+    mutating private func addVariableHolderToSuperHolder() {
+        let variableHolder = variableHolderStackArray[positionInVariableHolderStackArray]
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            structHolderStackArray[positionInStructHolderStackArray].variables.append(variableHolder)
+        default:
+            fatalError("ERROR: holderTypeStackArray[positionInHolderTypeStackArray] hasn't variables property")
+        }
+        
+        variableHolderStackArray.removeLast()
+        positionInVariableHolderStackArray -= 1
+        popHolderTypeStackArray()
     }
 } // end struct SyntaxArrayParser

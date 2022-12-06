@@ -13,7 +13,27 @@ protocol Protocol1 {}
 protocol Protocol2 {}
 
 private struct Struct1: Protocol1, Protocol2 {
-    
+    private var text: String
+    @State fileprivate var array: [Double]?
+    static var staticVariable: [String: Int] = [:]
+    lazy var lazyVariable: (Int, Double, Float) = (1111111111, 2222222222, 3333333333)
+    let constant: Struct2
+    var haveWillSetDidSet: String {
+        willSet {
+            
+        }
+        didSet {
+            
+        }
+    }
+    var haveGetterSetter: Int {
+        get {
+            return 4444444444
+        }
+        set {
+            
+        }
+    }
 }
 
 private struct Struct2: Protocol1 {
