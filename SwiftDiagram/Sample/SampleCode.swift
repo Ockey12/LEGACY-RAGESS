@@ -8,9 +8,13 @@
 import Foundation
 import SwiftUI
 
-//protocol Protocol1 {}
-//
-//protocol Protocol2 {}
+protocol Protocol1 {}
+
+protocol Protocol2 {}
+
+private struct SomeStruct: Protocol1, Protocol2 {
+    
+}
 
 //private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
@@ -213,22 +217,22 @@ import SwiftUI
 //        self.age = age[0]
 //    }
 //}
-protocol SomeProtocol: Hashable {}
-struct SomeClass: SomeProtocol {
+//protocol SomeProtocol: Hashable {}
+//struct SomeClass: SomeProtocol {
 //    static var staticVariable = "StaticStaticStatic"
-    static func == (lhs: SomeClass, rhs: SomeClass) -> Bool {
-        true
-    }
-    var x: Int
+//    static func == (lhs: SomeClass, rhs: SomeClass) -> Bool {
+//        true
+//    }
+//    var x: Int
 //    var y: Int
-}
-struct SomeStruct {
-    var someVariable: some SomeProtocol {
-        return SomeClass(x: 1111111111)
-    }
-    func someFunction() -> some SomeProtocol {
-        return SomeClass(x: 2222222222)
-    }
+//}
+//struct SomeStruct {
+//    var someVariable: some SomeProtocol {
+//        return SomeClass(x: 1111111111)
+//    }
+//    func someFunction() -> some SomeProtocol {
+//        return SomeClass(x: 2222222222)
+//    }
 //    func arrayFunction() -> [some SomeProtocol] {
 //        return [SomeClass(x: 111111, y: 222222)]
 //    }
@@ -238,7 +242,7 @@ struct SomeStruct {
 //    func tupleFunction() -> (some SomeProtocol, some SomeProtocol, some SomeProtocol) {
 //        return (SomeClass(x: 777777, y: 888888), SomeClass(x: 999999, y: 000000), SomeClass(x: 111111, y: 222222))
 //    }
-}
+//}
 //struct ViewStruct: View {
 //    var body: some View {
 //        Text("TextTextTextText")
