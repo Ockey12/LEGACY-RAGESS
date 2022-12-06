@@ -32,16 +32,20 @@ struct SyntaxArrayParser {
         // resultArrayの要素1つをスペースで分割した結果を保持する
         var parsedElementArray = [String]()
         
+        // Holders辞書のKeyとなる、一意なID
+        // あるHolderのKeyになったあと、インクリメントすることで一意を保つ
+        var IDCounter = -1
+        
         // 各Holderの名前とインスタンスを保持する辞書
-        // Key: Holder.name
+        // Key: 要素を格納するときのIDcounterの値
         // Value: Holderインスタンス
-        var structHolders = [String: StructHolder]()
-        var classHolders = [String: ClassHolder]()
-        var enumHolders = [String: EnumHolder]()
-        var protocolHolders = [String: ProtocolHolder]()
-        var variableHolders = [String: VariableHolder]()
-        var functionHolders = [String: FunctionHolder]()
-        var extensionHolders = [String: ExtensionHolder]()
+        var structHolders = [Int: StructHolder]()
+        var classHolders = [Int: ClassHolder]()
+        var enumHolders = [Int: EnumHolder]()
+        var protocolHolders = [Int: ProtocolHolder]()
+        var variableHolders = [Int: VariableHolder]()
+        var functionHolders = [Int: FunctionHolder]()
+        var extensionHolders = [Int: ExtensionHolder]()
         
         // 要素が宣言されてから、Holders辞書にインスタンスを格納するまでの間、一時的に情報を保持する
         // 名前より前の情報はこのプロパティに格納する
@@ -60,7 +64,7 @@ struct SyntaxArrayParser {
         // holderStackArrayの要素
         struct HolderStackArrayElement {
             var holderType: HolderType
-            var name: String
+            var ID: Int
         }
         
         print("-----SyntaxArrayParser.parseResultArray")
@@ -80,7 +84,7 @@ struct SyntaxArrayParser {
             // syntaxTagのcaseに応じた処理をする
             switch syntaxTag {
             case .StartStructDeclSyntax:
-                currentStructHolder = StructHolder()
+                currentStructHolder = StructHolder(ID: publishNewID())
             case .StructAccessLevel:
                 currentStructHolder.accessLevel = convertParsedElementToAccessLevel()
             case .StructName:
@@ -88,7 +92,7 @@ struct SyntaxArrayParser {
             case .EndStructDeclSyntax:
                 break
             case .StartClassDeclSyntax:
-                currentClassHolder = ClassHolder()
+                currentClassHolder = ClassHolder(ID: publishNewID())
             case .ClassAccessLevel:
                 currentClassHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
@@ -96,7 +100,7 @@ struct SyntaxArrayParser {
             case .EndClassDeclSyntax:
                 break
             case .StartEnumDeclSyntax:
-                currentEnumHolder = EnumHolder()
+                currentEnumHolder = EnumHolder(ID: publishNewID())
             case .EnumAccessLevel:
                 currentEnumHolder.accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
@@ -116,7 +120,7 @@ struct SyntaxArrayParser {
             case .EndEnumDeclSyntax:
                 break
             case .StartProtocolDeclSyntax:
-                currentProtocolHolder = ProtocolHolder()
+                currentProtocolHolder = ProtocolHolder(ID: publishNewID())
             case .ProtocolAccessLevel:
                 currentProtocolHolder.accessLevel = convertParsedElementToAccessLevel()
             case .ProtocolName:
@@ -144,7 +148,7 @@ struct SyntaxArrayParser {
             case .EndInheritedTypeListSyntax:
                 break
             case .StartVariableDeclSyntax:
-                currentVariableHolder = VariableHolder()
+                currentVariableHolder = VariableHolder(ID: publishNewID())
             case .VariableCustomAttribute:
                 break
             case .IsStaticVariable:
@@ -196,7 +200,7 @@ struct SyntaxArrayParser {
             case .EndVariableDeclSyntax:
                 break
             case .StartFunctionDeclSyntax:
-                currentFunctionHolder = FunctionHolder()
+                currentFunctionHolder = FunctionHolder(ID: publishNewID())
             case .IsStaticFunction:
                 break
             case .FunctionAccessLevel:
@@ -208,7 +212,7 @@ struct SyntaxArrayParser {
             case .FunctionName:
                 break
             case .StartFunctionParameterSyntax:
-                currentFunctionParameterHolder = FunctionParameterHolder()
+                currentFunctionParameterHolder = FunctionParameterHolder(ID: publishNewID())
             case .ExternalParameterName:
                 break
             case .InternalParameterName:
@@ -274,13 +278,13 @@ struct SyntaxArrayParser {
             case .EndFunctionDeclSyntax:
                 break
             case .StartInitializerDeclSyntax:
-                currentInitializerHolder = InitializerHolder()
+                currentInitializerHolder = InitializerHolder(ID: publishNewID())
             case .HaveConvenienceKeyword:
                 break
             case .IsFailableInitializer:
                 break
             case .StartInitializerParameter:
-                currentInitializerParameterHolder = InitializerParameterHolder()
+                currentInitializerParameterHolder = InitializerParameterHolder(ID: publishNewID())
             case .InitializerParameterName:
                 break
             case .InitializerParameterType:
@@ -310,7 +314,7 @@ struct SyntaxArrayParser {
             case .EndInitializerDeclSyntax:
                 break
             case .StartExtensionDeclSyntax:
-                currentExtensionHolder = ExtensionHolder()
+                currentExtensionHolder = ExtensionHolder(ID: publishNewID())
             case .EndExtensionDeclSyntax:
                 break
             case .ConformedProtocolByExtension:
@@ -366,28 +370,65 @@ struct SyntaxArrayParser {
             return accessLevel
         } // end onvertParsedElementToAccessLevel()
         
+        // IDCounterをインクリメントして返す
+        func publishNewID() -> Int {
+            IDCounter += 1
+            return IDCounter
+        }
+        
+        // 指定した種類のHolderを、HolderStackArrayにプッシュする
         func pushHolderStackArray(holderType: HolderType) {
             switch holderType {
             case .struct:
-                holderStackArray.append(HolderStackArrayElement(holderType: .struct, name: currentStructHolder.name))
+                guard let id = currentStructHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentStructHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .struct, ID: id))
             case .class:
-                holderStackArray.append(HolderStackArrayElement(holderType: .class, name: currentClassHolder.name))
+                guard let id = currentClassHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentClassHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .class, ID: id))
             case .enum:
-                holderStackArray.append(HolderStackArrayElement(holderType: .enum, name: currentEnumHolder.name))
+                guard let id = currentEnumHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentEnumHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .enum, ID: id))
             case .protocol:
-                holderStackArray.append(HolderStackArrayElement(holderType: .protocol, name: currentProtocolHolder.name))
+                guard let id = currentProtocolHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentProtocolHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .protocol, ID: id))
             case .variable:
-                holderStackArray.append(HolderStackArrayElement(holderType: .variable, name: currentVariableHolder.name))
+                guard let id = currentVariableHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentVariableHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .variable, ID: id))
             case .function:
-                holderStackArray.append(HolderStackArrayElement(holderType: .function, name: currentFunctionHolder.name))
+                guard let id = currentFunctionHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentFunctionHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .function, ID: id))
             case .functionParameter:
-                break
+                guard let id = currentFunctionParameterHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentFunctionParameterHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .functionParameter, ID: id))
             case .initializer:
-                break
+                guard let id = currentInitializerHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentInitializerHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .initializer, ID: id))
             case .initializerParameter:
-                break
+                guard let id = currentInitializerParameterHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentInitializerParameterHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .initializerParameter, ID: id))
             case .extension:
-                break
+                guard let id = currentExtensionHolder.ID else {
+                    fatalError("ERROR: Failed to convert currentExtensionHolder.ID to Int.")
+                }
+                holderStackArray.append(HolderStackArrayElement(holderType: .extension, ID: id))
             }
             positionInHolderStackArray += 1
         } // end func pushHolderStackArray()
