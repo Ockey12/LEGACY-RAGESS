@@ -38,6 +38,7 @@
 		AC5F0069293DD418001221C2 /* HolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0068293DD418001221C2 /* HolderType.swift */; };
 		AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006A293E44A0001221C2 /* InitializerHolder.swift */; };
 		AC5F006D293E4539001221C2 /* InitializerParameterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006C293E4539001221C2 /* InitializerParameterHolder.swift */; };
+		AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		AC5F0068293DD418001221C2 /* HolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolderType.swift; sourceTree = "<group>"; };
 		AC5F006A293E44A0001221C2 /* InitializerHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerHolder.swift; sourceTree = "<group>"; };
 		AC5F006C293E4539001221C2 /* InitializerParameterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerParameterHolder.swift; sourceTree = "<group>"; };
+		AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
+				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 			);
 			path = View;
@@ -276,6 +279,7 @@
 				AC5F006D293E4539001221C2 /* InitializerParameterHolder.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
+				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC5F0061293DB872001221C2 /* FunctionParameterHolder.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,

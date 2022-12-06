@@ -17,7 +17,7 @@ struct ContentView: View {
 //            }
 //            .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
         ScrollView {
-            TokenVisitorView()
+            SyntaxArrayParserView()
                 .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
         }
         .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)

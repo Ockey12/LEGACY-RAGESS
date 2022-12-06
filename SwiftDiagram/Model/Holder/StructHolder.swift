@@ -12,7 +12,7 @@ struct StructHolder: TypeHolder {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
-    var conformingProtocols = [String]()
+    var conformingProtocolNames = [String]()
     
     var variables = [VariableHolder]()
     

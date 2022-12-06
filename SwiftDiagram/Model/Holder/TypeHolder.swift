@@ -9,7 +9,7 @@ import Foundation
 
 protocol TypeHolder: HaveNameAndAccessLevelHolder {
     // この型が準拠しているプロトコル
-    var conformingProtocols: [String] { get set }
+    var conformingProtocolNames: [String] { get set }
     
     // プロパティ
     var variables: [VariableHolder] { get set }
