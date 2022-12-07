@@ -13,9 +13,14 @@ struct MonitorView: View {
     @State private var importerPresented = false
     @State private var importType = ImportType.none
     
+    @State private var buildFileURL = FileManager.default.temporaryDirectory
+    @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
+    
     var body: some View {
         VStack {
-            Text("\(monitor.counter)")
+            Text("\(monitor.content)")
+            
+            Divider()
             
             HStack {
                 // プロジェクトのディレクトリを選択するボタン
@@ -36,6 +41,9 @@ struct MonitorView: View {
                 }
                 .padding()
             } // HStack
+            
+            Text("Build File URL: \(buildFileURL)")
+            Text("Project Directory URL: \(projectDirectoryURL)")
         } // VStack
         .fileImporter(isPresented: $importerPresented, allowedContentTypes: [.directory]) { result in
             switch result {
@@ -46,10 +54,11 @@ struct MonitorView: View {
                     monitor.stopMonitoring()
                     monitor.buildFileURL = url
                     monitor.startMonitoring()
-                    break
+                    buildFileURL = url
                 case .projectDirectory:
                     // プロジェクトのディレクトリを選択するモード
                     monitor.projectDirectoryURL = url
+                    projectDirectoryURL = url
                 case .none:
                     break
                 }

@@ -23,8 +23,10 @@ struct ContentView: View {
 //        BuildFileMonitorView()
 //        GetFilesListOfDirectoryView()
 //        MonitorAndGetSourceFilesView()
-        MonitorView()
-            .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
+        ScrollView {
+            MonitorView()
+                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
+        }
     }
 }
 
