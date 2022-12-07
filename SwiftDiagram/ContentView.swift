@@ -16,10 +16,11 @@ struct ContentView: View {
 //                printer.printResultArray()
 //            }
 //            .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
-        ScrollView {
-            SyntaxArrayParserView()
-                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
-        }
+//        ScrollView {
+//            SyntaxArrayParserView()
+//                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
+//        }
+        BuildFileMonitorView()
         .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
     }
 }
