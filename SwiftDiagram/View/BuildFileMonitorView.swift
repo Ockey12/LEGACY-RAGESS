@@ -29,6 +29,7 @@ struct BuildFileMonitorView: View {
             switch result {
             // Libraryを表示するには、ターミナルであらかじめ"chflags nohidden ~/Library"を実行しておく
             // urlは指定したファイルのURL
+            // サンプルのパス: Macintosh HD > ユーザ > onaga > ライブラリ > Developer > Xcode > DerivedData > SampleOfSwiftDiagram-alotmpgxvtakmreubfndzbondzlm > Build > Products > Debug-iphoneos > SampleOfSwiftDiagram.swiftmodule > Project > arm64-apple-ios.swiftsourceinfo
             case .success(let url):
                 print("Monitoring URL: \(url)")
                 if let _ = buildFileMonitor {
