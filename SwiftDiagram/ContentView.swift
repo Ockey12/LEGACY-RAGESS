@@ -21,7 +21,8 @@ struct ContentView: View {
 //                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
 //        }
 //        BuildFileMonitorView()
-        GetFilesListOfDirectoryView()
+//        GetFilesListOfDirectoryView()
+        MonitorAndGetSourceFilesView()
             .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
     }
 }
