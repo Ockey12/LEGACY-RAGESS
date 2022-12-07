@@ -32,7 +32,7 @@ class BuildFileMonitor {
         buildFileMonitorSource?.setEventHandler { [weak self] in
 //            self?.buildFileDidChange?()
             let dt = Date()
-            let dateFormatter = DateFormatter()
+            let dateFormatter: DateFormatter = DateFormatter()
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
             print("\(dateFormatter.string(from: dt)): \(self!.url) did change")
         }
