@@ -24,8 +24,13 @@ struct GetFilesListOfDirectoryView: View {
         .fileImporter(isPresented: $importerPresented, allowedContentTypes: [.directory]) { result in
             switch result {
             case .success(let url):
+                swiftFilesURL.removeAll()
                 print("Monitoring URL: \(url)")
                 printFiles(url: url)
+                print("\nSwiftFilesURL")
+                swiftFilesURL.forEach { url in
+                    print(url)
+                }
                 self.url = url
             case .failure:
                 print("failure")
