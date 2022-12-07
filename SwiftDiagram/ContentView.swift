@@ -22,7 +22,8 @@ struct ContentView: View {
 //        }
 //        BuildFileMonitorView()
 //        GetFilesListOfDirectoryView()
-        MonitorAndGetSourceFilesView()
+//        MonitorAndGetSourceFilesView()
+        MonitorView()
             .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
     }
 }

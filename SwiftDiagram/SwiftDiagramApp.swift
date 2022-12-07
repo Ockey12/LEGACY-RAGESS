@@ -11,7 +11,9 @@ import SwiftUI
 struct SwiftDiagramApp: App {
     var body: some Scene {
         WindowGroup {
+            let urlsAndAST = URLsAndAST()
             ContentView()
+                .environmentObject(urlsAndAST)
         }
     }
 }

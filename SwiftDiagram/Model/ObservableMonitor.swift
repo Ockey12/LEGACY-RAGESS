@@ -1,28 +1,25 @@
 //
-//  BuildFileMonitor.swift
+//  ObservableMonitor.swift
 //  SwiftDiagram
 //
-//  Created by オナガ・ハルキ on 2022/12/07.
+//  Created by オナガ・ハルキ on 2022/12/08.
 //
 
 import Foundation
-import SwiftUI
 
-// ビルドファイルの変更を監視する
-class BuildFileMonitor {
+class ObservableMonitor: ObservableObject {
+    @Published var parsedContent = ""
     private var monitoredFolderFileDescriptor: CInt = -1
     private let folderMonitorQueue = DispatchQueue(label: "BuildFileMonitorQueue", attributes: .concurrent)
     private var buildFileMonitorSource: DispatchSourceFileSystemObject?
-    let buildFileUrl: URL
-    var buildFileDidChange: (() -> Void)?
-//    @EnvironmentObject var urlsAndAST: URLsAndAST
-//    let urlsAndAST = StaticURLsAndAST.instance
-    @ObservedObject var urlsAndAST = URLsAndAST()
-    private var swiftFilesURL = [URL]()
+    var buildFileURL: URL = FileManager.default.temporaryDirectory
+    var projectDirectoryURL: URL = FileManager.default.temporaryDirectory
     
-    init(url: URL) {
-        self.buildFileUrl = url
-    }
+    @Published var counter = 1
+    
+//    init(url: URL) {
+//        self.buildFileURL = url
+//    }
     
     func startMonitoring() {
         guard (buildFileMonitorSource == nil) &&
@@ -30,28 +27,27 @@ class BuildFileMonitor {
             return
         }
         
-        monitoredFolderFileDescriptor = open(buildFileUrl.path, O_EVTONLY)
+        // URLで参照されるディレクトリを、監視用で開く
+        monitoredFolderFileDescriptor = open(buildFileURL.path, O_EVTONLY)
+        // ディレクトリの変更を監視するディスパッチソースを定義する
         buildFileMonitorSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: monitoredFolderFileDescriptor,
                                                                            eventMask: .all,
                                                                            queue: folderMonitorQueue)
+        // 変更が検出されたときに呼び出される
         buildFileMonitorSource?.setEventHandler { [weak self] in
-//            self?.buildFileDidChange?()
             let dt = Date()
             let dateFormatter: DateFormatter = DateFormatter()
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-            print("\(dateFormatter.string(from: dt)): \(self!.buildFileUrl) did change")
-            
-            print("Monitored Swift Files")
-            print("Count: \(self!.urlsAndAST.counter)")
-            self!.urlsAndAST.counter += 1
-//            for url in self!.urlsAndAST.swiftFilesURL {
-//                print(url)
-//            }
-            let url = self!.urlsAndAST.projectDirectoryURL
-            self!.swiftFilesURL.removeAll()
-            self!.printFiles(url: url)
+            print("\(dateFormatter.string(from: dt)): \(self!.buildFileURL) did change")
+            print("Project Directory: \(self!.projectDirectoryURL)")
+            self!.printSubFiles(url: self!.projectDirectoryURL)
+            DispatchQueue.main.async {
+                self!.counter += 1
+            }
+//            self!.counter += 1
         }
         
+        // ソースがキャンセルされたときにディレクトリが閉じられるように、キャンセルハンドラを定義する
         buildFileMonitorSource?.setCancelHandler { [weak self] in
             guard let strongSelf = self else {
                 return
@@ -61,6 +57,7 @@ class BuildFileMonitor {
             strongSelf.buildFileMonitorSource = nil
         }
         
+        // 監視を開始する
         buildFileMonitorSource?.resume()
     } // end func startMonitoring()
     
@@ -68,20 +65,21 @@ class BuildFileMonitor {
         buildFileMonitorSource?.cancel()
     }
     
-    private func printFiles(url: URL) {
+    private func printSubFiles(url: URL) {
         do {
             let tempDirContentsUrls = try FileManager.default.contentsOfDirectory(at: url,
                                                                                   includingPropertiesForKeys: nil,
                                                                                   options: [.skipsHiddenFiles])
-            print("")
-            print("Directory: \(url)")
+//            print("")
+//            print("Project Directory: \(url)")
             tempDirContentsUrls.forEach { url in
-                print(url)
+//                print(url)
                 if url.pathExtension == "swift" {
-                    swiftFilesURL.append(url)
+                    print(url)
+//                    swiftFilesURL.append(url)
 //                    urlsAndAST.swiftFilesURL.append(url)
                 } else if url.hasDirectoryPath {
-                    printFiles(url: url)
+                    printSubFiles(url: url)
                 }
             }
         } catch {

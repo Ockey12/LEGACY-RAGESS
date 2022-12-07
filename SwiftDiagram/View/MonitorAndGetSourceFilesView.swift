@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MonitorAndGetSourceFilesView: View {
+//    @EnvironmentObject var urlsAndAST: URLsAndAST
+    @ObservedObject var urlsAndAST = URLsAndAST()
+//    @State var urlsAndAST = StaticURLsAndAST.instance
+    
     @State private var importerPresented = false
     @State private var importType = ImportType.none
     
@@ -25,6 +29,7 @@ struct MonitorAndGetSourceFilesView: View {
     
     var body: some View {
         VStack {
+            Text("\(urlsAndAST.counter)")
             HStack {
                 // プロジェクトのディレクトリを選択するボタン
                 Button {
@@ -61,10 +66,12 @@ struct MonitorAndGetSourceFilesView: View {
                     // ビルドファイルの監視を開始する
                     buildFileMonitor!.startMonitoring()
                     self.buildFileUrl = url
+                    urlsAndAST.buildFileURL = url
                 case .projectDirectory:
                     // プロジェクトのディレクトリを選択するモード
                     // swiftソースファイルのパスを保持する配列を空に初期化する
                     swiftFilesURL.removeAll()
+//                    urlsAndAST.swiftFilesURL.removeAll()
                     print("Project Directory URL: \(url)")
                     printFiles(url: url)
                     print("\nSwiftFilesURL")
@@ -72,6 +79,7 @@ struct MonitorAndGetSourceFilesView: View {
                         print(url)
                     }
                     self.projectDirectoryUrl = url
+                    urlsAndAST.projectDirectoryURL = url
                 case .none:
                     break
                 }
@@ -93,6 +101,7 @@ struct MonitorAndGetSourceFilesView: View {
                 print(url)
                 if url.pathExtension == "swift" {
                     swiftFilesURL.append(url)
+//                    urlsAndAST.swiftFilesURL.append(url)
                 } else if url.hasDirectoryPath {
                     printFiles(url: url)
                 }

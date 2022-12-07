@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */; };
 		AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */; };
+		AC34B3562940E4EC0029479C /* URLsAndAST.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3552940E4EC0029479C /* URLsAndAST.swift */; };
+		AC34B3582940ECBF0029479C /* StaticURLsAndAST.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3572940ECBF0029479C /* StaticURLsAndAST.swift */; };
+		AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35B2940FBE30029479C /* MonitorView.swift */; };
+		AC34B35E2940FBFB0029479C /* ObservableMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35D2940FBFB0029479C /* ObservableMonitor.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -51,6 +55,10 @@
 /* Begin PBXFileReference section */
 		AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFilesListOfDirectoryView.swift; sourceTree = "<group>"; };
 		AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorAndGetSourceFilesView.swift; sourceTree = "<group>"; };
+		AC34B3552940E4EC0029479C /* URLsAndAST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLsAndAST.swift; sourceTree = "<group>"; };
+		AC34B3572940ECBF0029479C /* StaticURLsAndAST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticURLsAndAST.swift; sourceTree = "<group>"; };
+		AC34B35B2940FBE30029479C /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
+		AC34B35D2940FBFB0029479C /* ObservableMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableMonitor.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -155,6 +163,9 @@
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 				AC5F007629402F31001221C2 /* BuildFileMonitor.swift */,
+				AC34B3552940E4EC0029479C /* URLsAndAST.swift */,
+				AC34B3572940ECBF0029479C /* StaticURLsAndAST.swift */,
+				AC34B35D2940FBFB0029479C /* ObservableMonitor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 				AC5F007829403272001221C2 /* BuildFileMonitorView.swift */,
 				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
 				AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */,
+				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -290,10 +302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
+				AC34B3562940E4EC0029479C /* URLsAndAST.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
+				AC34B3582940ECBF0029479C /* StaticURLsAndAST.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
@@ -317,12 +331,14 @@
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				AC5F007729402F31001221C2 /* BuildFileMonitor.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,
 				AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */,
 				AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */,
+				AC34B35E2940FBFB0029479C /* ObservableMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
