@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFilesListOfDirectoryView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 				AC5F007829403272001221C2 /* BuildFileMonitorView.swift */,
+				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				AC5F007729402F31001221C2 /* BuildFileMonitor.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,

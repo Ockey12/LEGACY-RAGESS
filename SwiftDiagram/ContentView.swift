@@ -20,8 +20,9 @@ struct ContentView: View {
 //            SyntaxArrayParserView()
 //                .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
 //        }
-        BuildFileMonitorView()
-        .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
+//        BuildFileMonitorView()
+        GetFilesListOfDirectoryView()
+            .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
     }
 }
 
