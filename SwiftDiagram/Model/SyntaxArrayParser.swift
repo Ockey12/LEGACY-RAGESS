@@ -38,6 +38,10 @@ struct SyntaxArrayParser {
     var classHolderStackArray = [ClassHolder]()
     var positionInClassHolderStackArray = -1
     
+    var enumHolderStackArray = [EnumHolder]()
+    var positionInEnumHolderStackArray = -1
+    var positionInCasesOfEnumHolder = -1
+    
     var variableHolderStackArray = [VariableHolder]()
     var positionInVariableHolderStackArray = -1
     
@@ -95,7 +99,6 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.class)
                 classHolderStackArray.append(ClassHolder())
                 positionInClassHolderStackArray += 1
-                break
             case .ClassAccessLevel:
                 classHolderStackArray[positionInClassHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
@@ -109,25 +112,39 @@ struct SyntaxArrayParser {
                 positionInClassHolderStackArray -= 1
             // enumの宣言
             case .StartEnumDeclSyntax:
-                break
+                pushHolderTypeStackArray(.enum)
+                enumHolderStackArray.append(EnumHolder())
+                positionInEnumHolderStackArray += 1
+                positionInCasesOfEnumHolder = -1
             case .EnumAccessLevel:
-                break
+                enumHolderStackArray[positionInEnumHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
-                break
+                let name = parsedElementArray[1]
+                enumHolderStackArray[positionInEnumHolderStackArray].name = name
+                allTypeNames.append(name)
             case .RawvalueType:
-                break
-            case .Rawvalue:
-                break
-            case .CaseAssociatedValue:
-                break
+                let rawvalueType = parsedElementArray[1]
+                enumHolderStackArray[positionInEnumHolderStackArray].rawvalueType = rawvalueType
             case .StartEnumCaseElementSyntax:
-                break
+                enumHolderStackArray[positionInEnumHolderStackArray].cases.append(EnumHolder.CaseHolder())
+                positionInCasesOfEnumHolder += 1
             case .EnumCase:
-                break
+                let name = parsedElementArray[1]
+                enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName = name
+            case .Rawvalue:
+                let rawvalue = parsedElementArray[1]
+                enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].rawvalue = rawvalue
+            case .CaseAssociatedValue:
+                let associatedValueType = parsedElementArray[1]
+                enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
             case .EndEnumCaseElementSyntax:
-                break
+                positionInCasesOfEnumHolder -= 1
             case .EndEnumDeclSyntax:
-                break
+                resultEnumHolders.append(enumHolderStackArray.last!)
+                popHolderTypeStackArray()
+                enumHolderStackArray.removeLast()
+                positionInEnumHolderStackArray -= 1
+            // protocolの宣言
             case .StartProtocolDeclSyntax:
                 break
             case .ProtocolAccessLevel:
@@ -144,9 +161,9 @@ struct SyntaxArrayParser {
                 break
             case .EndProtocolDeclSyntax:
                 break
+            // プロトコルへの準拠、スーパークラスの継承
             case .StartInheritedTypeListSyntax:
                 break
-            // プロトコルへの準拠、スーパークラスの継承
             case .ConformedProtocolByStruct:
                 let protocolName = parsedElementArray[1]
                 let structName = structHolderStackArray[positionInStructHolderStackArray].name
@@ -165,7 +182,10 @@ struct SyntaxArrayParser {
                 classHolderStackArray[positionInClassHolderStackArray].conformingProtocolNames.append(protocolName)
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
             case .ConformedProtocolByEnum:
-                break
+                let protocolName = parsedElementArray[1]
+                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+                enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: enumName)
             case .ConformedProtocolByProtocol:
                 break
             case .EndInheritedTypeListSyntax:
@@ -362,6 +382,7 @@ struct SyntaxArrayParser {
                 break
             case .EndInitializerDeclSyntax:
                 break
+            // extensionの宣言
             case .StartExtensionDeclSyntax:
                 break
             case .EndExtensionDeclSyntax:
@@ -404,6 +425,7 @@ struct SyntaxArrayParser {
                 break
             case .EndTypealiasDecl:
                 break
+            // スペース
             case .Space:
                 break
             } // end switch syntaxTag
@@ -474,6 +496,8 @@ struct SyntaxArrayParser {
             structHolderStackArray[positionInStructHolderStackArray].variables.append(variableHolder)
         case .class:
             classHolderStackArray[positionInClassHolderStackArray].variables.append(variableHolder)
+        case .enum:
+            enumHolderStackArray[positionInEnumHolderStackArray].variables.append(variableHolder)
         default:
             fatalError("ERROR: holderTypeStackArray[positionInHolderTypeStackArray] hasn't variables property")
         }

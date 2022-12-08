@@ -8,5 +8,5 @@
 import Foundation
 
 protocol Holder {
-    var ID: Int? { get }
+//    var ID: Int? { get }
 }

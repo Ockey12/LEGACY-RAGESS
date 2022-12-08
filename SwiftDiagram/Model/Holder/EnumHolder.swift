@@ -12,7 +12,11 @@ struct EnumHolder: TypeHolder {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
+    var rawvalueType: String?
+    
     var conformingProtocolNames = [String]()
+    
+    var cases = [CaseHolder]()
     
     var variables = [VariableHolder]()
     
@@ -23,4 +27,10 @@ struct EnumHolder: TypeHolder {
     var nestingEnums = [EnumHolder]()
     
     var nestSuperTypeName: String? = nil
+    
+    struct CaseHolder: Holder {
+        var caseName: String = ""
+        var rawvalue: String?
+        var associatedValueTypes = [String]()
+    }
 }
