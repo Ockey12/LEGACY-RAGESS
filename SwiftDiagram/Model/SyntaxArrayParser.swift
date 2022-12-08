@@ -158,10 +158,12 @@ struct SyntaxArrayParser {
                 for superClass in classNameArray {
                     if protocolName == superClass {
                         classHolderStackArray[positionInClassHolderStackArray].superClassName = protocolName
+                        extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
                         break superSwitch
                     }
                 }
                 classHolderStackArray[positionInClassHolderStackArray].conformingProtocolNames.append(protocolName)
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
             case .ConformedProtocolByEnum:
                 break
             case .ConformedProtocolByProtocol:
