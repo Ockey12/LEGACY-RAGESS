@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MonitorView: View {
-    @ObservedObject var monitor = ObservableMonitor()
+    @ObservedObject var monitor = BuildFileMonitor()
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
