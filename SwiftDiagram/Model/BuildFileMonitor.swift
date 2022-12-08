@@ -110,7 +110,7 @@ class BuildFileMonitor: ObservableObject {
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
                     for structHolder in syntaxArrayParser.getResultStructHolders() {
-                        content += "Struct\n"
+                        content += "-----Struct-----\n"
                         content += "name: \(structHolder.name)\n"
                         content += "accessLevel: \(structHolder.accessLevel)\n"
                         
@@ -121,7 +121,7 @@ class BuildFileMonitor: ObservableObject {
                         }
                         
                         for variableHolder in structHolder.variables {
-                            content += "Variable\n"
+                            content += "--Variable--\n"
                             content += "name: \(variableHolder.name)\n"
                             content += "accessLevel: \(variableHolder.accessLevel)\n"
                             content += "kind: \(variableHolder.kind)\n"
@@ -181,7 +181,7 @@ class BuildFileMonitor: ObservableObject {
                     } // for structHolder
                     
                     for classHolder in syntaxArrayParser.getResultClassHolders() {
-                        content += "Class\n"
+                        content += "-----Class-----\n"
                         content += "name: \(classHolder.name)\n"
                         content += "accessLevel: \(classHolder.accessLevel)\n"
                         
@@ -196,6 +196,92 @@ class BuildFileMonitor: ObservableObject {
                         }
                         
                         for variableHolder in classHolder.variables {
+                            content += "Variable\n"
+                            content += "name: \(variableHolder.name)\n"
+                            content += "accessLevel: \(variableHolder.accessLevel)\n"
+                            content += "kind: \(variableHolder.kind)\n"
+                            if let customAttribute = variableHolder.customAttribute {
+                                content += "customAttribute: \(customAttribute)\n"
+                            }
+                            if variableHolder.isStatic {
+                                content += "isStatic\n"
+                            }
+                            if variableHolder.isLazy {
+                                content += "isLazy\n"
+                            }
+                            if variableHolder.isConstant {
+                                content += "isConstant\n"
+                            }
+                            if let literalType = variableHolder.literalType {
+                                content += "literalType: \(literalType)\n"
+                            }
+                            if let arrayType = variableHolder.arrayType {
+                                content += "arrayType: \(arrayType)\n"
+                            }
+                            if let key = variableHolder.dictionaryKeyType {
+                                content += "dictionaryKeyType: \(key)\n"
+                            }
+                            if let value = variableHolder.dictionaryValueType {
+                                content += "dictionaryValueType: \(value)\n"
+                            }
+                            if 0 < variableHolder.tupleTypes.count {
+                                for element in variableHolder.tupleTypes {
+                                    content += "tupleType: \(element)\n"
+                                }
+                            }
+                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
+                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
+                            }
+                            if variableHolder.isOptionalType {
+                                content += "isOptional\n"
+                            }
+                            if let initialValue = variableHolder.initialValue {
+                                content += "initialValue: \(initialValue)\n"
+                            }
+                            if variableHolder.haveWillSet {
+                                content += "haveWillSet\n"
+                            }
+                            if variableHolder.haveDidSet {
+                                content += "haveDidSet\n"
+                            }
+                            if variableHolder.haveGetter {
+                                content += "haveGetter\n"
+                            }
+                            if variableHolder.haveSetter {
+                                content += "haveSetter\n"
+                            }
+                        } // for variableHolder
+                        
+                        content += "\n"
+                    } // for classHolder
+                    
+                    for enumHolder in syntaxArrayParser.getResultEnumHolders() {
+                        content += "-----Enum-----\n"
+                        content += "name: \(enumHolder.name)\n"
+                        content += "accessLevel: \(enumHolder.accessLevel)\n"
+                        
+                        if let rawvalueType = enumHolder.rawvalueType {
+                            content += "rawvalueType: \(rawvalueType)\n"
+                        }
+                        
+                        if 0 < enumHolder.conformingProtocolNames.count {
+                            for name in enumHolder.conformingProtocolNames {
+                                content += "conformingProtocolName: \(name)\n"
+                            }
+                        }
+                        
+                        for aCase in enumHolder.cases {
+                            content += "--case--\n"
+                            content += "caseName: \(aCase.caseName)\n"
+                            if let rawValue = aCase.rawvalue {
+                                content += "rawValue: \(rawValue)\n"
+                            }
+                            for associatedValueType in aCase.associatedValueTypes {
+                                content += ("associatedValueType: \(associatedValueType)\n")
+                            }
+                        }
+                        
+                        for variableHolder in enumHolder.variables {
                             content += "Variable\n"
                             content += "name: \(variableHolder.name)\n"
                             content += "accessLevel: \(variableHolder.accessLevel)\n"

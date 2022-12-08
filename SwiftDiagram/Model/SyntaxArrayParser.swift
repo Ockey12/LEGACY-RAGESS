@@ -461,6 +461,10 @@ struct SyntaxArrayParser {
         return resultClassHolders
     }
     
+    func getResultEnumHolders() -> [EnumHolder] {
+        return resultEnumHolders
+    }
+    
     func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
         var array = [WhomThisTypeAffect]()
         for dict in whomThisTypeAffectDict {
