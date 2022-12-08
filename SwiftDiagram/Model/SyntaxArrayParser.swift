@@ -124,7 +124,9 @@ struct SyntaxArrayParser {
                 allTypeNames.append(name)
             case .RawvalueType:
                 let rawvalueType = parsedElementArray[1]
+                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
                 enumHolderStackArray[positionInEnumHolderStackArray].rawvalueType = rawvalueType
+                extractingDependencies(affectingTypeName: rawvalueType, affectedTypeName: enumName)
             case .StartEnumCaseElementSyntax:
                 enumHolderStackArray[positionInEnumHolderStackArray].cases.append(EnumHolder.CaseHolder())
                 positionInCasesOfEnumHolder += 1
@@ -136,7 +138,10 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].rawvalue = rawvalue
             case .CaseAssociatedValue:
                 let associatedValueType = parsedElementArray[1]
+                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+                let caseName = enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
+                extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
             case .EndEnumCaseElementSyntax:
                 positionInCasesOfEnumHolder -= 1
             case .EndEnumDeclSyntax:
@@ -212,46 +217,52 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .StartArrayTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndArrayTypeSyntaxOfVariable:
                 break
             case .StartDictionaryTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndDictionaryTypeSyntaxOfVariable:
                 break
             case .StartTupleTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
-                extractingDependencies(affectingTypeName: type, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
+                let superTypeName = getSuperType()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: variableName)
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .IsOptionalType:
                 variableHolderStackArray[positionInVariableHolderStackArray].isOptionalType = true
             case .InitialValueOfVariable:
@@ -471,15 +482,23 @@ struct SyntaxArrayParser {
     // 型の依存関係を抽出する
     // affectingTypeName: 影響を及ぼす側の型の名前
     // affectedTypeName: 影響を受ける側の型の名前
-    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String) {
+    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil) {
         if let _ = whomThisTypeAffectDict[affectingTypeName] {
             // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyに既に登録されているとき
             // affectingTypeNameをKeyに持つ要素のaffectedTypesNameに、affectedTypeNameを追加する
-            whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(affectedTypeName)
+            if let element = affectedElementName {
+                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element))
+            } else {
+                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName))
+            }
         } else {
             // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyにまだ登録されていないとき
             // affectingTypeNameをKeyとした、新しい要素を追加する
-            whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [affectedTypeName])
+            if let element = affectedElementName {
+                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element)])
+            } else {
+                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName)])
+            }
         }
     } // func extractingDependencies()
     
@@ -506,4 +525,20 @@ struct SyntaxArrayParser {
         positionInVariableHolderStackArray -= 1
         popHolderTypeStackArray()
     } // func addVariableHolderToSuperHolder()
+    
+    // そのvariableやfunctionを保有している型の名前を返す
+    private func getSuperType() -> String {
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            return structHolderStackArray[positionInStructHolderStackArray].name
+        case .class:
+            return classHolderStackArray[positionInClassHolderStackArray].name
+        case .enum:
+            return enumHolderStackArray[positionInEnumHolderStackArray].name
+        default:
+            fatalError("")
+        }
+    }
 } // end struct SyntaxArrayParser

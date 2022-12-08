@@ -259,7 +259,11 @@ class BuildFileMonitor: ObservableObject {
                     for element in syntaxArrayParser.getWhomThisTypeAffectArray() {
                         let affectingTypeName = element.affectingTypeName
                         for affectedTypeName in element.affectedTypesName {
-                            content += "\(affectingTypeName) -> \(affectedTypeName)\n"
+                            content += "\(affectingTypeName) -> \(affectedTypeName.typeName)"
+                            if let elementName = affectedTypeName.elementName {
+                                content += ".\(elementName)"
+                            }
+                            content += "\n"
                         }
                     }
                     content += "\n"

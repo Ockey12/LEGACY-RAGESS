@@ -9,5 +9,10 @@ import Foundation
 
 struct WhomThisTypeAffect {
     var affectingTypeName: String
-    var affectedTypesName: [String]
+    var affectedTypesName: [Element]
+    
+    struct Element {
+        var typeName: String
+        var elementName: String?
+    }
 }
