@@ -16,7 +16,33 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
     var isOverride = false
     var isMutating = false
     
+    var parameters = [ParameterHolder]()
+    
+    var initialValue: String?
+    
+    var returnValue = ReturnValueHolder()
+    
     struct ParameterHolder: Holder {
+        var externalName: String?
+        var internalName: String?
+        var haveInoutKeyword = false
+        var isVariadic = false
         
+        var kind: VariableKind = .literal
+        var literalType: String?
+        var arrayType: String?
+        var dictionaryKeyType: String?
+        var dictionaryValueType: String?
+        var tupleTypes = [String]()
+    }
+    
+    struct ReturnValueHolder: Holder {
+        var kind: VariableKind = .literal
+        var literalType: String?
+        var arrayType: String?
+        var dictionaryKeyType: String?
+        var dictionaryValueType: String?
+        var tupleTypes = [String]()
+        var conformedProtocolByOpaqueResultTypeOfReturnValue: String?
     }
 }

@@ -51,6 +51,7 @@ struct SyntaxArrayParser {
     
     var functionHolderStackArray = [FunctionHolder]()
     var positionInFunctionHolderStackArray = -1
+    var positionInFunctionParameters = -1
     
     
     mutating func parseResultArray(resultArray: [String]) {
@@ -237,7 +238,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -245,7 +246,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -255,13 +256,13 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -271,7 +272,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -279,7 +280,7 @@ struct SyntaxArrayParser {
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
-                let superTypeName = getSuperType()
+                let superTypeName = getSuperTypeName()
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -312,73 +313,99 @@ struct SyntaxArrayParser {
             case .IsMutatingFunction:
                 functionHolderStackArray[positionInFunctionHolderStackArray].isMutating = true
             case .FunctionName:
-                break
+                let name = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].name = name
             case .StartFunctionParameterSyntax:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters.append(FunctionHolder.ParameterHolder())
+                positionInFunctionParameters += 1
             case .ExternalParameterName:
-                break
+                let name = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].externalName = name
             case .InternalParameterName:
-                break
+                let name = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].internalName = name
             case .HaveInoutKeyword:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].haveInoutKeyword = true
             case .IsVariadicParameter:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].isVariadic = true
             case .FunctionParameterType:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].literalType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfFunctionParameter:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .array
             case .ArrayTypeOfFunctionParameter:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].arrayType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfFunctionParameter:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionParameter:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .dictionary
             case .DictionaryKeyTypeOfFunctionParameter:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryKeyType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .DictionaryValueTypeOfFunctionParameter:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryValueType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfFunctionParameter:
                 break
             case .StartTupleTypeSyntaxOfFunctionParameter:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .tuple
             case .TupleTypeOfFunctionParameter:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].tupleTypes.append(type)
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionParameter:
                 break
             case .InitialValueOfParameter:
-                break
+                let value = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].initialValue = value
             case .EndFunctionParameterSyntax:
                 break
             case .StartFunctionReturnValueType:
                 break
             case .FunctionReturnValueType:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.literalType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfFunctionReturnValue:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .array
             case .ArrayTypeOfFunctionReturnValue:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.arrayType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .dictionary
             case .DictionaryKeyTypeOfFunctionReturnValue:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.dictionaryKeyType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .DictionaryValueTypeOfFunctionReturnValue:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.dictionaryValueType = type
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartTupleTypeSyntaxOfFunctionReturnValue:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .tuple
             case .TupleTypeOfFunctionReturnValue:
-                break
+                let type = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.tupleTypes.append(type)
+                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionReturnValue:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
-                break
+                let protocolName = parsedElementArray[1]
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue = protocolName
             case .EndFunctionReturnValueType:
                 break
             case .EndFunctionDeclSyntax:
-                break
+                addFunctionHolderToSuperHolder()
             // initializerの宣言
             case .StartInitializerDeclSyntax:
                 break
@@ -533,7 +560,15 @@ struct SyntaxArrayParser {
         }
     } // func extractingDependencies()
     
-    // VariableHolderを、親のvariableプロパティに追加する
+    
+    // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
+    mutating private func extractingDependenciesOfFunction(affectingTypeName: String) {
+        let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
+        let superHolderName = getSuperTypeName()
+        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
+    }
+    
+    // VariableHolderを、親のvariablesプロパティに追加する
     // variableの宣言終了を検出したときに呼び出す
     // popHolderTypeStackArrayのポップ操作を行う
     // variableHolderStackArrayのポップ操作を行う
@@ -559,8 +594,34 @@ struct SyntaxArrayParser {
         popHolderTypeStackArray()
     } // func addVariableHolderToSuperHolder()
     
+    // FunctionHolderを、親のfunctionsプロパティに追加する
+    // functionの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // functionHolderStackArrayのポップ操作を行う
+    mutating private func addFunctionHolderToSuperHolder() {
+        let functionHolder = functionHolderStackArray[positionInFunctionHolderStackArray]
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            structHolderStackArray[positionInStructHolderStackArray].functions.append(functionHolder)
+        case .class:
+            classHolderStackArray[positionInClassHolderStackArray].functions.append(functionHolder)
+        case .enum:
+            enumHolderStackArray[positionInEnumHolderStackArray].functions.append(functionHolder)
+        case .protocol:
+            protocolHolderStackArray[positionInProtocolHolderStackArray].functions.append(functionHolder)
+        default:
+            fatalError("")
+        }
+        
+        functionHolderStackArray.removeLast()
+        positionInFunctionHolderStackArray -= 1
+        popHolderTypeStackArray()
+    }
+    
     // そのvariableやfunctionを保有している型の名前を返す
-    private func getSuperType() -> String {
+    private func getSuperTypeName() -> String {
         let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
         
         switch holderType {
@@ -575,5 +636,5 @@ struct SyntaxArrayParser {
         default:
             fatalError("")
         }
-    }
+    } // func getSuperType()
 } // end struct SyntaxArrayParser
