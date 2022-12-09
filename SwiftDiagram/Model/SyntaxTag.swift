@@ -390,7 +390,7 @@ enum SyntaxTag: String {
         case .StartArrayTypeSyntaxOfInitializer:
             return "StartArrayTypeSyntaxOfInitializer"
         case .ArrayTypeOfInitializer:
-            return "arrayTypeOfInitializer"
+            return "ArrayTypeOfInitializer"
         case .EndArrayTypeSyntaxOfInitializer:
             return "EndArrayTypeSyntaxOfInitializer"
         case .StartDictionaryTypeSyntaxOfInitializer:

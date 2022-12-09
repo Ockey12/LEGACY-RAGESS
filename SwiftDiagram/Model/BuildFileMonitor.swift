@@ -119,6 +119,7 @@ class BuildFileMonitor: ObservableObject {
                                 content += "conformingProtocolName: \(name)\n"
                             }
                         }
+                        addInitializerToContent(initializerHolders: structHolder.initializers)
                         addVariableToContent(variableHolders: structHolder.variables)
                         addFunctionsToContent(functionHolders: structHolder.functions)
                         content += "\n"
@@ -138,6 +139,7 @@ class BuildFileMonitor: ObservableObject {
                                 content += "conformingProtocolName: \(name)\n"
                             }
                         }
+                        addInitializerToContent(initializerHolders: classHolder.initializers)
                         addVariableToContent(variableHolders: classHolder.variables)
                         addFunctionsToContent(functionHolders: classHolder.functions)
                         content += "\n"
@@ -168,6 +170,7 @@ class BuildFileMonitor: ObservableObject {
                                 content += ("associatedValueType: \(associatedValueType)\n")
                             }
                         }
+                        addInitializerToContent(initializerHolders: enumHolder.initializers)
                         addVariableToContent(variableHolders: enumHolder.variables)
                         addFunctionsToContent(functionHolders: enumHolder.functions)
                         content += "\n"
@@ -350,4 +353,38 @@ class BuildFileMonitor: ObservableObject {
             content += "\n"
         } // for functionHolder
     } // func addFunctionsToContent(functionHolders: [FunctionHolder])
+    
+    private func addInitializerToContent(initializerHolders: [InitializerHolder]) {
+        for initializerHolder in initializerHolders {
+            content += "---Initializer---\n"
+            if initializerHolder.isConvenience {
+                content += "isConvenience\n"
+            }
+            if initializerHolder.isFailable {
+                content += "isFailable\n"
+            }
+            
+            for parameter in initializerHolder.parameters {
+                print("---Parameter---\n")
+                if let name = parameter.name {
+                    content += "name: \(name)\n"
+                }
+                if let literalType = parameter.literalType {
+                    content += "literalType: \(literalType)\n"
+                }
+                if let arrayType = parameter.arrayType {
+                    content += "arrayType: \(arrayType)\n"
+                }
+                if let keyType = parameter.dictionaryKeyType {
+                    content += "dictionaryKeyType: \(keyType)\n"
+                }
+                if let valueType = parameter.dictionaryValueType {
+                    content += "dictionaryValueType: \(valueType)\n"
+                }
+                for tuple in parameter.tupleTypes {
+                    content += "tupleType: \(tuple)\n"
+                }
+            } // for parameter
+        }
+    } // func addInitializerToContent(initializerHolders: [InitializerHolder])
 }
