@@ -9,4 +9,6 @@ import Foundation
 
 struct ExtensionHolder: Holder {
     var ID: Int?
+    
+    var initializers = [InitializerHolder]()
 }

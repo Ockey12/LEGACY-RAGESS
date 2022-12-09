@@ -15,6 +15,8 @@ struct ClassHolder: TypeHolder {
     var superClassName: String?
     var conformingProtocolNames = [String]()
     
+    var initializers = [InitializerHolder]()
+    
     var variables = [VariableHolder]()
     
     var functions = [FunctionHolder]()

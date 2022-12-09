@@ -19,8 +19,8 @@ struct SyntaxArrayParser {
     private var resultClassHolders = [ClassHolder]()
     private var resultEnumHolders = [EnumHolder]()
     private var resultProtocolHolders = [ProtocolHolder]()
-    private var resultVariableHolders = [VariableHolder]()
-    private var resultFunctionHolders = [FunctionHolder]()
+//    private var resultVariableHolders = [VariableHolder]()
+//    private var resultFunctionHolders = [FunctionHolder]()
     private var resultExtensionHolders = [ExtensionHolder]()
     
     // 型の依存関係を保持する
@@ -52,6 +52,11 @@ struct SyntaxArrayParser {
     var functionHolderStackArray = [FunctionHolder]()
     var positionInFunctionHolderStackArray = -1
     var positionInFunctionParameters = -1
+    
+    var initializerHolderStackArray = [InitializerHolder]()
+    var positionInInitializerHolderStackArray = -1
+    var positionInInitializerParameters = -1
+    var numberOfInitializer = -1
     
     
     mutating func parseResultArray(resultArray: [String]) {
@@ -91,6 +96,7 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.struct)
                 structHolderStackArray.append(StructHolder())
                 positionInStructHolderStackArray += 1
+                resetNumberOfInitializer()
             case .StructAccessLevel:
                 structHolderStackArray[positionInStructHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .StructName:
@@ -107,6 +113,7 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.class)
                 classHolderStackArray.append(ClassHolder())
                 positionInClassHolderStackArray += 1
+                resetNumberOfInitializer()
             case .ClassAccessLevel:
                 classHolderStackArray[positionInClassHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
@@ -124,6 +131,7 @@ struct SyntaxArrayParser {
                 enumHolderStackArray.append(EnumHolder())
                 positionInEnumHolderStackArray += 1
                 positionInCasesOfEnumHolder = -1
+                resetNumberOfInitializer()
             case .EnumAccessLevel:
                 enumHolderStackArray[positionInEnumHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
@@ -162,6 +170,7 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.protocol)
                 protocolHolderStackArray.append(ProtocolHolder())
                 positionInProtocolHolderStackArray += 1
+                resetNumberOfInitializer()
             case .ProtocolAccessLevel:
                 protocolHolderStackArray[positionInProtocolHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .ProtocolName:
@@ -409,43 +418,60 @@ struct SyntaxArrayParser {
                 addFunctionHolderToSuperHolder()
             // initializerの宣言
             case .StartInitializerDeclSyntax:
-                break
+                pushHolderTypeStackArray(.initializer)
+                initializerHolderStackArray.append(InitializerHolder())
+                positionInInitializerHolderStackArray += 1
+                positionInInitializerParameters = -1
+                numberOfInitializer += 1
             case .HaveConvenienceKeyword:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].isConvenience = true
             case .IsFailableInitializer:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].isFailable = true
             case .StartInitializerParameter:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters.append(InitializerHolder.ParameterHolder())
+                positionInInitializerParameters += 1
             case .InitializerParameterName:
-                break
+                let name = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].name = name
             case .InitializerParameterType:
-                break
+                let type = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].literalType = type
+                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfInitializer:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .array
             case .ArrayTypeOfInitializer:
-                break
+                let type = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].arrayType = type
+                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfInitializer:
                 break
             case .StartDictionaryTypeSyntaxOfInitializer:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .dictionary
             case .DictionaryKeyTypeOfInitializer:
-                break
+                let type = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryKeyType = type
+                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .DictionaryValueTypeOfInitializer:
-                break
+                let type = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryValueType = type
+                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfInitializer:
                 break
             case .StartTupleTypeSyntaxOfInitializer:
-                break
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .tuple
             case .TupleTypeOfInitializer:
-                break
+                let type = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].tupleTypes.append(type)
+                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfInitializer:
                 break
             case .EndInitializerParameter:
                 break
             case .EndInitializerDeclSyntax:
-                break
+                addInitializerHolderToSuperHolder()
             // extensionの宣言
             case .StartExtensionDeclSyntax:
+                resetNumberOfInitializer()
                 break
             case .EndExtensionDeclSyntax:
                 break
@@ -520,9 +546,9 @@ struct SyntaxArrayParser {
         return resultProtocolHolders
     }
     
-    func getResultFunctionHolders() -> [FunctionHolder] {
-        return resultFunctionHolders
-    }
+//    func getResultFunctionHolders() -> [FunctionHolder] {
+//        return resultFunctionHolders
+//    }
     
     func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
         var array = [WhomThisTypeAffect]()
@@ -563,7 +589,7 @@ struct SyntaxArrayParser {
                 whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName)])
             }
         }
-    } // func extractingDependencies()
+    } // func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil)
     
     
     // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
@@ -571,6 +597,14 @@ struct SyntaxArrayParser {
         let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
         let superHolderName = getSuperTypeName()
         extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
+    }
+    
+    // initializer宣言中に依存関係を抽出したとき、"影響を及ぼす型->initializerを持つHolder.init"の依存関係を保存する
+    // initializerは名前を持たないので、affectedElementNameには、そのinitializerが型内で何番目かの数字を渡す
+    mutating private func extractingDependenciesOfInitializer(affectingTypeName: String) {
+        let num = numberOfInitializer
+        let superHolderName = getSuperTypeName()
+        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "init \(num)")
     }
     
     // VariableHolderを、親のvariablesプロパティに追加する
@@ -623,7 +657,32 @@ struct SyntaxArrayParser {
         functionHolderStackArray.removeLast()
         positionInFunctionHolderStackArray -= 1
         popHolderTypeStackArray()
-    }
+    } // func addFunctionHolderToSuperHolder()
+    
+    // InitializerHolderを、親のfunctionsプロパティに追加する
+    // initializerの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // initializerHolderStackArrayのポップ操作を行う
+    mutating private func addInitializerHolderToSuperHolder() {
+        let initializerHolder = initializerHolderStackArray[positionInInitializerHolderStackArray]
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            structHolderStackArray[positionInStructHolderStackArray].initializers.append(initializerHolder)
+        case .class:
+            classHolderStackArray[positionInClassHolderStackArray].initializers.append(initializerHolder)
+        case .enum:
+            enumHolderStackArray[positionInEnumHolderStackArray].initializers.append(initializerHolder)
+        case .extension:
+            break
+        default:
+            fatalError("")
+        }
+        initializerHolderStackArray.removeLast()
+        positionInInitializerHolderStackArray -= 1
+        popHolderTypeStackArray()
+    } // func addInitializerHolderToSuperHolder()
     
     // そのvariableやfunctionを保有している型の名前を返す
     private func getSuperTypeName() -> String {
@@ -641,5 +700,10 @@ struct SyntaxArrayParser {
         default:
             fatalError("")
         }
-    } // func getSuperType()
+    } // func getSuperType() -> String
+    
+    // numberOfInitializerを-1にリセットする
+    mutating private func resetNumberOfInitializer() {
+        numberOfInitializer = -1
+    }
 } // end struct SyntaxArrayParser

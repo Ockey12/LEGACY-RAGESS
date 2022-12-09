@@ -16,6 +16,8 @@ struct EnumHolder: TypeHolder {
     
     var conformingProtocolNames = [String]()
     
+    var initializers = [InitializerHolder]()
+    
     var cases = [CaseHolder]()
     
     var variables = [VariableHolder]()
