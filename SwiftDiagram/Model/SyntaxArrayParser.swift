@@ -304,6 +304,7 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.function)
                 functionHolderStackArray.append(FunctionHolder())
                 positionInFunctionHolderStackArray += 1
+                positionInFunctionParameters = -1
             case .IsStaticFunction:
                 functionHolderStackArray[positionInFunctionHolderStackArray].isStatic = true
             case .FunctionAccessLevel:
@@ -362,46 +363,46 @@ struct SyntaxArrayParser {
                 break
             case .InitialValueOfParameter:
                 let value = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].initialValue = value
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].initialValue = value
             case .EndFunctionParameterSyntax:
                 break
             case .StartFunctionReturnValueType:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue = FunctionHolder.ReturnValueHolder()
             case .FunctionReturnValueType:
                 let type = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.literalType = type
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.literalType = type
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .array
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .array
             case .ArrayTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.arrayType = type
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.arrayType = type
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .dictionary
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .dictionary
             case .DictionaryKeyTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.dictionaryKeyType = type
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryKeyType = type
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .DictionaryValueTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.dictionaryValueType = type
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryValueType = type
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartTupleTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.kind = .tuple
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .tuple
             case .TupleTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.tupleTypes.append(type)
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.tupleTypes.append(type)
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionReturnValue:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
                 let protocolName = parsedElementArray[1]
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue = protocolName
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.conformedProtocolByOpaqueResultTypeOfReturnValue = protocolName
             case .EndFunctionReturnValueType:
                 break
             case .EndFunctionDeclSyntax:
@@ -517,6 +518,10 @@ struct SyntaxArrayParser {
     
     func getResultProtocolHolders() -> [ProtocolHolder] {
         return resultProtocolHolders
+    }
+    
+    func getResultFunctionHolders() -> [FunctionHolder] {
+        return resultFunctionHolders
     }
     
     func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {

@@ -17,10 +17,8 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
     var isMutating = false
     
     var parameters = [ParameterHolder]()
-    
-    var initialValue: String?
-    
-    var returnValue = ReturnValueHolder()
+
+    var returnValue: ReturnValueHolder?
     
     struct ParameterHolder: Holder {
         var externalName: String?
@@ -34,6 +32,8 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
         var dictionaryKeyType: String?
         var dictionaryValueType: String?
         var tupleTypes = [String]()
+        
+        var initialValue: String?
     }
     
     struct ReturnValueHolder: Holder {

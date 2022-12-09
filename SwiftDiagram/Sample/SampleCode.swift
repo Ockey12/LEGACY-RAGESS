@@ -68,7 +68,7 @@ private struct Struct2: Protocol1 {
     
 //    func outsideNameFunction(outside inside: Int..., external internal: inout String) {}
 //    func getClauserFunction(clause: ((String) -> Int) -> Void, toupletouple: (String, Int)) {}
-    
+//
 //    static func staticFunction(num: Int = 6666666666) {}
 //    func defaultValueFunction(text: String = "sampl eText") {}
 //    private func DefaultFunction(out in: Int, num: inout Int, nums: Int... ,text: String = "sampleText", clauser: (Int, String) -> String) {

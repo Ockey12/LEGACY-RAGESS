@@ -119,64 +119,8 @@ class BuildFileMonitor: ObservableObject {
                                 content += "conformingProtocolName: \(name)\n"
                             }
                         }
-                        
-                        for variableHolder in structHolder.variables {
-                            content += "--Variable--\n"
-                            content += "name: \(variableHolder.name)\n"
-                            content += "accessLevel: \(variableHolder.accessLevel)\n"
-                            content += "kind: \(variableHolder.kind)\n"
-                            if let customAttribute = variableHolder.customAttribute {
-                                content += "customAttribute: \(customAttribute)\n"
-                            }
-                            if variableHolder.isStatic {
-                                content += "isStatic\n"
-                            }
-                            if variableHolder.isLazy {
-                                content += "isLazy\n"
-                            }
-                            if variableHolder.isConstant {
-                                content += "isConstant\n"
-                            }
-                            if let literalType = variableHolder.literalType {
-                                content += "literalType: \(literalType)\n"
-                            }
-                            if let arrayType = variableHolder.arrayType {
-                                content += "arrayType: \(arrayType)\n"
-                            }
-                            if let key = variableHolder.dictionaryKeyType {
-                                content += "dictionaryKeyType: \(key)\n"
-                            }
-                            if let value = variableHolder.dictionaryValueType {
-                                content += "dictionaryValueType: \(value)\n"
-                            }
-                            if 0 < variableHolder.tupleTypes.count {
-                                for element in variableHolder.tupleTypes {
-                                    content += "tupleType: \(element)\n"
-                                }
-                            }
-                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
-                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
-                            }
-                            if variableHolder.isOptionalType {
-                                content += "isOptional\n"
-                            }
-                            if let initialValue = variableHolder.initialValue {
-                                content += "initialValue: \(initialValue)\n"
-                            }
-                            if variableHolder.haveWillSet {
-                                content += "haveWillSet\n"
-                            }
-                            if variableHolder.haveDidSet {
-                                content += "haveDidSet\n"
-                            }
-                            if variableHolder.haveGetter {
-                                content += "haveGetter\n"
-                            }
-                            if variableHolder.haveSetter {
-                                content += "haveSetter\n"
-                            }
-                        } // for variableHolder
-                        
+                        addVariableToContent(variableHolders: structHolder.variables)
+                        addFunctionsToContent(functionHolders: structHolder.functions)
                         content += "\n"
                     } // for structHolder
                     
@@ -194,64 +138,8 @@ class BuildFileMonitor: ObservableObject {
                                 content += "conformingProtocolName: \(name)\n"
                             }
                         }
-                        
-                        for variableHolder in classHolder.variables {
-                            content += "Variable\n"
-                            content += "name: \(variableHolder.name)\n"
-                            content += "accessLevel: \(variableHolder.accessLevel)\n"
-                            content += "kind: \(variableHolder.kind)\n"
-                            if let customAttribute = variableHolder.customAttribute {
-                                content += "customAttribute: \(customAttribute)\n"
-                            }
-                            if variableHolder.isStatic {
-                                content += "isStatic\n"
-                            }
-                            if variableHolder.isLazy {
-                                content += "isLazy\n"
-                            }
-                            if variableHolder.isConstant {
-                                content += "isConstant\n"
-                            }
-                            if let literalType = variableHolder.literalType {
-                                content += "literalType: \(literalType)\n"
-                            }
-                            if let arrayType = variableHolder.arrayType {
-                                content += "arrayType: \(arrayType)\n"
-                            }
-                            if let key = variableHolder.dictionaryKeyType {
-                                content += "dictionaryKeyType: \(key)\n"
-                            }
-                            if let value = variableHolder.dictionaryValueType {
-                                content += "dictionaryValueType: \(value)\n"
-                            }
-                            if 0 < variableHolder.tupleTypes.count {
-                                for element in variableHolder.tupleTypes {
-                                    content += "tupleType: \(element)\n"
-                                }
-                            }
-                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
-                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
-                            }
-                            if variableHolder.isOptionalType {
-                                content += "isOptional\n"
-                            }
-                            if let initialValue = variableHolder.initialValue {
-                                content += "initialValue: \(initialValue)\n"
-                            }
-                            if variableHolder.haveWillSet {
-                                content += "haveWillSet\n"
-                            }
-                            if variableHolder.haveDidSet {
-                                content += "haveDidSet\n"
-                            }
-                            if variableHolder.haveGetter {
-                                content += "haveGetter\n"
-                            }
-                            if variableHolder.haveSetter {
-                                content += "haveSetter\n"
-                            }
-                        } // for variableHolder
-                        
+                        addVariableToContent(variableHolders: classHolder.variables)
+                        addFunctionsToContent(functionHolders: classHolder.functions)
                         content += "\n"
                     } // for classHolder
                     
@@ -280,66 +168,10 @@ class BuildFileMonitor: ObservableObject {
                                 content += ("associatedValueType: \(associatedValueType)\n")
                             }
                         }
-                        
-                        for variableHolder in enumHolder.variables {
-                            content += "Variable\n"
-                            content += "name: \(variableHolder.name)\n"
-                            content += "accessLevel: \(variableHolder.accessLevel)\n"
-                            content += "kind: \(variableHolder.kind)\n"
-                            if let customAttribute = variableHolder.customAttribute {
-                                content += "customAttribute: \(customAttribute)\n"
-                            }
-                            if variableHolder.isStatic {
-                                content += "isStatic\n"
-                            }
-                            if variableHolder.isLazy {
-                                content += "isLazy\n"
-                            }
-                            if variableHolder.isConstant {
-                                content += "isConstant\n"
-                            }
-                            if let literalType = variableHolder.literalType {
-                                content += "literalType: \(literalType)\n"
-                            }
-                            if let arrayType = variableHolder.arrayType {
-                                content += "arrayType: \(arrayType)\n"
-                            }
-                            if let key = variableHolder.dictionaryKeyType {
-                                content += "dictionaryKeyType: \(key)\n"
-                            }
-                            if let value = variableHolder.dictionaryValueType {
-                                content += "dictionaryValueType: \(value)\n"
-                            }
-                            if 0 < variableHolder.tupleTypes.count {
-                                for element in variableHolder.tupleTypes {
-                                    content += "tupleType: \(element)\n"
-                                }
-                            }
-                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
-                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
-                            }
-                            if variableHolder.isOptionalType {
-                                content += "isOptional\n"
-                            }
-                            if let initialValue = variableHolder.initialValue {
-                                content += "initialValue: \(initialValue)\n"
-                            }
-                            if variableHolder.haveWillSet {
-                                content += "haveWillSet\n"
-                            }
-                            if variableHolder.haveDidSet {
-                                content += "haveDidSet\n"
-                            }
-                            if variableHolder.haveGetter {
-                                content += "haveGetter\n"
-                            }
-                            if variableHolder.haveSetter {
-                                content += "haveSetter\n"
-                            }
-                        } // for variableHolder
-                        
+                        addVariableToContent(variableHolders: enumHolder.variables)
+                        addFunctionsToContent(functionHolders: enumHolder.functions)
                         content += "\n"
-                    } // for structHolder
+                    } // for enumHolder
                     
                     for protocolHolder in syntaxArrayParser.getResultProtocolHolders() {
                         content += "-----Protocol-----\n"
@@ -358,66 +190,10 @@ class BuildFileMonitor: ObservableObject {
                                 content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
                             }
                         }
-                        
-                        for variableHolder in protocolHolder.variables {
-                            content += "--Variable--\n"
-                            content += "name: \(variableHolder.name)\n"
-                            content += "accessLevel: \(variableHolder.accessLevel)\n"
-                            content += "kind: \(variableHolder.kind)\n"
-                            if let customAttribute = variableHolder.customAttribute {
-                                content += "customAttribute: \(customAttribute)\n"
-                            }
-                            if variableHolder.isStatic {
-                                content += "isStatic\n"
-                            }
-                            if variableHolder.isLazy {
-                                content += "isLazy\n"
-                            }
-                            if variableHolder.isConstant {
-                                content += "isConstant\n"
-                            }
-                            if let literalType = variableHolder.literalType {
-                                content += "literalType: \(literalType)\n"
-                            }
-                            if let arrayType = variableHolder.arrayType {
-                                content += "arrayType: \(arrayType)\n"
-                            }
-                            if let key = variableHolder.dictionaryKeyType {
-                                content += "dictionaryKeyType: \(key)\n"
-                            }
-                            if let value = variableHolder.dictionaryValueType {
-                                content += "dictionaryValueType: \(value)\n"
-                            }
-                            if 0 < variableHolder.tupleTypes.count {
-                                for element in variableHolder.tupleTypes {
-                                    content += "tupleType: \(element)\n"
-                                }
-                            }
-                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
-                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
-                            }
-                            if variableHolder.isOptionalType {
-                                content += "isOptional\n"
-                            }
-                            if let initialValue = variableHolder.initialValue {
-                                content += "initialValue: \(initialValue)\n"
-                            }
-                            if variableHolder.haveWillSet {
-                                content += "haveWillSet\n"
-                            }
-                            if variableHolder.haveDidSet {
-                                content += "haveDidSet\n"
-                            }
-                            if variableHolder.haveGetter {
-                                content += "haveGetter\n"
-                            }
-                            if variableHolder.haveSetter {
-                                content += "haveSetter\n"
-                            }
-                        } // for variableHolder
-                        
+                        addVariableToContent(variableHolders: protocolHolder.variables)
+                        addFunctionsToContent(functionHolders: protocolHolder.functions)
                         content += "\n"
-                    } // for structHolder
+                    } // for protocolHolder
                     
                     content += "===== Dependencies =====\n"
                     for element in syntaxArrayParser.getWhomThisTypeAffectArray() {
@@ -438,5 +214,140 @@ class BuildFileMonitor: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-    }
+    } // func parseSwiftFiles(url: URL)
+    
+    private func addVariableToContent(variableHolders: [VariableHolder]) {
+        for variableHolder in variableHolders {
+            content += "--Variable--\n"
+            content += "name: \(variableHolder.name)\n"
+            content += "accessLevel: \(variableHolder.accessLevel)\n"
+            content += "kind: \(variableHolder.kind)\n"
+            if let customAttribute = variableHolder.customAttribute {
+                content += "customAttribute: \(customAttribute)\n"
+            }
+            if variableHolder.isStatic {
+                content += "isStatic\n"
+            }
+            if variableHolder.isLazy {
+                content += "isLazy\n"
+            }
+            if variableHolder.isConstant {
+                content += "isConstant\n"
+            }
+            if let literalType = variableHolder.literalType {
+                content += "literalType: \(literalType)\n"
+            }
+            if let arrayType = variableHolder.arrayType {
+                content += "arrayType: \(arrayType)\n"
+            }
+            if let key = variableHolder.dictionaryKeyType {
+                content += "dictionaryKeyType: \(key)\n"
+            }
+            if let value = variableHolder.dictionaryValueType {
+                content += "dictionaryValueType: \(value)\n"
+            }
+            if 0 < variableHolder.tupleTypes.count {
+                for element in variableHolder.tupleTypes {
+                    content += "tupleType: \(element)\n"
+                }
+            }
+            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
+                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
+            }
+            if variableHolder.isOptionalType {
+                content += "isOptional\n"
+            }
+            if let initialValue = variableHolder.initialValue {
+                content += "initialValue: \(initialValue)\n"
+            }
+            if variableHolder.haveWillSet {
+                content += "haveWillSet\n"
+            }
+            if variableHolder.haveDidSet {
+                content += "haveDidSet\n"
+            }
+            if variableHolder.haveGetter {
+                content += "haveGetter\n"
+            }
+            if variableHolder.haveSetter {
+                content += "haveSetter\n"
+            }
+        } // for variableHolder
+    } // func addVariableToContent(variableHolders: [VariableHolder])
+    
+    private func addFunctionsToContent(functionHolders: [FunctionHolder]) {
+        for functionHolder in functionHolders {
+            content += "-----Function-----\n"
+            content += "name: \(functionHolder.name)\n"
+            content += "accessLevel: \(functionHolder.accessLevel)\n"
+            
+            if functionHolder.isStatic {
+                content += "isStatic\n"
+            }
+            if functionHolder.isOverride {
+                content += "isOverride\n"
+            }
+            if functionHolder.isMutating {
+                content += "isMutating\n"
+            }
+            
+            for parameter in functionHolder.parameters {
+                content += "---Parameter---\n"
+                if let externalName = parameter.externalName {
+                    content += "externalName: \(externalName)\n"
+                }
+                if let internalName = parameter.internalName {
+                    content += "internalName: \(internalName)\n"
+                }
+                if parameter.haveInoutKeyword {
+                    content += "haveInoutKeyword\n"
+                }
+                if parameter.isVariadic {
+                    content += "isVariadic\n"
+                }
+                if let literalType = parameter.literalType {
+                    content += "literalType: \(literalType)\n"
+                }
+                if let arrayType = parameter.arrayType {
+                    content += "arrayType: \(arrayType)\n"
+                }
+                if let keyType = parameter.dictionaryKeyType {
+                    content += "dictionaryKeyType: \(keyType)\n"
+                }
+                if let valueType = parameter.dictionaryValueType {
+                    content += "dictionaryValueType: \(valueType)\n"
+                }
+                for tupleType in parameter.tupleTypes {
+                    content += "tupleType: \(tupleType)\n"
+                }
+                if let initialValue = parameter.initialValue {
+                    content += "initialValue: \(initialValue)\n"
+                }
+            } // for parameter
+            
+            if let returnValue = functionHolder.returnValue {
+                content += "---ReturnValue---\n"
+                if let literalType = returnValue.literalType {
+                    content += "literalType: \(literalType)\n"
+                }
+                if let arrayType = returnValue.arrayType {
+                    content += "arrayType: \(arrayType)\n"
+                }
+                if let keyType = returnValue.dictionaryKeyType {
+                    content += "dictionaryKeyType: \(keyType)\n"
+                }
+                if let valueType = returnValue.dictionaryValueType {
+                    content += "dictionaryValueType: \(valueType)\n"
+                }
+                for tupleType in returnValue.tupleTypes {
+                    content += "tupleType: \(tupleType)\n"
+                }
+                if let protocolName = returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue {
+                    content += "conformedProtocolByOpaqueResultTypeOfReturnValue: \(protocolName)\n"
+                }
+            }
+            
+            content += "\n"
+        } // for functionHolder
+    } // func addFunctionsToContent(functionHolders: [FunctionHolder])
 }
