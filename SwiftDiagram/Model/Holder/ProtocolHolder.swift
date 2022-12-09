@@ -11,4 +11,21 @@ struct ProtocolHolder: HaveNameAndAccessLevelHolder {
     var ID: Int?
     var name: String = ""
     var accessLevel: AccessLevel = .internal
+    
+    var conformingProtocolNames = [String]()
+    
+    var associatedTypes = [AssociatedType]()
+    
+    var variables = [VariableHolder]()
+    
+    var functions = [FunctionHolder]()
+    
+    var nestingStructs = [StructHolder]()
+    var nestingClasses = [ClassHolder]()
+    var nestingEnums = [EnumHolder]()
+    
+    struct AssociatedType {
+        var name: String
+        var protocolOrSuperClassName: String?
+    }
 }

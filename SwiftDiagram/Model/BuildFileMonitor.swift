@@ -341,6 +341,84 @@ class BuildFileMonitor: ObservableObject {
                         content += "\n"
                     } // for structHolder
                     
+                    for protocolHolder in syntaxArrayParser.getResultProtocolHolders() {
+                        content += "-----Protocol-----\n"
+                        content += "name: \(protocolHolder.name)\n"
+                        content += "accessLevel: \(protocolHolder.accessLevel)\n"
+                        
+                        if 0 < protocolHolder.conformingProtocolNames.count {
+                            for name in protocolHolder.conformingProtocolNames {
+                                content += "conformingProtocolName: \(name)\n"
+                            }
+                        }
+                        
+                        for associatedType in protocolHolder.associatedTypes {
+                            content += "associatedTypeName: \(associatedType.name)\n"
+                            if let protocolOrClass = associatedType.protocolOrSuperClassName {
+                                content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
+                            }
+                        }
+                        
+                        for variableHolder in protocolHolder.variables {
+                            content += "--Variable--\n"
+                            content += "name: \(variableHolder.name)\n"
+                            content += "accessLevel: \(variableHolder.accessLevel)\n"
+                            content += "kind: \(variableHolder.kind)\n"
+                            if let customAttribute = variableHolder.customAttribute {
+                                content += "customAttribute: \(customAttribute)\n"
+                            }
+                            if variableHolder.isStatic {
+                                content += "isStatic\n"
+                            }
+                            if variableHolder.isLazy {
+                                content += "isLazy\n"
+                            }
+                            if variableHolder.isConstant {
+                                content += "isConstant\n"
+                            }
+                            if let literalType = variableHolder.literalType {
+                                content += "literalType: \(literalType)\n"
+                            }
+                            if let arrayType = variableHolder.arrayType {
+                                content += "arrayType: \(arrayType)\n"
+                            }
+                            if let key = variableHolder.dictionaryKeyType {
+                                content += "dictionaryKeyType: \(key)\n"
+                            }
+                            if let value = variableHolder.dictionaryValueType {
+                                content += "dictionaryValueType: \(value)\n"
+                            }
+                            if 0 < variableHolder.tupleTypes.count {
+                                for element in variableHolder.tupleTypes {
+                                    content += "tupleType: \(element)\n"
+                                }
+                            }
+                            if let conformedProtocolByOpaqueResultType = variableHolder.conformedProtocolByOpaqueResultType {
+                                content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
+                            }
+                            if variableHolder.isOptionalType {
+                                content += "isOptional\n"
+                            }
+                            if let initialValue = variableHolder.initialValue {
+                                content += "initialValue: \(initialValue)\n"
+                            }
+                            if variableHolder.haveWillSet {
+                                content += "haveWillSet\n"
+                            }
+                            if variableHolder.haveDidSet {
+                                content += "haveDidSet\n"
+                            }
+                            if variableHolder.haveGetter {
+                                content += "haveGetter\n"
+                            }
+                            if variableHolder.haveSetter {
+                                content += "haveSetter\n"
+                            }
+                        } // for variableHolder
+                        
+                        content += "\n"
+                    } // for structHolder
+                    
                     content += "===== Dependencies =====\n"
                     for element in syntaxArrayParser.getWhomThisTypeAffectArray() {
                         let affectingTypeName = element.affectingTypeName

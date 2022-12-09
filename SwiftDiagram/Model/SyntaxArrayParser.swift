@@ -42,8 +42,15 @@ struct SyntaxArrayParser {
     var positionInEnumHolderStackArray = -1
     var positionInCasesOfEnumHolder = -1
     
+    var protocolHolderStackArray = [ProtocolHolder]()
+    var positionInProtocolHolderStackArray = -1
+    var positionInAssociatedTypes = -1
+    
     var variableHolderStackArray = [VariableHolder]()
     var positionInVariableHolderStackArray = -1
+    
+    var functionHolderStackArray = [FunctionHolder]()
+    var positionInFunctionHolderStackArray = -1
     
     
     mutating func parseResultArray(resultArray: [String]) {
@@ -151,21 +158,31 @@ struct SyntaxArrayParser {
                 positionInEnumHolderStackArray -= 1
             // protocolの宣言
             case .StartProtocolDeclSyntax:
-                break
+                pushHolderTypeStackArray(.protocol)
+                protocolHolderStackArray.append(ProtocolHolder())
+                positionInProtocolHolderStackArray += 1
             case .ProtocolAccessLevel:
-                break
+                protocolHolderStackArray[positionInProtocolHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .ProtocolName:
-                break
+                let name = parsedElementArray[1]
+                protocolHolderStackArray[positionInProtocolHolderStackArray].name = name
+                allTypeNames.append(name)
             case .StartAssociatedtypeDeclSyntax:
                 break
             case .AssociatedType:
-                break
+                let name = parsedElementArray[1]
+                protocolHolderStackArray[positionInProtocolHolderStackArray].associatedTypes.append(ProtocolHolder.AssociatedType(name: name))
+                positionInAssociatedTypes += 1
             case .ConformedProtocolOrInheritedClassByAssociatedType:
-                break
+                let name = parsedElementArray[1]
+                protocolHolderStackArray[positionInProtocolHolderStackArray].associatedTypes[positionInAssociatedTypes].protocolOrSuperClassName = name
             case .EndAssociatedtypeDeclSyntax:
                 break
             case .EndProtocolDeclSyntax:
-                break
+                resultProtocolHolders.append(protocolHolderStackArray.last!)
+                popHolderTypeStackArray()
+                protocolHolderStackArray.removeLast()
+                positionInProtocolHolderStackArray -= 1
             // プロトコルへの準拠、スーパークラスの継承
             case .StartInheritedTypeListSyntax:
                 break
@@ -192,7 +209,10 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: enumName)
             case .ConformedProtocolByProtocol:
-                break
+                let conformedProtocol = parsedElementArray[1]
+                let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
+                protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.append(conformedProtocol)
+                extractingDependencies(affectingTypeName: conformedProtocol, affectedTypeName: conformingProtocol)
             case .EndInheritedTypeListSyntax:
                 break
             // variableの宣言
@@ -280,15 +300,17 @@ struct SyntaxArrayParser {
                 addVariableHolderToSuperHolder()
             // functionの宣言
             case .StartFunctionDeclSyntax:
-                break
+                pushHolderTypeStackArray(.function)
+                functionHolderStackArray.append(FunctionHolder())
+                positionInFunctionHolderStackArray += 1
             case .IsStaticFunction:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].isStatic = true
             case .FunctionAccessLevel:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .IsOverrideFunction:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].isOverride = true
             case .IsMutatingFunction:
-                break
+                functionHolderStackArray[positionInFunctionHolderStackArray].isMutating = true
             case .FunctionName:
                 break
             case .StartFunctionParameterSyntax:
@@ -357,6 +379,7 @@ struct SyntaxArrayParser {
                 break
             case .EndFunctionDeclSyntax:
                 break
+            // initializerの宣言
             case .StartInitializerDeclSyntax:
                 break
             case .HaveConvenienceKeyword:
@@ -465,6 +488,10 @@ struct SyntaxArrayParser {
         return resultEnumHolders
     }
     
+    func getResultProtocolHolders() -> [ProtocolHolder] {
+        return resultProtocolHolders
+    }
+    
     func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
         var array = [WhomThisTypeAffect]()
         for dict in whomThisTypeAffectDict {
@@ -521,6 +548,8 @@ struct SyntaxArrayParser {
             classHolderStackArray[positionInClassHolderStackArray].variables.append(variableHolder)
         case .enum:
             enumHolderStackArray[positionInEnumHolderStackArray].variables.append(variableHolder)
+        case .protocol:
+            protocolHolderStackArray[positionInProtocolHolderStackArray].variables.append(variableHolder)
         default:
             fatalError("ERROR: holderTypeStackArray[positionInHolderTypeStackArray] hasn't variables property")
         }
@@ -541,6 +570,8 @@ struct SyntaxArrayParser {
             return classHolderStackArray[positionInClassHolderStackArray].name
         case .enum:
             return enumHolderStackArray[positionInEnumHolderStackArray].name
+        case .protocol:
+            return protocolHolderStackArray[positionInProtocolHolderStackArray].name
         default:
             fatalError("")
         }
