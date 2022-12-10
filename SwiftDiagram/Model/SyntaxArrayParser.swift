@@ -158,7 +158,7 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
                 extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
             case .EndEnumCaseElementSyntax:
-                positionInCasesOfEnumHolder -= 1
+                break
             case .EndEnumDeclSyntax:
                 let enumHolder = enumHolderStackArray[positionInEnumHolderStackArray]
                 addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: enumHolder)
