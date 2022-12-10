@@ -19,6 +19,7 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
     var parameters = [ParameterHolder]()
 
     var returnValue: ReturnValueHolder?
+    var returnValueIsOptional = false
     
     struct ParameterHolder: Holder {
         var externalName: String?
@@ -32,6 +33,8 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
         var dictionaryKeyType: String?
         var dictionaryValueType: String?
         var tupleTypes = [String]()
+        
+        var isOptionalType = false
         
         var initialValue: String?
     }

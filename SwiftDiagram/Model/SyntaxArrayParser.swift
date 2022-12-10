@@ -478,11 +478,15 @@ struct SyntaxArrayParser {
                 extensionHolderStackArray.append(ExtensionHolder())
                 positionInExtensionHolderStackArray += 1
             case .ExtensiondTypeName:
-                break
+                let name = parsedElementArray[1]
+                extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName = name
             case .ConformedProtocolByExtension:
-                break
+                let extensionedTypeName = extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
+                let protocolName = parsedElementArray[1]
+                extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
+                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
             case .EndExtensionDeclSyntax:
-                break
+                addExtensionHolderToSuperHolder()
             // genericsの宣言
             case .StartGenericParameterSyntax:
                 break
@@ -687,10 +691,35 @@ struct SyntaxArrayParser {
         default:
             fatalError("")
         }
+        
         initializerHolderStackArray.removeLast()
         positionInInitializerHolderStackArray -= 1
         popHolderTypeStackArray()
     } // func addInitializerHolderToSuperHolder()
+    
+    // ExtensionHolderを、親のfunctionsプロパティに追加する
+    // Extensionの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // extensionHolderStackArrayのポップ操作を行う
+    mutating private func addExtensionHolderToSuperHolder() {
+        let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            structHolderStackArray[positionInStructHolderStackArray].extensions.append(extensionHolder)
+        case .class:
+            classHolderStackArray[positionInClassHolderStackArray].extensions.append(extensionHolder)
+        case .enum:
+            enumHolderStackArray[positionInEnumHolderStackArray].extensions.append(extensionHolder)
+        default:
+            fatalError("")
+        }
+        
+        extensionHolderStackArray.removeLast()
+        positionInExtensionHolderStackArray -= 1
+        popHolderTypeStackArray()
+    } // func addExtensionHolderToSuperHolder()
     
     // そのvariableやfunctionを保有している型の名前を返す
     private func getSuperTypeName() -> String {
@@ -705,6 +734,8 @@ struct SyntaxArrayParser {
             return enumHolderStackArray[positionInEnumHolderStackArray].name
         case .protocol:
             return protocolHolderStackArray[positionInProtocolHolderStackArray].name
+        case .extension:
+            return extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
         default:
             fatalError("")
         }

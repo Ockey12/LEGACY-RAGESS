@@ -229,22 +229,24 @@ protocol Protocol2 {}
 //struct GenericsStruct<GGGGGGGGGG: Protocol1, HHHHHHHHHH: Protocol2> {
 //
 //}
-struct SomeStruct {
-    var name: String
-    var age: Int
-}
-extension SomeStruct: Protocol1, Protocol2 {
-    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
-        return [11111]
-    }
-    var addedProperty: String {
-        return "TextTextText"
-    }
-    init (age: [Int]) {
-        self.name = "unknown"
-        self.age = age[0]
-    }
-}
+//struct SomeStruct {
+//    var name: String
+//    var age: Int
+//}
+//extension SomeStruct: Protocol1, Protocol2 {
+//    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
+//        return [11111]
+//    }
+//    var addedProperty: String {
+//        return "TextTextText"
+//    }
+//    init (age: [Int]) {
+//        self.name = "unknown"
+//        self.age = age[0]
+//    }
+//
+//    private struct NestedStruct {}
+//}
 //protocol SomeProtocol: Hashable {}
 //struct SomeClass: SomeProtocol {
 //    static var staticVariable = "StaticStaticStatic"
@@ -276,3 +278,14 @@ extension SomeStruct: Protocol1, Protocol2 {
 //        Text("TextTextTextText")
 //    }
 //}
+struct SomeStruct {
+    var text: String?
+    var dictionary: [String: Int]?
+    func function(num: Int?) -> Double? {
+        return nil
+    }
+    init(text: String? = nil, dictionary: [String: Int]? = nil) {
+        self.text = text
+        self.dictionary = dictionary
+    }
+}

@@ -109,107 +109,11 @@ class BuildFileMonitor: ObservableObject {
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
-                    for structHolder in syntaxArrayParser.getResultStructHolders() {
-                        content += "-----Struct-----\n"
-                        content += "name: \(structHolder.name)\n"
-                        content += "accessLevel: \(structHolder.accessLevel)\n"
-                        
-                        if 0 < structHolder.conformingProtocolNames.count {
-                            for name in structHolder.conformingProtocolNames {
-                                content += "conformingProtocolName: \(name)\n"
-                            }
-                        }
-                        addInitializerToContent(initializerHolders: structHolder.initializers)
-                        addVariableToContent(variableHolders: structHolder.variables)
-                        addFunctionsToContent(functionHolders: structHolder.functions)
-                        content += "\n"
-                    } // for structHolder
-                    
-                    for classHolder in syntaxArrayParser.getResultClassHolders() {
-                        content += "-----Class-----\n"
-                        content += "name: \(classHolder.name)\n"
-                        content += "accessLevel: \(classHolder.accessLevel)\n"
-                        
-                        if let superClass = classHolder.superClassName {
-                            content += "superClass: \(superClass)\n"
-                        }
-                        
-                        if 0 < classHolder.conformingProtocolNames.count {
-                            for name in classHolder.conformingProtocolNames {
-                                content += "conformingProtocolName: \(name)\n"
-                            }
-                        }
-                        addInitializerToContent(initializerHolders: classHolder.initializers)
-                        addVariableToContent(variableHolders: classHolder.variables)
-                        addFunctionsToContent(functionHolders: classHolder.functions)
-                        content += "\n"
-                    } // for classHolder
-                    
-                    for enumHolder in syntaxArrayParser.getResultEnumHolders() {
-                        content += "-----Enum-----\n"
-                        content += "name: \(enumHolder.name)\n"
-                        content += "accessLevel: \(enumHolder.accessLevel)\n"
-                        
-                        if let rawvalueType = enumHolder.rawvalueType {
-                            content += "rawvalueType: \(rawvalueType)\n"
-                        }
-                        
-                        if 0 < enumHolder.conformingProtocolNames.count {
-                            for name in enumHolder.conformingProtocolNames {
-                                content += "conformingProtocolName: \(name)\n"
-                            }
-                        }
-                        
-                        for aCase in enumHolder.cases {
-                            content += "--case--\n"
-                            content += "caseName: \(aCase.caseName)\n"
-                            if let rawValue = aCase.rawvalue {
-                                content += "rawValue: \(rawValue)\n"
-                            }
-                            for associatedValueType in aCase.associatedValueTypes {
-                                content += ("associatedValueType: \(associatedValueType)\n")
-                            }
-                        }
-                        addInitializerToContent(initializerHolders: enumHolder.initializers)
-                        addVariableToContent(variableHolders: enumHolder.variables)
-                        addFunctionsToContent(functionHolders: enumHolder.functions)
-                        content += "\n"
-                    } // for enumHolder
-                    
-                    for protocolHolder in syntaxArrayParser.getResultProtocolHolders() {
-                        content += "-----Protocol-----\n"
-                        content += "name: \(protocolHolder.name)\n"
-                        content += "accessLevel: \(protocolHolder.accessLevel)\n"
-                        
-                        if 0 < protocolHolder.conformingProtocolNames.count {
-                            for name in protocolHolder.conformingProtocolNames {
-                                content += "conformingProtocolName: \(name)\n"
-                            }
-                        }
-                        
-                        for associatedType in protocolHolder.associatedTypes {
-                            content += "associatedTypeName: \(associatedType.name)\n"
-                            if let protocolOrClass = associatedType.protocolOrSuperClassName {
-                                content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
-                            }
-                        }
-                        addVariableToContent(variableHolders: protocolHolder.variables)
-                        addFunctionsToContent(functionHolders: protocolHolder.functions)
-                        content += "\n"
-                    } // for protocolHolder
-                    
-                    content += "===== Dependencies =====\n"
-                    for element in syntaxArrayParser.getWhomThisTypeAffectArray() {
-                        let affectingTypeName = element.affectingTypeName
-                        for affectedTypeName in element.affectedTypesName {
-                            content += "\(affectingTypeName) -> \(affectedTypeName.typeName)"
-                            if let elementName = affectedTypeName.elementName {
-                                content += ".\(elementName)"
-                            }
-                            content += "\n"
-                        }
-                    }
-                    content += "\n"
+                    addStructToContent(structHolders: syntaxArrayParser.getResultStructHolders())
+                    addClassToContent(classHolders: syntaxArrayParser.getResultClassHolders())
+                    addEnumToContent(enumHolders: syntaxArrayParser.getResultEnumHolders())
+                    addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
+                    addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
                 }
@@ -218,6 +122,103 @@ class BuildFileMonitor: ObservableObject {
             print(error.localizedDescription)
         }
     } // func parseSwiftFiles(url: URL)
+    
+    private func addStructToContent(structHolders: [StructHolder]) {
+        for structHolder in structHolders {
+            content += "-----Struct-----\n"
+            content += "name: \(structHolder.name)\n"
+            content += "accessLevel: \(structHolder.accessLevel)\n"
+            
+            if 0 < structHolder.conformingProtocolNames.count {
+                for name in structHolder.conformingProtocolNames {
+                    content += "conformingProtocolName: \(name)\n"
+                }
+            }
+            addInitializerToContent(initializerHolders: structHolder.initializers)
+            addVariableToContent(variableHolders: structHolder.variables)
+            addFunctionsToContent(functionHolders: structHolder.functions)
+            content += "\n"
+        } // for structHolder
+    } // func addStructToContent(structHolders: [StructHolder])
+    
+    private func addClassToContent(classHolders: [ClassHolder]) {
+        for classHolder in classHolders {
+            content += "-----Class-----\n"
+            content += "name: \(classHolder.name)\n"
+            content += "accessLevel: \(classHolder.accessLevel)\n"
+            
+            if let superClass = classHolder.superClassName {
+                content += "superClass: \(superClass)\n"
+            }
+            
+            if 0 < classHolder.conformingProtocolNames.count {
+                for name in classHolder.conformingProtocolNames {
+                    content += "conformingProtocolName: \(name)\n"
+                }
+            }
+            addInitializerToContent(initializerHolders: classHolder.initializers)
+            addVariableToContent(variableHolders: classHolder.variables)
+            addFunctionsToContent(functionHolders: classHolder.functions)
+            content += "\n"
+        } // for classHolder
+    } // func addClassToContent(classHolders: [ClassHolder])
+    
+    private func addEnumToContent(enumHolders: [EnumHolder]) {
+        for enumHolder in enumHolders {
+            content += "-----Enum-----\n"
+            content += "name: \(enumHolder.name)\n"
+            content += "accessLevel: \(enumHolder.accessLevel)\n"
+            
+            if let rawvalueType = enumHolder.rawvalueType {
+                content += "rawvalueType: \(rawvalueType)\n"
+            }
+            
+            if 0 < enumHolder.conformingProtocolNames.count {
+                for name in enumHolder.conformingProtocolNames {
+                    content += "conformingProtocolName: \(name)\n"
+                }
+            }
+            
+            for aCase in enumHolder.cases {
+                content += "--case--\n"
+                content += "caseName: \(aCase.caseName)\n"
+                if let rawValue = aCase.rawvalue {
+                    content += "rawValue: \(rawValue)\n"
+                }
+                for associatedValueType in aCase.associatedValueTypes {
+                    content += ("associatedValueType: \(associatedValueType)\n")
+                }
+            }
+            addInitializerToContent(initializerHolders: enumHolder.initializers)
+            addVariableToContent(variableHolders: enumHolder.variables)
+            addFunctionsToContent(functionHolders: enumHolder.functions)
+            content += "\n"
+        } // for enumHolder
+    } // func addEnumToContent(enumHolders: [EnumHolder])
+    
+    private func addProtocolToContent(protocolHolders: [ProtocolHolder]) {
+        for protocolHolder in protocolHolders {
+            content += "-----Protocol-----\n"
+            content += "name: \(protocolHolder.name)\n"
+            content += "accessLevel: \(protocolHolder.accessLevel)\n"
+            
+            if 0 < protocolHolder.conformingProtocolNames.count {
+                for name in protocolHolder.conformingProtocolNames {
+                    content += "conformingProtocolName: \(name)\n"
+                }
+            }
+            
+            for associatedType in protocolHolder.associatedTypes {
+                content += "associatedTypeName: \(associatedType.name)\n"
+                if let protocolOrClass = associatedType.protocolOrSuperClassName {
+                    content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
+                }
+            }
+            addVariableToContent(variableHolders: protocolHolder.variables)
+            addFunctionsToContent(functionHolders: protocolHolder.functions)
+            content += "\n"
+        } // for protocolHolder
+    } // func protocolToContent(protocolHolders: [ProtocolHolder])
     
     private func addVariableToContent(variableHolders: [VariableHolder]) {
         for variableHolder in variableHolders {
@@ -387,4 +388,32 @@ class BuildFileMonitor: ObservableObject {
             } // for parameter
         }
     } // func addInitializerToContent(initializerHolders: [InitializerHolder])
+    
+    private func addExtensionToContent(extensionHolders: [ExtensionHolder]) {
+        for extensionHolder in extensionHolders {
+            content += "---Extensioin---\n"
+            if let type = extensionHolder.extensionedTypeName {
+                content += "extensionedTypeName: \(type)"
+            }
+            for protocolName in extensionHolder.conformingProtocolNames {
+                content += "conformingProtocolName: \(protocolName)"
+            }
+            addInitializerToContent(initializerHolders: extensionHolder.initializers)
+        }
+    } // func addExtensionToContent(extensions: [ExtensionHolder])
+    
+    private func addDependenciesToContent(dependencies: [WhomThisTypeAffect]) {
+        content += "===== Dependencies =====\n"
+        for element in dependencies {
+            let affectingTypeName = element.affectingTypeName
+            for affectedTypeName in element.affectedTypesName {
+                content += "\(affectingTypeName) -> \(affectedTypeName.typeName)"
+                if let elementName = affectedTypeName.elementName {
+                    content += ".\(elementName)"
+                }
+                content += "\n"
+            }
+        }
+        content += "\n"
+    } // func addDependenciesToContent(dependencies: [WhomThisTypeAffect])
 }

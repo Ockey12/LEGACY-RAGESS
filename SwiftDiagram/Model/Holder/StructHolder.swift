@@ -24,6 +24,8 @@ struct StructHolder: TypeHolder {
     var nestingClasses = [ClassHolder]()
     var nestingEnums = [EnumHolder]()
     
+    var extensions = [ExtensionHolder]()
+    
     var nestSuperTypeName: String? = nil
 }
 

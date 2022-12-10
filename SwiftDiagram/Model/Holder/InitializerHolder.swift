@@ -21,5 +21,6 @@ struct InitializerHolder: Holder {
         var dictionaryKeyType: String?
         var dictionaryValueType: String?
         var tupleTypes = [String]()
+        var isOptionalType = false
     }
 }

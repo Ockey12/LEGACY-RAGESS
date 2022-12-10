@@ -865,8 +865,25 @@ final class TokenVisitor: SyntaxRewriter {
                 }
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.optionalTypeSyntax.string {
-                // オプショナル型の配列などを宣言終了したとき
-                resultArray.append(SyntaxTag.IsOptionalType.string)
+                var type = ""
+                // オプショナル型の要素を宣言終了したとき
+                if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.variableDeclSyntax {
+                    type = "\(OptionalTypeKind.variable)"
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    type = "\(OptionalTypeKind.functionParameter)"
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
+                    type = "\(OptionalTypeKind.functionReturnValue)"
+                } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
+                            (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) {
+                    type = "\(OptionalTypeKind.initializerParameter)"
+                } else {
+                    fatalError()
+                }
+                resultArray.append(SyntaxTag.IsOptionalType.string + SyntaxTag.Space.string + type)
+//                resultArray.append("syntaxNodeTypeStack[currentPositionInStack]: \(syntaxNodeTypeStack[currentPositionInStack])")
+//                resultArray.append("syntaxNodeTypeStack[currentPositionInStack - 1]: \(syntaxNodeTypeStack[currentPositionInStack - 1])")
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言終了
                 resultArray.append(SyntaxTag.EndTypealiasDecl.string)

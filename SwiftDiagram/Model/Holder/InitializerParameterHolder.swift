@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct InitializerParameterHolder: Holder {
-    var ID: Int?
-    var name: String = ""
-}
+//struct InitializerParameterHolder: Holder {
+//    var ID: Int?
+//    var name: String = ""
+//}
