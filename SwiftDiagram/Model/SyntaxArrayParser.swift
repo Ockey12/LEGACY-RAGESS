@@ -61,6 +61,10 @@ struct SyntaxArrayParser {
     var extensionHolderStackArray = [ExtensionHolder]()
     var positionInExtensionHolderStackArray = -1
     
+    var genericHolderStackArray = [GenericHolder]()
+    var positionInGenericHolderStackArray = -1
+    var positionInGenericParameter = -1
+    
     
     mutating func parseResultArray(resultArray: [String]) {
         // 変数の初期化
@@ -100,6 +104,7 @@ struct SyntaxArrayParser {
                 structHolderStackArray.append(StructHolder())
                 positionInStructHolderStackArray += 1
                 resetNumberOfInitializer()
+                resetNumberOfGeneric()
             case .StructAccessLevel:
                 structHolderStackArray[positionInStructHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .StructName:
@@ -115,6 +120,7 @@ struct SyntaxArrayParser {
                 classHolderStackArray.append(ClassHolder())
                 positionInClassHolderStackArray += 1
                 resetNumberOfInitializer()
+                resetNumberOfGeneric()
             case .ClassAccessLevel:
                 classHolderStackArray[positionInClassHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .ClassName:
@@ -131,6 +137,7 @@ struct SyntaxArrayParser {
                 positionInEnumHolderStackArray += 1
                 positionInCasesOfEnumHolder = -1
                 resetNumberOfInitializer()
+                resetNumberOfGeneric()
             case .EnumAccessLevel:
                 enumHolderStackArray[positionInEnumHolderStackArray].accessLevel = convertParsedElementToAccessLevel()
             case .EnumName:
@@ -243,7 +250,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -251,7 +258,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -261,13 +268,13 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -277,7 +284,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
                 extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -285,7 +292,7 @@ struct SyntaxArrayParser {
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
-                let superTypeName = getSuperTypeName()
+                let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
@@ -308,6 +315,7 @@ struct SyntaxArrayParser {
                 functionHolderStackArray.append(FunctionHolder())
                 positionInFunctionHolderStackArray += 1
                 positionInFunctionParameters = -1
+                resetNumberOfGeneric()
             case .IsStaticFunction:
                 functionHolderStackArray[positionInFunctionHolderStackArray].isStatic = true
             case .FunctionAccessLevel:
@@ -488,13 +496,25 @@ struct SyntaxArrayParser {
                 popHolderTypeStackArray()
             // genericsの宣言
             case .StartGenericParameterSyntax:
-                break
+                pushHolderTypeStackArray(.generic)
+                genericHolderStackArray.append(GenericHolder())
+                positionInGenericHolderStackArray += 1
+                positionInGenericParameter += 1
             case .ParameterTypeOfGenerics:
-                break
+                let type = parsedElementArray[1]
+                genericHolderStackArray[positionInGenericHolderStackArray].parameterType = type
             case .ConformedProtocolOrInheritedClassByGenerics:
-                break
-            case .EndGenericParameterSyntax:
-                break
+                let protocolName = parsedElementArray[1]
+                for superClass in classNameArray {
+                    if protocolName == superClass {
+                        genericHolderStackArray[positionInGenericHolderStackArray].inheritedClassName = superClass
+                        break superSwitch
+                    }
+                }
+                genericHolderStackArray[positionInGenericHolderStackArray].conformedProtocolName = protocolName
+            case .EndGenericParameterSyntaxOf:
+                let genericHolder = genericHolderStackArray[positionInGenericHolderStackArray]
+                addGenericToSuperHolder(generic: genericHolder)
             // typealiasの宣言
             case .StartTypealiasDecl:
                 break
@@ -611,7 +631,7 @@ struct SyntaxArrayParser {
     // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
     mutating private func extractingDependenciesOfFunction(affectingTypeName: String) {
         let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
-        let superHolderName = getSuperTypeName()
+        let superHolderName = getSuperTypeName(reducePosition: 1)
         extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
     }
     
@@ -619,7 +639,7 @@ struct SyntaxArrayParser {
     // initializerは名前を持たないので、affectedElementNameには、そのinitializerが型内で何番目かの数字を渡す
     mutating private func extractingDependenciesOfInitializer(affectingTypeName: String) {
         let num = numberOfInitializer
-        let superHolderName = getSuperTypeName()
+        let superHolderName = getSuperTypeName(reducePosition: 1)
         extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "init \(num)")
     }
     
@@ -751,8 +771,8 @@ struct SyntaxArrayParser {
     } // func addExtensionHolderToSuperHolder()
     
     // そのvariableやfunctionを保有している型の名前を返す
-    private func getSuperTypeName() -> String {
-        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+    private func getSuperTypeName(reducePosition: Int) -> String {
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - reducePosition]
         
         switch holderType {
         case .struct:
@@ -869,4 +889,53 @@ struct SyntaxArrayParser {
         enumHolderStackArray.removeLast()
         positionInEnumHolderStackArray -= 1
     } // func addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: EnumHolder)
+    
+    mutating private func addGenericToSuperHolder(generic: GenericHolder) {
+//        let num = position
+        var affectingTypeName = ""
+        if let protocolName = generic.conformedProtocolName {
+            affectingTypeName = protocolName
+        } else if let superClassName = generic.inheritedClassName {
+            affectingTypeName = superClassName
+        }
+        
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        switch holderType {
+        case .struct:
+            let structName = structHolderStackArray[positionInStructHolderStackArray].name
+            structHolderStackArray[positionInStructHolderStackArray].generics.append(generic)
+            if affectingTypeName != "" {
+                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: structName, affectedElementName: "generic \(positionInGenericParameter)")
+            }
+        case .class:
+            let className = classHolderStackArray[positionInClassHolderStackArray].name
+            classHolderStackArray[positionInClassHolderStackArray].generics.append(generic)
+            if affectingTypeName != "" {
+                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: className, affectedElementName: "generic \(positionInGenericParameter)")
+            }
+        case .enum:
+            let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+            enumHolderStackArray[positionInEnumHolderStackArray].generics.append(generic)
+            if affectingTypeName != "" {
+                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: enumName, affectedElementName: "generic \(positionInGenericParameter)")
+            }
+        case .function:
+            let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
+            let superHolderName = getSuperTypeName(reducePosition: 2)
+            functionHolderStackArray[positionInFunctionHolderStackArray].generics.append(generic)
+            if affectingTypeName != "" {
+                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "\(functionName)")
+            }
+        default:
+            fatalError()
+        }
+        
+        popHolderTypeStackArray()
+        genericHolderStackArray.removeLast()
+        positionInGenericHolderStackArray -= 1
+    } // func addGenericToSuperHolder(generic: GenericHolder)
+    
+    mutating private func resetNumberOfGeneric() {
+        positionInGenericParameter = -1
+    }
 } // end struct SyntaxArrayParser

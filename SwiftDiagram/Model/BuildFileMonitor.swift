@@ -129,6 +129,8 @@ class BuildFileMonitor: ObservableObject {
             content += "name: \(structHolder.name)\n"
             content += "accessLevel: \(structHolder.accessLevel)\n"
             
+            addGenericsToContent(generics: structHolder.generics)
+            
             if 0 < structHolder.conformingProtocolNames.count {
                 for name in structHolder.conformingProtocolNames {
                     content += "conformingProtocolName: \(name)\n"
@@ -152,6 +154,8 @@ class BuildFileMonitor: ObservableObject {
             content += "-----Class-----\n"
             content += "name: \(classHolder.name)\n"
             content += "accessLevel: \(classHolder.accessLevel)\n"
+            
+            addGenericsToContent(generics: classHolder.generics)
             
             if let superClass = classHolder.superClassName {
                 content += "superClass: \(superClass)\n"
@@ -180,6 +184,8 @@ class BuildFileMonitor: ObservableObject {
             content += "-----Enum-----\n"
             content += "name: \(enumHolder.name)\n"
             content += "accessLevel: \(enumHolder.accessLevel)\n"
+            
+            addGenericsToContent(generics: enumHolder.generics)
             
             if let rawvalueType = enumHolder.rawvalueType {
                 content += "rawvalueType: \(rawvalueType)\n"
@@ -316,6 +322,8 @@ class BuildFileMonitor: ObservableObject {
                 content += "isMutating\n"
             }
             
+            addGenericsToContent(generics: functionHolder.generics)
+            
             for parameter in functionHolder.parameters {
                 content += "---Parameter---\n"
                 if let externalName = parameter.externalName {
@@ -450,4 +458,19 @@ class BuildFileMonitor: ObservableObject {
         }
         content += "\n"
     } // func addDependenciesToContent(dependencies: [WhomThisTypeAffect])
+    
+    private func addGenericsToContent(generics: [GenericHolder]) {
+        content += "---Generics---\n"
+        for generic in generics {
+            if let parameterType = generic.parameterType {
+                content += "parameterType: \(parameterType)\n"
+            }
+            if let protocolName = generic.conformedProtocolName {
+                content += "conformedProtocolName: \(protocolName)\n"
+            }
+            if let superClass = generic.inheritedClassName {
+                content += "inheritedClassName: \(superClass)\n"
+            }
+        }
+    }
 }

@@ -12,6 +12,8 @@ struct StructHolder: TypeHolder {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
+    var generics = [GenericHolder]()
+    
     var conformingProtocolNames = [String]()
     
     var initializers = [InitializerHolder]()

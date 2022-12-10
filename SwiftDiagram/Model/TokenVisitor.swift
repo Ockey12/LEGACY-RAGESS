@@ -792,7 +792,17 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.genericParameterSyntax.string {
                 // genericsの型引数の宣言終了
-                resultArray.append(SyntaxTag.EndGenericParameterSyntax.string)
+                var holder = ""
+                if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.structDeclSyntax {
+                    holder = "\(HolderType.struct)"
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.classDeclSyntax {
+                    holder = "\(HolderType.class)"
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumDeclSyntax {
+                    holder = "\(HolderType.enum)"
+                } else if syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax {
+                    holder = "\(HolderType.function)"
+                }
+                resultArray.append(SyntaxTag.EndGenericParameterSyntaxOf.string + SyntaxTag.Space.string + holder)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.inheritedTypeListSyntax.string {
                 // プロトコルへの準拠、またはクラスの継承終了

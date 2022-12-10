@@ -153,7 +153,7 @@ enum SyntaxTag: String {
     case StartGenericParameterSyntax // genericsの型引数の宣言開始
     case ParameterTypeOfGenerics // 型引数名
     case ConformedProtocolOrInheritedClassByGenerics // 型引数が準拠しているprotocol、または継承しているclass
-    case EndGenericParameterSyntax // genericsの型引数の宣言終了
+    case EndGenericParameterSyntaxOf // genericsの型引数の宣言終了
     
     // typealias
     case StartTypealiasDecl // typealiasの宣言開始
@@ -431,8 +431,8 @@ enum SyntaxTag: String {
             return "ParameterTypeOfGenerics"
         case .ConformedProtocolOrInheritedClassByGenerics:
             return "ConformedProtocolOrInheritedClassByGenerics"
-        case .EndGenericParameterSyntax:
-            return "EndGenericParameterSyntax"
+        case .EndGenericParameterSyntaxOf:
+            return "EndGenericParameterSyntaxOf"
         // typealias
         case .StartTypealiasDecl:
             return "StartTypealiasDecl"

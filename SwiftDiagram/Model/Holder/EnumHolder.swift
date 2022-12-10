@@ -12,6 +12,8 @@ struct EnumHolder: TypeHolder {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
+    var generics = [GenericHolder]()
+    
     var rawvalueType: String?
     
     var conformingProtocolNames = [String]()

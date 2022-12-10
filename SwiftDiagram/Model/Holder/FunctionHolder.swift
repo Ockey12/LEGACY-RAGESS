@@ -16,6 +16,8 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
     var isOverride = false
     var isMutating = false
     
+    var generics = [GenericHolder]()
+    
     var parameters = [ParameterHolder]()
 
     var returnValue: ReturnValueHolder?

@@ -18,4 +18,5 @@ enum HolderType {
     case initializer
     case initializerParameter
     case `extension`
+    case generic
 }
