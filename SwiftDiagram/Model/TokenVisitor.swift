@@ -672,6 +672,12 @@ final class TokenVisitor: SyntaxRewriter {
                         resultArray.append(SyntaxTag.ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue.string + SyntaxTag.Space.string + token.text)
                     }
                 }
+            } else if syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.extensionDeclSyntax {
+                // extensionの宣言中
+                if tokenKind.hasPrefix(TokenKind.identifier.string) {
+                    // extensionで拡張される型の名前を抽出する
+                    resultArray.append(SyntaxTag.ExtensiondTypeName.string + SyntaxTag.Space.string + token.text)
+                }
             }
         }
         

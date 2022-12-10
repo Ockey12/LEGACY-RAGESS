@@ -144,8 +144,9 @@ enum SyntaxTag: String {
     
     // extension
     case StartExtensionDeclSyntax // extensionの宣言開始
-    case EndExtensionDeclSyntax // extensionの宣言終了
+    case ExtensiondTypeName // 拡張される型の名前
     case ConformedProtocolByExtension // extensionで準拠しているprotocol名
+    case EndExtensionDeclSyntax // extensionの宣言終了
     
     // generics
     case StartGenericParameterSyntax // genericsの型引数の宣言開始
@@ -414,10 +415,12 @@ enum SyntaxTag: String {
         // extension
         case .StartExtensionDeclSyntax:
             return "StartExtensionDeclSyntax"
-        case .EndExtensionDeclSyntax:
-            return "EndExtensionDeclSyntax"
         case .ConformedProtocolByExtension:
             return "ConformedProtocolByExtension"
+        case .ExtensiondTypeName:
+            return "ExtensiondTypeName"
+        case .EndExtensionDeclSyntax:
+            return "EndExtensionDeclSyntax"
         // generics
         case .StartGenericParameterSyntax:
             return "StartGenericParameterSyntax"

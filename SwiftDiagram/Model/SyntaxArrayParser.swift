@@ -58,6 +58,9 @@ struct SyntaxArrayParser {
     var positionInInitializerParameters = -1
     var numberOfInitializer = -1
     
+    var extensionHolderStackArray = [ExtensionHolder]()
+    var positionInExtensionHolderStackArray = -1
+    
     
     mutating func parseResultArray(resultArray: [String]) {
         // 変数の初期化
@@ -230,7 +233,6 @@ struct SyntaxArrayParser {
                 pushHolderTypeStackArray(.variable)
                 variableHolderStackArray.append(VariableHolder())
                 positionInVariableHolderStackArray += 1
-                break
             case .VariableCustomAttribute:
                 let customAttribute = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].customAttribute = customAttribute
@@ -472,11 +474,16 @@ struct SyntaxArrayParser {
             // extensionの宣言
             case .StartExtensionDeclSyntax:
                 resetNumberOfInitializer()
-                break
-            case .EndExtensionDeclSyntax:
+                pushHolderTypeStackArray(.extension)
+                extensionHolderStackArray.append(ExtensionHolder())
+                positionInExtensionHolderStackArray += 1
+            case .ExtensiondTypeName:
                 break
             case .ConformedProtocolByExtension:
                 break
+            case .EndExtensionDeclSyntax:
+                break
+            // genericsの宣言
             case .StartGenericParameterSyntax:
                 break
             case .ParameterTypeOfGenerics:
@@ -485,6 +492,7 @@ struct SyntaxArrayParser {
                 break
             case .EndGenericParameterSyntax:
                 break
+            // typealiasの宣言
             case .StartTypealiasDecl:
                 break
             case .TypealiasAssociatedTypeName:

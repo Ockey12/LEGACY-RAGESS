@@ -10,5 +10,7 @@ import Foundation
 struct ExtensionHolder: Holder {
     var ID: Int?
     
+    var conformingProtocolNames = [String]()
+    
     var initializers = [InitializerHolder]()
 }

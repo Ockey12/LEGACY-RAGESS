@@ -12,33 +12,33 @@ protocol Protocol1 {}
 
 protocol Protocol2 {}
 
-private struct Struct1: Protocol1, Protocol2 {
-    private var text: String
-    @State fileprivate var array: [Double]?
-    static var staticVariable: [String: Int] = [:]
-    lazy var lazyVariable: (Int, Double, Float) = (1111111111, 2222222222, 3333333333)
-    let constant: Struct2
-    var haveWillSetDidSet: String {
-        willSet {
-            
-        }
-        didSet {
-            
-        }
-    }
-    var haveGetterSetter: Int {
-        get {
-            return 4444444444
-        }
-        set {
-            
-        }
-    }
-}
-
-private struct Struct2: Protocol1 {
-    
-}
+//private struct Struct1: Protocol1, Protocol2 {
+//    private var text: String
+//    @State fileprivate var array: [Double]?
+//    static var staticVariable: [String: Int] = [:]
+//    lazy var lazyVariable: (Int, Double, Float) = (1111111111, 2222222222, 3333333333)
+//    let constant: Struct2
+//    var haveWillSetDidSet: String {
+//        willSet {
+//
+//        }
+//        didSet {
+//
+//        }
+//    }
+//    var haveGetterSetter: Int {
+//        get {
+//            return 4444444444
+//        }
+//        set {
+//
+//        }
+//    }
+//}
+//
+//private struct Struct2: Protocol1 {
+//
+//}
 
 //private struct SomeStruct: Protocol1, Protocol2 {
 //    @State private var statePrivateVariable: [String: Int]
@@ -229,18 +229,22 @@ private struct Struct2: Protocol1 {
 //struct GenericsStruct<GGGGGGGGGG: Protocol1, HHHHHHHHHH: Protocol2> {
 //
 //}
-//extension SomeStruct: Protocol1, Protocol2 {
-//    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
-//        return [11111]
-//    }
-//    var eddedProperty: String {
-//        return "TextTextText"
-//    }
-//    init (age: [Int]) {
-//        self.name = "unknown"
-//        self.age = age[0]
-//    }
-//}
+struct SomeStruct {
+    var name: String
+    var age: Int
+}
+extension SomeStruct: Protocol1, Protocol2 {
+    func addedFunction(external internal: [String: Int]?, double: Double) -> [Float] {
+        return [11111]
+    }
+    var addedProperty: String {
+        return "TextTextText"
+    }
+    init (age: [Int]) {
+        self.name = "unknown"
+        self.age = age[0]
+    }
+}
 //protocol SomeProtocol: Hashable {}
 //struct SomeClass: SomeProtocol {
 //    static var staticVariable = "StaticStaticStatic"
