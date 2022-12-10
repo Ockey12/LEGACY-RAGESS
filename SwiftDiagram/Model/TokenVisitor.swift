@@ -47,10 +47,15 @@ final class TokenVisitor: SyntaxRewriter {
     // visitPre()でfalseに初期化する
     private var passedFunctionParameterOfFunctionDeclFirstColonFlag = false
     
-    // デフォルト引数のデフォルト値を文字列として一時的に保持する
+    // functionのデフォルト引数のデフォルト値を文字列として一時的に保持する
     // visitPre()で""に初期化する
     // visit()でtoken.textを追加していく
-    private var initialValueOfParameter = ""
+    private var initialValueOfFunctionParameter = ""
+    
+    // initializerのデフォルト引数のデフォルト値を文字列として一時的に保持する
+    // visitPre()で""に初期化する
+    // visit()でtoken.textを追加していく
+    private var initialValueOfInitializerParameter = ""
     
     // 抽出したclassの名前を格納する
     // visit()でclassの名前を.append()する
@@ -177,7 +182,7 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) {
                 // デフォルト引数のデフォルト値を宣言開始
-                initialValueOfParameter = ""
+                initialValueOfFunctionParameter = ""
                 pushSyntaxNodeTypeStack(SyntaxNodeType.initializerClauseSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.returnClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionDeclSyntax) {
@@ -195,6 +200,7 @@ final class TokenVisitor: SyntaxRewriter {
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerDeclSyntax){
                 // initializerの引数1つを宣言開始
                 passedFunctionParameterOfInitializerDeclFirstColonFlag = false
+                initialValueOfInitializerParameter = ""
                 resultArray.append(SyntaxTag.StartInitializerParameter.string)
                 pushSyntaxNodeTypeStack(SyntaxNodeType.functionParameterSyntax)
             } else if currentSyntaxNodeType == SyntaxNodeType.extensionDeclSyntax.string {
@@ -468,11 +474,12 @@ final class TokenVisitor: SyntaxRewriter {
                     resultArray.append(SyntaxTag.FunctionParameterType.string + SyntaxTag.Space.string + token.text)
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
-                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax){
                 // functionのデフォルト引数のデフォルト値を宣言しているとき
                 if tokenKind != TokenKind.equal.string {
                     // 初期値を代入する"="以外を抽出する
-                    initialValueOfParameter += token.text
+                    initialValueOfFunctionParameter += token.text
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.returnClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
@@ -517,6 +524,14 @@ final class TokenVisitor: SyntaxRewriter {
                     passedFunctionParameterOfInitializerDeclFirstColonFlag = true
                 } else {
                     resultArray.append(SyntaxTag.InitializerParameterName.string + SyntaxTag.Space.string + token.text)
+                }
+            } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.initializerClauseSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax){
+                // iniitalizerのデフォルト引数のデフォルト値を宣言しているとき
+                if tokenKind != TokenKind.equal.string {
+                    // 初期値を代入する"="以外を抽出する
+                    initialValueOfInitializerParameter += token.text
                 }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.functionParameterSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.initializerDeclSyntax) &&
@@ -765,9 +780,10 @@ final class TokenVisitor: SyntaxRewriter {
                 popSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (1 < currentPositionInStack) &&
-                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) {
-                // デフォルト引数のデフォルト値を宣言終了
-                resultArray.append(SyntaxTag.InitialValueOfParameter.string + SyntaxTag.Space.string + initialValueOfParameter)
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.functionDeclSyntax){
+                // functionのデフォルト引数のデフォルト値を宣言終了
+                resultArray.append(SyntaxTag.InitialValueOfFunctionParameter.string + SyntaxTag.Space.string + initialValueOfFunctionParameter)
                 popSyntaxNodeTypeStack()
             } else if (currentSyntaxNodeType == SyntaxNodeType.returnClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionDeclSyntax) {
@@ -784,6 +800,13 @@ final class TokenVisitor: SyntaxRewriter {
             } else if currentSyntaxNodeType == SyntaxNodeType.initializerDeclSyntax.string {
                 // initializerの宣言終了
                 resultArray.append(SyntaxTag.EndInitializerDeclSyntax.string)
+                popSyntaxNodeTypeStack()
+            } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
+                        (1 < currentPositionInStack) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.functionParameterSyntax) &&
+                        (syntaxNodeTypeStack[currentPositionInStack - 2] == SyntaxNodeType.initializerDeclSyntax){
+                // initializerのデフォルト引数のデフォルト値を宣言終了
+                resultArray.append(SyntaxTag.InitialValueOfInitializerParameter.string + SyntaxTag.Space.string + initialValueOfInitializerParameter)
                 popSyntaxNodeTypeStack()
             } else if currentSyntaxNodeType == SyntaxNodeType.functionParameterSyntax.string &&
                         (1 < currentPositionInStack) &&

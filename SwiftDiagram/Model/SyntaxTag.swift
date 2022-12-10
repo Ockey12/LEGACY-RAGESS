@@ -104,7 +104,7 @@ enum SyntaxTag: String {
     case StartTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言開始
     case TupleTypeOfFunctionParameter // 引数のタプルの型
     case EndTupleTypeSyntaxOfFunctionParameter // 引数のタプルの型を宣言終了
-    case InitialValueOfParameter // デフォルト引数のデフォルト値
+    case InitialValueOfFunctionParameter // デフォルト引数のデフォルト値
     case EndFunctionParameterSyntax // functionの個々の引数を宣言終了
     case StartFunctionReturnValueType // functionの返り値の型の宣言開始
     case FunctionReturnValueType // functionの返り値の型
@@ -139,6 +139,7 @@ enum SyntaxTag: String {
     case StartTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言開始
     case TupleTypeOfInitializer // タプルの型
     case EndTupleTypeSyntaxOfInitializer // 引数のタプルの型を宣言終了
+    case InitialValueOfInitializerParameter // デフォルト引数のデフォルト値
     case EndInitializerParameter // 引数1つの宣言終了
     case EndInitializerDeclSyntax // initializerの宣言終了
     
@@ -341,8 +342,8 @@ enum SyntaxTag: String {
             return "TupleTypeOfFunctionParameter"
         case .EndTupleTypeSyntaxOfFunctionParameter:
             return "EndTupleTypeSyntaxOfFunctionParameter"
-        case .InitialValueOfParameter:
-            return "InitialValueOfParameter"
+        case .InitialValueOfFunctionParameter:
+            return "InitialValueOfFunctionParameter"
         case .EndFunctionParameterSyntax:
             return "EndFunctionParameterSyntax"
         case .StartFunctionReturnValueType:
@@ -408,6 +409,8 @@ enum SyntaxTag: String {
             return "TupleTypeOfInitializer"
         case .EndTupleTypeSyntaxOfInitializer:
             return "EndTupleTypeSyntaxOfInitializer"
+        case .InitialValueOfInitializerParameter:
+            return "InitialValueOfInitializerParameter"
         case .EndInitializerParameter:
             return "EndInitializerParameter"
         case .EndInitializerDeclSyntax:

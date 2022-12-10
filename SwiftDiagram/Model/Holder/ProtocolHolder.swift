@@ -16,6 +16,8 @@ struct ProtocolHolder: HaveNameAndAccessLevelHolder {
     
     var associatedTypes = [AssociatedType]()
     
+    var initializers = [InitializerHolder]()
+    
     var variables = [VariableHolder]()
     
     var functions = [FunctionHolder]()
@@ -23,6 +25,8 @@ struct ProtocolHolder: HaveNameAndAccessLevelHolder {
     var nestingStructs = [StructHolder]()
     var nestingClasses = [ClassHolder]()
     var nestingEnums = [EnumHolder]()
+    
+    var extensions = [ExtensionHolder]()
     
     struct AssociatedType {
         var name: String

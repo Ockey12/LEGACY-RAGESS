@@ -14,4 +14,12 @@ struct ExtensionHolder: Holder {
     var conformingProtocolNames = [String]()
     
     var initializers = [InitializerHolder]()
+    
+    var variables = [VariableHolder]()
+    
+    var functions = [FunctionHolder]()
+    
+    var nestingStructs = [StructHolder]()
+    var nestingClasses = [ClassHolder]()
+    var nestingEnums = [EnumHolder]()
 }

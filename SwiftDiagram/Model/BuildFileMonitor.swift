@@ -137,6 +137,12 @@ class BuildFileMonitor: ObservableObject {
             addInitializerToContent(initializerHolders: structHolder.initializers)
             addVariableToContent(variableHolders: structHolder.variables)
             addFunctionsToContent(functionHolders: structHolder.functions)
+            
+            addStructToContent(structHolders: structHolder.nestingStructs)
+            addClassToContent(classHolders: structHolder.nestingClasses)
+            addEnumToContent(enumHolders: structHolder.nestingEnums)
+            
+            addExtensionToContent(extensionHolders: structHolder.extensions)
             content += "\n"
         } // for structHolder
     } // func addStructToContent(structHolders: [StructHolder])
@@ -159,6 +165,12 @@ class BuildFileMonitor: ObservableObject {
             addInitializerToContent(initializerHolders: classHolder.initializers)
             addVariableToContent(variableHolders: classHolder.variables)
             addFunctionsToContent(functionHolders: classHolder.functions)
+            
+            addStructToContent(structHolders: classHolder.nestingStructs)
+            addClassToContent(classHolders: classHolder.nestingClasses)
+            addEnumToContent(enumHolders: classHolder.nestingEnums)
+            
+            addExtensionToContent(extensionHolders: classHolder.extensions)
             content += "\n"
         } // for classHolder
     } // func addClassToContent(classHolders: [ClassHolder])
@@ -192,6 +204,12 @@ class BuildFileMonitor: ObservableObject {
             addInitializerToContent(initializerHolders: enumHolder.initializers)
             addVariableToContent(variableHolders: enumHolder.variables)
             addFunctionsToContent(functionHolders: enumHolder.functions)
+            
+            addStructToContent(structHolders: enumHolder.nestingStructs)
+            addClassToContent(classHolders: enumHolder.nestingClasses)
+            addEnumToContent(enumHolders: enumHolder.nestingEnums)
+            
+            addExtensionToContent(extensionHolders: enumHolder.extensions)
             content += "\n"
         } // for enumHolder
     } // func addEnumToContent(enumHolders: [EnumHolder])
@@ -214,8 +232,11 @@ class BuildFileMonitor: ObservableObject {
                     content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
                 }
             }
+            addInitializerToContent(initializerHolders: protocolHolder.initializers)
             addVariableToContent(variableHolders: protocolHolder.variables)
             addFunctionsToContent(functionHolders: protocolHolder.functions)
+            
+            addExtensionToContent(extensionHolders: protocolHolder.extensions)
             content += "\n"
         } // for protocolHolder
     } // func protocolToContent(protocolHolders: [ProtocolHolder])
@@ -259,7 +280,7 @@ class BuildFileMonitor: ObservableObject {
                 content += "conformedProtocolByOpaqueResultType: \(conformedProtocolByOpaqueResultType)\n"
             }
             if variableHolder.isOptionalType {
-                content += "isOptional\n"
+                content += "isOptionalType\n"
             }
             if let initialValue = variableHolder.initialValue {
                 content += "initialValue: \(initialValue)\n"
@@ -324,6 +345,9 @@ class BuildFileMonitor: ObservableObject {
                 for tupleType in parameter.tupleTypes {
                     content += "tupleType: \(tupleType)\n"
                 }
+                if parameter.isOptionalType {
+                    content += "isOptionalType\n"
+                }
                 if let initialValue = parameter.initialValue {
                     content += "initialValue: \(initialValue)\n"
                 }
@@ -346,12 +370,13 @@ class BuildFileMonitor: ObservableObject {
                 for tupleType in returnValue.tupleTypes {
                     content += "tupleType: \(tupleType)\n"
                 }
+                if functionHolder.returnValueIsOptional {
+                    content += "isOptionalType\n"
+                }
                 if let protocolName = returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue {
                     content += "conformedProtocolByOpaqueResultTypeOfReturnValue: \(protocolName)\n"
                 }
             }
-            
-            content += "\n"
         } // for functionHolder
     } // func addFunctionsToContent(functionHolders: [FunctionHolder])
     
@@ -368,7 +393,7 @@ class BuildFileMonitor: ObservableObject {
             for parameter in initializerHolder.parameters {
                 print("---Parameter---\n")
                 if let name = parameter.name {
-                    content += "name: \(name)\n"
+                    content += "parameterName: \(name)\n"
                 }
                 if let literalType = parameter.literalType {
                     content += "literalType: \(literalType)\n"
@@ -385,6 +410,12 @@ class BuildFileMonitor: ObservableObject {
                 for tuple in parameter.tupleTypes {
                     content += "tupleType: \(tuple)\n"
                 }
+                if parameter.isOptionalType {
+                    content += "isOptionalType\n"
+                }
+                if let initialValue = parameter.initialValue {
+                    content += "initialValue: \(initialValue)\n"
+                }
             } // for parameter
         }
     } // func addInitializerToContent(initializerHolders: [InitializerHolder])
@@ -393,12 +424,15 @@ class BuildFileMonitor: ObservableObject {
         for extensionHolder in extensionHolders {
             content += "---Extensioin---\n"
             if let type = extensionHolder.extensionedTypeName {
-                content += "extensionedTypeName: \(type)"
+                content += "extensionedTypeName: \(type)\n"
             }
             for protocolName in extensionHolder.conformingProtocolNames {
-                content += "conformingProtocolName: \(protocolName)"
+                content += "conformingProtocolName: \(protocolName)\n"
             }
             addInitializerToContent(initializerHolders: extensionHolder.initializers)
+            addStructToContent(structHolders: extensionHolder.nestingStructs)
+            addClassToContent(classHolders: extensionHolder.nestingClasses)
+            addEnumToContent(enumHolders: extensionHolder.nestingEnums)
         }
     } // func addExtensionToContent(extensions: [ExtensionHolder])
     

@@ -107,10 +107,8 @@ struct SyntaxArrayParser {
                 structHolderStackArray[positionInStructHolderStackArray].name = name
                 allTypeNames.append(name)
             case .EndStructDeclSyntax:
-                resultStructHolders.append(structHolderStackArray.last!)
-                popHolderTypeStackArray()
-                structHolderStackArray.removeLast()
-                positionInStructHolderStackArray -= 1
+                let structHolder = structHolderStackArray[positionInStructHolderStackArray]
+                addNestedStructToSuperHolderOrPopHolderTypeStackArray(structHolder: structHolder)
             // classの宣言
             case .StartClassDeclSyntax:
                 pushHolderTypeStackArray(.class)
@@ -124,10 +122,8 @@ struct SyntaxArrayParser {
                 classHolderStackArray[positionInClassHolderStackArray].name = name
                 allTypeNames.append(name)
             case .EndClassDeclSyntax:
-                resultClassHolders.append(classHolderStackArray.last!)
-                popHolderTypeStackArray()
-                classHolderStackArray.removeLast()
-                positionInClassHolderStackArray -= 1
+                let classHolder = classHolderStackArray[positionInClassHolderStackArray]
+                addNestedClassToSuperHolderOrPopHolderTypeStackArray(classHolder: classHolder)
             // enumの宣言
             case .StartEnumDeclSyntax:
                 pushHolderTypeStackArray(.enum)
@@ -164,10 +160,8 @@ struct SyntaxArrayParser {
             case .EndEnumCaseElementSyntax:
                 positionInCasesOfEnumHolder -= 1
             case .EndEnumDeclSyntax:
-                resultEnumHolders.append(enumHolderStackArray.last!)
-                popHolderTypeStackArray()
-                enumHolderStackArray.removeLast()
-                positionInEnumHolderStackArray -= 1
+                let enumHolder = enumHolderStackArray[positionInEnumHolderStackArray]
+                addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: enumHolder)
             // protocolの宣言
             case .StartProtocolDeclSyntax:
                 pushHolderTypeStackArray(.protocol)
@@ -295,8 +289,6 @@ struct SyntaxArrayParser {
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
-            case .IsOptionalType:
-                variableHolderStackArray[positionInVariableHolderStackArray].isOptionalType = true
             case .InitialValueOfVariable:
                 let initialValue = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].initialValue = initialValue
@@ -372,7 +364,7 @@ struct SyntaxArrayParser {
                 extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionParameter:
                 break
-            case .InitialValueOfParameter:
+            case .InitialValueOfFunctionParameter:
                 let value = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].initialValue = value
             case .EndFunctionParameterSyntax:
@@ -467,6 +459,9 @@ struct SyntaxArrayParser {
                 extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfInitializer:
                 break
+            case .InitialValueOfInitializerParameter:
+                let initialValue = parsedElementArray[1]
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].initialValue = initialValue
             case .EndInitializerParameter:
                 break
             case .EndInitializerDeclSyntax:
@@ -486,7 +481,11 @@ struct SyntaxArrayParser {
                 extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
             case .EndExtensionDeclSyntax:
-                addExtensionHolderToSuperHolder()
+                let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
+                resultExtensionHolders.append(extensionHolder)
+                extensionHolderStackArray.removeLast()
+                positionInExtensionHolderStackArray -= 1
+                popHolderTypeStackArray()
             // genericsの宣言
             case .StartGenericParameterSyntax:
                 break
@@ -525,11 +524,16 @@ struct SyntaxArrayParser {
                 break
             case .EndTypealiasDecl:
                 break
+            // オプショナル型
+            case .IsOptionalType:
+                let typeKind = parsedElementArray[1]
+                addIsOptional(typeKind: typeKind)
             // スペース
             case .Space:
                 break
             } // end switch syntaxTag
-        } // end for resultArray
+        } // end for element in resultArray
+        addExtensionHoldersToSuperHolder()
         print("---------------------------------------")
         
         // parsedElementArray[1]に格納されている文字列を、AccessLevel型にキャストして返す
@@ -636,6 +640,8 @@ struct SyntaxArrayParser {
             enumHolderStackArray[positionInEnumHolderStackArray].variables.append(variableHolder)
         case .protocol:
             protocolHolderStackArray[positionInProtocolHolderStackArray].variables.append(variableHolder)
+        case .extension:
+            extensionHolderStackArray[positionInExtensionHolderStackArray].variables.append(variableHolder)
         default:
             fatalError("ERROR: holderTypeStackArray[positionInHolderTypeStackArray] hasn't variables property")
         }
@@ -662,6 +668,8 @@ struct SyntaxArrayParser {
             enumHolderStackArray[positionInEnumHolderStackArray].functions.append(functionHolder)
         case .protocol:
             protocolHolderStackArray[positionInProtocolHolderStackArray].functions.append(functionHolder)
+        case .extension:
+            extensionHolderStackArray[positionInExtensionHolderStackArray].functions.append(functionHolder)
         default:
             fatalError("")
         }
@@ -686,8 +694,10 @@ struct SyntaxArrayParser {
             classHolderStackArray[positionInClassHolderStackArray].initializers.append(initializerHolder)
         case .enum:
             enumHolderStackArray[positionInEnumHolderStackArray].initializers.append(initializerHolder)
+        case .protocol:
+            protocolHolderStackArray[positionInProtocolHolderStackArray].initializers.append(initializerHolder)
         case .extension:
-            break
+            extensionHolderStackArray[positionInExtensionHolderStackArray].initializers.append(initializerHolder)
         default:
             fatalError("")
         }
@@ -697,28 +707,47 @@ struct SyntaxArrayParser {
         popHolderTypeStackArray()
     } // func addInitializerHolderToSuperHolder()
     
-    // ExtensionHolderを、親のfunctionsプロパティに追加する
+    // ExtensionHolderを、親のextensionsプロパティに追加する
     // Extensionの宣言終了を検出したときに呼び出す
     // popHolderTypeStackArrayのポップ操作を行う
     // extensionHolderStackArrayのポップ操作を行う
-    mutating private func addExtensionHolderToSuperHolder() {
-        let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
-        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+    mutating private func addExtensionHoldersToSuperHolder() {
+        forExtensionHolder: for extensionHolder in resultExtensionHolders {
+            let extensionedTypeName = extensionHolder.extensionedTypeName
+            
+            for (index, structHolder) in resultStructHolders.enumerated() {
+                if structHolder.name == extensionedTypeName {
+                    resultStructHolders[index].extensions.append(extensionHolder)
+                    continue forExtensionHolder
+                }
+            }
+            
+            for (index, classHolder) in resultClassHolders.enumerated() {
+                if classHolder.name == extensionedTypeName {
+                    resultClassHolders[index].extensions.append(extensionHolder)
+                    continue forExtensionHolder
+                }
+            }
+            
+            for (index, enumHolder) in resultEnumHolders.enumerated() {
+                if enumHolder.name == extensionedTypeName {
+                    resultEnumHolders[index].extensions.append(extensionHolder)
+                    continue forExtensionHolder
+                }
+            }
         
-        switch holderType {
-        case .struct:
-            structHolderStackArray[positionInStructHolderStackArray].extensions.append(extensionHolder)
-        case .class:
-            classHolderStackArray[positionInClassHolderStackArray].extensions.append(extensionHolder)
-        case .enum:
-            enumHolderStackArray[positionInEnumHolderStackArray].extensions.append(extensionHolder)
-        default:
-            fatalError("")
+            for (index, protocolHolder) in resultProtocolHolders.enumerated() {
+                if protocolHolder.name == extensionedTypeName {
+                    resultProtocolHolders[index].extensions.append(extensionHolder)
+                }
+            }
         }
-        
-        extensionHolderStackArray.removeLast()
-        positionInExtensionHolderStackArray -= 1
-        popHolderTypeStackArray()
+//        let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
+//        let extensionedTypeName = extensionHolder.extensionedTypeName
+//
+//        extensionHolderStackArray.removeLast()
+//        positionInExtensionHolderStackArray -= 1
+//        popHolderTypeStackArray()
     } // func addExtensionHolderToSuperHolder()
     
     // そのvariableやfunctionを保有している型の名前を返す
@@ -741,8 +770,103 @@ struct SyntaxArrayParser {
         }
     } // func getSuperType() -> String
     
+    mutating private func addIsOptional(typeKind: String) {
+        guard let optionalTypeKind = OptionalTypeKind(typeKind) else {
+            fatalError()
+        }
+        
+        switch optionalTypeKind {
+        case .variable:
+            variableHolderStackArray[positionInVariableHolderStackArray].isOptionalType = true
+        case .functionParameter:
+            functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].isOptionalType = true
+        case .functionReturnValue:
+            functionHolderStackArray[positionInFunctionHolderStackArray].returnValueIsOptional = true
+        case .initializerParameter:
+            initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].isOptionalType = true
+        }
+    }
+    
     // numberOfInitializerを-1にリセットする
     mutating private func resetNumberOfInitializer() {
         numberOfInitializer = -1
     }
+    
+    mutating private func addNestedStructToSuperHolderOrPopHolderTypeStackArray(structHolder: StructHolder) {
+        if 0 < positionInHolderTypeStackArray {
+            // 親となるSuperHolderがあるとき
+            let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch holderType {
+            case .struct:
+                structHolderStackArray[positionInStructHolderStackArray - 1].nestingStructs.append(structHolder)
+            case .class:
+                classHolderStackArray[positionInClassHolderStackArray].nestingStructs.append(structHolder)
+            case.enum:
+                enumHolderStackArray[positionInEnumHolderStackArray].nestingStructs.append(structHolder)
+            case .extension:
+                extensionHolderStackArray[positionInExtensionHolderStackArray].nestingStructs.append(structHolder)
+            default:
+                fatalError()
+            }
+        } else {
+            // 親となるSuperHolderがないとき
+            resultStructHolders.append(structHolder)
+        }
+        
+        popHolderTypeStackArray()
+        structHolderStackArray.removeLast()
+        positionInStructHolderStackArray -= 1
+    } // func addNestedStructToSuperHolderOrPopHolderTypeStackArray(structHolder: StructHolder)
+    
+    mutating private func addNestedClassToSuperHolderOrPopHolderTypeStackArray(classHolder: ClassHolder) {
+        if 0 < positionInHolderTypeStackArray {
+            // 親となるSuperHolderがあるとき
+            let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch holderType {
+            case .struct:
+                structHolderStackArray[positionInStructHolderStackArray].nestingClasses.append(classHolder)
+            case .class:
+                classHolderStackArray[positionInClassHolderStackArray - 1].nestingClasses.append(classHolder)
+            case.enum:
+                enumHolderStackArray[positionInEnumHolderStackArray].nestingClasses.append(classHolder)
+            case .extension:
+                extensionHolderStackArray[positionInExtensionHolderStackArray].nestingClasses.append(classHolder)
+            default:
+                fatalError()
+            }
+        } else {
+            // 親となるSuperHolderがないとき
+            resultClassHolders.append(classHolder)
+        }
+        
+        popHolderTypeStackArray()
+        classHolderStackArray.removeLast()
+        positionInClassHolderStackArray -= 1
+    } // func addNestedClassToSuperHolderOrPopHolderTypeStackArray(classHolder: ClassHolder)
+    
+    mutating private func addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: EnumHolder) {
+        if 0 < positionInHolderTypeStackArray {
+            // 親となるSuperHolderがあるとき
+            let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch holderType {
+            case .struct:
+                structHolderStackArray[positionInStructHolderStackArray].nestingEnums.append(enumHolder)
+            case .class:
+                classHolderStackArray[positionInClassHolderStackArray].nestingEnums.append(enumHolder)
+            case.enum:
+                enumHolderStackArray[positionInEnumHolderStackArray - 1].nestingEnums.append(enumHolder)
+            case .extension:
+                extensionHolderStackArray[positionInExtensionHolderStackArray].nestingEnums.append(enumHolder)
+            default:
+                fatalError()
+            }
+        } else {
+            // 親となるSuperHolderがないとき
+            resultEnumHolders.append(enumHolder)
+        }
+        
+        popHolderTypeStackArray()
+        enumHolderStackArray.removeLast()
+        positionInEnumHolderStackArray -= 1
+    } // func addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: EnumHolder)
 } // end struct SyntaxArrayParser
