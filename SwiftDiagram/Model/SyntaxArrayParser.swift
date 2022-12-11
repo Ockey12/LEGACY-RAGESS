@@ -65,6 +65,9 @@ struct SyntaxArrayParser {
     var positionInGenericHolderStackArray = -1
     var positionInGenericParameter = -1
     
+    var typealiasHolderStackArray = [TypealiasHolder]()
+    var positionInTypealiasHolderStackArray = -1
+    
     
     mutating func parseResultArray(resultArray: [String]) {
         // 変数の初期化
@@ -517,33 +520,56 @@ struct SyntaxArrayParser {
                 addGenericToSuperHolder(generic: genericHolder)
             // typealiasの宣言
             case .StartTypealiasDecl:
-                break
+                pushHolderTypeStackArray(.typealias)
+                typealiasHolderStackArray.append(TypealiasHolder())
+                positionInTypealiasHolderStackArray += 1
             case .TypealiasAssociatedTypeName:
-                break
+                let name = parsedElementArray[1]
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName = name
             case .TypealiasType:
-                break
+                let literalType = parsedElementArray[1]
+                let superTypeName = getSuperTypeName(reducePosition: 1)
+                let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].literalType = literalType
+                extractingDependencies(affectingTypeName: literalType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .StartArrayTypeSyntaxOfTypealias:
-                break
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].variableKind = .array
             case .ArrayTypeOfTypealias:
-                break
+                let arrayType = parsedElementArray[1]
+                let superTypeName = getSuperTypeName(reducePosition: 1)
+                let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].arrayType = arrayType
+                extractingDependencies(affectingTypeName: arrayType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndArrayTypeSyntaxOfTypealias:
                 break
             case .StartDictionaryTypeSyntaxOfTypealias:
-                break
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].variableKind = .dictionary
             case .DictionaryKeyTypeOfTypealias:
-                break
+                let keyType = parsedElementArray[1]
+                let superTypeName = getSuperTypeName(reducePosition: 1)
+                let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].dictionaryKeyType = keyType
+                extractingDependencies(affectingTypeName: keyType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .DictionaryValueTypeOfTypealias:
-                break
+                let valueType = parsedElementArray[1]
+                let superTypeName = getSuperTypeName(reducePosition: 1)
+                let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].dictionaryValueType = valueType
+                extractingDependencies(affectingTypeName: valueType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndDictionaryTypeSyntaxOfTypealias:
                 break
             case .StartTupleTypeSyntaxOfTypealias:
-                break
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].variableKind = .tuple
             case .TupleTypeOfTypealias:
-                break
+                let tupleType = parsedElementArray[1]
+                let superTypeName = getSuperTypeName(reducePosition: 1)
+                let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
+                typealiasHolderStackArray[positionInTypealiasHolderStackArray].tupleTypes.append(tupleType)
+                extractingDependencies(affectingTypeName: tupleType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndTupleTypeSyntaxOfTypealias:
                 break
             case .EndTypealiasDecl:
-                break
+                addTypealiasHolderToSuperHolder()
             // オプショナル型
             case .IsOptionalType:
                 let typeKind = parsedElementArray[1]
@@ -691,7 +717,7 @@ struct SyntaxArrayParser {
         case .extension:
             extensionHolderStackArray[positionInExtensionHolderStackArray].functions.append(functionHolder)
         default:
-            fatalError("")
+            fatalError()
         }
         
         functionHolderStackArray.removeLast()
@@ -719,7 +745,7 @@ struct SyntaxArrayParser {
         case .extension:
             extensionHolderStackArray[positionInExtensionHolderStackArray].initializers.append(initializerHolder)
         default:
-            fatalError("")
+            fatalError()
         }
         
         initializerHolderStackArray.removeLast()
@@ -786,7 +812,7 @@ struct SyntaxArrayParser {
         case .extension:
             return extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
         default:
-            fatalError("")
+            fatalError()
         }
     } // func getSuperType() -> String
     
@@ -938,4 +964,28 @@ struct SyntaxArrayParser {
     mutating private func resetNumberOfGeneric() {
         positionInGenericParameter = -1
     }
+    
+    mutating private func addTypealiasHolderToSuperHolder() {
+        let typealiasHolder = typealiasHolderStackArray[positionInTypealiasHolderStackArray]
+        let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        
+        switch holderType {
+        case .struct:
+            structHolderStackArray[positionInStructHolderStackArray].typealiases.append(typealiasHolder)
+        case .class:
+            classHolderStackArray[positionInClassHolderStackArray].typealiases.append(typealiasHolder)
+        case .enum:
+            enumHolderStackArray[positionInEnumHolderStackArray].typealiases.append(typealiasHolder)
+        case .protocol:
+            protocolHolderStackArray[positionInProtocolHolderStackArray].typealiases.append(typealiasHolder)
+        case .extension:
+            extensionHolderStackArray[positionInExtensionHolderStackArray].typealiases.append(typealiasHolder)
+        default:
+            fatalError()
+        }
+        
+        popHolderTypeStackArray()
+        typealiasHolderStackArray.removeLast()
+        positionInTypealiasHolderStackArray -= 1
+    } // func addTypealiasHolderToSuperHolder()
 } // end struct SyntaxArrayParser

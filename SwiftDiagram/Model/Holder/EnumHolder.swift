@@ -18,6 +18,8 @@ struct EnumHolder: TypeHolder {
     
     var conformingProtocolNames = [String]()
     
+    var typealiases = [TypealiasHolder]()
+    
     var initializers = [InitializerHolder]()
     
     var cases = [CaseHolder]()

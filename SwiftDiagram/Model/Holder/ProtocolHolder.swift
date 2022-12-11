@@ -16,6 +16,8 @@ struct ProtocolHolder: HaveNameAndAccessLevelHolder {
     
     var associatedTypes = [AssociatedType]()
     
+    var typealiases = [TypealiasHolder]()
+    
     var initializers = [InitializerHolder]()
     
     var variables = [VariableHolder]()

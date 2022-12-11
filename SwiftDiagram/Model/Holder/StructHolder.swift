@@ -16,6 +16,8 @@ struct StructHolder: TypeHolder {
     
     var conformingProtocolNames = [String]()
     
+    var typealiases = [TypealiasHolder]()
+    
     var initializers = [InitializerHolder]()
     
     var variables = [VariableHolder]()

@@ -136,6 +136,7 @@ class BuildFileMonitor: ObservableObject {
                     content += "conformingProtocolName: \(name)\n"
                 }
             }
+            addTypealiasToContent(typealiases: structHolder.typealiases)
             addInitializerToContent(initializerHolders: structHolder.initializers)
             addVariableToContent(variableHolders: structHolder.variables)
             addFunctionsToContent(functionHolders: structHolder.functions)
@@ -166,6 +167,7 @@ class BuildFileMonitor: ObservableObject {
                     content += "conformingProtocolName: \(name)\n"
                 }
             }
+            addTypealiasToContent(typealiases: classHolder.typealiases)
             addInitializerToContent(initializerHolders: classHolder.initializers)
             addVariableToContent(variableHolders: classHolder.variables)
             addFunctionsToContent(functionHolders: classHolder.functions)
@@ -196,6 +198,8 @@ class BuildFileMonitor: ObservableObject {
                     content += "conformingProtocolName: \(name)\n"
                 }
             }
+            
+            addTypealiasToContent(typealiases: enumHolder.typealiases)
             
             for aCase in enumHolder.cases {
                 content += "--case--\n"
@@ -238,6 +242,7 @@ class BuildFileMonitor: ObservableObject {
                     content += "associatedTypeProtocolOrSuperClass: \(protocolOrClass)\n"
                 }
             }
+            addTypealiasToContent(typealiases: protocolHolder.typealiases)
             addInitializerToContent(initializerHolders: protocolHolder.initializers)
             addVariableToContent(variableHolders: protocolHolder.variables)
             addFunctionsToContent(functionHolders: protocolHolder.functions)
@@ -437,6 +442,7 @@ class BuildFileMonitor: ObservableObject {
             for protocolName in extensionHolder.conformingProtocolNames {
                 content += "conformingProtocolName: \(protocolName)\n"
             }
+            addTypealiasToContent(typealiases: extensionHolder.typealiases)
             addInitializerToContent(initializerHolders: extensionHolder.initializers)
             addStructToContent(structHolders: extensionHolder.nestingStructs)
             addClassToContent(classHolders: extensionHolder.nestingClasses)
@@ -472,5 +478,30 @@ class BuildFileMonitor: ObservableObject {
                 content += "inheritedClassName: \(superClass)\n"
             }
         }
-    }
+    } // func addGenericsToContent(generics: [GenericHolder])
+    
+    private func addTypealiasToContent(typealiases: [TypealiasHolder]) {
+        content += "---Typealias---\n"
+        for typealiasHolder in typealiases {
+            if let type = typealiasHolder.associatedTypeName {
+                content += "associatedTypeName: \(type)\n"
+            }
+            content += "variableKind: \(typealiasHolder.variableKind)"
+            if let literalType = typealiasHolder.literalType {
+                content += "literalType: \(literalType)\n"
+            }
+            if let arrayType = typealiasHolder.arrayType {
+                content += "arrayType: \(arrayType)\n"
+            }
+            if let key = typealiasHolder.dictionaryKeyType {
+                content += "dictionaryKeyType: \(key)\n"
+            }
+            if let value = typealiasHolder.dictionaryValueType {
+                content += "dictionaryValueType: \(value)\n"
+            }
+            for tupleType in typealiasHolder.tupleTypes {
+                content += "tupleType: \(tupleType)\n"
+            }
+        }
+    } // func addTypealiasToContent(typealiases: [TypealiasHolder])
 }

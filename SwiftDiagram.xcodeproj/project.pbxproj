@@ -14,6 +14,7 @@
 		AC34B36229427BE80029479C /* TypeDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36129427BE80029479C /* TypeDependency.swift */; };
 		AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36329448C180029479C /* OptionalTypeKind.swift */; };
 		AC34B3662945035C0029479C /* GenericHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3652945035C0029479C /* GenericHolder.swift */; };
+		AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3672945B9F70029479C /* TypealiasHolder.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -60,6 +61,7 @@
 		AC34B36129427BE80029479C /* TypeDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDependency.swift; sourceTree = "<group>"; };
 		AC34B36329448C180029479C /* OptionalTypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalTypeKind.swift; sourceTree = "<group>"; };
 		AC34B3652945035C0029479C /* GenericHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericHolder.swift; sourceTree = "<group>"; };
+		AC34B3672945B9F70029479C /* TypealiasHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasHolder.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				AC5F006C293E4539001221C2 /* InitializerParameterHolder.swift */,
 				AC34B3652945035C0029479C /* GenericHolder.swift */,
 				AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */,
+				AC34B3672945B9F70029479C /* TypealiasHolder.swift */,
 			);
 			path = Holder;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
 				AC34B36229427BE80029479C /* TypeDependency.swift in Sources */,
+				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,
 				AC34B3662945035C0029479C /* GenericHolder.swift in Sources */,
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
