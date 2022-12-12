@@ -15,6 +15,8 @@
 		AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36329448C180029479C /* OptionalTypeKind.swift */; };
 		AC34B3662945035C0029479C /* GenericHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3652945035C0029479C /* GenericHolder.swift */; };
 		AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3672945B9F70029479C /* TypealiasHolder.swift */; };
+		AC34B36B2946F4890029479C /* StructHolderToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36A2946F4890029479C /* StructHolderToStringConverter.swift */; };
+		AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -62,6 +64,8 @@
 		AC34B36329448C180029479C /* OptionalTypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalTypeKind.swift; sourceTree = "<group>"; };
 		AC34B3652945035C0029479C /* GenericHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericHolder.swift; sourceTree = "<group>"; };
 		AC34B3672945B9F70029479C /* TypealiasHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasHolder.swift; sourceTree = "<group>"; };
+		AC34B36A2946F4890029479C /* StructHolderToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructHolderToStringConverter.swift; sourceTree = "<group>"; };
+		AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringStructHolder.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -113,6 +117,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC34B3692946F45D0029479C /* HolderToStringConverter */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B36A2946F4890029479C /* StructHolderToStringConverter.swift */,
+			);
+			path = HolderToStringConverter;
+			sourceTree = "<group>";
+		};
+		AC34B36C2946F5150029479C /* ConvertedToStringHolder */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */,
+			);
+			path = ConvertedToStringHolder;
+			sourceTree = "<group>";
+		};
 		AC3BF409292227770096810E = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				AC5F0051293DB781001221C2 /* Holder */,
+				AC34B3692946F45D0029479C /* HolderToStringConverter */,
+				AC34B36C2946F5150029479C /* ConvertedToStringHolder */,
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */,
 				AC34B36129427BE80029479C /* TypeDependency.swift */,
@@ -331,6 +353,7 @@
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
 				AC34B36229427BE80029479C /* TypeDependency.swift in Sources */,
 				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,
@@ -341,6 +364,7 @@
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,
 				AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */,
 				AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */,
+				AC34B36B2946F4890029479C /* StructHolderToStringConverter.swift in Sources */,
 				AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */,
 				AC34B35E2940FBFB0029479C /* BuildFileMonitor.swift in Sources */,
 			);
