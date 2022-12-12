@@ -466,42 +466,46 @@ class BuildFileMonitor: ObservableObject {
     } // func addDependenciesToContent(dependencies: [WhomThisTypeAffect])
     
     private func addGenericsToContent(generics: [GenericHolder]) {
-        content += "---Generics---\n"
-        for generic in generics {
-            if let parameterType = generic.parameterType {
-                content += "parameterType: \(parameterType)\n"
-            }
-            if let protocolName = generic.conformedProtocolName {
-                content += "conformedProtocolName: \(protocolName)\n"
-            }
-            if let superClass = generic.inheritedClassName {
-                content += "inheritedClassName: \(superClass)\n"
-            }
-        }
+        if 0 < generics.count {
+            content += "---Generics---\n"
+            for generic in generics {
+                if let parameterType = generic.parameterType {
+                    content += "parameterType: \(parameterType)\n"
+                }
+                if let protocolName = generic.conformedProtocolName {
+                    content += "conformedProtocolName: \(protocolName)\n"
+                }
+                if let superClass = generic.inheritedClassName {
+                    content += "inheritedClassName: \(superClass)\n"
+                }
+            } // for generic in generics
+        } // if 0 < generics.count
     } // func addGenericsToContent(generics: [GenericHolder])
     
     private func addTypealiasToContent(typealiases: [TypealiasHolder]) {
-        content += "---Typealias---\n"
-        for typealiasHolder in typealiases {
-            if let type = typealiasHolder.associatedTypeName {
-                content += "associatedTypeName: \(type)\n"
-            }
-            content += "variableKind: \(typealiasHolder.variableKind)"
-            if let literalType = typealiasHolder.literalType {
-                content += "literalType: \(literalType)\n"
-            }
-            if let arrayType = typealiasHolder.arrayType {
-                content += "arrayType: \(arrayType)\n"
-            }
-            if let key = typealiasHolder.dictionaryKeyType {
-                content += "dictionaryKeyType: \(key)\n"
-            }
-            if let value = typealiasHolder.dictionaryValueType {
-                content += "dictionaryValueType: \(value)\n"
-            }
-            for tupleType in typealiasHolder.tupleTypes {
-                content += "tupleType: \(tupleType)\n"
-            }
-        }
+        if 0 < typealiases.count {
+            content += "---Typealias---\n"
+            for typealiasHolder in typealiases {
+                if let type = typealiasHolder.associatedTypeName {
+                    content += "associatedTypeName: \(type)\n"
+                }
+                content += "variableKind: \(typealiasHolder.variableKind)"
+                if let literalType = typealiasHolder.literalType {
+                    content += "literalType: \(literalType)\n"
+                }
+                if let arrayType = typealiasHolder.arrayType {
+                    content += "arrayType: \(arrayType)\n"
+                }
+                if let key = typealiasHolder.dictionaryKeyType {
+                    content += "dictionaryKeyType: \(key)\n"
+                }
+                if let value = typealiasHolder.dictionaryValueType {
+                    content += "dictionaryValueType: \(value)\n"
+                }
+                for tupleType in typealiasHolder.tupleTypes {
+                    content += "tupleType: \(tupleType)\n"
+                }
+            } // for typealiasHolder in typealiases
+        } // if 0 < typealiases.count
     } // func addTypealiasToContent(typealiases: [TypealiasHolder])
 }
