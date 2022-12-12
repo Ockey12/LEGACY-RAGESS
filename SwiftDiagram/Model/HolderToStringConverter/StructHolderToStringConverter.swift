@@ -14,16 +14,19 @@ struct StructHolderToStringConverter {
         convertedHolder.name = structHolder.name
         convertedHolder.accessLevelIcon = structHolder.accessLevel.icon
         
-        // genericをString型に変換する
-        for generic in structHolder.generics {
-            var stringGeneric = generic.parameterType!
-            if let protocolName = generic.conformedProtocolName {
-                stringGeneric += ": " + protocolName
-            } else if let className = generic.inheritedClassName {
-                stringGeneric += ": " + className
-            }
-            convertedHolder.generics.append(stringGeneric)
-        } // for generic in structHolder.generics
+//        // genericをString型に変換する
+//        for generic in structHolder.generics {
+//            var stringGeneric = generic.parameterType!
+//            if let protocolName = generic.conformedProtocolName {
+//                stringGeneric += ": " + protocolName
+//            } else if let className = generic.inheritedClassName {
+//                stringGeneric += ": " + className
+//            }
+//            convertedHolder.generics.append(stringGeneric)
+//        } // for generic in structHolder.generics
+        let genericConverter = GenericHolderToStringConverter()
+        let stringGenerics = genericConverter.convertToString(genericHolders: structHolder.generics)
+        convertedHolder.generics = stringGenerics
         
         // protocolをString型に変換する
         for protocolName in structHolder.conformingProtocolNames {
@@ -302,6 +305,7 @@ struct StructHolderToStringConverter {
             convertedHolder.functions.append(stringFunc)
         } // for function in structHolder.functions
         
+        // ネストしているStructHolderをConvertedToStringStructHolder型に変換する
         if 0 < structHolder.nestingStructs.count {
             let converter = StructHolderToStringConverter()
             for nestedStruct in structHolder.nestingStructs {
@@ -310,6 +314,17 @@ struct StructHolderToStringConverter {
             }
         } // if 0 < structHolder.nestingStructs.count
         
+        /**
+         ネストしているClassHolderをString型に変換する
+         */
+        
+        /**
+         ネストしているEnumHolderをString型に変換する
+         */
+        
+        /**
+         ExtensionHolderをConvertedToStringExtensionHolder型に変換する
+         */
         return convertedHolder
     } // func convertToString(structHolder: StructHolder) -> ConvertedToStringStructHolder
 }
