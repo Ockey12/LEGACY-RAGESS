@@ -65,9 +65,14 @@ struct ClassHolderToStringConverter {
             }
         } // if 0 < classHolder.nestingClasses.count
         
-        /**
-         ネストしているEnumHolderをString型に変換する
-         */
+        // ネストしているEnumHolderをString型に変換する
+        if 0 < classHolder.nestingEnums.count {
+            let converter = EnumHolderToStringConverter()
+            for nestedEnum in classHolder.nestingEnums {
+                let convertedContent = converter.convertToString(enumHolder: nestedEnum)
+                convertedHolder.nestingConvertedToStringEnumHolders.append(convertedContent)
+            }
+        }
         
         /**
          ExtensionHolderをConvertedToStringExtensionHolder型に変換する

@@ -127,7 +127,14 @@ class BuildFileMonitor: ObservableObject {
                         addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
                     }
                     
-                    addEnumToContent(enumHolders: syntaxArrayParser.getResultEnumHolders())
+                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
+                    addEnumToContent(enumHolders: resultEnumHolders)
+                    for enumHolder in resultEnumHolders {
+                        let converter = EnumHolderToStringConverter()
+                        let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
+                        addStringEnumToConvertedContent(stringEnumHolder: convertedEnumHolder)
+                    }
+                    
                     addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
                     addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
                 } else if url.hasDirectoryPath {
@@ -594,6 +601,13 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
+        if 0 < stringStructHolder.nestingConvertedToStringEnumHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedEnum in stringStructHolder.nestingConvertedToStringEnumHolders {
+                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringStructToStringType(stringStructHolders: [ConvertedToStringStructHolder])
     
@@ -667,6 +681,100 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
+        if 0 < stringClassHolder.nestingConvertedToStringEnumHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedEnum in stringClassHolder.nestingConvertedToStringEnumHolders {
+                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringClassToConvertedContent(stringClassHolder: ConvertedToStringClassHolder)
+    
+    private func addStringEnumToConvertedContent(stringEnumHolder: ConvertedToStringEnumHolder) {
+        convertedContent += "=== Header ===\n"
+        if stringEnumHolder.accessLevelIcon == AccessLevel.internal.icon {
+            convertedContent += "Enum\n"
+        } else {
+            convertedContent += stringEnumHolder.accessLevelIcon + " Enum\n"
+        }
+        convertedContent += stringEnumHolder.name + "\n"
+        
+        if 0 < stringEnumHolder.generics.count {
+            convertedContent += "=== Generic ===\n"
+            for generic in stringEnumHolder.generics {
+                convertedContent += generic + "\n"
+            }
+        }
+        
+        if let rawvalueType = stringEnumHolder.rawvalueType {
+            convertedContent += "=== RawvalueType ===\n"
+            convertedContent += rawvalueType + "\n"
+        }
+        
+        if 0 < stringEnumHolder.conformingProtocolNames.count {
+            convertedContent += "=== Protocol ===\n"
+            for protocolName in stringEnumHolder.conformingProtocolNames {
+                convertedContent += protocolName + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.typealiases.count {
+            convertedContent += "=== Typealias ===\n"
+            for alias in stringEnumHolder.typealiases {
+                convertedContent += alias + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.initializers.count {
+            convertedContent += "=== Initializer ===\n"
+            for initializer in stringEnumHolder.initializers {
+                convertedContent += initializer + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.cases.count {
+            convertedContent += "=== Case ===\n"
+            for aCase in stringEnumHolder.cases {
+                convertedContent += aCase + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.variables.count {
+            convertedContent += "=== Property ===\n"
+            for variable in stringEnumHolder.variables {
+                convertedContent += variable + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.functions.count {
+            convertedContent += "=== Function ===\n"
+            for function in stringEnumHolder.functions {
+                convertedContent += function + "\n"
+            }
+        }
+        
+        if 0 < stringEnumHolder.nestingConvertedToStringStructHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedStruct in stringEnumHolder.nestingConvertedToStringStructHolders {
+                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
+            }
+        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
+        
+        if 0 < stringEnumHolder.nestingConvertedToStringClassHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedClass in stringEnumHolder.nestingConvertedToStringClassHolders {
+                addStringClassToConvertedContent(stringClassHolder: nestedClass)
+            }
+        }
+        
+        if 0 < stringEnumHolder.nestingConvertedToStringEnumHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedEnum in stringEnumHolder.nestingConvertedToStringEnumHolders {
+                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
+        convertedContent += "\n"
+    } // func addStringEnumToConvertedContent(stringEnumHolder: ConvertedToStringEnumHolder)
 }
