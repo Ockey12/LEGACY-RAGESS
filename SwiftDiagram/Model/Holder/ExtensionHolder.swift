@@ -8,7 +8,6 @@
 import Foundation
 
 struct ExtensionHolder: Holder {
-    var ID: Int?
     var extensionedTypeName: String?
     
     var conformingProtocolNames = [String]()

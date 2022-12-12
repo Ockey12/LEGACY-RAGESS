@@ -8,7 +8,6 @@
 import Foundation
 
 struct VariableHolder: HaveNameAndAccessLevelHolder {
-    var ID: Int?
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     var kind: VariableKind = .literal
