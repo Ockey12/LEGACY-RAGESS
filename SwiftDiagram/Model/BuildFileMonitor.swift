@@ -66,7 +66,7 @@ class BuildFileMonitor: ObservableObject {
         
         // 監視を開始する
         buildFileMonitorSource?.resume()
-    } // end func startMonitoring()
+    } // func startMonitoring()
     
     func stopMonitoring() {
         buildFileMonitorSource?.cancel()
@@ -92,7 +92,7 @@ class BuildFileMonitor: ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-    } // printFiles()
+    } // func printSubFiles(url: URL)
     
     private func parseSwiftFiles(url: URL) {
         do {
@@ -364,7 +364,7 @@ class BuildFileMonitor: ObservableObject {
                 if let initialValue = parameter.initialValue {
                     content += "initialValue: \(initialValue)\n"
                 }
-            } // for parameter
+            } // for parameter in functionHolder.parameters
             
             if let returnValue = functionHolder.returnValue {
                 content += "---ReturnValue---\n"
@@ -389,7 +389,7 @@ class BuildFileMonitor: ObservableObject {
                 if let protocolName = returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue {
                     content += "conformedProtocolByOpaqueResultTypeOfReturnValue: \(protocolName)\n"
                 }
-            }
+            } // if let returnValue = functionHolder.returnValue
         } // for functionHolder
     } // func addFunctionsToContent(functionHolders: [FunctionHolder])
     
@@ -430,7 +430,7 @@ class BuildFileMonitor: ObservableObject {
                     content += "initialValue: \(initialValue)\n"
                 }
             } // for parameter
-        }
+        } // for initializerHolder in initializerHolders
     } // func addInitializerToContent(initializerHolders: [InitializerHolder])
     
     private func addExtensionToContent(extensionHolders: [ExtensionHolder]) {
