@@ -118,11 +118,15 @@ class BuildFileMonitor: ObservableObject {
                         let convertedStructHolder = converter.convertToString(structHolder: structHolder)
                         addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
                     }
-//                    print("---resultStructHolder---")
-//                    for holder in resultStructHolders {
-//                        print(holder.name)
-//                    }
-                    addClassToContent(classHolders: syntaxArrayParser.getResultClassHolders())
+
+                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
+                    addClassToContent(classHolders: resultClassHolders)
+                    for classHolder in resultClassHolders {
+                        let converter = ClassHolderToStringConverter()
+                        let convertedClassHolder = converter.convertToString(classHolder: classHolder)
+                        addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
+                    }
+                    
                     addEnumToContent(enumHolders: syntaxArrayParser.getResultEnumHolders())
                     addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
                     addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
@@ -526,9 +530,6 @@ class BuildFileMonitor: ObservableObject {
     } // func addTypealiasToContent(typealiases: [TypealiasHolder])
     
     private func addStringStructToConvertedContent(stringStructHolder: ConvertedToStringStructHolder) {
-//        for structHolder in stringStructHolders {
-//
-//        } // for structHolder in stringStructHolders
         convertedContent += "=== Header ===\n"
         if stringStructHolder.accessLevelIcon == AccessLevel.internal.icon {
             convertedContent += "Struct\n"
@@ -586,6 +587,86 @@ class BuildFileMonitor: ObservableObject {
             }
         } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
         
+        if 0 < stringStructHolder.nestingConvertedToStringClassHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedClass in stringStructHolder.nestingConvertedToStringClassHolders {
+                addStringClassToConvertedContent(stringClassHolder: nestedClass)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringStructToStringType(stringStructHolders: [ConvertedToStringStructHolder])
+    
+    private func addStringClassToConvertedContent(stringClassHolder: ConvertedToStringClassHolder) {
+        convertedContent += "=== Header ===\n"
+        if stringClassHolder.accessLevelIcon == AccessLevel.internal.icon {
+            convertedContent += "Class\n"
+        } else {
+            convertedContent += stringClassHolder.accessLevelIcon + " Class\n"
+        }
+        convertedContent += stringClassHolder.name + "\n"
+        
+        if 0 < stringClassHolder.generics.count {
+            convertedContent += "=== Generic ===\n"
+            for generic in stringClassHolder.generics {
+                convertedContent += generic + "\n"
+            }
+        }
+        
+        if let superClass = stringClassHolder.superClassName {
+            convertedContent += "=== SuperClass ===\n"
+            convertedContent += superClass + "\n"
+        }
+        
+        if 0 < stringClassHolder.conformingProtocolNames.count {
+            convertedContent += "=== Protocol ===\n"
+            for protocolName in stringClassHolder.conformingProtocolNames {
+                convertedContent += protocolName + "\n"
+            }
+        }
+        
+        if 0 < stringClassHolder.typealiases.count {
+            convertedContent += "=== Typealias ===\n"
+            for alias in stringClassHolder.typealiases {
+                convertedContent += alias + "\n"
+            }
+        }
+        
+        if 0 < stringClassHolder.initializers.count {
+            convertedContent += "=== Initializer ===\n"
+            for initializer in stringClassHolder.initializers {
+                convertedContent += initializer + "\n"
+            }
+        }
+        
+        if 0 < stringClassHolder.variables.count {
+            convertedContent += "=== Property ===\n"
+            for variable in stringClassHolder.variables {
+                convertedContent += variable + "\n"
+            }
+        }
+        
+        if 0 < stringClassHolder.functions.count {
+            convertedContent += "=== Function ===\n"
+            for function in stringClassHolder.functions {
+                convertedContent += function + "\n"
+            }
+        }
+        
+        if 0 < stringClassHolder.nestingConvertedToStringStructHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedStruct in stringClassHolder.nestingConvertedToStringStructHolders {
+                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
+            }
+        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
+        
+        if 0 < stringClassHolder.nestingConvertedToStringClassHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedClass in stringClassHolder.nestingConvertedToStringClassHolders {
+                addStringClassToConvertedContent(stringClassHolder: nestedClass)
+            }
+        }
+        
+        convertedContent += "\n"
+    } // func addStringClassToConvertedContent(stringClassHolder: ConvertedToStringClassHolder)
 }
