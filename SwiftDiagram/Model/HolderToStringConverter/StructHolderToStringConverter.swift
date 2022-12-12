@@ -302,6 +302,14 @@ struct StructHolderToStringConverter {
             convertedHolder.functions.append(stringFunc)
         } // for function in structHolder.functions
         
+        if 0 < structHolder.nestingStructs.count {
+            let converter = StructHolderToStringConverter()
+            for nestedStruct in structHolder.nestingStructs {
+                let convertedContent = converter.convertToString(structHolder: nestedStruct)
+                convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
+            }
+        } // if 0 < structHolder.nestingStructs.count
+        
         return convertedHolder
     } // func convertToString(structHolder: StructHolder) -> ConvertedToStringStructHolder
 }

@@ -112,18 +112,20 @@ class BuildFileMonitor: ObservableObject {
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
-                    
                     addStructToContent(structHolders: resultStructHolders)
+                    for structHolder in resultStructHolders {
+                        let converter = StructHolderToStringConverter()
+                        let convertedStructHolder = converter.convertToString(structHolder: structHolder)
+                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+                    }
+//                    print("---resultStructHolder---")
+//                    for holder in resultStructHolders {
+//                        print(holder.name)
+//                    }
                     addClassToContent(classHolders: syntaxArrayParser.getResultClassHolders())
                     addEnumToContent(enumHolders: syntaxArrayParser.getResultEnumHolders())
                     addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
                     addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
-                    
-//                    for structHolder in resultStructHolders {
-//                        let converter = StructHolderToStringConverter()
-//                        let convertedStructHolder = converter.convertToString(structHolder: structHolder)
-//                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
-//                    }
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
                 }
@@ -134,7 +136,7 @@ class BuildFileMonitor: ObservableObject {
     } // func parseSwiftFiles(url: URL)
     
     private func addStructToContent(structHolders: [StructHolder]) {
-        let converter = StructHolderToStringConverter()
+//        let converter = StructHolderToStringConverter()
         for structHolder in structHolders {
             content += "-----Struct-----\n"
             content += "name: \(structHolder.name)\n"
@@ -159,8 +161,8 @@ class BuildFileMonitor: ObservableObject {
             addExtensionToContent(extensionHolders: structHolder.extensions)
             content += "\n"
             
-            let convertedStructHolder = converter.convertToString(structHolder: structHolder)
-            addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+//            let convertedStructHolder = converter.convertToString(structHolder: structHolder)
+//            addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
         } // for structHolder
     } // func addStructToContent(structHolders: [StructHolder])
     
@@ -461,7 +463,7 @@ class BuildFileMonitor: ObservableObject {
             addStructToContent(structHolders: extensionHolder.nestingStructs)
             addClassToContent(classHolders: extensionHolder.nestingClasses)
             addEnumToContent(enumHolders: extensionHolder.nestingEnums)
-        }
+        } // for extensionHolder in extensionHolders
     } // func addExtensionToContent(extensions: [ExtensionHolder])
     
     private func addDependenciesToContent(dependencies: [WhomThisTypeAffect]) {
@@ -475,7 +477,7 @@ class BuildFileMonitor: ObservableObject {
                 }
                 content += "\n"
             }
-        }
+        } // for element in dependencies
         content += "\n"
     } // func addDependenciesToContent(dependencies: [WhomThisTypeAffect])
     
@@ -576,6 +578,13 @@ class BuildFileMonitor: ObservableObject {
                 convertedContent += function + "\n"
             }
         }
+        
+        if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedStruct in stringStructHolder.nestingConvertedToStringStructHolders {
+                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
+            }
+        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
         
         convertedContent += "\n"
     } // func addStringStructToStringType(stringStructHolders: [ConvertedToStringStructHolder])

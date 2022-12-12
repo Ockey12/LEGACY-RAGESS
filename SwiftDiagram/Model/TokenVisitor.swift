@@ -98,7 +98,7 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
-        print("PRE-> \(currentSyntaxNodeType)")
+//        print("PRE-> \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
             (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
@@ -290,7 +290,7 @@ final class TokenVisitor: SyntaxRewriter {
     }
     
     override func visit(_ token: TokenSyntax) -> Syntax {
-        print("      text: \(token.text)")
+//        print("      text: \(token.text)")
         let tokenKind = "\(token.tokenKind)"
         
         if (1 < currentPositionInStack) &&
@@ -701,7 +701,7 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPost(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
-        print("POST<- \(currentSyntaxNodeType)")
+//        print("POST<- \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
             (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
@@ -943,14 +943,14 @@ final class TokenVisitor: SyntaxRewriter {
     private func pushSyntaxNodeTypeStack(_ element: SyntaxNodeType) {
         self.syntaxNodeTypeStack.append(element)
         currentPositionInStack += 1
-        printSyntaxNodeTypeStack()
+//        printSyntaxNodeTypeStack()
     }
     
     // syntaxStack配列の最後の要素を削除し、ポップする
     private func popSyntaxNodeTypeStack() {
         self.syntaxNodeTypeStack.removeLast()
         currentPositionInStack -= 1
-        printSyntaxNodeTypeStack()
+//        printSyntaxNodeTypeStack()
     }
     
     // addAccessLevelToResultArrayDependOnType()を呼び出して、resultArrayにアクセスレベルのタグを追加する

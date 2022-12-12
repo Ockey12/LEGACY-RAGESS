@@ -83,10 +83,10 @@ struct SyntaxArrayParser {
         // resultArrayの要素1つをスペースで分割した結果を保持する
         var parsedElementArray = [String]()
         
-        print("-----SyntaxArrayParser.parseResultArray")
+//        print("-----SyntaxArrayParser.parseResultArray")
         // resultArrayに格納されているタグを1つずつ取り出して解析する
         for element in resultArray {
-            print(element)
+//            print(element)
             
             // elementを" "で分割する
             // parsedElementArray[0]: SyntaxTag
@@ -856,6 +856,7 @@ struct SyntaxArrayParser {
         } else {
             // 親となるSuperHolderがないとき
             resultStructHolders.append(structHolder)
+            print("resultStructHolders.append(structHolder) " + structHolder.name)
         }
         
         popHolderTypeStackArray()
