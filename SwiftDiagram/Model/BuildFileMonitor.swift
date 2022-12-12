@@ -383,7 +383,7 @@ class BuildFileMonitor: ObservableObject {
                 for tupleType in returnValue.tupleTypes {
                     content += "tupleType: \(tupleType)\n"
                 }
-                if functionHolder.returnValueIsOptional {
+                if returnValue.isOptional {
                     content += "isOptionalType\n"
                 }
                 if let protocolName = returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue {

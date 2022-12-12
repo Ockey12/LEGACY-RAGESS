@@ -820,7 +820,7 @@ struct SyntaxArrayParser {
         case .functionParameter:
             functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].isOptionalType = true
         case .functionReturnValue:
-            functionHolderStackArray[positionInFunctionHolderStackArray].returnValueIsOptional = true
+            functionHolderStackArray[positionInFunctionHolderStackArray].returnValue?.isOptional = true
         case .initializerParameter:
             initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].isOptionalType = true
         }

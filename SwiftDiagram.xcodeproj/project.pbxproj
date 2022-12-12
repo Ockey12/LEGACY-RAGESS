@@ -17,6 +17,9 @@
 		AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3672945B9F70029479C /* TypealiasHolder.swift */; };
 		AC34B36B2946F4890029479C /* StructHolderToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36A2946F4890029479C /* StructHolderToStringConverter.swift */; };
 		AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */; };
+		AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36F2946F8730029479C /* ConvertedToStringClassHolder.swift */; };
+		AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3712946F87E0029479C /* ConvertedToStringEnumHolder.swift */; };
+		AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3732946F8E50029479C /* ConvertedToStringExtensionHolder.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -64,6 +67,9 @@
 		AC34B3672945B9F70029479C /* TypealiasHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasHolder.swift; sourceTree = "<group>"; };
 		AC34B36A2946F4890029479C /* StructHolderToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructHolderToStringConverter.swift; sourceTree = "<group>"; };
 		AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringStructHolder.swift; sourceTree = "<group>"; };
+		AC34B36F2946F8730029479C /* ConvertedToStringClassHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringClassHolder.swift; sourceTree = "<group>"; };
+		AC34B3712946F87E0029479C /* ConvertedToStringEnumHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringEnumHolder.swift; sourceTree = "<group>"; };
+		AC34B3732946F8E50029479C /* ConvertedToStringExtensionHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringExtensionHolder.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -125,6 +131,9 @@
 			isa = PBXGroup;
 			children = (
 				AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */,
+				AC34B36F2946F8730029479C /* ConvertedToStringClassHolder.swift */,
+				AC34B3712946F87E0029479C /* ConvertedToStringEnumHolder.swift */,
+				AC34B3732946F8E50029479C /* ConvertedToStringExtensionHolder.swift */,
 			);
 			path = ConvertedToStringHolder;
 			sourceTree = "<group>";
@@ -324,17 +333,20 @@
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
+				AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
 				AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */,
+				AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */,
 				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
 				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
+				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
