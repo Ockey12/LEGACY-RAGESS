@@ -19,8 +19,6 @@ struct SyntaxArrayParser {
     private var resultClassHolders = [ClassHolder]()
     private var resultEnumHolders = [EnumHolder]()
     private var resultProtocolHolders = [ProtocolHolder]()
-//    private var resultVariableHolders = [VariableHolder]()
-//    private var resultFunctionHolders = [FunctionHolder]()
     private var resultExtensionHolders = [ExtensionHolder]()
     
     // 型の依存関係を保持する
@@ -788,12 +786,6 @@ struct SyntaxArrayParser {
                 }
             }
         }
-//        let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
-//        let extensionedTypeName = extensionHolder.extensionedTypeName
-//
-//        extensionHolderStackArray.removeLast()
-//        positionInExtensionHolderStackArray -= 1
-//        popHolderTypeStackArray()
     } // func addExtensionHolderToSuperHolder()
     
     // そのvariableやfunctionを保有している型の名前を返す
@@ -816,6 +808,7 @@ struct SyntaxArrayParser {
         }
     } // func getSuperType() -> String
     
+    // 変数や引数がオプショナル型である情報を、それぞれのHolderに追加する
     mutating private func addIsOptional(typeKind: String) {
         guard let optionalTypeKind = OptionalTypeKind(typeKind) else {
             fatalError()
@@ -838,6 +831,11 @@ struct SyntaxArrayParser {
         numberOfInitializer = -1
     }
     
+    // structの宣言を終了する
+    // 親となるHolderがあるとき、そのnestingStructsに追加する
+    // 親となるHolderがないとき、resultStructHoldersに追加する
+    // HolderTypeStackArrayのポップ操作を行う
+    // structHolderStackArrayのポップ操作を行う
     mutating private func addNestedStructToSuperHolderOrPopHolderTypeStackArray(structHolder: StructHolder) {
         if 0 < positionInHolderTypeStackArray {
             // 親となるSuperHolderがあるとき
@@ -864,6 +862,11 @@ struct SyntaxArrayParser {
         positionInStructHolderStackArray -= 1
     } // func addNestedStructToSuperHolderOrPopHolderTypeStackArray(structHolder: StructHolder)
     
+    // classの宣言を終了する
+    // 親となるHolderがあるとき、そのnestingClassesに追加する
+    // 親となるHolderがないとき、resultClassHoldersに追加する
+    // HolderTypeStackArrayのポップ操作を行う
+    // classHolderStackArrayのポップ操作を行う
     mutating private func addNestedClassToSuperHolderOrPopHolderTypeStackArray(classHolder: ClassHolder) {
         if 0 < positionInHolderTypeStackArray {
             // 親となるSuperHolderがあるとき
@@ -890,6 +893,11 @@ struct SyntaxArrayParser {
         positionInClassHolderStackArray -= 1
     } // func addNestedClassToSuperHolderOrPopHolderTypeStackArray(classHolder: ClassHolder)
     
+    // enumの宣言を終了する
+    // 親となるHolderがあるとき、そのnestingEnumsに追加する
+    // 親となるHolderがないとき、resultEnumHoldersに追加する
+    // HolderTypeStackArrayのポップ操作を行う
+    // enumHolderStackArrayのポップ操作を行う
     mutating private func addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: EnumHolder) {
         if 0 < positionInHolderTypeStackArray {
             // 親となるSuperHolderがあるとき
@@ -916,8 +924,13 @@ struct SyntaxArrayParser {
         positionInEnumHolderStackArray -= 1
     } // func addNestedEnumToSuperHolderOrPopHolderTypeStackArray(enumHolder: EnumHolder)
     
+    // genericを、親のgenericsプロパティに追加する
+    // genericの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // genericHolderStackArrayのポップ操作を行う
+    // ジェネリック型のとき、"型制約のスーパークラスまたはプロトコル" -> "ジェネリック型" . "何番目の型引数かを表すインデックス"の依存関係を抽出する
+    // ジェネリック関数のとき、"型制約のスーパークラスまたはプロトコル" -> "ジェネリック型" . "関数名"の依存関係を抽出する
     mutating private func addGenericToSuperHolder(generic: GenericHolder) {
-//        let num = position
         var affectingTypeName = ""
         if let protocolName = generic.conformedProtocolName {
             affectingTypeName = protocolName
@@ -961,10 +974,15 @@ struct SyntaxArrayParser {
         positionInGenericHolderStackArray -= 1
     } // func addGenericToSuperHolder(generic: GenericHolder)
     
+    // positionInGenericParameterを-1にリセットする
     mutating private func resetNumberOfGeneric() {
         positionInGenericParameter = -1
     }
     
+    // TypealiasHolderを、親のtypealiasesプロパティに追加する
+    // typealiasの宣言終了を検出したときに呼び出す
+    // popHolderTypeStackArrayのポップ操作を行う
+    // typealiasHolderStackArrayのポップ操作を行う
     mutating private func addTypealiasHolderToSuperHolder() {
         let typealiasHolder = typealiasHolderStackArray[positionInTypealiasHolderStackArray]
         let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
