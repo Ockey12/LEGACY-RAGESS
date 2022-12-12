@@ -25,83 +25,62 @@ struct StructHolderToStringConverter {
         }
         
         // typealiasをString型に変換する
-//        for alias in structHolder.typealiases {
-//            var stringAlias = alias.associatedTypeName! + " = "
-//
-//            switch alias.variableKind {
-//            case .literal:
-//                stringAlias += alias.literalType!
-//            case .array:
-//                stringAlias += "[" + alias.arrayType! + "]"
-//            case .dictionary:
-//                stringAlias += "[" + alias.dictionaryKeyType! + ": " + alias.dictionaryValueType! + "]"
-//            case .tuple:
-//                stringAlias += "("
-//                for (index, type) in alias.tupleTypes.enumerated() {
-//                    stringAlias += type
-//                    // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-//                    if index != alias.tupleTypes.count - 1 {
-//                        stringAlias += ", "
-//                    }
-//                }
-//                stringAlias += ")"
-//            case .opaqueResultType:
-//                break
-//            }
-//            convertedHolder.typealiases.append(stringAlias)
-//        } // for alias in structHolder.typealiases
         let typealiasConverter = TypealiasHolderToStringConverter()
         let stringTypealiases = typealiasConverter.convertToString(typealiasHolders: structHolder.typealiases)
         convertedHolder.typealiases = stringTypealiases
         
         // initializerをString型に変換する
-        for initializer in structHolder.initializers {
-            var stringInit = ""
-            if initializer.isConvenience {
-                stringInit += "convenience "
-            }
-            stringInit += "init"
-            if initializer.isFailable {
-                stringInit += "?"
-            }
-            stringInit += "("
-            for (index, param) in initializer.parameters.enumerated() {
-                stringInit += param.name! + ": "
-                switch param.kind {
-                case .literal:
-                    stringInit += param.literalType!
-                case .array:
-                    stringInit += "[" + param.arrayType! + "]"
-                case .dictionary:
-                    stringInit += "[" + param.dictionaryKeyType! + ": " + param.dictionaryValueType! + "]"
-                case .tuple:
-                    stringInit += "("
-                    for (index, type) in param.tupleTypes.enumerated() {
-                        stringInit += type
-                        // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-                        if index != param.tupleTypes.count - 1 {
-                            stringInit += ", "
-                        }
-                    } // for (index, type) in param.tupleTypes.enumerated()
-                    stringInit += ")"
-                case .opaqueResultType:
-                    break
-                } // switch param.kind
-                if param.isOptionalType {
-                    stringInit += "?"
-                }
-                if let initialValue = param.initialValue {
-                    stringInit += " = " + initialValue
-                }
-                
-                // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-                if index != initializer.parameters.count - 1 {
-                    stringInit += ", "
-                }
-            } // for param in initializer.parameters
-            stringInit += ")"
-            convertedHolder.initializers.append(stringInit)
-        } // for initializer in structHolder.initializers
+//        for initializer in structHolder.initializers {
+//            var stringInit = ""
+//            if initializer.isConvenience {
+//                stringInit += "convenience "
+//            }
+//            stringInit += "init"
+//            if initializer.isFailable {
+//                stringInit += "?"
+//            }
+//            stringInit += "("
+//            for (index, param) in initializer.parameters.enumerated() {
+//                stringInit += param.name! + ": "
+//                switch param.kind {
+//                case .literal:
+//                    stringInit += param.literalType!
+//                case .array:
+//                    stringInit += "[" + param.arrayType! + "]"
+//                case .dictionary:
+//                    stringInit += "[" + param.dictionaryKeyType! + ": " + param.dictionaryValueType! + "]"
+//                case .tuple:
+//                    stringInit += "("
+//                    for (index, type) in param.tupleTypes.enumerated() {
+//                        stringInit += type
+//                        // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
+//                        if index != param.tupleTypes.count - 1 {
+//                            stringInit += ", "
+//                        }
+//                    } // for (index, type) in param.tupleTypes.enumerated()
+//                    stringInit += ")"
+//                case .opaqueResultType:
+//                    break
+//                } // switch param.kind
+//                if param.isOptionalType {
+//                    stringInit += "?"
+//                }
+//                if let initialValue = param.initialValue {
+//                    stringInit += " = " + initialValue
+//                }
+//
+//                // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
+//                if index != initializer.parameters.count - 1 {
+//                    stringInit += ", "
+//                }
+//            } // for param in initializer.parameters
+//            stringInit += ")"
+//            convertedHolder.initializers.append(stringInit)
+//        } // for initializer in structHolder.initializers
+        
+        let initializerConverter = InitializerHolderToStringConverter()
+        let stringInitializers = initializerConverter.convertToString(initializerHolders: structHolder.initializers)
+        convertedHolder.initializers = stringInitializers
         
         // variableをString型に変換する
         for variable in structHolder.variables {
