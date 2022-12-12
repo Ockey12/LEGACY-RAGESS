@@ -10,6 +10,7 @@ import Foundation
 struct GenericHolderToStringConverter {
     func convertToString(genericHolders: [GenericHolder]) -> [String] {
         var stringGenericsArray = [String]()
+        
         for generic in genericHolders {
             var stringGeneric = generic.parameterType!
             if let protocolName = generic.conformedProtocolName {
@@ -19,6 +20,7 @@ struct GenericHolderToStringConverter {
             }
             stringGenericsArray.append(stringGeneric)
         }
+        
         return stringGenericsArray
     }
 }

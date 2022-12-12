@@ -14,16 +14,7 @@ struct StructHolderToStringConverter {
         convertedHolder.name = structHolder.name
         convertedHolder.accessLevelIcon = structHolder.accessLevel.icon
         
-//        // genericをString型に変換する
-//        for generic in structHolder.generics {
-//            var stringGeneric = generic.parameterType!
-//            if let protocolName = generic.conformedProtocolName {
-//                stringGeneric += ": " + protocolName
-//            } else if let className = generic.inheritedClassName {
-//                stringGeneric += ": " + className
-//            }
-//            convertedHolder.generics.append(stringGeneric)
-//        } // for generic in structHolder.generics
+        // genericをString型に変換する
         let genericConverter = GenericHolderToStringConverter()
         let stringGenerics = genericConverter.convertToString(genericHolders: structHolder.generics)
         convertedHolder.generics = stringGenerics
@@ -34,31 +25,34 @@ struct StructHolderToStringConverter {
         }
         
         // typealiasをString型に変換する
-        for alias in structHolder.typealiases {
-            var stringAlias = alias.associatedTypeName! + " = "
-            
-            switch alias.variableKind {
-            case .literal:
-                stringAlias += alias.literalType!
-            case .array:
-                stringAlias += "[" + alias.arrayType! + "]"
-            case .dictionary:
-                stringAlias += "[" + alias.dictionaryKeyType! + ": " + alias.dictionaryValueType! + "]"
-            case .tuple:
-                stringAlias += "("
-                for (index, type) in alias.tupleTypes.enumerated() {
-                    stringAlias += type
-                    // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-                    if index != alias.tupleTypes.count - 1 {
-                        stringAlias += ", "
-                    }
-                }
-                stringAlias += ")"
-            case .opaqueResultType:
-                break
-            }
-            convertedHolder.typealiases.append(stringAlias)
-        } // for alias in structHolder.typealiases
+//        for alias in structHolder.typealiases {
+//            var stringAlias = alias.associatedTypeName! + " = "
+//
+//            switch alias.variableKind {
+//            case .literal:
+//                stringAlias += alias.literalType!
+//            case .array:
+//                stringAlias += "[" + alias.arrayType! + "]"
+//            case .dictionary:
+//                stringAlias += "[" + alias.dictionaryKeyType! + ": " + alias.dictionaryValueType! + "]"
+//            case .tuple:
+//                stringAlias += "("
+//                for (index, type) in alias.tupleTypes.enumerated() {
+//                    stringAlias += type
+//                    // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
+//                    if index != alias.tupleTypes.count - 1 {
+//                        stringAlias += ", "
+//                    }
+//                }
+//                stringAlias += ")"
+//            case .opaqueResultType:
+//                break
+//            }
+//            convertedHolder.typealiases.append(stringAlias)
+//        } // for alias in structHolder.typealiases
+        let typealiasConverter = TypealiasHolderToStringConverter()
+        let stringTypealiases = typealiasConverter.convertToString(typealiasHolders: structHolder.typealiases)
+        convertedHolder.typealiases = stringTypealiases
         
         // initializerをString型に変換する
         for initializer in structHolder.initializers {
