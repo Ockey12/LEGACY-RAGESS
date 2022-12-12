@@ -30,133 +30,14 @@ struct StructHolderToStringConverter {
         convertedHolder.typealiases = stringTypealiases
         
         // initializerをString型に変換する
-//        for initializer in structHolder.initializers {
-//            var stringInit = ""
-//            if initializer.isConvenience {
-//                stringInit += "convenience "
-//            }
-//            stringInit += "init"
-//            if initializer.isFailable {
-//                stringInit += "?"
-//            }
-//            stringInit += "("
-//            for (index, param) in initializer.parameters.enumerated() {
-//                stringInit += param.name! + ": "
-//                switch param.kind {
-//                case .literal:
-//                    stringInit += param.literalType!
-//                case .array:
-//                    stringInit += "[" + param.arrayType! + "]"
-//                case .dictionary:
-//                    stringInit += "[" + param.dictionaryKeyType! + ": " + param.dictionaryValueType! + "]"
-//                case .tuple:
-//                    stringInit += "("
-//                    for (index, type) in param.tupleTypes.enumerated() {
-//                        stringInit += type
-//                        // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-//                        if index != param.tupleTypes.count - 1 {
-//                            stringInit += ", "
-//                        }
-//                    } // for (index, type) in param.tupleTypes.enumerated()
-//                    stringInit += ")"
-//                case .opaqueResultType:
-//                    break
-//                } // switch param.kind
-//                if param.isOptionalType {
-//                    stringInit += "?"
-//                }
-//                if let initialValue = param.initialValue {
-//                    stringInit += " = " + initialValue
-//                }
-//
-//                // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
-//                if index != initializer.parameters.count - 1 {
-//                    stringInit += ", "
-//                }
-//            } // for param in initializer.parameters
-//            stringInit += ")"
-//            convertedHolder.initializers.append(stringInit)
-//        } // for initializer in structHolder.initializers
-        
         let initializerConverter = InitializerHolderToStringConverter()
         let stringInitializers = initializerConverter.convertToString(initializerHolders: structHolder.initializers)
         convertedHolder.initializers = stringInitializers
         
         // variableをString型に変換する
-        for variable in structHolder.variables {
-            let icon = variable.accessLevel.icon
-            var stringVar = icon
-            if icon != AccessLevel.internal.icon {
-                stringVar += " "
-            }
-            
-            if let attribute = variable.customAttribute {
-                stringVar += attribute + " "
-            }
-            if variable.isStatic {
-                stringVar += "static "
-            }
-            if variable.isLazy {
-                stringVar += "lazy "
-            }
-            if variable.isConstant {
-                stringVar += "let "
-            } else {
-                stringVar += "var "
-            }
-            stringVar += variable.name
-            stringVar += ": "
-            
-            switch variable.kind {
-            case .literal:
-                stringVar += variable.literalType!
-            case .array:
-                stringVar += "[" + variable.arrayType! + "]"
-            case .dictionary:
-                stringVar += "[" + variable.dictionaryKeyType! + ": " + variable.dictionaryValueType! + "]"
-            case .tuple:
-                stringVar += "("
-                for (index, type) in variable.tupleTypes.enumerated() {
-                    stringVar += type
-                    if index != variable.tupleTypes.count - 1 {
-                        stringVar += ", "
-                    }
-                } // for (index, type) in variable.tupleTypes.enumerated()
-                stringVar += ")"
-            case .opaqueResultType:
-                stringVar += "some " + variable.conformedProtocolByOpaqueResultType!
-            } // switch variable.kind
-            
-            if variable.isOptionalType {
-                stringVar += "?"
-            }
-            
-//            if let protocolName = variable.conformedProtocolByOpaqueResultType {
-//                stringVar += "some " + protocolName
-//            }
-            
-            if let initialValue = variable.initialValue {
-                stringVar += " = " + initialValue
-            }
-            
-            if variable.haveWillSet || variable.haveDidSet || variable.haveGetter || variable.haveSetter  {
-                stringVar += " { "
-                if variable.haveWillSet {
-                    stringVar += "willSet "
-                }
-                if variable.haveDidSet {
-                    stringVar += "didSet "
-                }
-                if variable.haveGetter {
-                    stringVar += "get "
-                }
-                if variable.haveSetter {
-                    stringVar += "set "
-                }
-                stringVar += "}"
-            } // if variable.haveWillSet || variable.haveDidSet || variable.haveGetter || variable.haveSetter
-            convertedHolder.variables.append(stringVar)
-        } // for variable in structHolder.variables
+        let variableConverter = VariableHolderToStringConverter()
+        let stringVariables = variableConverter.convertToString(variableHolders: structHolder.variables)
+        convertedHolder.variables = stringVariables
         
         // functionをString型に変換する
         for function in structHolder.functions {
