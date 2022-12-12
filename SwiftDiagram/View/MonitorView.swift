@@ -18,7 +18,19 @@ struct MonitorView: View {
     
     var body: some View {
         VStack {
-            Text("\(monitor.content)")
+            HStack {
+                ScrollView {
+                    Text("Content")
+                    Divider()
+                    Text(monitor.content)
+                }
+                ScrollView {
+                    Text("ConvertedContent")
+                    Divider()
+                    Text(monitor.convertedContent)
+                }
+            }
+//            Text("\(monitor.content)")
             
             Divider()
             

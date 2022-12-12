@@ -295,6 +295,7 @@ struct SyntaxArrayParser {
                 let protocolName = parsedElementArray[1]
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+                variableHolderStackArray[positionInVariableHolderStackArray].kind = .opaqueResultType
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .InitialValueOfVariable:

@@ -13,4 +13,5 @@ enum VariableKind {
     case array
     case dictionary
     case tuple
+    case opaqueResultType
 }

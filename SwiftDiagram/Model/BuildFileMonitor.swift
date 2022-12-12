@@ -11,6 +11,7 @@ import SwiftSyntaxParser
 
 class BuildFileMonitor: ObservableObject {
     @Published var content = ""
+    @Published var convertedContent = ""
     private var monitoredFolderFileDescriptor: CInt = -1
     private let folderMonitorQueue = DispatchQueue(label: "BuildFileMonitorQueue", attributes: .concurrent)
     private var buildFileMonitorSource: DispatchSourceFileSystemObject?
@@ -50,6 +51,7 @@ class BuildFileMonitor: ObservableObject {
             
             DispatchQueue.main.async {
                 self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
+                self!.convertedContent = ""
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
             }
         }
@@ -109,11 +111,19 @@ class BuildFileMonitor: ObservableObject {
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
-                    addStructToContent(structHolders: syntaxArrayParser.getResultStructHolders())
+                    let resultStructHolders = syntaxArrayParser.getResultStructHolders()
+                    
+                    addStructToContent(structHolders: resultStructHolders)
                     addClassToContent(classHolders: syntaxArrayParser.getResultClassHolders())
                     addEnumToContent(enumHolders: syntaxArrayParser.getResultEnumHolders())
                     addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
                     addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
+                    
+//                    for structHolder in resultStructHolders {
+//                        let converter = StructHolderToStringConverter()
+//                        let convertedStructHolder = converter.convertToString(structHolder: structHolder)
+//                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+//                    }
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
                 }
@@ -124,6 +134,7 @@ class BuildFileMonitor: ObservableObject {
     } // func parseSwiftFiles(url: URL)
     
     private func addStructToContent(structHolders: [StructHolder]) {
+        let converter = StructHolderToStringConverter()
         for structHolder in structHolders {
             content += "-----Struct-----\n"
             content += "name: \(structHolder.name)\n"
@@ -147,6 +158,9 @@ class BuildFileMonitor: ObservableObject {
             
             addExtensionToContent(extensionHolders: structHolder.extensions)
             content += "\n"
+            
+            let convertedStructHolder = converter.convertToString(structHolder: structHolder)
+            addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
         } // for structHolder
     } // func addStructToContent(structHolders: [StructHolder])
     
@@ -508,4 +522,61 @@ class BuildFileMonitor: ObservableObject {
             } // for typealiasHolder in typealiases
         } // if 0 < typealiases.count
     } // func addTypealiasToContent(typealiases: [TypealiasHolder])
+    
+    private func addStringStructToConvertedContent(stringStructHolder: ConvertedToStringStructHolder) {
+//        for structHolder in stringStructHolders {
+//
+//        } // for structHolder in stringStructHolders
+        convertedContent += "=== Header ===\n"
+        if stringStructHolder.accessLevelIcon == AccessLevel.internal.icon {
+            convertedContent += "Struct\n"
+        } else {
+            convertedContent += stringStructHolder.accessLevelIcon + " Struct\n"
+        }
+        convertedContent += stringStructHolder.name + "\n"
+        
+        if 0 < stringStructHolder.generics.count {
+            convertedContent += "=== Generic ===\n"
+            for generic in stringStructHolder.generics {
+                convertedContent += generic + "\n"
+            }
+        }
+        
+        if 0 < stringStructHolder.conformingProtocolNames.count {
+            convertedContent += "=== Protocol ===\n"
+            for protocolName in stringStructHolder.conformingProtocolNames {
+                convertedContent += protocolName + "\n"
+            }
+        }
+        
+        if 0 < stringStructHolder.typealiases.count {
+            convertedContent += "=== Typealias ===\n"
+            for alias in stringStructHolder.typealiases {
+                convertedContent += alias + "\n"
+            }
+        }
+        
+        if 0 < stringStructHolder.initializers.count {
+            convertedContent += "=== Initializer ===\n"
+            for initializer in stringStructHolder.initializers {
+                convertedContent += initializer + "\n"
+            }
+        }
+        
+        if 0 < stringStructHolder.variables.count {
+            convertedContent += "=== Property ===\n"
+            for variable in stringStructHolder.variables {
+                convertedContent += variable + "\n"
+            }
+        }
+        
+        if 0 < stringStructHolder.functions.count {
+            convertedContent += "=== Function ===\n"
+            for function in stringStructHolder.functions {
+                convertedContent += function + "\n"
+            }
+        }
+        
+        convertedContent += "\n"
+    } // func addStringStructToStringType(stringStructHolders: [ConvertedToStringStructHolder])
 }

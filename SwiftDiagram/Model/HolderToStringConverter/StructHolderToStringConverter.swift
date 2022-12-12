@@ -51,6 +51,8 @@ struct StructHolderToStringConverter {
                     }
                 }
                 stringAlias += ")"
+            case .opaqueResultType:
+                break
             }
             convertedHolder.typealiases.append(stringAlias)
         } // for alias in structHolder.typealiases
@@ -66,7 +68,7 @@ struct StructHolderToStringConverter {
                 stringInit += "?"
             }
             stringInit += "("
-            for param in initializer.parameters {
+            for (index, param) in initializer.parameters.enumerated() {
                 stringInit += param.name! + ": "
                 switch param.kind {
                 case .literal:
@@ -85,6 +87,8 @@ struct StructHolderToStringConverter {
                         }
                     } // for (index, type) in param.tupleTypes.enumerated()
                     stringInit += ")"
+                case .opaqueResultType:
+                    break
                 } // switch param.kind
                 if param.isOptionalType {
                     stringInit += "?"
@@ -92,15 +96,26 @@ struct StructHolderToStringConverter {
                 if let initialValue = param.initialValue {
                     stringInit += " = " + initialValue
                 }
+                
+                // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
+                if index != initializer.parameters.count - 1 {
+                    stringInit += ", "
+                }
             } // for param in initializer.parameters
             stringInit += ")"
+            convertedHolder.initializers.append(stringInit)
         } // for initializer in structHolder.initializers
         
         // variableをString型に変換する
         for variable in structHolder.variables {
-            var stringVar = variable.accessLevel.icon + " "
+            let icon = variable.accessLevel.icon
+            var stringVar = icon
+            if icon != AccessLevel.internal.icon {
+                stringVar += " "
+            }
+            
             if let attribute = variable.customAttribute {
-                stringVar += attribute
+                stringVar += attribute + " "
             }
             if variable.isStatic {
                 stringVar += "static "
@@ -132,14 +147,20 @@ struct StructHolderToStringConverter {
                     }
                 } // for (index, type) in variable.tupleTypes.enumerated()
                 stringVar += ")"
+            case .opaqueResultType:
+                stringVar += "some " + variable.conformedProtocolByOpaqueResultType!
             } // switch variable.kind
             
             if variable.isOptionalType {
                 stringVar += "?"
             }
             
-            if let protocolName = variable.conformedProtocolByOpaqueResultType {
-                stringVar += "some " + protocolName
+//            if let protocolName = variable.conformedProtocolByOpaqueResultType {
+//                stringVar += "some " + protocolName
+//            }
+            
+            if let initialValue = variable.initialValue {
+                stringVar += " = " + initialValue
             }
             
             if variable.haveWillSet || variable.haveDidSet || variable.haveGetter || variable.haveSetter  {
@@ -163,7 +184,12 @@ struct StructHolderToStringConverter {
         
         // functionをString型に変換する
         for function in structHolder.functions {
-            var stringFunc = function.accessLevel.icon + " "
+            let icon = function.accessLevel.icon
+            var stringFunc = icon
+            if icon != AccessLevel.internal.icon {
+                stringFunc += " "
+            }
+//            var stringFunc = function.accessLevel.icon + " "
             
             if function.isStatic {
                 stringFunc += "static "
@@ -195,7 +221,7 @@ struct StructHolderToStringConverter {
             } // if 0 < function.generics.count
             stringFunc += "("
             
-            for param in function.parameters {
+            for (index, param) in function.parameters.enumerated() {
                 if let externalName = param.externalName {
                     stringFunc += externalName + " "
                 }
@@ -222,6 +248,8 @@ struct StructHolderToStringConverter {
                         }
                     } // for (index, type) in param.tupleTypes.enumerated()
                     stringFunc += ")"
+                case .opaqueResultType:
+                    break
                 } // switch param.kind
                 
                 if param.isOptionalType {
@@ -232,6 +260,11 @@ struct StructHolderToStringConverter {
                 }
                 if let initialValue = param.initialValue {
                     stringFunc += " = " + initialValue
+                }
+                
+                // 配列の最後の要素以外のとき、要素を区切る ", " を追加する
+                if index != function.parameters.count - 1 {
+                    stringFunc += ", "
                 }
             } // for param in function.parameters
             stringFunc += ")"
@@ -255,6 +288,8 @@ struct StructHolderToStringConverter {
                         }
                     } // for (index, type) in returnValue.tupleTypes.enumerated()
                     stringFunc += ")"
+                case .opaqueResultType:
+                    break
                 } // switch returnValue.kind
                 
                 if returnValue.isOptional {
