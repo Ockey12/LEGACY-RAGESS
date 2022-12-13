@@ -48,32 +48,32 @@ struct ProtocolHolderToStringConverter {
         let stringFunctions = functionConverter.convertToString(functionHolders: protocolHolder.functions)
         convertedHolder.functions = stringFunctions
         
-        // ネストしているStructHolderをConvertedToStringStructHolder型に変換する
-        if 0 < protocolHolder.nestingStructs.count {
-            let converter = StructHolderToStringConverter()
-            for nestedStruct in protocolHolder.nestingStructs {
-                let convertedContent = converter.convertToString(structHolder: nestedStruct)
-                convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
-            }
-        } // if 0 < protocolHolder.nestingStructs.count
-        
-        // ネストしているClassHolderをString型に変換する
-        if 0 < protocolHolder.nestingClasses.count {
-            let converter = ClassHolderToStringConverter()
-            for nestedClass in protocolHolder.nestingClasses {
-                let convertedContent = converter.convertToString(classHolder: nestedClass)
-                convertedHolder.nestingConvertedToStringClassHolders.append(convertedContent)
-            }
-        } // if 0 < protocolHolder.nestingClasses.count
-        
-        // ネストしているEnumHolderをString型に変換する
-        if 0 < protocolHolder.nestingEnums.count {
-            let converter = EnumHolderToStringConverter()
-            for nestedEnum in protocolHolder.nestingEnums {
-                let convertedContent = converter.convertToString(enumHolder: nestedEnum)
-                convertedHolder.nestingConvertedToStringEnumHolders.append(convertedContent)
-            }
-        } // if 0 < protocolHolder.nestingEnums.count
+//        // ネストしているStructHolderをConvertedToStringStructHolder型に変換する
+//        if 0 < protocolHolder.nestingStructs.count {
+//            let converter = StructHolderToStringConverter()
+//            for nestedStruct in protocolHolder.nestingStructs {
+//                let convertedContent = converter.convertToString(structHolder: nestedStruct)
+//                convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
+//            }
+//        } // if 0 < protocolHolder.nestingStructs.count
+//        
+//        // ネストしているClassHolderをString型に変換する
+//        if 0 < protocolHolder.nestingClasses.count {
+//            let converter = ClassHolderToStringConverter()
+//            for nestedClass in protocolHolder.nestingClasses {
+//                let convertedContent = converter.convertToString(classHolder: nestedClass)
+//                convertedHolder.nestingConvertedToStringClassHolders.append(convertedContent)
+//            }
+//        } // if 0 < protocolHolder.nestingClasses.count
+//        
+//        // ネストしているEnumHolderをString型に変換する
+//        if 0 < protocolHolder.nestingEnums.count {
+//            let converter = EnumHolderToStringConverter()
+//            for nestedEnum in protocolHolder.nestingEnums {
+//                let convertedContent = converter.convertToString(enumHolder: nestedEnum)
+//                convertedHolder.nestingConvertedToStringEnumHolders.append(convertedContent)
+//            }
+//        } // if 0 < protocolHolder.nestingEnums.count
         
         /**
          ExtensionHolderをConvertedToStringExtensionHolder型に変換する
