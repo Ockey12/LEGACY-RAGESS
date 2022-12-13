@@ -135,7 +135,13 @@ class BuildFileMonitor: ObservableObject {
                         addStringEnumToConvertedContent(stringEnumHolder: convertedEnumHolder)
                     }
                     
-                    addProtocolToContent(protocolHolders: syntaxArrayParser.getResultProtocolHolders())
+                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
+                    addProtocolToContent(protocolHolders: resultProtocolHolders)
+                    for protocolHolder in resultProtocolHolders {
+                        let converter = ProtocolHolderToStringConverter()
+                        let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
+                        addStringProtocolToConvertedContent(stringProtocoltHolder: convertedProtocolHolder)
+                    }
                     addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
@@ -592,7 +598,7 @@ class BuildFileMonitor: ObservableObject {
             for nestedStruct in stringStructHolder.nestingConvertedToStringStructHolders {
                 addStringStructToConvertedContent(stringStructHolder: nestedStruct)
             }
-        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
+        }
         
         if 0 < stringStructHolder.nestingConvertedToStringClassHolders.count {
             convertedContent += "=== Nest ===\n"
@@ -672,7 +678,7 @@ class BuildFileMonitor: ObservableObject {
             for nestedStruct in stringClassHolder.nestingConvertedToStringStructHolders {
                 addStringStructToConvertedContent(stringStructHolder: nestedStruct)
             }
-        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
+        }
         
         if 0 < stringClassHolder.nestingConvertedToStringClassHolders.count {
             convertedContent += "=== Nest ===\n"
@@ -759,7 +765,7 @@ class BuildFileMonitor: ObservableObject {
             for nestedStruct in stringEnumHolder.nestingConvertedToStringStructHolders {
                 addStringStructToConvertedContent(stringStructHolder: nestedStruct)
             }
-        } // if 0 < stringStructHolder.nestingConvertedToStringStructHolders.count
+        }
         
         if 0 < stringEnumHolder.nestingConvertedToStringClassHolders.count {
             convertedContent += "=== Nest ===\n"
@@ -777,4 +783,79 @@ class BuildFileMonitor: ObservableObject {
         
         convertedContent += "\n"
     } // func addStringEnumToConvertedContent(stringEnumHolder: ConvertedToStringEnumHolder)
+    
+    private func addStringProtocolToConvertedContent(stringProtocoltHolder: ConvertedToStringProtocolHolder) {
+        convertedContent += "=== Header ===\n"
+        if stringProtocoltHolder.accessLevelIcon == AccessLevel.internal.icon {
+            convertedContent += "Protocol\n"
+        } else {
+            convertedContent += stringProtocoltHolder.accessLevelIcon + " Protocol\n"
+        }
+        convertedContent += stringProtocoltHolder.name + "\n"
+        
+        if 0 < stringProtocoltHolder.conformingProtocolNames.count {
+            convertedContent += "=== Protocol ===\n"
+            for protocolName in stringProtocoltHolder.conformingProtocolNames {
+                convertedContent += protocolName + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.associatedTypes.count {
+            convertedContent += "=== AssociatedType ===\n"
+            for type in stringProtocoltHolder.associatedTypes {
+                convertedContent += type + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.typealiases.count {
+            convertedContent += "=== Typealias ===\n"
+            for alias in stringProtocoltHolder.typealiases {
+                convertedContent += alias + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.initializers.count {
+            convertedContent += "=== Initializer ===\n"
+            for initializer in stringProtocoltHolder.initializers {
+                convertedContent += initializer + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.variables.count {
+            convertedContent += "=== Property ===\n"
+            for variable in stringProtocoltHolder.variables {
+                convertedContent += variable + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.functions.count {
+            convertedContent += "=== Function ===\n"
+            for function in stringProtocoltHolder.functions {
+                convertedContent += function + "\n"
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.nestingConvertedToStringStructHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedStruct in stringProtocoltHolder.nestingConvertedToStringStructHolders {
+                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.nestingConvertedToStringClassHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedClass in stringProtocoltHolder.nestingConvertedToStringClassHolders {
+                addStringClassToConvertedContent(stringClassHolder: nestedClass)
+            }
+        }
+        
+        if 0 < stringProtocoltHolder.nestingConvertedToStringEnumHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedEnum in stringProtocoltHolder.nestingConvertedToStringEnumHolders {
+                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
+        convertedContent += "\n"
+    } // func addStringProtocolToConvertedContent(stringProtocoltHolder: ConvertedToStringProtocolHolder)
 }

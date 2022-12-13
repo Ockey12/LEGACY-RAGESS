@@ -60,7 +60,7 @@ struct StructHolderToStringConverter {
                 let convertedContent = converter.convertToString(classHolder: nestedClass)
                 convertedHolder.nestingConvertedToStringClassHolders.append(convertedContent)
             }
-        } // if 0 < classHolder.nestingClasses.count
+        } // if 0 < structHolder.nestingClasses.count
         
         // ネストしているEnumHolderをString型に変換する
         if 0 < structHolder.nestingEnums.count {
@@ -69,7 +69,7 @@ struct StructHolderToStringConverter {
                 let convertedContent = converter.convertToString(enumHolder: nestedEnum)
                 convertedHolder.nestingConvertedToStringEnumHolders.append(convertedContent)
             }
-        }
+        } // if 0 < structHolder.nestingEnums.count
         
         /**
          ExtensionHolderをConvertedToStringExtensionHolder型に変換する
