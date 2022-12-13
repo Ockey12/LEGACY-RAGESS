@@ -93,9 +93,14 @@ struct EnumHolderToStringConverter {
             }
         }
         
-        /**
-         ExtensionHolderをConvertedToStringExtensionHolder型に変換する
-         */
+        // ExtensionHolderをConvertedToStringExtensionHolder型に変換する
+        if 0 < enumHolder.extensions.count {
+            let converter = ExtensionHolderToStringConverter()
+            for extensionHolder in enumHolder.extensions {
+                let convertedContent = converter.convertToString(extensionHolder: extensionHolder)
+                convertedHolder.extensions.append(convertedContent)
+            }
+        }
         
         return convertedHolder
     } // func convertToString(enumHolder: EnumHolder) -> ConvertedToStringEnumHolder

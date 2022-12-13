@@ -51,7 +51,7 @@ struct StructHolderToStringConverter {
                 let convertedContent = converter.convertToString(structHolder: nestedStruct)
                 convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
             }
-        } // if 0 < structHolder.nestingStructs.count
+        }
         
         // ネストしているClassHolderをString型に変換する
         if 0 < structHolder.nestingClasses.count {
@@ -60,7 +60,7 @@ struct StructHolderToStringConverter {
                 let convertedContent = converter.convertToString(classHolder: nestedClass)
                 convertedHolder.nestingConvertedToStringClassHolders.append(convertedContent)
             }
-        } // if 0 < structHolder.nestingClasses.count
+        }
         
         // ネストしているEnumHolderをString型に変換する
         if 0 < structHolder.nestingEnums.count {
@@ -69,11 +69,17 @@ struct StructHolderToStringConverter {
                 let convertedContent = converter.convertToString(enumHolder: nestedEnum)
                 convertedHolder.nestingConvertedToStringEnumHolders.append(convertedContent)
             }
-        } // if 0 < structHolder.nestingEnums.count
+        }
+
+        // ExtensionHolderをConvertedToStringExtensionHolder型に変換する
+        if 0 < structHolder.extensions.count {
+            let converter = ExtensionHolderToStringConverter()
+            for extensionHolder in structHolder.extensions {
+                let convertedContent = converter.convertToString(extensionHolder: extensionHolder)
+                convertedHolder.extensions.append(convertedContent)
+            }
+        }
         
-        /**
-         ExtensionHolderをConvertedToStringExtensionHolder型に変換する
-         */
         return convertedHolder
     } // func convertToString(structHolder: StructHolder) -> ConvertedToStringStructHolder
 }

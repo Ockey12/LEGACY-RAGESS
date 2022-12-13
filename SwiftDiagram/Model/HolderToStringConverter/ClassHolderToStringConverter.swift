@@ -74,9 +74,14 @@ struct ClassHolderToStringConverter {
             }
         }
         
-        /**
-         ExtensionHolderをConvertedToStringExtensionHolder型に変換する
-         */
+        // ExtensionHolderをConvertedToStringExtensionHolder型に変換する
+        if 0 < classHolder.extensions.count {
+            let converter = ExtensionHolderToStringConverter()
+            for extensionHolder in classHolder.extensions {
+                let convertedContent = converter.convertToString(extensionHolder: extensionHolder)
+                convertedHolder.extensions.append(convertedContent)
+            }
+        }
         
         return convertedHolder
     } // func convertToString(classHolder: ClassHolder) -> ConvertedToStringClassHolder

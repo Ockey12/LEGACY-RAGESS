@@ -614,6 +614,12 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
+        if 0 < stringStructHolder.extensions.count {
+            for extensionHolder in stringStructHolder.extensions {
+                addStringExtensionToConvertedContent(stringExtensionHolder: extensionHolder)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringStructToStringType(stringStructHolders: [ConvertedToStringStructHolder])
     
@@ -691,6 +697,12 @@ class BuildFileMonitor: ObservableObject {
             convertedContent += "=== Nest ===\n"
             for nestedEnum in stringClassHolder.nestingConvertedToStringEnumHolders {
                 addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
+        if 0 < stringClassHolder.extensions.count {
+            for extensionHolder in stringClassHolder.extensions {
+                addStringExtensionToConvertedContent(stringExtensionHolder: extensionHolder)
             }
         }
         
@@ -781,6 +793,12 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
+        if 0 < stringEnumHolder.extensions.count {
+            for extensionHolder in stringEnumHolder.extensions {
+                addStringExtensionToConvertedContent(stringExtensionHolder: extensionHolder)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringEnumToConvertedContent(stringEnumHolder: ConvertedToStringEnumHolder)
     
@@ -835,6 +853,74 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
+        if 0 < stringProtocoltHolder.extensions.count {
+            for extensionHolder in stringProtocoltHolder.extensions {
+                addStringExtensionToConvertedContent(stringExtensionHolder: extensionHolder)
+            }
+        }
+        
         convertedContent += "\n"
     } // func addStringProtocolToConvertedContent(stringProtocoltHolder: ConvertedToStringProtocolHolder)
+    
+    private func addStringExtensionToConvertedContent(stringExtensionHolder: ConvertedToStringExtensionHolder) {
+        convertedContent += "=== Extension ===\n"
+        
+        if 0 < stringExtensionHolder.conformingProtocolNames.count {
+            convertedContent += "=== Protocol ===\n"
+            for protocolName in stringExtensionHolder.conformingProtocolNames {
+                convertedContent += protocolName + "\n"
+            }
+        }
+        
+        if 0 < stringExtensionHolder.typealiases.count {
+            convertedContent += "=== Typealias ===\n"
+            for alias in stringExtensionHolder.typealiases {
+                convertedContent += alias + "\n"
+            }
+        }
+        
+        if 0 < stringExtensionHolder.initializers.count {
+            convertedContent += "=== Initializer ===\n"
+            for initializer in stringExtensionHolder.initializers {
+                convertedContent += initializer + "\n"
+            }
+        }
+        
+        if 0 < stringExtensionHolder.variables.count {
+            convertedContent += "=== Property ===\n"
+            for variable in stringExtensionHolder.variables {
+                convertedContent += variable + "\n"
+            }
+        }
+        
+        if 0 < stringExtensionHolder.functions.count {
+            convertedContent += "=== Function ===\n"
+            for function in stringExtensionHolder.functions {
+                convertedContent += function + "\n"
+            }
+        }
+        
+        if 0 < stringExtensionHolder.nestingConvertedToStringStructHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedStruct in stringExtensionHolder.nestingConvertedToStringStructHolders {
+                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
+            }
+        }
+        
+        if 0 < stringExtensionHolder.nestingConvertedToStringClassHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedClass in stringExtensionHolder.nestingConvertedToStringClassHolders {
+                addStringClassToConvertedContent(stringClassHolder: nestedClass)
+            }
+        }
+        
+        if 0 < stringExtensionHolder.nestingConvertedToStringEnumHolders.count {
+            convertedContent += "=== Nest ===\n"
+            for nestedEnum in stringExtensionHolder.nestingConvertedToStringEnumHolders {
+                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
+            }
+        }
+        
+        convertedContent += "\n"
+    } // func addStringExtensionToConvertedContent(stringExtensionHolder: ConvertedToStringExtensionHolder)
 }
