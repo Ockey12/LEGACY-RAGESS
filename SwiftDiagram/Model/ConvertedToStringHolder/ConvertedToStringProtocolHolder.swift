@@ -21,9 +21,5 @@ struct ConvertedToStringProtocolHolder {
     
     var functions = [String]()
     
-//    var nestingConvertedToStringStructHolders = [ConvertedToStringStructHolder]()
-//    var nestingConvertedToStringClassHolders = [ConvertedToStringClassHolder]()
-//    var nestingConvertedToStringEnumHolders = [ConvertedToStringEnumHolder]()
-    
     var extensions = [ConvertedToStringExtensionHolder]()
 }

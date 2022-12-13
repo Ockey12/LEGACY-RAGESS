@@ -835,27 +835,6 @@ class BuildFileMonitor: ObservableObject {
             }
         }
         
-//        if 0 < stringProtocoltHolder.nestingConvertedToStringStructHolders.count {
-//            convertedContent += "=== Nest ===\n"
-//            for nestedStruct in stringProtocoltHolder.nestingConvertedToStringStructHolders {
-//                addStringStructToConvertedContent(stringStructHolder: nestedStruct)
-//            }
-//        }
-//        
-//        if 0 < stringProtocoltHolder.nestingConvertedToStringClassHolders.count {
-//            convertedContent += "=== Nest ===\n"
-//            for nestedClass in stringProtocoltHolder.nestingConvertedToStringClassHolders {
-//                addStringClassToConvertedContent(stringClassHolder: nestedClass)
-//            }
-//        }
-//        
-//        if 0 < stringProtocoltHolder.nestingConvertedToStringEnumHolders.count {
-//            convertedContent += "=== Nest ===\n"
-//            for nestedEnum in stringProtocoltHolder.nestingConvertedToStringEnumHolders {
-//                addStringEnumToConvertedContent(stringEnumHolder: nestedEnum)
-//            }
-//        }
-        
         convertedContent += "\n"
     } // func addStringProtocolToConvertedContent(stringProtocoltHolder: ConvertedToStringProtocolHolder)
 }
