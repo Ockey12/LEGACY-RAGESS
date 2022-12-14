@@ -92,7 +92,17 @@ struct StructView: View {
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
                     .background(.yellow)
-                }
+                } // if 0 < holder.initializers.count
+                
+                // property
+                if 0 < holder.variables.count {
+                    DetailComponentView(componentType: .property,
+                                        strings: holder.variables,
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: connectionHeight + itemHeight*CGFloat(holder.variables.count) + bottomPaddingForLastText)
+                    .background(.cyan)
+                } // if 0 < holder.variables.count
                 
             } // VStack
             

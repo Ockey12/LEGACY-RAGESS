@@ -17,7 +17,11 @@ struct ContentView: View {
                                                      initializers: ["initializer",
                                                                    "initializerinitializer",
                                                                    "initializerinitializerinitializerinitializer",
-                                                                   "initializerinitializer"]
+                                                                   "initializerinitializer"],
+                                                     variables: ["variable",
+                                                                "variablevariablevariable",
+                                                                "variablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariable"]
     )
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
 //functions: ["FunctionFunction", "FunctionFunctionFunction"]
