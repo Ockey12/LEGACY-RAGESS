@@ -32,7 +32,6 @@
 		AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */; };
 		AC34B3932949CBBA0029479C /* IndexComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */; };
 		AC34B3952949CD070029479C /* IndexComponentFrameWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */; };
-		AC34B3972949CDC30029479C /* HeaderComponentSettingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */; };
 		AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */; };
 		AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39A294A1B130029479C /* HeaderComponentFrameWithText.swift */; };
 		AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */; };
@@ -98,7 +97,6 @@
 		AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSettingValues.swift; sourceTree = "<group>"; };
 		AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexComponentFrame.swift; sourceTree = "<group>"; };
 		AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexComponentFrameWithText.swift; sourceTree = "<group>"; };
-		AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentSettingValues.swift; sourceTree = "<group>"; };
 		AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentFrame.swift; sourceTree = "<group>"; };
 		AC34B39A294A1B130029479C /* HeaderComponentFrameWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentFrameWithText.swift; sourceTree = "<group>"; };
 		AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentView.swift; sourceTree = "<group>"; };
@@ -185,6 +183,7 @@
 			children = (
 				AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */,
 				AC34B38F2949CA450029479C /* HeaderComponent */,
+				AC34B39E294A20DB0029479C /* DetailComponent */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -192,7 +191,6 @@
 		AC34B38F2949CA450029479C /* HeaderComponent */ = {
 			isa = PBXGroup;
 			children = (
-				AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */,
 				AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */,
 				AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */,
 				AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */,
@@ -200,6 +198,13 @@
 				AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */,
 			);
 			path = HeaderComponent;
+			sourceTree = "<group>";
+		};
+		AC34B39E294A20DB0029479C /* DetailComponent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailComponent;
 			sourceTree = "<group>";
 		};
 		AC3BF409292227770096810E = {
@@ -426,7 +431,6 @@
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
-				AC34B3972949CDC30029479C /* HeaderComponentSettingValues.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,

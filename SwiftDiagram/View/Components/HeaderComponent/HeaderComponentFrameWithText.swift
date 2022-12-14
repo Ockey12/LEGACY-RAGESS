@@ -11,12 +11,11 @@ struct HeaderComponentFrameWithText: View {
     let nameOfType: String
     let bodyWidth: CGFloat
     
-    let itemHeight = HeaderComponentSettingValues.itemHeight
-    let arrowTerminalWidth = HeaderComponentSettingValues.arrowTerminalWidth
-    let textLeadingPadding = HeaderComponentSettingValues.textLeadingPadding
-    let textTrailPadding = HeaderComponentSettingValues.textTrailPadding
-    let borderWidth = HeaderComponentSettingValues.borderWidth
-    let fontSize = HeaderComponentSettingValues.fontSize
+    let itemHeight = ComponentSettingValues.itemHeight
+    let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
+    let textLeadingPadding = ComponentSettingValues.textLeadingPadding
+    let borderWidth = ComponentSettingValues.borderWidth
+    let fontSize = ComponentSettingValues.fontSize
     
     var body: some View {
         ZStack {
@@ -29,7 +28,7 @@ struct HeaderComponentFrameWithText: View {
             
             Text(nameOfType)
                 .lineLimit(1)
-                .font(.system(size: 50))
+                .font(.system(size: fontSize))
                 .foregroundColor(.black)
                 .background(.white)
                 .frame(width: bodyWidth, alignment: .leading)

@@ -13,8 +13,8 @@ struct HeaderComponentView: View {
     let nameOfType: String
     let bodyWidth: CGFloat
     
-    let itemHeight = HeaderComponentSettingValues.itemHeight
-    let arrowTerminalWidth = HeaderComponentSettingValues.arrowTerminalWidth
+    let itemHeight = ComponentSettingValues.itemHeight
+    let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     
     var body: some View {
         ZStack(alignment: .topLeading) {

@@ -17,8 +17,14 @@ struct ComponentSettingValues {
     
     static let arrowTerminalWidth: CGFloat = 15
     static let arrowTerminalHeight: CGFloat = 30
+    static var oneVerticalLineWithoutArrow: CGFloat {
+        (self.itemHeight - self.arrowTerminalHeight)/2
+    }
     
     static let bottomPaddingForLastText: CGFloat = 30
     static let textLeadingPadding: CGFloat = 30
     static let textTrailPadding: CGFloat = 100
+    
+    // HeaderComponent
+    static let indexWidth: CGFloat = 300
 }

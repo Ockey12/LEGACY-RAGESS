@@ -13,14 +13,12 @@ struct HeaderComponentFrame: Shape {
         (bodyWidth - connectionWidth) / 2 + arrowTerminalWidth
     }
     
-    let connectionWidth = HeaderComponentSettingValues.connectionWidth
-    let connectionHeight = HeaderComponentSettingValues.connectionHeight
-    let itemHeight = HeaderComponentSettingValues.itemHeight
-    let oneVerticalLineWithoutArrow = HeaderComponentSettingValues.oneVerticalLineWithoutArrow
-    let arrowTerminalWidth = HeaderComponentSettingValues.arrowTerminalWidth
-    let arrowTerminalHeight = HeaderComponentSettingValues.arrowTerminalHeight
-    let bottomPaddingForLastText = HeaderComponentSettingValues.bottomPaddingForLastText
-    let borderWidth = HeaderComponentSettingValues.borderWidth
+    let connectionWidth = ComponentSettingValues.connectionWidth
+    let connectionHeight = ComponentSettingValues.connectionHeight
+    let oneVerticalLineWithoutArrow = ComponentSettingValues.oneVerticalLineWithoutArrow
+    let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
+    let arrowTerminalHeight = ComponentSettingValues.arrowTerminalHeight
+    let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
     func path(in rect: CGRect) -> Path {
         Path { path in

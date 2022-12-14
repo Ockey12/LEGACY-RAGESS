@@ -11,10 +11,10 @@ struct IndexComponentFrameWithText: View {
     let accessLevelIcon: String
     let headerComponentIndexType: IndexType
     
-    let width = HeaderComponentSettingValues.indexWidth
-    let height = HeaderComponentSettingValues.itemHeight
-    let borderWidth = HeaderComponentSettingValues.borderWidth
-    let fontSize = HeaderComponentSettingValues.fontSize
+    let width = ComponentSettingValues.indexWidth
+    let height = ComponentSettingValues.itemHeight
+    let borderWidth = ComponentSettingValues.borderWidth
+    let fontSize = ComponentSettingValues.fontSize
     
     var text: String {
         if accessLevelIcon == AccessLevel.internal.icon {
