@@ -29,12 +29,12 @@ struct DetailComponentView: View {
         case `typealias`
         case initializer
         case property
+        case method
         
         case superClass
         case rawvalueType
         case `case`
         case nest
-        case method
         case associatedType
         
         var string: String {
@@ -49,6 +49,8 @@ struct DetailComponentView: View {
                 return "Initializer"
             case .property:
                 return "Property"
+            case .method:
+                return "Method"
                 
             case .superClass:
                 return "Super Class"
@@ -58,8 +60,6 @@ struct DetailComponentView: View {
                 return "Case"
             case .nest:
                 return "Nest"
-            case .method:
-                return "Method"
             case .associatedType:
                 return "Associated Type"
             }

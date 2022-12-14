@@ -104,6 +104,16 @@ struct StructView: View {
                     .background(.cyan)
                 } // if 0 < holder.variables.count
                 
+                // method
+                if 0 < holder.functions.count {
+                    DetailComponentView(componentType: .method,
+                                        strings: holder.functions,
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
+                    .background(.indigo)
+                } // if 0 < holder.functions.count
+                
             } // VStack
             
         } // ZStack
