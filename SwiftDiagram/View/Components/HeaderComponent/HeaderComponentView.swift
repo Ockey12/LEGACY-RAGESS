@@ -13,9 +13,7 @@ struct HeaderComponentView: View {
     let nameOfType: String
     let bodyWidth: CGFloat
     
-//    let indexWidth = HeaderComponentSettingValues.indexWidth
     let itemHeight = HeaderComponentSettingValues.itemHeight
-//    let connectionHeight = HeaderComponentSettingValues.connectionHeight
     let arrowTerminalWidth = HeaderComponentSettingValues.arrowTerminalWidth
     
     var body: some View {
