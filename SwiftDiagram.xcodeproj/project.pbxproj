@@ -29,6 +29,13 @@
 		AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3832947B2250029479C /* ExtensionHolderToStringConverter.swift */; };
 		AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3852947B2510029479C /* ConvertedToStringProtocolHolder.swift */; };
 		AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3872947B2760029479C /* ProtocolHolderToStringConverter.swift */; };
+		AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */; };
+		AC34B3932949CBBA0029479C /* IndexComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */; };
+		AC34B3952949CD070029479C /* IndexComponentFrameWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */; };
+		AC34B3972949CDC30029479C /* HeaderComponentSettingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */; };
+		AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */; };
+		AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39A294A1B130029479C /* HeaderComponentFrameWithText.swift */; };
+		AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -88,6 +95,13 @@
 		AC34B3832947B2250029479C /* ExtensionHolderToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHolderToStringConverter.swift; sourceTree = "<group>"; };
 		AC34B3852947B2510029479C /* ConvertedToStringProtocolHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringProtocolHolder.swift; sourceTree = "<group>"; };
 		AC34B3872947B2760029479C /* ProtocolHolderToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolHolderToStringConverter.swift; sourceTree = "<group>"; };
+		AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSettingValues.swift; sourceTree = "<group>"; };
+		AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexComponentFrame.swift; sourceTree = "<group>"; };
+		AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexComponentFrameWithText.swift; sourceTree = "<group>"; };
+		AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentSettingValues.swift; sourceTree = "<group>"; };
+		AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentFrame.swift; sourceTree = "<group>"; };
+		AC34B39A294A1B130029479C /* HeaderComponentFrameWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentFrameWithText.swift; sourceTree = "<group>"; };
+		AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -166,6 +180,28 @@
 			path = ConvertedToStringHolder;
 			sourceTree = "<group>";
 		};
+		AC34B38E2949CA240029479C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */,
+				AC34B38F2949CA450029479C /* HeaderComponent */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AC34B38F2949CA450029479C /* HeaderComponent */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B3962949CDC30029479C /* HeaderComponentSettingValues.swift */,
+				AC34B3922949CBBA0029479C /* IndexComponentFrame.swift */,
+				AC34B3942949CD070029479C /* IndexComponentFrameWithText.swift */,
+				AC34B3982949CFE60029479C /* HeaderComponentFrame.swift */,
+				AC34B39A294A1B130029479C /* HeaderComponentFrameWithText.swift */,
+				AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */,
+			);
+			path = HeaderComponent;
+			sourceTree = "<group>";
+		};
 		AC3BF409292227770096810E = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +272,7 @@
 		AC5BAD2E2928C9B000A24BDD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC34B38E2949CA240029479C /* Components */,
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
@@ -356,15 +393,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
+				AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
 				AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
+				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,
 				AC34B376294791270029479C /* GenericHolderToStringConverter.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
@@ -386,13 +426,16 @@
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
+				AC34B3972949CDC30029479C /* HeaderComponentSettingValues.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
+				AC34B3932949CBBA0029479C /* IndexComponentFrame.swift in Sources */,
 				AC34B38029479EDB0029479C /* ClassHolderToStringConverter.swift in Sources */,
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
+				AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
@@ -405,6 +448,7 @@
 				AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */,
 				AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */,
 				AC34B36B2946F4890029479C /* StructHolderToStringConverter.swift in Sources */,
+				AC34B3952949CD070029479C /* IndexComponentFrameWithText.swift in Sources */,
 				AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */,
 				AC34B35E2940FBFB0029479C /* BuildFileMonitor.swift in Sources */,
 			);
