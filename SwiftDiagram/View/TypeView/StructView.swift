@@ -84,6 +84,16 @@ struct StructView: View {
                     .background(.pink)
                 } // if 0 < holder.typealiases.count
                 
+                // initializer
+                if 0 < holder.initializers.count {
+                    DetailComponentView(componentType: .initializer,
+                                        strings: holder.initializers,
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
+                    .background(.yellow)
+                }
+                
             } // VStack
             
         } // ZStack

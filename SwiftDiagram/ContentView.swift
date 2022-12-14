@@ -13,7 +13,11 @@ struct ContentView: View {
                                                      accessLevelIcon: AccessLevel.private.icon,
                                                      generics: ["Generics", "GenericsGenericsGenericsGenerics", "GenericsGenerics"],
                                                      conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
-                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"]
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                     initializers: ["initializer",
+                                                                   "initializerinitializer",
+                                                                   "initializerinitializerinitializerinitializer",
+                                                                   "initializerinitializer"]
     )
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
 //functions: ["FunctionFunction", "FunctionFunctionFunction"]

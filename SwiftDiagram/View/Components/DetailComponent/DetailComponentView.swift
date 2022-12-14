@@ -27,13 +27,13 @@ struct DetailComponentView: View {
         case generic
         case conform
         case `typealias`
+        case initializer
         
         case superClass
         case rawvalueType
         case `case`
         case nest
         case property
-        case initializer
         case method
         case associatedType
         
@@ -45,6 +45,8 @@ struct DetailComponentView: View {
                 return "Conform"
             case .typealias:
                 return "Typealias"
+            case .initializer:
+                return "Initializer"
                 
             case .superClass:
                 return "Super Class"
@@ -56,8 +58,6 @@ struct DetailComponentView: View {
                 return "Nest"
             case .property:
                 return "Property"
-            case .initializer:
-                return "Initializer"
             case .method:
                 return "Method"
             case .associatedType:
