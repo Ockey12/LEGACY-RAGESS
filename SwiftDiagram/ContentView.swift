@@ -9,6 +9,15 @@ import SwiftUI
 
 
 struct ContentView: View {
+    let structHolder = ConvertedToStringStructHolder(name: "NameNameNameName",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+                                                     generics: ["Generics", "GenericsGenericsGenericsGenerics", "GenericsGenerics"],
+                                                     conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"]
+    )
+//variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
+//functions: ["FunctionFunction", "FunctionFunctionFunction"]
+
     var body: some View {
         VStack {
             Spacer()
@@ -30,13 +39,16 @@ struct ContentView: View {
 //                                     numberOfItems: 6)
 //                .stroke(lineWidth: 5)
 //                .fill(.black)
-                DetailComponentView(componentType: .associatedType,
-                                    strings: ["aaaaaaaaa",
-                                             "bbbbbbbbbbbbbbbbbbb",
-                                             "ccccc",
-                                             "dddddddddddd"],
-                                    bodyWidth: 1000)
-                
+//                DetailComponentView(componentType: .associatedType,
+//                                    strings: ["aaaaaaaaa",
+//                                             "bbbbbbbbbbbbbbbbbbb",
+//                                             "ccccc",
+//                                             "dddddddddddd"],
+//                                    bodyWidth: 1000)
+                ScrollView([.vertical, .horizontal]) {
+                    StructView(holder: structHolder)
+                        .frame(width: 4000, height: 3000)
+                }
                 Spacer()
             } // HStack
             Spacer()

@@ -24,25 +24,32 @@ struct DetailComponentView: View {
     let fontSize = ComponentSettingValues.fontSize
     
     enum ComponentType {
+        case generic
+        case conform
+        case `typealias`
+        
         case superClass
         case rawvalueType
-        case conform
         case `case`
         case nest
         case property
         case initializer
         case method
         case associatedType
-        case generic
         
         var string: String {
             switch self {
+            case .generic:
+                return "Generic"
+            case .conform:
+                return "Conform"
+            case .typealias:
+                return "Typealias"
+                
             case .superClass:
                 return "Super Class"
             case .rawvalueType:
                 return "Rawvalue Type"
-            case .conform:
-                return "Conform"
             case .case:
                 return "Case"
             case .nest:
@@ -55,8 +62,6 @@ struct DetailComponentView: View {
                 return "Method"
             case .associatedType:
                 return "Associated Type"
-            case .generic:
-                return "Generic"
             }
         }
     } // enum ComponentType

@@ -8,7 +8,7 @@
 import Foundation
 
 struct ComponentSettingValues {
-    static let minWidth: CGFloat = 600
+    static let minWidth: Double = 600
     
     static let fontSize: CGFloat = 50
     static let itemHeight: CGFloat = 90

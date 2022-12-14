@@ -37,6 +37,8 @@
 		AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */; };
 		AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B39F294A24220029479C /* DetailComponentFrame.swift */; };
 		AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A1294A34E80029479C /* DetailComponentView.swift */; };
+		AC34B3A5294A405D0029479C /* StructView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A4294A405D0029479C /* StructView.swift */; };
+		AC34B3A9294A41F60029479C /* GetTextWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A8294A41F60029479C /* GetTextWidthView.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -104,6 +106,8 @@
 		AC34B39C294A1E1C0029479C /* HeaderComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderComponentView.swift; sourceTree = "<group>"; };
 		AC34B39F294A24220029479C /* DetailComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailComponentFrame.swift; sourceTree = "<group>"; };
 		AC34B3A1294A34E80029479C /* DetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailComponentView.swift; sourceTree = "<group>"; };
+		AC34B3A4294A405D0029479C /* StructView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructView.swift; sourceTree = "<group>"; };
+		AC34B3A8294A41F60029479C /* GetTextWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTextWidthView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				AC34B3902949CB2F0029479C /* ComponentSettingValues.swift */,
+				AC34B3A8294A41F60029479C /* GetTextWidthView.swift */,
 				AC34B38F2949CA450029479C /* HeaderComponent */,
 				AC34B39E294A20DB0029479C /* DetailComponent */,
 			);
@@ -211,6 +216,14 @@
 				AC34B3A1294A34E80029479C /* DetailComponentView.swift */,
 			);
 			path = DetailComponent;
+			sourceTree = "<group>";
+		};
+		AC34B3A3294A40480029479C /* TypeView */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B3A4294A405D0029479C /* StructView.swift */,
+			);
+			path = TypeView;
 			sourceTree = "<group>";
 		};
 		AC3BF409292227770096810E = {
@@ -284,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				AC34B38E2949CA240029479C /* Components */,
+				AC34B3A3294A40480029479C /* TypeView */,
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
@@ -415,6 +429,7 @@
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
+				AC34B3A5294A405D0029479C /* StructView.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,
@@ -434,6 +449,7 @@
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
+				AC34B3A9294A41F60029479C /* GetTextWidthView.swift in Sources */,
 				AC34B3822947A62C0029479C /* EnumHolderToStringConverter.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
