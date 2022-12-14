@@ -22,10 +22,20 @@ struct ContentView: View {
 //                    .fill(.black)
 //                    .background(.pink)
 //                HeaderComponentFrameWithText(nameOfType: "AAAAAAAAAAAAAAAAAAAAA", bodyWidth: 1000)
-                HeaderComponentView(accessLevelIcon: AccessLevel.internal.icon,
-                                    indexType: .protocol,
-                                    nameOfType: "SomeProtocol",
-                                    bodyWidth: 800)
+//                HeaderComponentView(accessLevelIcon: AccessLevel.internal.icon,
+//                                    indexType: .protocol,
+//                                    nameOfType: "SomeProtocol",
+//                                    bodyWidth: 800)
+//                DetailComponentFrame(bodyWidth: 1000,
+//                                     numberOfItems: 6)
+//                .stroke(lineWidth: 5)
+//                .fill(.black)
+                DetailComponentView(componentType: .associatedType,
+                                    strings: ["aaaaaaaaa",
+                                             "bbbbbbbbbbbbbbbbbbb",
+                                             "ccccc",
+                                             "dddddddddddd"],
+                                    bodyWidth: 1000)
                 
                 Spacer()
             } // HStack

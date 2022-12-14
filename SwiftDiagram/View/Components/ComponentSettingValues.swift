@@ -8,11 +8,13 @@
 import Foundation
 
 struct ComponentSettingValues {
+    static let minWidth: CGFloat = 600
+    
     static let fontSize: CGFloat = 50
     static let itemHeight: CGFloat = 90
     static let borderWidth: CGFloat = 5
     
-    static let connectionWidth: CGFloat = 350
+    static let connectionWidth: CGFloat = 400
     static let connectionHeight: CGFloat = 90
     
     static let arrowTerminalWidth: CGFloat = 15
