@@ -47,10 +47,7 @@ struct ProtocolHolderToStringConverter {
         let functionConverter = FunctionHolderToStringConverter()
         let stringFunctions = functionConverter.convertToString(functionHolders: protocolHolder.functions)
         convertedHolder.functions = stringFunctions
-        
-        /**
-         ExtensionHolderをConvertedToStringExtensionHolder型に変換する
-         */
+
         // ExtensionHolderをConvertedToStringExtensionHolder型に変換する
         if 0 < protocolHolder.extensions.count {
             let converter = ExtensionHolderToStringConverter()

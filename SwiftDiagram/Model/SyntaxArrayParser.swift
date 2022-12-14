@@ -607,10 +607,6 @@ struct SyntaxArrayParser {
         return resultProtocolHolders
     }
     
-//    func getResultFunctionHolders() -> [FunctionHolder] {
-//        return resultFunctionHolders
-//    }
-    
     func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
         var array = [WhomThisTypeAffect]()
         for dict in whomThisTypeAffectDict {

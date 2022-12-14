@@ -20,7 +20,6 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
     var parameters = [ParameterHolder]()
 
     var returnValue: ReturnValueHolder?
-//    var returnValueIsOptional = false
     
     struct ParameterHolder: Holder {
         var externalName: String?

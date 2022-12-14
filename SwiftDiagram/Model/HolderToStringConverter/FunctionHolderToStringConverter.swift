@@ -73,7 +73,7 @@ struct FunctionHolderToStringConverter {
                         if index != param.tupleTypes.count - 1 {
                             stringFunc += ", "
                         }
-                    } // for (index, type) in param.tupleTypes.enumerated()
+                    }
                     stringFunc += ")"
                 case .opaqueResultType:
                     break
@@ -113,7 +113,7 @@ struct FunctionHolderToStringConverter {
                         if index != returnValue.tupleTypes.count - 1 {
                             stringFunc += ", "
                         }
-                    } // for (index, type) in returnValue.tupleTypes.enumerated()
+                    }
                     stringFunc += ")"
                 case .opaqueResultType:
                     break

@@ -33,7 +33,7 @@ struct TypealiasHolderToStringConverter {
                 stringAlias += ")"
             case .opaqueResultType:
                 break
-            }
+            } // switch alias.variableKind
             stringTypealiasArray.append(stringAlias)
         } // for alias in typealiasHolders
         

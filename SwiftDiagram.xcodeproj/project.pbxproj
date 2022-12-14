@@ -11,7 +11,6 @@
 		AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */; };
 		AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35B2940FBE30029479C /* MonitorView.swift */; };
 		AC34B35E2940FBFB0029479C /* BuildFileMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */; };
-		AC34B36229427BE80029479C /* TypeDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36129427BE80029479C /* TypeDependency.swift */; };
 		AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36329448C180029479C /* OptionalTypeKind.swift */; };
 		AC34B3662945035C0029479C /* GenericHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3652945035C0029479C /* GenericHolder.swift */; };
 		AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3672945B9F70029479C /* TypealiasHolder.swift */; };
@@ -71,7 +70,6 @@
 		AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorAndGetSourceFilesView.swift; sourceTree = "<group>"; };
 		AC34B35B2940FBE30029479C /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
 		AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFileMonitor.swift; sourceTree = "<group>"; };
-		AC34B36129427BE80029479C /* TypeDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeDependency.swift; sourceTree = "<group>"; };
 		AC34B36329448C180029479C /* OptionalTypeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalTypeKind.swift; sourceTree = "<group>"; };
 		AC34B3652945035C0029479C /* GenericHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericHolder.swift; sourceTree = "<group>"; };
 		AC34B3672945B9F70029479C /* TypealiasHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypealiasHolder.swift; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 				AC34B36C2946F5150029479C /* ConvertedToStringHolder */,
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */,
-				AC34B36129427BE80029479C /* TypeDependency.swift */,
 				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
 				AC34B36329448C180029479C /* OptionalTypeKind.swift */,
 				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
@@ -399,7 +396,6 @@
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
-				AC34B36229427BE80029479C /* TypeDependency.swift in Sources */,
 				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,
 				AC34B3662945035C0029479C /* GenericHolder.swift in Sources */,
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,

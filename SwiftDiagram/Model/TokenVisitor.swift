@@ -286,8 +286,8 @@ final class TokenVisitor: SyntaxRewriter {
                 // opaque result typeを宣言開始するとき
                 pushSyntaxNodeTypeStack(SyntaxNodeType.constrainedSugarTypeSyntax)
             }
-        }
-    }
+        } // if (1 < currentPositionInStack) &&
+    } // func visitPre(_ node: Syntax)
     
     override func visit(_ token: TokenSyntax) -> Syntax {
 //        print("      text: \(token.text)")
@@ -304,7 +304,7 @@ final class TokenVisitor: SyntaxRewriter {
             }
             // CodeBlockSyntax内の情報は無視する
             return token._syntaxNode
-        }
+        } // if (1 < currentPositionInStack) &&
         
         if 0 < syntaxNodeTypeStack.count {
             if tokenKind == TokenKind.openKeyword.string {
@@ -694,10 +694,10 @@ final class TokenVisitor: SyntaxRewriter {
                     resultArray.append(SyntaxTag.ExtensiondTypeName.string + SyntaxTag.Space.string + token.text)
                 }
             }
-        }
+        } // if 0 < syntaxNodeTypeStack.count
         
         return token._syntaxNode
-    }
+    } // func visit(_ token: TokenSyntax) -> Syntax
     
     override func visitPost(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
@@ -925,8 +925,8 @@ final class TokenVisitor: SyntaxRewriter {
                 // opaque result typeを宣言終了するとき
                 popSyntaxNodeTypeStack()
             }
-        }
-    }
+        } // if (1 < currentPositionInStack)
+    } // func visitPost(_ node: Syntax)
     
     // 抽象構文木をvisitして抽出した結果の配列syntaxArrayを返す
     func getResultArray() -> [String] {
@@ -967,7 +967,7 @@ final class TokenVisitor: SyntaxRewriter {
         case .private:
             addAccessLevelToResultArrayDependOnType(accessLevel: AccessLevel.private.string)
         }
-    }
+    } // func addAccessLevelToResultArray(accessLevel: AccessLevel)
     
     // syntaxNodeTypeStackに応じて、アクセスレベルの持ち主とアクセスレベルのタグをresultArrayに追加する
     // addAccessLevelToResultArray()で呼び出される
@@ -991,7 +991,7 @@ final class TokenVisitor: SyntaxRewriter {
             // functionのアクセスレベル
             resultArray.append(SyntaxTag.FunctionAccessLevel.string + SyntaxTag.Space.string + accessLevel)
         }
-    }
+    } // func addAccessLevelToResultArrayDependOnType(accessLevel: String)
     
     // syntaxNodeTypeStackに応じて、準拠しているもの(struct, class, ...)とプロトコルの名前のタグをresultArrayに追加する
     private func addConformedProtocolName(protocolName: String) {
@@ -1022,7 +1022,7 @@ final class TokenVisitor: SyntaxRewriter {
             // extensionの宣言中のとき
             resultArray.append(SyntaxTag.ConformedProtocolByExtension.string + SyntaxTag.Space.string + protocolName)
         }
-    }
+    } // func addConformedProtocolName(protocolName: String)
     
     // enumのInheritedTypeListSyntaxで抽出したtoken.textが、ローバリューの型を宣言しているかを調べる
     // addConformedProtocolName()内で呼び出す
