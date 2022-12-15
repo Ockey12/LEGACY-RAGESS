@@ -22,7 +22,7 @@ struct ContentView: View {
                                                                 "variablevariablevariable",
                                                                 "variablevariablevariablevariablevariablevariablevariable",
                                                                 "variablevariablevariablevariable"],
-                                                     functions: ["functionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunctionfunction",
+                                                     functions: ["functionfunctionfunctionfunction",
                                                                 "functionfunctionfunction",
                                                                 "functionfunction",
                                                                 "functionfunctionfunctionfunctionfunction",
@@ -59,8 +59,14 @@ struct ContentView: View {
 //                                             "dddddddddddd"],
 //                                    bodyWidth: 1000)
                 ScrollView([.vertical, .horizontal]) {
-                    StructView(holder: structHolder)
-                        .frame(width: 5000, height: 5000)
+                    HStack {
+                        StructView(holder: structHolder)
+                            .frame(width: 5000, height: 5000)
+                            .scaleEffect(0.3)
+//                        StructView(holder: structHolder)
+//                            .frame(width: 5000, height: 5000)
+//                            .scaleEffect(0.3)
+                    }
                 }
                 Spacer()
             } // HStack

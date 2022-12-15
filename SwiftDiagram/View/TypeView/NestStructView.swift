@@ -1,5 +1,5 @@
 //
-//  StructView.swift
+//  NestStructView.swift
 //  SwiftDiagram
 //
 //  Created by オナガ・ハルキ on 2022/12/15.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct StructView: View {
-    
+struct NestStructView: View {
     let holder: ConvertedToStringStructHolder
-    @State private var maxTextWidth = ComponentSettingValues.minWidth
+//    @Binding private var maxTextWidth: Double
+    private let maxTextWidth: Double = 1000
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -43,7 +43,7 @@ struct StructView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+//            GetTextWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -120,20 +120,15 @@ struct StructView: View {
                 NestComponentView(bodyWidth: bodyWidth, numberOfItems: 10)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-//                StructView(holder: holder)
                 
             } // VStack
             
         } // ZStack
     } // var body
-    
-//    private func getConformComponentOffsetY() -> CGFloat {
-//        var offsetY: CGFloat =
-//    }
-} // struct StructView
+}
 
-//struct StructView_Previews: PreviewProvider {
+//struct NestStructView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StructView()
+//        NestStructView()
 //    }
 //}

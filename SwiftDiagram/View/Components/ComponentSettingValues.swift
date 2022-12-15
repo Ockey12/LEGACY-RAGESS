@@ -29,4 +29,8 @@ struct ComponentSettingValues {
     
     // HeaderComponent
     static let indexWidth: CGFloat = 300
+    
+    // NestComponent
+    static let nestTopPadding: CGFloat = 60
+    static let nestBottomPadding: CGFloat = 60
 }
