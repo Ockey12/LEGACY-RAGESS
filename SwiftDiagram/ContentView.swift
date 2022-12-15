@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     let structHolder = ConvertedToStringStructHolder(name: "NameNameNameName",
                                                      accessLevelIcon: AccessLevel.private.icon,
-                                                     generics: ["Generics", "GenericsGenericsGenericsGenerics", "GenericsGenerics"],
+                                                     
                                                      conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
                                                      typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
                                                      initializers: ["initializer",

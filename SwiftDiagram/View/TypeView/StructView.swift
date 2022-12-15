@@ -16,7 +16,7 @@ struct StructView: View {
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
     
-    let headerItemHeight = ComponentSettingValues.itemHeight*2 + ComponentSettingValues.bottomPaddingForLastText
+    let headerItemHeight = ComponentSettingValues.headerItemHeight
     
     let connectionHeight = ComponentSettingValues.connectionHeight
     let itemHeight = ComponentSettingValues.itemHeight
@@ -53,7 +53,7 @@ struct StructView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-//                .background(.gray)
+                .background(.pink)
                 
                 // generic
                 if 0 < holder.generics.count {
@@ -112,15 +112,20 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-//                    .background(.indigo)
+                    .background(.indigo)
                 } // if 0 < holder.functions.count
                 
 //                StructView(holder: structHolder)
 //                    .scaleEffect(0.8)
-                NestComponentView(bodyWidth: bodyWidth, numberOfItems: 10)
-                    .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
+//                NestComponentView(bodyWidth: bodyWidth, numberOfItems: 10)
+//                    .frame(width: frameWidth,
+//                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
 //                StructView(holder: holder)
+                
+                NestStructFrame(holder: holder, bodyWidth: bodyWidth)
+                    .stroke(lineWidth: ComponentSettingValues.borderWidth)
+                    .fill(.black)
+                    .frame(width: frameWidth)
                 
             } // VStack
             

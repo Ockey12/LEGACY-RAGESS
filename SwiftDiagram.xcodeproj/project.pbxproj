@@ -43,6 +43,7 @@
 		AC34B3AE294B0E980029479C /* NestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3AD294B0E980029479C /* NestComponentView.swift */; };
 		AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3AF294B154F0029479C /* NestStructView.swift */; };
 		AC34B3B2294B173C0029479C /* GetTextWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B1294B173C0029479C /* GetTextWidthView.swift */; };
+		AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B3294B62320029479C /* NestStructFrame.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -116,6 +117,7 @@
 		AC34B3AD294B0E980029479C /* NestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestComponentView.swift; sourceTree = "<group>"; };
 		AC34B3AF294B154F0029479C /* NestStructView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructView.swift; sourceTree = "<group>"; };
 		AC34B3B1294B173C0029479C /* GetTextWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTextWidthView.swift; sourceTree = "<group>"; };
+		AC34B3B3294B62320029479C /* NestStructFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructFrame.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				AC34B3A4294A405D0029479C /* StructView.swift */,
 				AC34B3AF294B154F0029479C /* NestStructView.swift */,
+				AC34B3B3294B62320029479C /* NestStructFrame.swift */,
 			);
 			path = TypeView;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC34B3A5294A405D0029479C /* StructView.swift in Sources */,
+				AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,

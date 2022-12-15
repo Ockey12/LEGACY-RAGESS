@@ -9,41 +9,28 @@ import SwiftUI
 
 struct NestStructView: View {
     let holder: ConvertedToStringStructHolder
-//    @Binding private var maxTextWidth: Double
-    private let maxTextWidth: Double = 1000
+    let maxTextWidth: CGFloat
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
     
-    let headerItemHeight = ComponentSettingValues.itemHeight*2 + ComponentSettingValues.bottomPaddingForLastText
+    let headerItemHeight = ComponentSettingValues.headerItemHeight
     
     let connectionHeight = ComponentSettingValues.connectionHeight
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
-    
-    var allStrings: [String] {
-        var strings = [holder.name]
-        strings += holder.generics
-        strings += holder.conformingProtocolNames
-        strings += holder.typealiases
-        strings += holder.initializers
-        strings += holder.variables
-        strings += holder.functions
-        return strings
-    }
     
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
     }
     
     var frameWidth: Double {
-        return bodyWidth + arrowTerminalWidth*2 + 4
+        return bodyWidth + arrowTerminalWidth*2 + CGFloat(4)
     }
     
     var body: some View {
         ZStack {
-//            GetTextWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -114,17 +101,58 @@ struct NestStructView: View {
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
 //                    .background(.indigo)
                 } // if 0 < holder.functions.count
-                
-//                StructView(holder: structHolder)
-//                    .scaleEffect(0.8)
-                NestComponentView(bodyWidth: bodyWidth, numberOfItems: 10)
-                    .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-                
             } // VStack
-            
+            .scaleEffect(0.8)
         } // ZStack
     } // var body
+    
+    private func calculateFrameHeight() -> CGFloat {
+        var height: CGFloat = headerItemHeight
+        
+        // generic
+        if 0 < holder.generics.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.generics.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // conform
+        if 0 < holder.conformingProtocolNames.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.conformingProtocolNames.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // typealiases
+        if 0 < holder.typealiases.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.typealiases.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // initializers
+        if 0 < holder.initializers.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.initializers.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // property
+        if 0 < holder.variables.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.variables.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // method
+        if 0 < holder.functions.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.functions.count)
+            height += bottomPaddingForLastText
+        }
+        
+        return height
+    }
 }
 
 //struct NestStructView_Previews: PreviewProvider {
