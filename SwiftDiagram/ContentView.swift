@@ -9,9 +9,9 @@ import SwiftUI
 
 
 struct ContentView: View {
-    let structHolder = ConvertedToStringStructHolder(name: "NameNameNameName",
+    let nestedStructHolder1 = ConvertedToStringStructHolder(name: "nestedStructHolder1",
                                                      accessLevelIcon: AccessLevel.private.icon,
-                                                     
+
                                                      conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
                                                      typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
                                                      initializers: ["initializer",
@@ -20,7 +20,7 @@ struct ContentView: View {
                                                                    "initializerinitializer"],
                                                      variables: ["variable",
                                                                 "variablevariablevariable",
-                                                                "variablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariable",
                                                                 "variablevariablevariablevariable"],
                                                      functions: ["functionfunctionfunctionfunction",
                                                                 "functionfunctionfunction",
@@ -28,6 +28,38 @@ struct ContentView: View {
                                                                 "functionfunctionfunctionfunctionfunction",
                                                                  "function"]
     )
+    let nestedStructHolder2 = ConvertedToStringStructHolder(name: "nestedStructHolder2",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+
+                                                     conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                     initializers: ["initializer",
+                                                                   "initializerinitializer",
+                                                                   "initializerinitializerinitializerinitializer",
+                                                                   "initializerinitializer"]
+    )
+    var structHolder: ConvertedToStringStructHolder {
+        return ConvertedToStringStructHolder(name: "NameNameNameName",
+                                             accessLevelIcon: AccessLevel.private.icon,
+
+                                             conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                             typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                             initializers: ["initializer",
+                                                           "initializerinitializer",
+                                                           "initializerinitializerinitializerinitializer",
+                                                           "initializerinitializer"],
+                                             variables: ["variable",
+                                                        "variablevariablevariable",
+                                                        "variablevariablevariablevariablevariablevariablevariable",
+                                                        "variablevariablevariablevariable"],
+                                             functions: ["functionfunctionfunctionfunction",
+                                                        "functionfunctionfunction",
+                                                        "functionfunction",
+                                                        "functionfunctionfunctionfunctionfunction",
+                                                         "function"],
+                                             nestingConvertedToStringStructHolders: [nestedStructHolder1, nestedStructHolder2]
+)
+    }
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
 //functions: ["FunctionFunction", "FunctionFunctionFunction"]
 
@@ -58,15 +90,11 @@ struct ContentView: View {
 //                                             "ccccc",
 //                                             "dddddddddddd"],
 //                                    bodyWidth: 1000)
+                
                 ScrollView([.vertical, .horizontal]) {
-                    HStack {
-                        StructView(holder: structHolder)
-                            .frame(width: 5000, height: 5000)
-                            .scaleEffect(0.3)
-//                        StructView(holder: structHolder)
-//                            .frame(width: 5000, height: 5000)
-//                            .scaleEffect(0.3)
-                    }
+                    StructView(holder: structHolder)
+                        .frame(width: 5000, height: 5000)
+                        .scaleEffect(0.3)
                 }
                 Spacer()
             } // HStack

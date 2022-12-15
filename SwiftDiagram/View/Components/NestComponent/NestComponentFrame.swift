@@ -23,7 +23,7 @@ struct NestComponentFrame: Shape {
     let arrowTerminalHeight = ComponentSettingValues.arrowTerminalHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
-    let topPadding = ComponentSettingValues.nestTopPadding
+    let topPadding = ComponentSettingValues.nestTopPaddingWithConnectionHeight
     let bottomPadding = ComponentSettingValues.nestBottomPadding
     
     func path(in rect: CGRect) -> Path {

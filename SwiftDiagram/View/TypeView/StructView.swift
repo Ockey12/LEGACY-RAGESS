@@ -30,6 +30,17 @@ struct StructView: View {
         strings += holder.initializers
         strings += holder.variables
         strings += holder.functions
+        
+        let nestedStructs = holder.nestingConvertedToStringStructHolders
+        for nestesStruct in nestedStructs {
+            strings += nestesStruct.generics
+            strings += nestesStruct.conformingProtocolNames
+            strings += nestesStruct.typealiases
+            strings += nestesStruct.initializers
+            strings += nestesStruct.variables
+            strings += nestesStruct.functions
+        }
+        
         return strings
     }
     
@@ -53,7 +64,7 @@ struct StructView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-                .background(.pink)
+//                .background(.pink)
                 
                 // generic
                 if 0 < holder.generics.count {
@@ -112,7 +123,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-                    .background(.indigo)
+//                    .background(.indigo)
                 } // if 0 < holder.functions.count
                 
 //                StructView(holder: structHolder)
@@ -122,11 +133,20 @@ struct StructView: View {
 //                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
 //                StructView(holder: holder)
                 
-                NestStructFrame(holder: holder, bodyWidth: bodyWidth)
-                    .stroke(lineWidth: ComponentSettingValues.borderWidth)
-                    .fill(.black)
-                    .frame(width: frameWidth)
+//                NestStructFrame(holder: holder, bodyWidth: bodyWidth)
+//                    .stroke(lineWidth: ComponentSettingValues.borderWidth)
+//                    .fill(.black)
+//                    .frame(width: frameWidth)
+//                NestStructView(holder: holder, maxTextWidth: maxTextWidth)
+//                    .frame(width: frameWidth)
+//                    .background(.pink)
+//                NestStructView(holder: holder, maxTextWidth: maxTextWidth)
+//                    .frame(width: frameWidth)
                 
+                ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
+                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+                        .frame(width: frameWidth)
+                }
             } // VStack
             
         } // ZStack

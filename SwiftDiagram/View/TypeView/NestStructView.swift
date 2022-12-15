@@ -21,6 +21,8 @@ struct NestStructView: View {
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
+    let fontSize = ComponentSettingValues.fontSize
+    
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
     }
@@ -31,6 +33,18 @@ struct NestStructView: View {
     
     var body: some View {
         ZStack {
+            NestStructFrame(holder: holder, bodyWidth: bodyWidth)
+                .stroke(lineWidth: ComponentSettingValues.borderWidth)
+                .fill(.black)
+                .frame(width: frameWidth)
+            
+            Text("Nest")
+                .lineLimit(1)
+                .font(.system(size: fontSize))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+                .position(x: bodyWidth/2 + arrowTerminalWidth, y: connectionHeight/2)
+            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -102,7 +116,7 @@ struct NestStructView: View {
 //                    .background(.indigo)
                 } // if 0 < holder.functions.count
             } // VStack
-            .scaleEffect(0.8)
+            .scaleEffect(0.85)
         } // ZStack
     } // var body
     

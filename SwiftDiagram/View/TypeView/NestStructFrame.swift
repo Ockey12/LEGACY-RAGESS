@@ -98,7 +98,7 @@ struct NestStructFrame: Shape {
             height += bottomPaddingForLastText
         }
         
-        height += connectionHeight
+//        height += connectionHeight
         
         return height
     } // func calculateFrameHeight() -> CGFloat
