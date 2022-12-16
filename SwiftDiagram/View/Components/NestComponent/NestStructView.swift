@@ -10,7 +10,7 @@ import SwiftUI
 struct NestStructView: View {
     let holder: ConvertedToStringStructHolder
     let outsideFrameWidth: CGFloat
-//    let maxTextWidth: CGFloat
+
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
@@ -55,12 +55,10 @@ struct NestStructView: View {
         ZStack {
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             
-//            NestStructFrame(holder: holder, bodyWidth: bodyWidth)
             NestStructFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
-//                .background(.pink)
             
             Text("Nest")
                 .lineLimit(1)
@@ -78,7 +76,6 @@ struct NestStructView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-//                .background(.gray)
                 
                 // generic
                 if 0 < holder.generics.count {
@@ -87,8 +84,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.generics.count) + bottomPaddingForLastText)
-//                    .background(.blue)
-                } // if 0 < holder.generics.count
+                }
                 
                 // conform
                 if 0 < holder.conformingProtocolNames.count {
@@ -97,8 +93,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.conformingProtocolNames.count) + bottomPaddingForLastText)
-//                    .background(.green)
-                } // if 0 < holder.conformingProtocolNames.count
+                }
                 
                 // typealiases
                 if 0 < holder.typealiases.count {
@@ -107,8 +102,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.typealiases.count) + bottomPaddingForLastText)
-//                    .background(.pink)
-                } // if 0 < holder.typealiases.count
+                }
                 
                 // initializer
                 if 0 < holder.initializers.count {
@@ -117,8 +111,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
-//                    .background(.yellow)
-                } // if 0 < holder.initializers.count
+                }
                 
                 // property
                 if 0 < holder.variables.count {
@@ -127,8 +120,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.variables.count) + bottomPaddingForLastText)
-//                    .background(.cyan)
-                } // if 0 < holder.variables.count
+                }
                 
                 // method
                 if 0 < holder.functions.count {
@@ -137,8 +129,7 @@ struct NestStructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-//                    .background(.indigo)
-                } // if 0 < holder.functions.count
+                }
             } // VStack
             .scaleEffect(0.85)
         } // ZStack
