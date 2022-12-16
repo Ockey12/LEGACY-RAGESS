@@ -39,12 +39,9 @@
 		AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A1294A34E80029479C /* DetailComponentView.swift */; };
 		AC34B3A5294A405D0029479C /* StructView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A4294A405D0029479C /* StructView.swift */; };
 		AC34B3A9294A41F60029479C /* GetTextsMaxWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3A8294A41F60029479C /* GetTextsMaxWidthView.swift */; };
-		AC34B3AC294B063B0029479C /* NestComponentFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3AB294B063B0029479C /* NestComponentFrame.swift */; };
-		AC34B3AE294B0E980029479C /* NestComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3AD294B0E980029479C /* NestComponentView.swift */; };
 		AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3AF294B154F0029479C /* NestStructView.swift */; };
 		AC34B3B2294B173C0029479C /* GetTextWidthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B1294B173C0029479C /* GetTextWidthView.swift */; };
 		AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B3294B62320029479C /* NestStructFrame.swift */; };
-		AC34B3B6294B8F2B0029479C /* NestStructScaledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B5294B8F2B0029479C /* NestStructScaledView.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -114,12 +111,9 @@
 		AC34B3A1294A34E80029479C /* DetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailComponentView.swift; sourceTree = "<group>"; };
 		AC34B3A4294A405D0029479C /* StructView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructView.swift; sourceTree = "<group>"; };
 		AC34B3A8294A41F60029479C /* GetTextsMaxWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTextsMaxWidthView.swift; sourceTree = "<group>"; };
-		AC34B3AB294B063B0029479C /* NestComponentFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestComponentFrame.swift; sourceTree = "<group>"; };
-		AC34B3AD294B0E980029479C /* NestComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestComponentView.swift; sourceTree = "<group>"; };
 		AC34B3AF294B154F0029479C /* NestStructView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructView.swift; sourceTree = "<group>"; };
 		AC34B3B1294B173C0029479C /* GetTextWidthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTextWidthView.swift; sourceTree = "<group>"; };
 		AC34B3B3294B62320029479C /* NestStructFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructFrame.swift; sourceTree = "<group>"; };
-		AC34B3B5294B8F2B0029479C /* NestStructScaledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructScaledView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -236,9 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				AC34B3A4294A405D0029479C /* StructView.swift */,
-				AC34B3AF294B154F0029479C /* NestStructView.swift */,
-				AC34B3B5294B8F2B0029479C /* NestStructScaledView.swift */,
-				AC34B3B3294B62320029479C /* NestStructFrame.swift */,
 			);
 			path = TypeView;
 			sourceTree = "<group>";
@@ -246,8 +237,8 @@
 		AC34B3AA294B06190029479C /* NestComponent */ = {
 			isa = PBXGroup;
 			children = (
-				AC34B3AB294B063B0029479C /* NestComponentFrame.swift */,
-				AC34B3AD294B0E980029479C /* NestComponentView.swift */,
+				AC34B3B3294B62320029479C /* NestStructFrame.swift */,
+				AC34B3AF294B154F0029479C /* NestStructView.swift */,
 			);
 			path = NestComponent;
 			sourceTree = "<group>";
@@ -450,9 +441,7 @@
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */,
-				AC34B3B6294B8F2B0029479C /* NestStructScaledView.swift in Sources */,
 				AC5BAD312928D17F00A24BDD /* TokenVisitorPrinter.swift in Sources */,
-				AC34B3AC294B063B0029479C /* NestComponentFrame.swift in Sources */,
 				AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC34B3B2294B173C0029479C /* GetTextWidthView.swift in Sources */,
@@ -468,7 +457,6 @@
 				AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */,
 				AC34B37E294797E10029479C /* FunctionHolderToStringConverter.swift in Sources */,
 				AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */,
-				AC34B3AE294B0E980029479C /* NestComponentView.swift in Sources */,
 				AC34B37C294796880029479C /* VariableHolderToStringConverter.swift in Sources */,
 				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
