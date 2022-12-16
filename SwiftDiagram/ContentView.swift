@@ -95,6 +95,33 @@ struct ContentView: View {
                                                                "casecasecasecasecasecasecasecasecasecasecasecase",
                                                                "casecasecasecasecase"]
     )
+    let extensionHolder1 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                     initializers: ["initializer",
+                                                                   "initializerinitializer",
+                                                                   "initializerinitializerinitializerinitializer",
+                                                                   "initializerinitializer"],
+                                                     variables: ["variable",
+                                                                "variablevariablevariable",
+                                                                "variablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariable"],
+                                                     functions: ["functionfunctionfunctionfunction",
+                                                                "functionfunctionfunction",
+                                                                "functionfunction",
+                                                                "functionfunctionfunctionfunctionfunction",
+                                                                 "function"]
+    )
+    let extensionHolder2 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol"],
+                                                     variables: ["variable",
+                                                                "variablevariablevariable",
+                                                                "variablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariable"],
+                                                     functions: ["functionfunctionfunctionfunction",
+                                                                "functionfunctionfunction",
+                                                                "functionfunction",
+                                                                "functionfunctionfunctionfunctionfunction",
+                                                                 "function"]
+    )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",
                                              accessLevelIcon: AccessLevel.private.icon,
@@ -116,7 +143,8 @@ struct ContentView: View {
                                                          "function"],
                                              nestingConvertedToStringStructHolders: [nestedStructHolder1, nestedStructHolder2],
                                              nestingConvertedToStringClassHolders: [nestedClassHolder1, nestedClassHolder2],
-                                             nestingConvertedToStringEnumHolders: [nestedEnumHolder1, nestedEnumHolder2]
+                                             nestingConvertedToStringEnumHolders: [nestedEnumHolder1, nestedEnumHolder2],
+                                             extensions: [extensionHolder1, extensionHolder2]
 )
     }
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
@@ -152,7 +180,7 @@ struct ContentView: View {
                 
                 ScrollView([.vertical, .horizontal]) {
                     StructView(holder: structHolder)
-                        .frame(width: 5000, height: 5000)
+                        .frame(width: 3000, height: 8000)
                         .scaleEffect(0.3)
                 }
                 Spacer()

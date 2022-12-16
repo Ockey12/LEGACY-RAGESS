@@ -22,6 +22,8 @@ struct StructView: View {
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
+    let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
+    
     var allStrings: [String] {
         var strings = [holder.name]
         strings += holder.generics
@@ -93,65 +95,10 @@ struct StructView: View {
                        height: headerItemHeight)
 //                .background(.pink)
                 
-                // generic
-                if 0 < holder.generics.count {
-                    DetailComponentView(componentType: .generic,
-                                        strings: holder.generics,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.generics.count))
-//                    .background(.blue)
-                } // if 0 < holder.generics.count
-                
-                // conform
-                if 0 < holder.conformingProtocolNames.count {
-                    DetailComponentView(componentType: .conform,
-                                        strings: holder.conformingProtocolNames,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.conformingProtocolNames.count))
-//                    .background(.green)
-                } // if 0 < holder.conformingProtocolNames.count
-                
-                // typealiases
-                if 0 < holder.typealiases.count {
-                    DetailComponentView(componentType: .typealias,
-                                        strings: holder.typealiases,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
-//                    .background(.pink)
-                } // if 0 < holder.typealiases.count
-                
-                // initializer
-                if 0 < holder.initializers.count {
-                    DetailComponentView(componentType: .initializer,
-                                        strings: holder.initializers,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
-//                    .background(.yellow)
-                } // if 0 < holder.initializers.count
-                
-                // property
-                if 0 < holder.variables.count {
-                    DetailComponentView(componentType: .property,
-                                        strings: holder.variables,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
-//                    .background(.cyan)
-                } // if 0 < holder.variables.count
-                
-                // method
-                if 0 < holder.functions.count {
-                    DetailComponentView(componentType: .method,
-                                        strings: holder.functions,
-                                        bodyWidth: bodyWidth)
-                    .frame(width: frameWidth,
-                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
-//                    .background(.indigo)
-                } // if 0 < holder.functions.count
+                // DetailComponent
+                StructDetailView(holder: holder,
+                                 bodyWidth: bodyWidth,
+                                 frameWidth: frameWidth)
                 
                 // nested Struct
                 ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
@@ -173,6 +120,17 @@ struct StructView: View {
                     NestEnumView(holder: nestedEnum, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
+                
+//                // extension
+                ForEach(holder.extensions, id: \.self) { extensionHolder in
+                    ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
+                        .frame(width: bodyWidth + extensionOutsidePadding*2)
+//                    Text(holder.conformingProtocolNames[0])
+                }
+//                ExtensionFrame(holder: holder.extensions[0], bodyWidth: maxTextWidth)
+//                    .frame(width: bodyWidth + extensionOutsidePadding*2)
+//                ExtensionView(holder: holder.extensions[0], outsideFrameWidth: maxTextWidth)
+//                    .frame(width: bodyWidth + extensionOutsidePadding*2)
             } // VStack
         } // ZStack
     } // var body
