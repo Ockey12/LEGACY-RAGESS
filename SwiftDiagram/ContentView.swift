@@ -103,7 +103,7 @@ struct ContentView: View {
                                                                    "initializerinitializer"],
                                                      variables: ["variable",
                                                                 "variablevariablevariable",
-                                                                "variablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariable",
                                                                 "variablevariablevariablevariable"],
                                                      functions: ["functionfunctionfunctionfunction",
                                                                 "functionfunctionfunction",
@@ -111,16 +111,7 @@ struct ContentView: View {
                                                                 "functionfunctionfunctionfunctionfunction",
                                                                  "function"]
     )
-    let extensionHolder2 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol"],
-                                                     variables: ["variable",
-                                                                "variablevariablevariable",
-                                                                "variablevariablevariablevariablevariablevariablevariable",
-                                                                "variablevariablevariablevariable"],
-                                                     functions: ["functionfunctionfunctionfunction",
-                                                                "functionfunctionfunction",
-                                                                "functionfunction",
-                                                                "functionfunctionfunctionfunctionfunction",
-                                                                 "function"]
+    let extensionHolder2 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol"]
     )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",
