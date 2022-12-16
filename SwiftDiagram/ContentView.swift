@@ -35,6 +35,13 @@ struct ContentView: View {
                                                                        "functionfunctionfunctionfunctionfunction",
                                                                         "function"]
     )
+    let nestedStructHolder3 = ConvertedToStringStructHolder(name: "nestedStructHolder2",
+                                                            functions: ["functionfunctionfunctionfunction",
+                                                                       "functionfunctionfunction",
+                                                                       "functionfunction",
+                                                                       "functionfunctionfunctionfunctionfunction",
+                                                                        "function"]
+    )
     let nestedClassHolder1 = ConvertedToStringClassHolder(name: "nestedClassHolder1",
                                                      accessLevelIcon: AccessLevel.private.icon,
                                                      superClassName: "SuperClass",
@@ -95,22 +102,41 @@ struct ContentView: View {
                                                                "casecasecasecasecasecasecasecasecasecasecasecase",
                                                                "casecasecasecasecase"]
     )
-    let extensionHolder1 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
-                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
-                                                     initializers: ["initializer",
-                                                                   "initializerinitializer",
-                                                                   "initializerinitializerinitializerinitializer",
-                                                                   "initializerinitializer"],
-                                                     variables: ["variable",
-                                                                "variablevariablevariable",
-                                                                "variablevariablevariablevariable",
-                                                                "variablevariablevariablevariable"],
-                                                     functions: ["functionfunctionfunctionfunction",
-                                                                "functionfunctionfunction",
-                                                                "functionfunction",
-                                                                "functionfunctionfunctionfunctionfunction",
-                                                                 "function"]
-    )
+//    let extensionHolder1 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+//                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+//                                                     initializers: ["initializer",
+//                                                                   "initializerinitializer",
+//                                                                   "initializerinitializerinitializerinitializer",
+//                                                                   "initializerinitializer"],
+//                                                     variables: ["variable",
+//                                                                "variablevariablevariable",
+//                                                                "variablevariablevariablevariable",
+//                                                                "variablevariablevariablevariable"],
+//                                                     functions: ["functionfunctionfunctionfunction",
+//                                                                "functionfunctionfunction",
+//                                                                "functionfunction",
+//                                                                "functionfunctionfunctionfunctionfunction",
+//                                                                 "function"],
+//                                                            nestingConvertedToStringStructHolders: []
+//    )
+    var extensionHolder1: ConvertedToStringExtensionHolder {
+        ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                         typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                         initializers: ["initializer",
+                                                                       "initializerinitializer",
+                                                                       "initializerinitializerinitializerinitializer",
+                                                                       "initializerinitializer"],
+                                                         variables: ["variable",
+                                                                    "variablevariablevariable",
+                                                                    "variablevariablevariablevariable",
+                                                                    "variablevariablevariablevariable"],
+                                                         functions: ["functionfunctionfunctionfunction",
+                                                                    "functionfunctionfunction",
+                                                                    "functionfunction",
+                                                                    "functionfunctionfunctionfunctionfunction",
+                                                                     "function"]
+        )
+    }
     let extensionHolder2 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol"]
     )
     var structHolder: ConvertedToStringStructHolder {

@@ -22,6 +22,9 @@ struct ExtensionFrame: Shape {
     let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
     let extensionTopPadding = ComponentSettingValues.extensionTopPadding
     let extensionBottomPadding = ComponentSettingValues.extensionBottomPadding
+    let headerItemHeight = ComponentSettingValues.headerItemHeight
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
 
     func path(in rect: CGRect) -> Path {
         Path { path in
@@ -90,7 +93,43 @@ struct ExtensionFrame: Shape {
             height += bottomPaddingForLastText
         }
         
-        height += extensionBottomPadding
+        let nestedStructs = holder.nestingConvertedToStringStructHolders
+        for nestedStruct in nestedStructs {
+            height += headerItemHeight + nestTopPaddingWithConnectionHeight
+            if 0 < nestedStruct.generics.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.generics.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.conformingProtocolNames.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.conformingProtocolNames.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.typealiases.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.typealiases.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.initializers.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.initializers.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.variables.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.variables.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.functions.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.functions.count)
+                height += bottomPaddingForLastText
+            }
+            height += nestBottomPadding
+        } // for nestedStruct in nestedStructs
+        
+//        height += extensionBottomPadding
         
         return height
     } // func calculateFrameHeight() -> CGFloat

@@ -27,6 +27,9 @@ struct ExtensionView: View {
     let extensionTopPadding = ComponentSettingValues.extensionTopPadding
     let extensionBottomPadding = ComponentSettingValues.extensionBottomPadding
     
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
+    
     let fontSize = ComponentSettingValues.fontSize
     
     var allStrings: [String] {
@@ -96,7 +99,7 @@ struct ExtensionView: View {
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
-                .background(.pink)
+//                .background(.pink)
             
             Text("Extension")
                 .lineLimit(1)
@@ -149,10 +152,33 @@ struct ExtensionView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
+//                    .background(.green)
+                }
+                
+                // nested Struct
+                ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
+//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+                    NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
+                        .frame(width: frameWidth)
+//                        .background(.gray)
+                }
+                
+                // nested Class
+                ForEach(holder.nestingConvertedToStringClassHolders, id: \.self) { nestedClass in
+//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+                    NestClassView(holder: nestedClass, outsideFrameWidth: maxTextWidth)
+                        .frame(width: frameWidth)
+                }
+                
+                // nested Enum
+                ForEach(holder.nestingConvertedToStringEnumHolders, id: \.self) { nestedEnum in
+//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+                    NestEnumView(holder: nestedEnum, outsideFrameWidth: maxTextWidth)
+                        .frame(width: frameWidth)
                 }
             } // VStack
-            .background(.cyan)
-//            .offset(y: connectionHeight)
+//            .background(.cyan)
+            .offset(y: connectionHeight)
             
         } // ZStack
     } // var body
@@ -195,7 +221,43 @@ struct ExtensionView: View {
             height += bottomPaddingForLastText
         }
         
-        height += extensionBottomPadding
+        let nestedStructs = holder.nestingConvertedToStringStructHolders
+        for nestedStruct in nestedStructs {
+            height += headerItemHeight + nestTopPaddingWithConnectionHeight
+            if 0 < nestedStruct.generics.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.generics.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.conformingProtocolNames.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.conformingProtocolNames.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.typealiases.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.typealiases.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.initializers.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.initializers.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.variables.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.variables.count)
+                height += bottomPaddingForLastText
+            }
+            if 0 < nestedStruct.functions.count {
+                height += connectionHeight
+                height += itemHeight*CGFloat(nestedStruct.functions.count)
+                height += bottomPaddingForLastText
+            }
+            height += nestBottomPadding
+        } // for nestedStruct in nestedStructs
+        
+//        height += extensionBottomPadding
         
         return height
     } // func calculateFrameHeight() -> CGFloat
