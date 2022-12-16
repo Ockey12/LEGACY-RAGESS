@@ -9,7 +9,9 @@ import SwiftUI
 
 struct NestStructView: View {
     let holder: ConvertedToStringStructHolder
-    let maxTextWidth: CGFloat
+    let outsideFrameWidth: CGFloat
+//    let maxTextWidth: CGFloat
+    @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -26,6 +28,17 @@ struct NestStructView: View {
     
     let fontSize = ComponentSettingValues.fontSize
     
+    var allStrings: [String] {
+        var strings = [holder.name]
+        strings += holder.generics
+        strings += holder.conformingProtocolNames
+        strings += holder.typealiases
+        strings += holder.initializers
+        strings += holder.variables
+        strings += holder.functions
+        return strings
+    }
+    
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
     }
@@ -34,19 +47,27 @@ struct NestStructView: View {
         return bodyWidth + arrowTerminalWidth*2 + CGFloat(4)
     }
     
+    var outsideWidth: Double {
+        return outsideFrameWidth + textTrailPadding
+    }
+    
     var body: some View {
         ZStack {
-            NestStructFrame(holder: holder, bodyWidth: bodyWidth)
+            GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            
+//            NestStructFrame(holder: holder, bodyWidth: bodyWidth)
+            NestStructFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
-                .frame(width: frameWidth, height: calculateFrameHeight())
+                .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
+//                .background(.pink)
             
             Text("Nest")
                 .lineLimit(1)
                 .font(.system(size: fontSize))
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)
-                .position(x: bodyWidth/2 + arrowTerminalWidth, y: connectionHeight/2)
+                .position(x: outsideWidth/2 + arrowTerminalWidth, y: connectionHeight/2)
             
             VStack(spacing: 0) {
                 // Header

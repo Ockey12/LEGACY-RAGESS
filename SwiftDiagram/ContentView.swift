@@ -28,7 +28,12 @@ struct ContentView: View {
                                                                 "functionfunctionfunctionfunctionfunction",
                                                                  "function"]
     )
-    let nestedStructHolder2 = ConvertedToStringStructHolder(name: "nestedStructHolder2"
+    let nestedStructHolder2 = ConvertedToStringStructHolder(name: "nestedStructHolder2",
+                                                            functions: ["functionfunctionfunctionfunction",
+                                                                       "functionfunctionfunction",
+                                                                       "functionfunction",
+                                                                       "functionfunctionfunctionfunctionfunction",
+                                                                        "function"]
     )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",

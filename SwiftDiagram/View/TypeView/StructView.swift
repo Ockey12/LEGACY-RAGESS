@@ -126,29 +126,12 @@ struct StructView: View {
 //                    .background(.indigo)
                 } // if 0 < holder.functions.count
                 
-//                StructView(holder: structHolder)
-//                    .scaleEffect(0.8)
-//                NestComponentView(bodyWidth: bodyWidth, numberOfItems: 10)
-//                    .frame(width: frameWidth,
-//                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-//                StructView(holder: holder)
-                
-//                NestStructFrame(holder: holder, bodyWidth: bodyWidth)
-//                    .stroke(lineWidth: ComponentSettingValues.borderWidth)
-//                    .fill(.black)
-//                    .frame(width: frameWidth)
-//                NestStructView(holder: holder, maxTextWidth: maxTextWidth)
-//                    .frame(width: frameWidth)
-//                    .background(.pink)
-//                NestStructView(holder: holder, maxTextWidth: maxTextWidth)
-//                    .frame(width: frameWidth)
-                
                 ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
-                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
+                    NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
             } // VStack
-            
         } // ZStack
     } // var body
     
