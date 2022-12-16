@@ -28,15 +28,7 @@ struct ContentView: View {
                                                                 "functionfunctionfunctionfunctionfunction",
                                                                  "function"]
     )
-    let nestedStructHolder2 = ConvertedToStringStructHolder(name: "nestedStructHolder2",
-                                                     accessLevelIcon: AccessLevel.private.icon,
-
-                                                     conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
-                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
-                                                     initializers: ["initializer",
-                                                                   "initializerinitializer",
-                                                                   "initializerinitializerinitializerinitializer",
-                                                                   "initializerinitializer"]
+    let nestedStructHolder2 = ConvertedToStringStructHolder(name: "nestedStructHolder2"
     )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",

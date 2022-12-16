@@ -21,6 +21,9 @@ struct NestStructView: View {
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
+    
     let fontSize = ComponentSettingValues.fontSize
     
     var bodyWidth: Double {
@@ -36,7 +39,7 @@ struct NestStructView: View {
             NestStructFrame(holder: holder, bodyWidth: bodyWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
-                .frame(width: frameWidth)
+                .frame(width: frameWidth, height: calculateFrameHeight())
             
             Text("Nest")
                 .lineLimit(1)
@@ -121,7 +124,7 @@ struct NestStructView: View {
     } // var body
     
     private func calculateFrameHeight() -> CGFloat {
-        var height: CGFloat = headerItemHeight
+        var height: CGFloat = headerItemHeight + nestTopPaddingWithConnectionHeight
         
         // generic
         if 0 < holder.generics.count {
@@ -164,6 +167,8 @@ struct NestStructView: View {
             height += itemHeight*CGFloat(holder.functions.count)
             height += bottomPaddingForLastText
         }
+        
+        height += nestBottomPadding
         
         return height
     }

@@ -35,6 +35,6 @@ struct ComponentSettingValues {
     
     // NestComponent
     static let nestComponentScale = 0.85
-    static let nestTopPaddingWithConnectionHeight: CGFloat = 60
-    static let nestBottomPadding: CGFloat = 60
+    static let nestTopPaddingWithConnectionHeight: CGFloat = 150
+    static let nestBottomPadding: CGFloat = 90
 }

@@ -23,6 +23,8 @@ struct NestStructFrame: Shape {
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let arrowTerminalHeight = ComponentSettingValues.arrowTerminalHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
 
     func path(in rect: CGRect) -> Path {
         Path { path in
@@ -54,7 +56,7 @@ struct NestStructFrame: Shape {
     } // func path(in rect: CGRect) -> Path
     
     private func calculateBodyHeight() -> CGFloat {
-        var height: CGFloat = connectionHeight + headerItemHeight
+        var height: CGFloat = connectionHeight + headerItemHeight + nestTopPaddingWithConnectionHeight
         
         // generic
         if 0 < holder.generics.count {
@@ -98,7 +100,7 @@ struct NestStructFrame: Shape {
             height += bottomPaddingForLastText
         }
         
-//        height += connectionHeight
+        height += nestBottomPadding
         
         return height
     } // func calculateFrameHeight() -> CGFloat
