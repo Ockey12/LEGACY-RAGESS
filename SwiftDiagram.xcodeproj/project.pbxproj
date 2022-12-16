@@ -44,6 +44,8 @@
 		AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B3294B62320029479C /* NestStructFrame.swift */; };
 		AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3B9294C36810029479C /* NestClassFrame.swift */; };
 		AC34B3BC294C374B0029479C /* NestClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3BB294C374B0029479C /* NestClassView.swift */; };
+		AC34B3BF294C40030029479C /* NestEnumFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3BE294C40030029479C /* NestEnumFrame.swift */; };
+		AC34B3C1294C40A00029479C /* NestEnumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B3C0294C40A00029479C /* NestEnumView.swift */; };
 		AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */; };
 		AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF415292227770096810E /* SwiftDiagramApp.swift */; };
 		AC3BF418292227770096810E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3BF417292227770096810E /* ContentView.swift */; };
@@ -118,6 +120,8 @@
 		AC34B3B3294B62320029479C /* NestStructFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestStructFrame.swift; sourceTree = "<group>"; };
 		AC34B3B9294C36810029479C /* NestClassFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestClassFrame.swift; sourceTree = "<group>"; };
 		AC34B3BB294C374B0029479C /* NestClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestClassView.swift; sourceTree = "<group>"; };
+		AC34B3BE294C40030029479C /* NestEnumFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestEnumFrame.swift; sourceTree = "<group>"; };
+		AC34B3C0294C40A00029479C /* NestEnumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestEnumView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
 		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 			children = (
 				AC34B3B7294C36160029479C /* NestStruct */,
 				AC34B3B8294C36260029479C /* NestClass */,
+				AC34B3BD294C3FEA0029479C /* NestEnum */,
 			);
 			path = NestComponent;
 			sourceTree = "<group>";
@@ -263,6 +268,15 @@
 				AC34B3BB294C374B0029479C /* NestClassView.swift */,
 			);
 			path = NestClass;
+			sourceTree = "<group>";
+		};
+		AC34B3BD294C3FEA0029479C /* NestEnum */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B3BE294C40030029479C /* NestEnumFrame.swift */,
+				AC34B3C0294C40A00029479C /* NestEnumView.swift */,
+			);
+			path = NestEnum;
 			sourceTree = "<group>";
 		};
 		AC3BF409292227770096810E = {
@@ -470,6 +484,7 @@
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC34B3A5294A405D0029479C /* StructView.swift in Sources */,
+				AC34B3BF294C40030029479C /* NestEnumFrame.swift in Sources */,
 				AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
@@ -483,6 +498,7 @@
 				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
+				AC34B3C1294C40A00029479C /* NestEnumView.swift in Sources */,
 				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,

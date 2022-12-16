@@ -25,3 +25,17 @@ struct ConvertedToStringEnumHolder {
     
     var extensions = [ConvertedToStringExtensionHolder]()
 }
+
+extension ConvertedToStringEnumHolder: Hashable {
+    static func == (lhs: ConvertedToStringEnumHolder, rhs: ConvertedToStringEnumHolder) -> Bool {
+        return lhs.name == rhs.name
+    }
+
+    var hashValue: Int {
+        return self.name.hashValue
+    }
+
+    func hash(into hasher: inout Hasher) {
+        name.hash(into: &hasher)
+    }
+}

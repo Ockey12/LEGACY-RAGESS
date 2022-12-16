@@ -1,15 +1,16 @@
 //
-//  StructView.swift
+//  NestEnumView.swift
 //  SwiftDiagram
 //
-//  Created by オナガ・ハルキ on 2022/12/15.
+//  Created by オナガ・ハルキ on 2022/12/16.
 //
 
 import SwiftUI
 
-struct StructView: View {
-    
-    let holder: ConvertedToStringStructHolder
+struct NestEnumView: View {
+    let holder: ConvertedToStringEnumHolder
+    let outsideFrameWidth: CGFloat
+
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
@@ -22,52 +23,25 @@ struct StructView: View {
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
+    
+    let nestScale = ComponentSettingValues.nestComponentScale
+    
+    let fontSize = ComponentSettingValues.fontSize
+    
     var allStrings: [String] {
         var strings = [holder.name]
         strings += holder.generics
+        if let rawvalueType = holder.rawvalueType {
+            strings.append(rawvalueType)
+        }
         strings += holder.conformingProtocolNames
         strings += holder.typealiases
         strings += holder.initializers
+        strings += holder.cases
         strings += holder.variables
         strings += holder.functions
-        
-        let nestedStructs = holder.nestingConvertedToStringStructHolders
-        for nestedStruct in nestedStructs {
-            strings += nestedStruct.generics
-            strings += nestedStruct.conformingProtocolNames
-            strings += nestedStruct.typealiases
-            strings += nestedStruct.initializers
-            strings += nestedStruct.variables
-            strings += nestedStruct.functions
-        }
-        
-        let nestedClasses = holder.nestingConvertedToStringClassHolders
-        for nestedClass in nestedClasses {
-            strings += nestedClass.generics
-            if let superClass = nestedClass.superClassName {
-                strings.append(superClass)
-            }
-            strings += nestedClass.conformingProtocolNames
-            strings += nestedClass.typealiases
-            strings += nestedClass.initializers
-            strings += nestedClass.variables
-            strings += nestedClass.functions
-        }
-        
-        let nestedEnums = holder.nestingConvertedToStringEnumHolders
-        for nestedEnum in nestedEnums {
-            strings += nestedEnum.generics
-            if let rawvalueType = nestedEnum.rawvalueType {
-                strings.append(rawvalueType)
-            }
-            strings += nestedEnum.conformingProtocolNames
-            strings += nestedEnum.typealiases
-            strings += nestedEnum.initializers
-            strings += nestedEnum.cases
-            strings += nestedEnum.variables
-            strings += nestedEnum.functions
-        }
-        
         return strings
     }
     
@@ -76,12 +50,29 @@ struct StructView: View {
     }
     
     var frameWidth: Double {
-        return bodyWidth + arrowTerminalWidth*2 + 4
+        return bodyWidth + arrowTerminalWidth*2 + CGFloat(4)
+    }
+    
+    var outsideWidth: Double {
+        return outsideFrameWidth + textTrailPadding
     }
     
     var body: some View {
         ZStack {
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            
+            NestEnumFrame(holder: holder, bodyWidth: outsideWidth)
+                .stroke(lineWidth: ComponentSettingValues.borderWidth)
+                .fill(.black)
+                .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
+            
+            Text("Nest")
+                .lineLimit(1)
+                .font(.system(size: fontSize))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+                .position(x: outsideWidth/2 + arrowTerminalWidth, y: connectionHeight/2)
+            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -91,7 +82,6 @@ struct StructView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-//                .background(.pink)
                 
                 // generic
                 if 0 < holder.generics.count {
@@ -100,8 +90,16 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.generics.count))
-//                    .background(.blue)
-                } // if 0 < holder.generics.count
+                }
+                
+                // rawvalue type
+                if let rawvalueType = holder.rawvalueType {
+                    DetailComponentView(componentType: .rawvalueType,
+                                        strings: [rawvalueType],
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: calculateDetailComponentFrameHeight(numberOfItems: 1))
+                }
                 
                 // conform
                 if 0 < holder.conformingProtocolNames.count {
@@ -110,8 +108,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.conformingProtocolNames.count))
-//                    .background(.green)
-                } // if 0 < holder.conformingProtocolNames.count
+                }
                 
                 // typealiases
                 if 0 < holder.typealiases.count {
@@ -120,8 +117,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
-//                    .background(.pink)
-                } // if 0 < holder.typealiases.count
+                }
                 
                 // initializer
                 if 0 < holder.initializers.count {
@@ -130,8 +126,16 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
-//                    .background(.yellow)
-                } // if 0 < holder.initializers.count
+                }
+                
+                // case
+                if 0 < holder.cases.count {
+                    DetailComponentView(componentType: .case,
+                                        strings: holder.cases,
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.cases.count))
+                }
                 
                 // property
                 if 0 < holder.variables.count {
@@ -140,8 +144,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
-//                    .background(.cyan)
-                } // if 0 < holder.variables.count
+                }
                 
                 // method
                 if 0 < holder.functions.count {
@@ -150,32 +153,75 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
-//                    .background(.indigo)
-                } // if 0 < holder.functions.count
-                
-                // nested Struct
-                ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
-                    NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
-                        .frame(width: frameWidth)
-                }
-                
-                // nested Class
-                ForEach(holder.nestingConvertedToStringClassHolders, id: \.self) { nestedClass in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
-                    NestClassView(holder: nestedClass, outsideFrameWidth: maxTextWidth)
-                        .frame(width: frameWidth)
-                }
-                
-                // nested Enum
-                ForEach(holder.nestingConvertedToStringEnumHolders, id: \.self) { nestedEnum in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
-                    NestEnumView(holder: nestedEnum, outsideFrameWidth: maxTextWidth)
-                        .frame(width: frameWidth)
                 }
             } // VStack
+            .scaleEffect(nestScale)
         } // ZStack
     } // var body
+    
+    private func calculateFrameHeight() -> CGFloat {
+        var height: CGFloat = headerItemHeight + nestTopPaddingWithConnectionHeight
+        
+        // generic
+        if 0 < holder.generics.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.generics.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // rawvalue type
+        if let _ = holder.rawvalueType {
+            height += connectionHeight
+            height += itemHeight
+            height += bottomPaddingForLastText
+        }
+        
+        // conform
+        if 0 < holder.conformingProtocolNames.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.conformingProtocolNames.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // typealiases
+        if 0 < holder.typealiases.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.typealiases.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // initializers
+        if 0 < holder.initializers.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.initializers.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // case
+        if 0 < holder.cases.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.cases.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // property
+        if 0 < holder.variables.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.variables.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // method
+        if 0 < holder.functions.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.functions.count)
+            height += bottomPaddingForLastText
+        }
+        
+        height += nestBottomPadding
+        
+        return height
+    } // func calculateFrameHeight() -> CGFloat
     
     private func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat {
         var height = connectionHeight
@@ -183,10 +229,10 @@ struct StructView: View {
         height += bottomPaddingForLastText
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
-} // struct StructView
+}
 
-//struct StructView_Previews: PreviewProvider {
+//struct NestEnumView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StructView()
+//        NestEnumView()
 //    }
 //}

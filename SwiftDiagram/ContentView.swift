@@ -63,6 +63,38 @@ struct ContentView: View {
                                                                 "functionfunctionfunctionfunctionfunction",
                                                                  "function"]
     )
+    let nestedEnumHolder1 = ConvertedToStringEnumHolder(name: "nestedEnumHolder1",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+                                                        rawvalueType: "rawvaluerawvaluerawvalue",
+                                                     conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                        
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                     initializers: ["initializer",
+                                                                   "initializerinitializer",
+                                                                   "initializerinitializerinitializerinitializer",
+                                                                   "initializerinitializer"],
+                                                        cases: ["casecase",
+                                                               "casecasecasecasecasecase",
+                                                               "casecasecasecasecasecase"],
+                                                     variables: ["variable",
+                                                                "variablevariablevariable",
+                                                                "variablevariablevariablevariablevariablevariablevariablevariablevariablevariable",
+                                                                "variablevariablevariablevariable"],
+                                                     functions: ["functionfunctionfunctionfunction",
+                                                                "functionfunctionfunction",
+                                                                "functionfunction",
+                                                                "functionfunctionfunctionfunctionfunction",
+                                                                 "function"]
+    )
+    let nestedEnumHolder2 = ConvertedToStringEnumHolder(name: "nestedEnumHolder2",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+                                                        rawvalueType: "rawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluerawvaluee",
+                                                        cases: ["casecase",
+                                                               "casecasecasecasecasecase",
+                                                               "casecasecasecasecasecase",
+                                                               "casecasecasecasecasecasecasecasecasecasecasecase",
+                                                               "casecasecasecasecase"]
+    )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",
                                              accessLevelIcon: AccessLevel.private.icon,
@@ -83,7 +115,8 @@ struct ContentView: View {
                                                         "functionfunctionfunctionfunctionfunction",
                                                          "function"],
                                              nestingConvertedToStringStructHolders: [nestedStructHolder1, nestedStructHolder2],
-                                             nestingConvertedToStringClassHolders: [nestedClassHolder1, nestedClassHolder2]
+                                             nestingConvertedToStringClassHolders: [nestedClassHolder1, nestedClassHolder2],
+                                             nestingConvertedToStringEnumHolders: [nestedEnumHolder1, nestedEnumHolder2]
 )
     }
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
