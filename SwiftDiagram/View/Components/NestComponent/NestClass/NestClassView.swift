@@ -1,15 +1,16 @@
 //
-//  StructView.swift
+//  NestClassView.swift
 //  SwiftDiagram
 //
-//  Created by オナガ・ハルキ on 2022/12/15.
+//  Created by オナガ・ハルキ on 2022/12/16.
 //
 
 import SwiftUI
 
-struct StructView: View {
-    
-    let holder: ConvertedToStringStructHolder
+struct NestClassView: View {
+    let holder: ConvertedToStringClassHolder
+    let outsideFrameWidth: CGFloat
+
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
@@ -22,25 +23,22 @@ struct StructView: View {
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
+    
+    let fontSize = ComponentSettingValues.fontSize
+    
     var allStrings: [String] {
         var strings = [holder.name]
         strings += holder.generics
+        if let superClass = holder.superClassName {
+            strings.append(superClass)
+        }
         strings += holder.conformingProtocolNames
         strings += holder.typealiases
         strings += holder.initializers
         strings += holder.variables
         strings += holder.functions
-        
-        let nestedStructs = holder.nestingConvertedToStringStructHolders
-        for nestesStruct in nestedStructs {
-            strings += nestesStruct.generics
-            strings += nestesStruct.conformingProtocolNames
-            strings += nestesStruct.typealiases
-            strings += nestesStruct.initializers
-            strings += nestesStruct.variables
-            strings += nestesStruct.functions
-        }
-        
         return strings
     }
     
@@ -49,22 +47,38 @@ struct StructView: View {
     }
     
     var frameWidth: Double {
-        return bodyWidth + arrowTerminalWidth*2 + 4
+        return bodyWidth + arrowTerminalWidth*2 + CGFloat(4)
+    }
+    
+    var outsideWidth: Double {
+        return outsideFrameWidth + textTrailPadding
     }
     
     var body: some View {
         ZStack {
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            
+            NestClassFrame(holder: holder, bodyWidth: outsideWidth)
+                .stroke(lineWidth: ComponentSettingValues.borderWidth)
+                .fill(.black)
+                .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
+            
+            Text("Nest")
+                .lineLimit(1)
+                .font(.system(size: fontSize))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+                .position(x: outsideWidth/2 + arrowTerminalWidth, y: connectionHeight/2)
+            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
-                                    indexType: .struct,
+                                    indexType: .class,
                                     nameOfType: holder.name,
                                     bodyWidth: bodyWidth)
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-//                .background(.pink)
                 
                 // generic
                 if 0 < holder.generics.count {
@@ -73,8 +87,16 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.generics.count) + bottomPaddingForLastText)
-//                    .background(.blue)
-                } // if 0 < holder.generics.count
+                }
+                
+                // super Class
+                if let superClass = holder.superClassName {
+                    DetailComponentView(componentType: .superClass,
+                                        strings: [superClass],
+                                        bodyWidth: bodyWidth)
+                    .frame(width: frameWidth,
+                           height: connectionHeight + itemHeight + bottomPaddingForLastText)
+                }
                 
                 // conform
                 if 0 < holder.conformingProtocolNames.count {
@@ -83,8 +105,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.conformingProtocolNames.count) + bottomPaddingForLastText)
-//                    .background(.green)
-                } // if 0 < holder.conformingProtocolNames.count
+                }
                 
                 // typealiases
                 if 0 < holder.typealiases.count {
@@ -93,8 +114,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.typealiases.count) + bottomPaddingForLastText)
-//                    .background(.pink)
-                } // if 0 < holder.typealiases.count
+                }
                 
                 // initializer
                 if 0 < holder.initializers.count {
@@ -103,8 +123,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
-//                    .background(.yellow)
-                } // if 0 < holder.initializers.count
+                }
                 
                 // property
                 if 0 < holder.variables.count {
@@ -113,8 +132,7 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.variables.count) + bottomPaddingForLastText)
-//                    .background(.cyan)
-                } // if 0 < holder.variables.count
+                }
                 
                 // method
                 if 0 < holder.functions.count {
@@ -123,33 +141,72 @@ struct StructView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
-//                    .background(.indigo)
-                } // if 0 < holder.functions.count
-                
-                // nested Struct
-                ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
-                    NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
-                        .frame(width: frameWidth)
-                }
-                
-                // nested Class
-                ForEach(holder.nestingConvertedToStringClassHolders, id: \.self) { nestedStruct in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
-                    NestClassView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
-                        .frame(width: frameWidth)
                 }
             } // VStack
+            .scaleEffect(0.85)
         } // ZStack
     } // var body
     
-//    private func getConformComponentOffsetY() -> CGFloat {
-//        var offsetY: CGFloat =
-//    }
-} // struct StructView
+    private func calculateFrameHeight() -> CGFloat {
+        var height: CGFloat = headerItemHeight + nestTopPaddingWithConnectionHeight
+        
+        // generic
+        if 0 < holder.generics.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.generics.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // super Class
+        if let _ = holder.superClassName {
+            height += connectionHeight
+            height += itemHeight
+            height += bottomPaddingForLastText
+        }
+        
+        // conform
+        if 0 < holder.conformingProtocolNames.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.conformingProtocolNames.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // typealiases
+        if 0 < holder.typealiases.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.typealiases.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // initializers
+        if 0 < holder.initializers.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.initializers.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // property
+        if 0 < holder.variables.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.variables.count)
+            height += bottomPaddingForLastText
+        }
+        
+        // method
+        if 0 < holder.functions.count {
+            height += connectionHeight
+            height += itemHeight*CGFloat(holder.functions.count)
+            height += bottomPaddingForLastText
+        }
+        
+        height += nestBottomPadding
+        
+        return height
+    }
+}
 
-//struct StructView_Previews: PreviewProvider {
+//struct NestClassView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StructView()
+//        NestClassView()
 //    }
 //}

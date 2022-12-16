@@ -24,3 +24,17 @@ struct ConvertedToStringClassHolder {
     
     var extensions = [ConvertedToStringExtensionHolder]()
 }
+
+extension ConvertedToStringClassHolder: Hashable {
+    static func == (lhs: ConvertedToStringClassHolder, rhs: ConvertedToStringClassHolder) -> Bool {
+        return lhs.name == rhs.name
+    }
+
+    var hashValue: Int {
+        return self.name.hashValue
+    }
+
+    func hash(into hasher: inout Hasher) {
+        name.hash(into: &hasher)
+    }
+}

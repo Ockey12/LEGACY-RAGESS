@@ -35,6 +35,34 @@ struct ContentView: View {
                                                                        "functionfunctionfunctionfunctionfunction",
                                                                         "function"]
     )
+    let nestedClassHolder1 = ConvertedToStringClassHolder(name: "nestedClassHolder1",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+                                                     superClassName: "SuperClass",
+                                                     conformingProtocolNames: ["Protocol", "ProtocolProtocolProtocolProtocol", "ProtocolProtocol"],
+                                                     typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
+                                                     initializers: ["initializer",
+                                                                   "initializerinitializer",
+                                                                   "initializerinitializerinitializerinitializer",
+                                                                   "initializerinitializer"],
+                                                     variables: ["variable",
+                                                                "variablevariablevariable",
+                                                                "variablevariablevariablevariablevariab",
+                                                                "variablevariablevariablevariable"],
+                                                     functions: ["functionfunctionfunctionfunction",
+                                                                "functionfunctionfunction",
+                                                                "functionfunction",
+                                                                "functionfunctionfunctionfunctionfunction",
+                                                                 "function"]
+    )
+    let nestedClassHolder2 = ConvertedToStringClassHolder(name: "nestedClassHolder2",
+                                                     accessLevelIcon: AccessLevel.private.icon,
+                                                     superClassName: "SuperClass",
+                                                     functions: ["functionfunctionfunctionfunction",
+                                                                "functionfunctionfunction",
+                                                                "functionfunction",
+                                                                "functionfunctionfunctionfunctionfunction",
+                                                                 "function"]
+    )
     var structHolder: ConvertedToStringStructHolder {
         return ConvertedToStringStructHolder(name: "NameNameNameName",
                                              accessLevelIcon: AccessLevel.private.icon,
@@ -54,7 +82,8 @@ struct ContentView: View {
                                                         "functionfunction",
                                                         "functionfunctionfunctionfunctionfunction",
                                                          "function"],
-                                             nestingConvertedToStringStructHolders: [nestedStructHolder1, nestedStructHolder2]
+                                             nestingConvertedToStringStructHolders: [nestedStructHolder1, nestedStructHolder2],
+                                             nestingConvertedToStringClassHolders: [nestedClassHolder1, nestedClassHolder2]
 )
     }
 //variables: ["VariableVariable", "VariableVariableVariableVariable", "Variable"],
