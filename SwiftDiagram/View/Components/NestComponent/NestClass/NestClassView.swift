@@ -26,6 +26,8 @@ struct NestClassView: View {
     let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
     let nestBottomPadding = ComponentSettingValues.nestBottomPadding
     
+    let nestScale = ComponentSettingValues.nestComponentScale
+    
     let fontSize = ComponentSettingValues.fontSize
     
     var allStrings: [String] {
@@ -86,7 +88,7 @@ struct NestClassView: View {
                                         strings: holder.generics,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.generics.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.generics.count))
                 }
                 
                 // super Class
@@ -95,7 +97,7 @@ struct NestClassView: View {
                                         strings: [superClass],
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: 1))
                 }
                 
                 // conform
@@ -104,7 +106,7 @@ struct NestClassView: View {
                                         strings: holder.conformingProtocolNames,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.conformingProtocolNames.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.conformingProtocolNames.count))
                 }
                 
                 // typealiases
@@ -113,7 +115,7 @@ struct NestClassView: View {
                                         strings: holder.typealiases,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.typealiases.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
                 }
                 
                 // initializer
@@ -122,7 +124,7 @@ struct NestClassView: View {
                                         strings: holder.initializers,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
                 }
                 
                 // property
@@ -131,7 +133,7 @@ struct NestClassView: View {
                                         strings: holder.variables,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.variables.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
                 }
                 
                 // method
@@ -140,10 +142,10 @@ struct NestClassView: View {
                                         strings: holder.functions,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
                 }
             } // VStack
-            .scaleEffect(0.85)
+            .scaleEffect(nestScale)
         } // ZStack
     } // var body
     
@@ -202,7 +204,14 @@ struct NestClassView: View {
         height += nestBottomPadding
         
         return height
-    }
+    } // func calculateFrameHeight() -> CGFloat
+    
+    private func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat {
+        var height = connectionHeight
+        height += itemHeight*CGFloat(numberOfItems)
+        height += bottomPaddingForLastText
+        return height
+    } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
 }
 
 //struct NestClassView_Previews: PreviewProvider {

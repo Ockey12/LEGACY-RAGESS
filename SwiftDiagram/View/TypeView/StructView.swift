@@ -72,7 +72,7 @@ struct StructView: View {
                                         strings: holder.generics,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.generics.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.generics.count))
 //                    .background(.blue)
                 } // if 0 < holder.generics.count
                 
@@ -82,7 +82,7 @@ struct StructView: View {
                                         strings: holder.conformingProtocolNames,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.conformingProtocolNames.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.conformingProtocolNames.count))
 //                    .background(.green)
                 } // if 0 < holder.conformingProtocolNames.count
                 
@@ -92,7 +92,7 @@ struct StructView: View {
                                         strings: holder.typealiases,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.typealiases.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
 //                    .background(.pink)
                 } // if 0 < holder.typealiases.count
                 
@@ -102,7 +102,7 @@ struct StructView: View {
                                         strings: holder.initializers,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.initializers.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
 //                    .background(.yellow)
                 } // if 0 < holder.initializers.count
                 
@@ -112,7 +112,7 @@ struct StructView: View {
                                         strings: holder.variables,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.variables.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
 //                    .background(.cyan)
                 } // if 0 < holder.variables.count
                 
@@ -122,7 +122,7 @@ struct StructView: View {
                                         strings: holder.functions,
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
-                           height: connectionHeight + itemHeight*CGFloat(holder.functions.count) + bottomPaddingForLastText)
+                           height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
 //                    .background(.indigo)
                 } // if 0 < holder.functions.count
                 
@@ -143,9 +143,12 @@ struct StructView: View {
         } // ZStack
     } // var body
     
-//    private func getConformComponentOffsetY() -> CGFloat {
-//        var offsetY: CGFloat =
-//    }
+    private func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat {
+        var height = connectionHeight
+        height += itemHeight*CGFloat(numberOfItems)
+        height += bottomPaddingForLastText
+        return height
+    } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
 } // struct StructView
 
 //struct StructView_Previews: PreviewProvider {

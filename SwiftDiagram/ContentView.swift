@@ -56,7 +56,7 @@ struct ContentView: View {
     )
     let nestedClassHolder2 = ConvertedToStringClassHolder(name: "nestedClassHolder2",
                                                      accessLevelIcon: AccessLevel.private.icon,
-                                                     superClassName: "SuperClass",
+                                                     superClassName: "SuperClassSuperClassSuperClassSuperClassSuperClassSuperClassSuperClass",
                                                      functions: ["functionfunctionfunctionfunction",
                                                                 "functionfunctionfunction",
                                                                 "functionfunction",
