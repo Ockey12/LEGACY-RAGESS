@@ -131,6 +131,8 @@ struct ExtensionFrame: Shape {
         
 //        height += extensionBottomPadding
         
+//        height += 500
+        print("ExtensionFrame.calculateFrameHeight(): \(height)")
         return height
     } // func calculateFrameHeight() -> CGFloat
 }

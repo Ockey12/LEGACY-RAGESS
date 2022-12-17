@@ -177,6 +177,7 @@ struct ExtensionView: View {
                         .frame(width: frameWidth)
                 }
             } // VStack
+            .frame(height: calculateFrameHeight() - extensionTopPadding)
 //            .background(.cyan)
             .offset(y: connectionHeight)
             
@@ -258,7 +259,8 @@ struct ExtensionView: View {
         } // for nestedStruct in nestedStructs
         
 //        height += extensionBottomPadding
-        
+//        height += 500
+        print("ExtensionView.calculateFrameHeight(): \(height)")
         return height
     } // func calculateFrameHeight() -> CGFloat
     

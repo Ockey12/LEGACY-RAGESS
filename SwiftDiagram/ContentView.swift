@@ -134,7 +134,8 @@ struct ContentView: View {
                                                                     "functionfunctionfunction",
                                                                     "functionfunction",
                                                                     "functionfunctionfunctionfunctionfunction",
-                                                                     "function"]
+                                                                     "function"],
+                                         nestingConvertedToStringStructHolders: [nestedStructHolder3]
         )
     }
     let extensionHolder2 = ConvertedToStringExtensionHolder(conformingProtocolNames: ["Protocol"]
