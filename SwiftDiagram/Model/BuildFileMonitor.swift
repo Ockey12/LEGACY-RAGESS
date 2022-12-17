@@ -119,7 +119,7 @@ class BuildFileMonitor: ObservableObject {
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
-                        var convertedStructHolder = converter.convertToString(structHolder: structHolder)
+                        let convertedStructHolder = converter.convertToString(structHolder: structHolder)
                         convertedStructHolders.append(convertedStructHolder)
                     }
 //                    self.dummyStructHolder = dummy
