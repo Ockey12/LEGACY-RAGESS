@@ -33,6 +33,7 @@ struct HeaderComponentFrameWithText: View {
                 .background(.white)
                 .frame(width: bodyWidth, alignment: .leading)
                 .position(x: (bodyWidth + textLeadingPadding)/2 + arrowTerminalWidth, y: itemHeight/2)
+//                .foregroundColor(.clear)
         } // ZSTack
     } // var body
 } // struct HeaderComponentFrameWithText

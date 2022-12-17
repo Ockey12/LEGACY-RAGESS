@@ -8,6 +8,8 @@
 import Foundation
 
 struct ConvertedToStringStructHolder {
+    var changeDate = ""
+    
     var name = ""
     var accessLevelIcon = ""
     var generics = [String]()
@@ -26,14 +28,15 @@ struct ConvertedToStringStructHolder {
 
 extension ConvertedToStringStructHolder: Hashable {
     static func == (lhs: ConvertedToStringStructHolder, rhs: ConvertedToStringStructHolder) -> Bool {
-        return lhs.name == rhs.name
+        return (lhs.name == rhs.name) && (lhs.changeDate == rhs.changeDate)
     }
 
-    var hashValue: Int {
-        return self.name.hashValue
-    }
+//    var hashValue: Int {
+//        return self.name.hashValue
+//    }
 
     func hash(into hasher: inout Hasher) {
         name.hash(into: &hasher)
+        changeDate.hash(into: &hasher)
     }
 }

@@ -83,6 +83,7 @@
 		AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */; };
 		AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F007829403272001221C2 /* BuildFileMonitorView.swift */; };
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
+		ACC8D716294DD1CC00BA76A9 /* DummyStructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D715294DD1CC00BA76A9 /* DummyStructHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +162,7 @@
 		AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhomThisTypeAffect.swift; sourceTree = "<group>"; };
 		AC5F007829403272001221C2 /* BuildFileMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFileMonitorView.swift; sourceTree = "<group>"; };
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
+		ACC8D715294DD1CC00BA76A9 /* DummyStructHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyStructHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */,
+				ACC8D715294DD1CC00BA76A9 /* DummyStructHolder.swift */,
 				AC34B36F2946F8730029479C /* ConvertedToStringClassHolder.swift */,
 				AC34B3712946F87E0029479C /* ConvertedToStringEnumHolder.swift */,
 				AC34B3852947B2510029479C /* ConvertedToStringProtocolHolder.swift */,
@@ -521,6 +524,7 @@
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
+				ACC8D716294DD1CC00BA76A9 /* DummyStructHolder.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
 				AC34B3A9294A41F60029479C /* GetTextsMaxWidthView.swift in Sources */,

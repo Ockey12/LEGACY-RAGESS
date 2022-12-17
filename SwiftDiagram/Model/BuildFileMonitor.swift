@@ -11,6 +11,8 @@ import SwiftSyntaxParser
 
 class BuildFileMonitor: ObservableObject {
     @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
+    @Published var changeDate = ""
+    @Published var dummyStructHolder = DummyStructHolder(changeDate: "", array: [])
     
     @Published var content = ""
     @Published var convertedContent = ""
@@ -56,8 +58,21 @@ class BuildFileMonitor: ObservableObject {
                 self!.convertedContent = ""
                 
                 self!.convertedStructHolders.removeAll()
+//                self!.convertedStructHolders = []
+                self!.dummyStructHolder = DummyStructHolder(changeDate: "", array: [])
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
+                
+//                self!.convertedStructHolders.objectWillChange.send()
+                self!.changeDate = "\(dateFormatter.string(from: dt)): \(self!.buildFileURL) did change"
+                
+//                let dummyConvertedStructHolder = ConvertedToStringStructHolder(name: "\(dateFormatter.string(from: dt))")
+//                self!.convertedStructHolders.append(dummyConvertedStructHolder)
+//                self!.convertedStructHolders[0].name = "\(dateFormatter.string(from: dt))"
+                
+                for i in 0..<self!.convertedStructHolders.count {
+                    self!.convertedStructHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
+                }
             }
         }
         
@@ -110,20 +125,30 @@ class BuildFileMonitor: ObservableObject {
                 if url.pathExtension == "swift" {
                     print("Swift File URL: \(url)")
                     
+                    // 変更を検出した日時を取得する
+                    let dt = Date()
+                    let dateFormatter: DateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+                    
                     let parsedContent = try! SyntaxParser.parse(url)
                     let visitor = TokenVisitor()
                     _ = visitor.visit(parsedContent)
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
+                    var dummy = DummyStructHolder(changeDate: "\(dateFormatter.string(from: dt))", array: [])
+                    
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
 //                    addStructToContent(structHolders: resultStructHolders)
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
-                        let convertedStructHolder = converter.convertToString(structHolder: structHolder)
+                        var convertedStructHolder = converter.convertToString(structHolder: structHolder)
 //                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+//                        convertedStructHolder.changeDate = "\(dateFormatter.string(from: dt))"
                         convertedStructHolders.append(convertedStructHolder)
+                        self.dummyStructHolder.array.append(convertedStructHolder)
                     }
+                    self.dummyStructHolder = dummy
 //
 //                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
 //                    addClassToContent(classHolders: resultClassHolders)

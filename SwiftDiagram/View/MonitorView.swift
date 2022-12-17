@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MonitorView: View {
-    @ObservedObject var monitor = BuildFileMonitor()
+//    @ObservedObject var monitor = BuildFileMonitor()
+    @StateObject var monitor = BuildFileMonitor()
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -17,7 +18,8 @@ struct MonitorView: View {
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
     var body: some View {
-        VStack {
+        
+        return VStack {
 //            HStack {
 //                ScrollView {
 //                    Text("Content")
@@ -35,6 +37,7 @@ struct MonitorView: View {
                     ForEach(monitor.convertedStructHolders, id: \.self) { holder in
                         StructView(holder: holder)
                             .padding()
+                        Text(holder.changeDate)
                     }
                 }
                 .scaleEffect(0.3)
@@ -66,6 +69,13 @@ struct MonitorView: View {
             VStack {
                 Text("Build File URL: \(buildFileURL)")
                 Text("Project Directory URL: \(projectDirectoryURL)")
+                Text("Change Date: \(monitor.changeDate)")
+                    .onChange(of: monitor.changeDate, perform: { newValue in
+                        self.monitor.objectWillChange.send()
+                    })
+//                    .onAppear {
+//                        self.monitor.objectWillChange.send()
+//                    }
             }
             .padding()
         } // VStack

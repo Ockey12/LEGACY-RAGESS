@@ -129,6 +129,11 @@ struct StructView: View {
     
     var body: some View {
         ZStack {
+            Text(holder.changeDate)
+                .font(.system(size: 50))
+                .foregroundColor(.clear)
+                .background(.clear)
+//                .background(.clear)
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             VStack(spacing: 0) {
                 // Header
@@ -168,6 +173,10 @@ struct StructView: View {
                     ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
                         .frame(width: bodyWidth + extensionOutsidePadding*2)
                 }
+//                Text(holder.changeDate)
+//                    .font(.system(size: 50))
+//                    .foregroundColor(.clear)
+//                    .background(.clear)
             } // VStack
         } // ZStack
     } // var body
