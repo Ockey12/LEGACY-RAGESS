@@ -10,6 +10,8 @@ import SwiftSyntax
 import SwiftSyntaxParser
 
 class BuildFileMonitor: ObservableObject {
+    @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
+    
     @Published var content = ""
     @Published var convertedContent = ""
     private var monitoredFolderFileDescriptor: CInt = -1
@@ -52,6 +54,9 @@ class BuildFileMonitor: ObservableObject {
             DispatchQueue.main.async {
                 self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
                 self!.convertedContent = ""
+                
+                self!.convertedStructHolders.removeAll()
+                
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
             }
         }
@@ -112,37 +117,38 @@ class BuildFileMonitor: ObservableObject {
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
-                    addStructToContent(structHolders: resultStructHolders)
+//                    addStructToContent(structHolders: resultStructHolders)
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
                         let convertedStructHolder = converter.convertToString(structHolder: structHolder)
-                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+//                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
+                        convertedStructHolders.append(convertedStructHolder)
                     }
-
-                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
-                    addClassToContent(classHolders: resultClassHolders)
-                    for classHolder in resultClassHolders {
-                        let converter = ClassHolderToStringConverter()
-                        let convertedClassHolder = converter.convertToString(classHolder: classHolder)
-                        addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
-                    }
-                    
-                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
-                    addEnumToContent(enumHolders: resultEnumHolders)
-                    for enumHolder in resultEnumHolders {
-                        let converter = EnumHolderToStringConverter()
-                        let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
-                        addStringEnumToConvertedContent(stringEnumHolder: convertedEnumHolder)
-                    }
-                    
-                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
-                    addProtocolToContent(protocolHolders: resultProtocolHolders)
-                    for protocolHolder in resultProtocolHolders {
-                        let converter = ProtocolHolderToStringConverter()
-                        let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
-                        addStringProtocolToConvertedContent(stringProtocoltHolder: convertedProtocolHolder)
-                    }
-                    addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
+//
+//                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
+//                    addClassToContent(classHolders: resultClassHolders)
+//                    for classHolder in resultClassHolders {
+//                        let converter = ClassHolderToStringConverter()
+//                        let convertedClassHolder = converter.convertToString(classHolder: classHolder)
+//                        addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
+//                    }
+//
+//                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
+//                    addEnumToContent(enumHolders: resultEnumHolders)
+//                    for enumHolder in resultEnumHolders {
+//                        let converter = EnumHolderToStringConverter()
+//                        let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
+//                        addStringEnumToConvertedContent(stringEnumHolder: convertedEnumHolder)
+//                    }
+//
+//                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
+//                    addProtocolToContent(protocolHolders: resultProtocolHolders)
+//                    for protocolHolder in resultProtocolHolders {
+//                        let converter = ProtocolHolderToStringConverter()
+//                        let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
+//                        addStringProtocolToConvertedContent(stringProtocoltHolder: convertedProtocolHolder)
+//                    }
+//                    addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
                 }

@@ -18,19 +18,28 @@ struct MonitorView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                ScrollView {
-                    Text("Content")
-                    Divider()
-                    Text(monitor.content)
+//            HStack {
+//                ScrollView {
+//                    Text("Content")
+//                    Divider()
+//                    Text(monitor.content)
+//                }
+//                ScrollView {
+//                    Text("ConvertedContent")
+//                    Divider()
+//                    Text(monitor.convertedContent)
+//                }
+//            }
+            ScrollView([.vertical, .horizontal]) {
+                HStack {
+                    ForEach(monitor.convertedStructHolders, id: \.self) { holder in
+                        StructView(holder: holder)
+                            .padding()
+                    }
                 }
-                ScrollView {
-                    Text("ConvertedContent")
-                    Divider()
-                    Text(monitor.convertedContent)
-                }
+                .scaleEffect(0.3)
             }
-//            Text("\(monitor.content)")
+            .background(.white)
             
             Divider()
             
@@ -54,8 +63,11 @@ struct MonitorView: View {
                 .padding()
             } // HStack
             
-            Text("Build File URL: \(buildFileURL)")
-            Text("Project Directory URL: \(projectDirectoryURL)")
+            VStack {
+                Text("Build File URL: \(buildFileURL)")
+                Text("Project Directory URL: \(projectDirectoryURL)")
+            }
+            .padding()
         } // VStack
         .fileImporter(isPresented: $importerPresented, allowedContentTypes: [.directory]) { result in
             switch result {
