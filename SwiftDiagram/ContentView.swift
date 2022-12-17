@@ -124,7 +124,7 @@ struct ContentView: View {
                                                          typealiases: ["typealias", "typealiastypealiastypealias", "typealiastypealias"],
                                                          initializers: ["initializer",
                                                                        "initializerinitializer",
-                                                                       "initializerinitializerinitializerinitializer",
+                                                                       "initializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializerinitializer",
                                                                        "initializerinitializer"],
                                                          variables: ["variable",
                                                                     "variablevariablevariable",
