@@ -8,6 +8,8 @@
 import Foundation
 
 struct ConvertedToStringClassHolder {
+    var changeDate = ""
+    
     var name = ""
     var accessLevelIcon = ""
     var generics = [String]()
@@ -27,7 +29,7 @@ struct ConvertedToStringClassHolder {
 
 extension ConvertedToStringClassHolder: Hashable {
     static func == (lhs: ConvertedToStringClassHolder, rhs: ConvertedToStringClassHolder) -> Bool {
-        return lhs.name == rhs.name
+        return (lhs.name == rhs.name) && (lhs.changeDate == rhs.changeDate)
     }
 
     var hashValue: Int {
@@ -36,5 +38,6 @@ extension ConvertedToStringClassHolder: Hashable {
 
     func hash(into hasher: inout Hasher) {
         name.hash(into: &hasher)
+        changeDate.hash(into: &hasher)
     }
 }

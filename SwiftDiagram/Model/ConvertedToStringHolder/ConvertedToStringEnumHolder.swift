@@ -8,6 +8,8 @@
 import Foundation
 
 struct ConvertedToStringEnumHolder {
+    var changeDate = ""
+    
     var name = ""
     var accessLevelIcon = ""
     var generics = [String]()
@@ -28,7 +30,7 @@ struct ConvertedToStringEnumHolder {
 
 extension ConvertedToStringEnumHolder: Hashable {
     static func == (lhs: ConvertedToStringEnumHolder, rhs: ConvertedToStringEnumHolder) -> Bool {
-        return lhs.name == rhs.name
+        return (lhs.name == rhs.name) && (lhs.changeDate == rhs.changeDate)
     }
 
     var hashValue: Int {
@@ -37,5 +39,6 @@ extension ConvertedToStringEnumHolder: Hashable {
 
     func hash(into hasher: inout Hasher) {
         name.hash(into: &hasher)
+        changeDate.hash(into: &hasher)
     }
 }
