@@ -129,12 +129,14 @@ struct StructView: View {
     
     var body: some View {
         ZStack {
+            // changeDateを更新するとき、ZStack全体が更新される
             Text(holder.changeDate)
                 .font(.system(size: 50))
                 .foregroundColor(.clear)
                 .background(.clear)
-//                .background(.clear)
+
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -173,10 +175,6 @@ struct StructView: View {
                     ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
                         .frame(width: bodyWidth + extensionOutsidePadding*2)
                 }
-//                Text(holder.changeDate)
-//                    .font(.system(size: 50))
-//                    .foregroundColor(.clear)
-//                    .background(.clear)
             } // VStack
         } // ZStack
     } // var body

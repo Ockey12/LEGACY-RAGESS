@@ -12,7 +12,6 @@ import SwiftSyntaxParser
 class BuildFileMonitor: ObservableObject {
     @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
     @Published var changeDate = ""
-    @Published var dummyStructHolder = DummyStructHolder(changeDate: "", array: [])
     
     @Published var content = ""
     @Published var convertedContent = ""
@@ -48,28 +47,18 @@ class BuildFileMonitor: ObservableObject {
             print("Project Directory: \(self!.projectDirectoryURL)")
             //  プロジェクトディレクトリ下にあるSwiftファイルのURLを表示する
             self!.printSubFiles(url: self!.projectDirectoryURL)
-//            DispatchQueue.main.async {
-//                self!.counter += 1
-//            }
-//            self!.counter += 1
             
             DispatchQueue.main.async {
                 self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
                 self!.convertedContent = ""
                 
                 self!.convertedStructHolders.removeAll()
-//                self!.convertedStructHolders = []
-                self!.dummyStructHolder = DummyStructHolder(changeDate: "", array: [])
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
                 
-//                self!.convertedStructHolders.objectWillChange.send()
-                self!.changeDate = "\(dateFormatter.string(from: dt)): \(self!.buildFileURL) did change"
+                self!.changeDate = "\(dateFormatter.string(from: dt))"
                 
-//                let dummyConvertedStructHolder = ConvertedToStringStructHolder(name: "\(dateFormatter.string(from: dt))")
-//                self!.convertedStructHolders.append(dummyConvertedStructHolder)
-//                self!.convertedStructHolders[0].name = "\(dateFormatter.string(from: dt))"
-                
+                // ビルドされた時間を追加することで、値の変更がpublishされる
                 for i in 0..<self!.convertedStructHolders.count {
                     self!.convertedStructHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
                 }
@@ -99,14 +88,10 @@ class BuildFileMonitor: ObservableObject {
             let tempDirContentsUrls = try FileManager.default.contentsOfDirectory(at: url,
                                                                                   includingPropertiesForKeys: nil,
                                                                                   options: [.skipsHiddenFiles])
-//            print("")
-//            print("Project Directory: \(url)")
+
             tempDirContentsUrls.forEach { url in
-//                print(url)
                 if url.pathExtension == "swift" {
                     print(url)
-//                    swiftFilesURL.append(url)
-//                    urlsAndAST.swiftFilesURL.append(url)
                 } else if url.hasDirectoryPath {
                     printSubFiles(url: url)
                 }
@@ -124,31 +109,20 @@ class BuildFileMonitor: ObservableObject {
             tempDirContentsUrls.forEach { url in
                 if url.pathExtension == "swift" {
                     print("Swift File URL: \(url)")
-                    
-                    // 変更を検出した日時を取得する
-                    let dt = Date()
-                    let dateFormatter: DateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-                    
+
                     let parsedContent = try! SyntaxParser.parse(url)
                     let visitor = TokenVisitor()
                     _ = visitor.visit(parsedContent)
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
-                    var dummy = DummyStructHolder(changeDate: "\(dateFormatter.string(from: dt))", array: [])
-                    
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
-//                    addStructToContent(structHolders: resultStructHolders)
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
                         var convertedStructHolder = converter.convertToString(structHolder: structHolder)
-//                        addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
-//                        convertedStructHolder.changeDate = "\(dateFormatter.string(from: dt))"
                         convertedStructHolders.append(convertedStructHolder)
-                        self.dummyStructHolder.array.append(convertedStructHolder)
                     }
-                    self.dummyStructHolder = dummy
+//                    self.dummyStructHolder = dummy
 //
 //                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
 //                    addClassToContent(classHolders: resultClassHolders)
