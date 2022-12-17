@@ -193,7 +193,7 @@ struct NestStructView: View {
         height += bottomPaddingForLastText
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
-}
+} // struct NestStructView
 
 //struct NestStructView_Previews: PreviewProvider {
 //    static var previews: some View {

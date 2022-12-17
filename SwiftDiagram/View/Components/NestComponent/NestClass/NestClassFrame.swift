@@ -111,7 +111,7 @@ struct NestClassFrame: Shape {
         
         return height
     } // func calculateFrameHeight() -> CGFloat
-}
+} // struct NestClassFrame
 
 //struct NestClassFrame_Previews: PreviewProvider {
 //    static var previews: some View {

@@ -139,7 +139,6 @@ struct StructView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-//                .background(.pink)
                 
                 // DetailComponent
                 StructDetailView(holder: holder,
@@ -148,35 +147,27 @@ struct StructView: View {
                 
                 // nested Struct
                 ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
                 
                 // nested Class
                 ForEach(holder.nestingConvertedToStringClassHolders, id: \.self) { nestedClass in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestClassView(holder: nestedClass, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
                 
                 // nested Enum
                 ForEach(holder.nestingConvertedToStringEnumHolders, id: \.self) { nestedEnum in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestEnumView(holder: nestedEnum, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
                 
-//                // extension
+                // extension
                 ForEach(holder.extensions, id: \.self) { extensionHolder in
                     ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
                         .frame(width: bodyWidth + extensionOutsidePadding*2)
-//                    Text(holder.conformingProtocolNames[0])
                 }
-//                ExtensionFrame(holder: holder.extensions[0], bodyWidth: maxTextWidth)
-//                    .frame(width: bodyWidth + extensionOutsidePadding*2)
-//                ExtensionView(holder: holder.extensions[0], outsideFrameWidth: maxTextWidth)
-//                    .frame(width: bodyWidth + extensionOutsidePadding*2)
             } // VStack
         } // ZStack
     } // var body

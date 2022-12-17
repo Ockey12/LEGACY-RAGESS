@@ -25,7 +25,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.generics.count))
-//                    .background(.blue)
             } // if 0 < holder.generics.count
             
             // conform
@@ -35,7 +34,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.conformingProtocolNames.count))
-//                    .background(.green)
             } // if 0 < holder.conformingProtocolNames.count
             
             // typealiases
@@ -45,7 +43,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
-//                    .background(.pink)
             } // if 0 < holder.typealiases.count
             
             // initializer
@@ -55,7 +52,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
-//                    .background(.yellow)
             } // if 0 < holder.initializers.count
             
             // property
@@ -65,7 +61,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
-//                    .background(.cyan)
             } // if 0 < holder.variables.count
             
             // method
@@ -75,7 +70,6 @@ struct StructDetailView: View {
                                     bodyWidth: bodyWidth)
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
-//                    .background(.indigo)
             } // if 0 < holder.functions.count
         } // VStack
     } // var body
@@ -86,7 +80,7 @@ struct StructDetailView: View {
         height += bottomPaddingForLastText
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
-}
+} // struct StructDetailView
 
 //struct StructDetailView_Previews: PreviewProvider {
 //    static var previews: some View {

@@ -77,7 +77,7 @@ struct ExtensionView: View {
         }
         
         return strings
-    }
+    } // var allStrings
     
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
@@ -99,7 +99,6 @@ struct ExtensionView: View {
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
-//                .background(.pink)
             
             Text("Extension")
                 .lineLimit(1)
@@ -152,33 +151,27 @@ struct ExtensionView: View {
                                         bodyWidth: bodyWidth)
                     .frame(width: frameWidth,
                            height: calculateDetailComponentFrameHeight(numberOfItems: holder.functions.count))
-//                    .background(.green)
                 }
                 
                 // nested Struct
                 ForEach(holder.nestingConvertedToStringStructHolders, id: \.self) { nestedStruct in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestStructView(holder: nestedStruct, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
-//                        .background(.gray)
                 }
                 
                 // nested Class
                 ForEach(holder.nestingConvertedToStringClassHolders, id: \.self) { nestedClass in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestClassView(holder: nestedClass, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
                 
                 // nested Enum
                 ForEach(holder.nestingConvertedToStringEnumHolders, id: \.self) { nestedEnum in
-//                    NestStructView(holder: nestedStruct, maxTextWidth: maxTextWidth)
                     NestEnumView(holder: nestedEnum, outsideFrameWidth: maxTextWidth)
                         .frame(width: frameWidth)
                 }
             } // VStack
             .frame(height: calculateFrameHeight() - extensionTopPadding)
-//            .background(.cyan)
             .offset(y: connectionHeight)
             
         } // ZStack
@@ -258,9 +251,6 @@ struct ExtensionView: View {
             height += nestBottomPadding
         } // for nestedStruct in nestedStructs
         
-//        height += extensionBottomPadding
-//        height += 500
-        print("ExtensionView.calculateFrameHeight(): \(height)")
         return height
     } // func calculateFrameHeight() -> CGFloat
     
@@ -270,7 +260,7 @@ struct ExtensionView: View {
         height += bottomPaddingForLastText
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
-}
+} // struct ExtensionView
 
 //struct ExtensionView_Previews: PreviewProvider {
 //    static var previews: some View {

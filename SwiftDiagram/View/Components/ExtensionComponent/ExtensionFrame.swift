@@ -128,14 +128,10 @@ struct ExtensionFrame: Shape {
             }
             height += nestBottomPadding
         } // for nestedStruct in nestedStructs
-        
-//        height += extensionBottomPadding
-        
-//        height += 500
-        print("ExtensionFrame.calculateFrameHeight(): \(height)")
+
         return height
     } // func calculateFrameHeight() -> CGFloat
-}
+} // struct ExtensionFrame
 
 //struct ExtensionFrame_Previews: PreviewProvider {
 //    static var previews: some View {
