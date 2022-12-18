@@ -24,6 +24,19 @@ struct MonitorView: View {
         return VStack {
             ScrollView([.vertical, .horizontal]) {
                 VStack(alignment: .leading) {
+                    // Protocol
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            ForEach(monitor.convertedProtocolHolders, id: \.self) { holder in
+                                ProtocolView(holder: holder)
+                                    .padding()
+                            }
+                        } // HStack
+                        Rectangle()
+                            .frame(height: connectionHeight)
+                            .foregroundColor(.clear)
+                    } // VStack
+                    
                     // Struct
                     VStack(alignment: .leading) {
                         HStack(alignment: .top) {

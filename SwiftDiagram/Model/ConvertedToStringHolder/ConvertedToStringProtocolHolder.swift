@@ -8,6 +8,8 @@
 import Foundation
 
 struct ConvertedToStringProtocolHolder {
+    var changeDate = ""
+    
     var name = ""
     var accessLevelIcon = ""
     var conformingProtocolNames = [String]()
@@ -22,4 +24,19 @@ struct ConvertedToStringProtocolHolder {
     var functions = [String]()
     
     var extensions = [ConvertedToStringExtensionHolder]()
+}
+
+extension ConvertedToStringProtocolHolder: Hashable {
+    static func == (lhs: ConvertedToStringProtocolHolder, rhs: ConvertedToStringProtocolHolder) -> Bool {
+        return (lhs.name == rhs.name) && (lhs.changeDate == rhs.changeDate)
+    }
+
+//    var hashValue: Int {
+//        return self.name.hashValue
+//    }
+
+    func hash(into hasher: inout Hasher) {
+        name.hash(into: &hasher)
+        changeDate.hash(into: &hasher)
+    }
 }

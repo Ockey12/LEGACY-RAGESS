@@ -13,6 +13,7 @@ class BuildFileMonitor: ObservableObject {
     @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
     @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
     @Published var convertedEnumHolders = [ConvertedToStringEnumHolder]()
+    @Published var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
     @Published var changeDate = ""
     
     private var monitoredFolderFileDescriptor: CInt = -1
@@ -51,6 +52,7 @@ class BuildFileMonitor: ObservableObject {
                 self!.convertedStructHolders.removeAll()
                 self!.convertedClassHolders.removeAll()
                 self!.convertedEnumHolders.removeAll()
+                self!.convertedProtocolHolders.removeAll()
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
                 
@@ -65,6 +67,9 @@ class BuildFileMonitor: ObservableObject {
                 }
                 for i in 0..<self!.convertedEnumHolders.count {
                     self!.convertedEnumHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
+                }
+                for i in 0..<self!.convertedProtocolHolders.count {
+                    self!.convertedProtocolHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
                 }
             } // DispatchQueue.main.async
         } // buildFileMonitorSource?.setEventHandler { [weak self] in
@@ -143,15 +148,14 @@ class BuildFileMonitor: ObservableObject {
                         let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
                         convertedEnumHolders.append(convertedEnumHolder)
                     }
-//
-//                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
-//                    addProtocolToContent(protocolHolders: resultProtocolHolders)
-//                    for protocolHolder in resultProtocolHolders {
-//                        let converter = ProtocolHolderToStringConverter()
-//                        let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
-//                        addStringProtocolToConvertedContent(stringProtocoltHolder: convertedProtocolHolder)
-//                    }
-//                    addDependenciesToContent(dependencies: syntaxArrayParser.getWhomThisTypeAffectArray())
+
+                    // Protocol
+                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
+                    for protocolHolder in resultProtocolHolders {
+                        let converter = ProtocolHolderToStringConverter()
+                        let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
+                        convertedProtocolHolders.append(convertedProtocolHolder)
+                    }
                 } else if url.hasDirectoryPath {
                     parseSwiftFiles(url: url)
                 }

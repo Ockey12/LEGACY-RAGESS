@@ -88,6 +88,8 @@
 		ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */; };
 		ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D720294F0F2900BA76A9 /* EnumView.swift */; };
 		ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */; };
+		ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D725294F13B100BA76A9 /* ProtocolView.swift */; };
+		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +173,8 @@
 		ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldersPropertysPrinter.swift; sourceTree = "<group>"; };
 		ACC8D720294F0F2900BA76A9 /* EnumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumView.swift; sourceTree = "<group>"; };
 		ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumDetailView.swift; sourceTree = "<group>"; };
+		ACC8D725294F13B100BA76A9 /* ProtocolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolView.swift; sourceTree = "<group>"; };
+		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +261,7 @@
 				ACC8D717294EEE4B00BA76A9 /* Struct */,
 				ACC8D718294EEE7900BA76A9 /* Class */,
 				ACC8D71F294F0F1100BA76A9 /* Enum */,
+				ACC8D724294F138400BA76A9 /* Protocol */,
 			);
 			path = TypeView;
 			sourceTree = "<group>";
@@ -449,6 +454,15 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		ACC8D724294F138400BA76A9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				ACC8D725294F13B100BA76A9 /* ProtocolView.swift */,
+				ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -570,6 +584,7 @@
 				AC34B3822947A62C0029479C /* EnumHolderToStringConverter.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
+				ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
@@ -585,6 +600,7 @@
 				ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */,
 				AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */,
 				AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */,
 				ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
