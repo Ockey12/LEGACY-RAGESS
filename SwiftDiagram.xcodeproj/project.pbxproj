@@ -90,6 +90,7 @@
 		ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */; };
 		ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D725294F13B100BA76A9 /* ProtocolView.swift */; };
 		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
+		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +176,7 @@
 		ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumDetailView.swift; sourceTree = "<group>"; };
 		ACC8D725294F13B100BA76A9 /* ProtocolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolView.swift; sourceTree = "<group>"; };
 		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
+		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 		AC34B3A3294A40480029479C /* TypeView */ = {
 			isa = PBXGroup;
 			children = (
+				ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */,
 				ACC8D717294EEE4B00BA76A9 /* Struct */,
 				ACC8D718294EEE7900BA76A9 /* Class */,
 				ACC8D71F294F0F1100BA76A9 /* Enum */,
@@ -588,6 +591,7 @@
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
+				ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
 				AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */,
