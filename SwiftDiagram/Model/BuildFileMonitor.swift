@@ -11,17 +11,14 @@ import SwiftSyntaxParser
 
 class BuildFileMonitor: ObservableObject {
     @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
+    @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
     @Published var changeDate = ""
     
-    @Published var content = ""
-    @Published var convertedContent = ""
     private var monitoredFolderFileDescriptor: CInt = -1
     private let folderMonitorQueue = DispatchQueue(label: "BuildFileMonitorQueue", attributes: .concurrent)
     private var buildFileMonitorSource: DispatchSourceFileSystemObject?
     var buildFileURL: URL = FileManager.default.temporaryDirectory
     var projectDirectoryURL: URL = FileManager.default.temporaryDirectory
-    
-    @Published var counter = 1
     
     func startMonitoring() {
         guard (buildFileMonitorSource == nil) &&
@@ -49,10 +46,12 @@ class BuildFileMonitor: ObservableObject {
             self!.printSubFiles(url: self!.projectDirectoryURL)
             
             DispatchQueue.main.async {
-                self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
-                self!.convertedContent = ""
+//                self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
+//                self!.convertedContent = ""
                 
+                // 配列を空にする
                 self!.convertedStructHolders.removeAll()
+                self!.convertedClassHolders.removeAll()
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
                 
@@ -61,6 +60,9 @@ class BuildFileMonitor: ObservableObject {
                 // ビルドされた時間を追加することで、値の変更がpublishされる
                 for i in 0..<self!.convertedStructHolders.count {
                     self!.convertedStructHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
+                }
+                for i in 0..<self!.convertedClassHolders.count {
+                    self!.convertedClassHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
                 }
             }
         }
@@ -122,15 +124,15 @@ class BuildFileMonitor: ObservableObject {
                         let convertedStructHolder = converter.convertToString(structHolder: structHolder)
                         convertedStructHolders.append(convertedStructHolder)
                     }
-//                    self.dummyStructHolder = dummy
-//
-//                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
+
+                    let resultClassHolders = syntaxArrayParser.getResultClassHolders()
 //                    addClassToContent(classHolders: resultClassHolders)
-//                    for classHolder in resultClassHolders {
-//                        let converter = ClassHolderToStringConverter()
-//                        let convertedClassHolder = converter.convertToString(classHolder: classHolder)
+                    for classHolder in resultClassHolders {
+                        let converter = ClassHolderToStringConverter()
+                        let convertedClassHolder = converter.convertToString(classHolder: classHolder)
 //                        addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
-//                    }
+                        convertedClassHolders.append(convertedClassHolder)
+                    }
 //
 //                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
 //                    addEnumToContent(enumHolders: resultEnumHolders)
@@ -156,34 +158,4 @@ class BuildFileMonitor: ObservableObject {
             print(error.localizedDescription)
         }
     } // func parseSwiftFiles(url: URL)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
+} // class BuildFileMonitor

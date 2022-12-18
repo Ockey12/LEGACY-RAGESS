@@ -17,31 +17,42 @@ struct MonitorView: View {
     @State private var buildFileURL = FileManager.default.temporaryDirectory
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
+    let connectionHeight = ComponentSettingValues.connectionHeight
+    
     var body: some View {
         
         return VStack {
-//            HStack {
-//                ScrollView {
-//                    Text("Content")
-//                    Divider()
-//                    Text(monitor.content)
-//                }
-//                ScrollView {
-//                    Text("ConvertedContent")
-//                    Divider()
-//                    Text(monitor.convertedContent)
-//                }
-//            }
             ScrollView([.vertical, .horizontal]) {
-                HStack {
-                    ForEach(monitor.convertedStructHolders, id: \.self) { holder in
-                        StructView(holder: holder)
-                            .padding()
-                        Text(holder.changeDate)
-                    }
-                }
+                VStack(alignment: .leading) {
+                    // Struct
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            ForEach(monitor.convertedStructHolders, id: \.self) { holder in
+                                StructView(holder: holder)
+                                    .padding()
+                            }
+                        } // HStack
+                        Rectangle()
+                            .frame(height: connectionHeight)
+                            .foregroundColor(.clear)
+                    } // VStack
+                    
+                    // Class
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            ForEach(monitor.convertedClassHolders, id: \.self) { holder in
+                                ClassView(holder: holder)
+                                    .padding()
+                            }
+                        } // HStack
+                        Rectangle()
+                            .frame(height: connectionHeight)
+                            .foregroundColor(.clear)
+                    } // VStack
+                    
+                } // VStack
                 .scaleEffect(0.3)
-            }
+            } // ScrollView
             .background(.white)
             
             Divider()
@@ -66,17 +77,21 @@ struct MonitorView: View {
                 .padding()
             } // HStack
             
+            // ビルドファイルとプロジェクトディレクトリのURL、ビルドされた時間を表示する
             VStack {
-                Text("Build File URL: \(buildFileURL)")
-                Text("Project Directory URL: \(projectDirectoryURL)")
-                Text("Change Date: \(monitor.changeDate)")
-                    .onChange(of: monitor.changeDate, perform: { newValue in
-                        self.monitor.objectWillChange.send()
-                    })
-//                    .onAppear {
-//                        self.monitor.objectWillChange.send()
-//                    }
-            }
+                HStack {
+                    Text("Build File URL: \(buildFileURL)")
+                    Spacer()
+                }
+                HStack {
+                    Text("Project Directory URL: \(projectDirectoryURL)")
+                    Spacer()
+                }
+                HStack {
+                    Text("Change Date: \(monitor.changeDate)")
+                    Spacer()
+                }
+            } // VStack
             .padding()
         } // VStack
         .fileImporter(isPresented: $importerPresented, allowedContentTypes: [.directory]) { result in
