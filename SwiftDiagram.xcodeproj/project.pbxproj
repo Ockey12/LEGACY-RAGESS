@@ -83,6 +83,9 @@
 		AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */; };
 		AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F007829403272001221C2 /* BuildFileMonitorView.swift */; };
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
+		ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D719294EEEC700BA76A9 /* ClassView.swift */; };
+		ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */; };
+		ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +164,9 @@
 		AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhomThisTypeAffect.swift; sourceTree = "<group>"; };
 		AC5F007829403272001221C2 /* BuildFileMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFileMonitorView.swift; sourceTree = "<group>"; };
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
+		ACC8D719294EEEC700BA76A9 /* ClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassView.swift; sourceTree = "<group>"; };
+		ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
+		ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldersPropertysPrinter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				ACC8D717294EEE4B00BA76A9 /* Struct */,
+				ACC8D718294EEE7900BA76A9 /* Class */,
 			);
 			path = TypeView;
 			sourceTree = "<group>";
@@ -350,6 +357,7 @@
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
+				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -416,6 +424,15 @@
 				ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */,
 			);
 			path = Struct;
+			sourceTree = "<group>";
+		};
+		ACC8D718294EEE7900BA76A9 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				ACC8D719294EEEC700BA76A9 /* ClassView.swift */,
+				ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,7 +514,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */,
+				ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
+				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
 				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
@@ -507,6 +526,7 @@
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC34B3B2294B173C0029479C /* GetTextWidthView.swift in Sources */,
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
+				ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
 				AC34B3A5294A405D0029479C /* StructView.swift in Sources */,
 				AC34B3BF294C40030029479C /* NestEnumFrame.swift in Sources */,
