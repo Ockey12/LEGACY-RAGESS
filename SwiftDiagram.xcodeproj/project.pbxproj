@@ -244,8 +244,7 @@
 		AC34B3A3294A40480029479C /* TypeView */ = {
 			isa = PBXGroup;
 			children = (
-				AC34B3A4294A405D0029479C /* StructView.swift */,
-				ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */,
+				ACC8D717294EEE4B00BA76A9 /* Struct */,
 			);
 			path = TypeView;
 			sourceTree = "<group>";
@@ -408,6 +407,15 @@
 				AC34B3672945B9F70029479C /* TypealiasHolder.swift */,
 			);
 			path = Holder;
+			sourceTree = "<group>";
+		};
+		ACC8D717294EEE4B00BA76A9 /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B3A4294A405D0029479C /* StructView.swift */,
+				ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */,
+			);
+			path = Struct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
