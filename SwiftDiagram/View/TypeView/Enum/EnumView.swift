@@ -14,14 +14,13 @@ struct EnumView: View {
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
-    
     let headerItemHeight = ComponentSettingValues.headerItemHeight
-    
     let connectionHeight = ComponentSettingValues.connectionHeight
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
-    
     let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
+    
+    let extensionHeightCalculater = ExtensionFrameHeightCalculater()
     
     var allStrings: [String] {
         var strings = [holder.name]
@@ -175,19 +174,14 @@ struct EnumView: View {
                 
                 // extension
                 ForEach(holder.extensions, id: \.self) { extensionHolder in
+                    let height = extensionHeightCalculater.calculateExtensionFrameHeight(holder: extensionHolder)
                     ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
-                        .frame(width: bodyWidth + extensionOutsidePadding*2)
+                        .frame(width: bodyWidth + extensionOutsidePadding*2,
+                               height: height)
                 }
             } // VStack
         } // ZStack
     } // var body
-    
-    private func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat {
-        var height = connectionHeight
-        height += itemHeight*CGFloat(numberOfItems)
-        height += bottomPaddingForLastText
-        return height
-    } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
 } // struct EnumView
 
 //struct EnumView_Previews: PreviewProvider {
