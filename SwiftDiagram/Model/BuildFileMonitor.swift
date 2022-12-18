@@ -12,6 +12,7 @@ import SwiftSyntaxParser
 class BuildFileMonitor: ObservableObject {
     @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
     @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
+    @Published var convertedEnumHolders = [ConvertedToStringEnumHolder]()
     @Published var changeDate = ""
     
     private var monitoredFolderFileDescriptor: CInt = -1
@@ -46,12 +47,10 @@ class BuildFileMonitor: ObservableObject {
             self!.printSubFiles(url: self!.projectDirectoryURL)
             
             DispatchQueue.main.async {
-//                self!.content = "\(dateFormatter.string(from: dt)): \(self!.projectDirectoryURL) was build.\n\n"
-//                self!.convertedContent = ""
-                
                 // 配列を空にする
                 self!.convertedStructHolders.removeAll()
                 self!.convertedClassHolders.removeAll()
+                self!.convertedEnumHolders.removeAll()
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
                 
@@ -64,8 +63,11 @@ class BuildFileMonitor: ObservableObject {
                 for i in 0..<self!.convertedClassHolders.count {
                     self!.convertedClassHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
                 }
-            }
-        }
+                for i in 0..<self!.convertedEnumHolders.count {
+                    self!.convertedEnumHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
+                }
+            } // DispatchQueue.main.async
+        } // buildFileMonitorSource?.setEventHandler { [weak self] in
         
         // ソースがキャンセルされたときにディレクトリが閉じられるように、キャンセルハンドラを定義する
         buildFileMonitorSource?.setCancelHandler { [weak self] in
@@ -118,6 +120,7 @@ class BuildFileMonitor: ObservableObject {
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
                     syntaxArrayParser.parseResultArray(resultArray: visitor.getResultArray())
                     
+                    // Struct
                     let resultStructHolders = syntaxArrayParser.getResultStructHolders()
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
@@ -125,22 +128,21 @@ class BuildFileMonitor: ObservableObject {
                         convertedStructHolders.append(convertedStructHolder)
                     }
 
+                    // Class
                     let resultClassHolders = syntaxArrayParser.getResultClassHolders()
-//                    addClassToContent(classHolders: resultClassHolders)
                     for classHolder in resultClassHolders {
                         let converter = ClassHolderToStringConverter()
                         let convertedClassHolder = converter.convertToString(classHolder: classHolder)
-//                        addStringClassToConvertedContent(stringClassHolder: convertedClassHolder)
                         convertedClassHolders.append(convertedClassHolder)
                     }
-//
-//                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
-//                    addEnumToContent(enumHolders: resultEnumHolders)
-//                    for enumHolder in resultEnumHolders {
-//                        let converter = EnumHolderToStringConverter()
-//                        let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
-//                        addStringEnumToConvertedContent(stringEnumHolder: convertedEnumHolder)
-//                    }
+
+                    // Enum
+                    let resultEnumHolders = syntaxArrayParser.getResultEnumHolders()
+                    for enumHolder in resultEnumHolders {
+                        let converter = EnumHolderToStringConverter()
+                        let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
+                        convertedEnumHolders.append(convertedEnumHolder)
+                    }
 //
 //                    let resultProtocolHolders = syntaxArrayParser.getResultProtocolHolders()
 //                    addProtocolToContent(protocolHolders: resultProtocolHolders)

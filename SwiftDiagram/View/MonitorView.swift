@@ -50,6 +50,19 @@ struct MonitorView: View {
                             .foregroundColor(.clear)
                     } // VStack
                     
+                    // Enum
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            ForEach(monitor.convertedEnumHolders, id: \.self) { holder in
+                                EnumView(holder: holder)
+                                    .padding()
+                            }
+                        } // HStack
+                        Rectangle()
+                            .frame(height: connectionHeight)
+                            .foregroundColor(.clear)
+                    } // VStack
+                    
                 } // VStack
                 .scaleEffect(0.3)
             } // ScrollView
