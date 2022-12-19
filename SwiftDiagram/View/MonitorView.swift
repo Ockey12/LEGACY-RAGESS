@@ -35,10 +35,10 @@ struct MonitorView: View {
                                 let height = geometry.size.height
                                 DispatchQueue.main.async {
                                     self.diagramViewSize = CGSize(width: width + diagramViewPadding, height: height + diagramViewPadding)
-                                }
-                            }
-                        }
-                    }
+                                } // DispatchQueue
+                            } // Path
+                        } // GeometryReader
+                    } // .background()
                     .scaleEffect(scale)
                     .frame(width: diagramViewSize.width*scale,
                            height: diagramViewSize.height*scale)
