@@ -18,7 +18,7 @@ struct MonitorView: View {
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
     @State var diagramViewSize = CGSize(width: 1000, height: 1000)
-    @State var scale: CGFloat = 1
+    @State var scale: CGFloat = 0.3
     
     let diagramViewPadding: CGFloat = 300
     
