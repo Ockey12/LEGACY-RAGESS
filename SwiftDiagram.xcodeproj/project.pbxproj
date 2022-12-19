@@ -92,6 +92,7 @@
 		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
 		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
 		ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72F2950321F00BA76A9 /* DiagramView.swift */; };
+		ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,6 +180,7 @@
 		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
 		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
 		ACC8D72F2950321F00BA76A9 /* DiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
+		ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewScaler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
+				ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */,
 				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 			);
 			path = Model;
@@ -583,6 +586,7 @@
 				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
+				ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,

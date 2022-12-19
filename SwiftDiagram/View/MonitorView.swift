@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MonitorView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
+//    @ObservedObject var diagramViewScaler = DiagramViewScaler()
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -16,19 +17,41 @@ struct MonitorView: View {
     @State private var buildFileURL = FileManager.default.temporaryDirectory
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
-    let connectionHeight = ComponentSettingValues.connectionHeight
+    @State var diagramViewSize = CGSize(width: 1000, height: 1000)
+    @State var scale: CGFloat = 1
+    
+    let diagramViewPadding: CGFloat = 300
     
     var body: some View {
         
         VStack {
-            ScrollView([.vertical, .horizontal]) {
-                // 図形を描画する
-                DiagramView()
-                    .scaleEffect(0.3)
-            } // ScrollView
-            .background(.white)
+            GeometryReader { geometry in
+                ScrollView([.vertical, .horizontal]) {
+                    DiagramView()
+                    .background() {
+                        GeometryReader { geometry in
+                            Path { path in
+                                let width = geometry.size.width
+                                let height = geometry.size.height
+                                DispatchQueue.main.async {
+                                    self.diagramViewSize = CGSize(width: width + diagramViewPadding, height: height + diagramViewPadding)
+                                }
+                            }
+                        }
+                    }
+                    .scaleEffect(scale)
+                    .frame(width: diagramViewSize.width*scale,
+                           height: diagramViewSize.height*scale)
+                } // ScrollView
+                .background(.white)
+            } // GeometryReader
             
             Divider()
+            
+            HStack {
+                Text("拡大率: \(scale)")
+                Slider(value: $scale, in: 0.1...1)
+            }
             
             HStack {
                 // プロジェクトのディレクトリを選択するボタン
@@ -98,8 +121,8 @@ struct MonitorView: View {
     }
 }
 
-struct MonitorView_Previews: PreviewProvider {
-    static var previews: some View {
-        MonitorView()
-    }
-}
+//struct MonitorView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MonitorView()
+//    }
+//}
