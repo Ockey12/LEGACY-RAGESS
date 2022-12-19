@@ -12,6 +12,7 @@ struct SwiftDiagramApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(BuildFileMonitor())
         }
     }
 }

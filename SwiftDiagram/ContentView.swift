@@ -169,8 +169,8 @@ struct ContentView: View {
 //functions: ["FunctionFunction", "FunctionFunctionFunction"]
 
     var body: some View {
-//        MonitorView()
-        ScaleChangeableView()
+        MonitorView()
+//        ScaleChangeableView()
             .frame(minWidth: 1000, maxWidth: .infinity, minHeight: 1000, maxHeight: .infinity)
     }  // var body
 }

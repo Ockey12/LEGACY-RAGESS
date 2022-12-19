@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MonitorView: View {
 //    @ObservedObject var monitor = BuildFileMonitor()
-    @StateObject var monitor = BuildFileMonitor()
+    @EnvironmentObject var monitor: BuildFileMonitor
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -21,63 +21,10 @@ struct MonitorView: View {
     
     var body: some View {
         
-        return VStack {
+        VStack {
             ScrollView([.vertical, .horizontal]) {
-                VStack(alignment: .leading) {
-                    // Protocol
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            ForEach(monitor.convertedProtocolHolders, id: \.self) { holder in
-                                ProtocolView(holder: holder)
-                                    .padding()
-                            }
-                        } // HStack
-                        Rectangle()
-                            .frame(height: connectionHeight)
-                            .foregroundColor(.clear)
-                    } // VStack
-                    
-                    // Struct
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            ForEach(monitor.convertedStructHolders, id: \.self) { holder in
-                                StructView(holder: holder)
-                                    .padding()
-                            }
-                        } // HStack
-                        Rectangle()
-                            .frame(height: connectionHeight)
-                            .foregroundColor(.clear)
-                    } // VStack
-                    
-                    // Class
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            ForEach(monitor.convertedClassHolders, id: \.self) { holder in
-                                ClassView(holder: holder)
-                                    .padding()
-                            }
-                        } // HStack
-                        Rectangle()
-                            .frame(height: connectionHeight)
-                            .foregroundColor(.clear)
-                    } // VStack
-                    
-                    // Enum
-                    VStack(alignment: .leading) {
-                        HStack(alignment: .top) {
-                            ForEach(monitor.convertedEnumHolders, id: \.self) { holder in
-                                EnumView(holder: holder)
-                                    .padding()
-                            }
-                        } // HStack
-                        Rectangle()
-                            .frame(height: connectionHeight)
-                            .foregroundColor(.clear)
-                    } // VStack
-                    
-                } // VStack
-                .scaleEffect(0.3)
+                DiagramView()
+                    .scaleEffect(0.3)
             } // ScrollView
             .background(.white)
             

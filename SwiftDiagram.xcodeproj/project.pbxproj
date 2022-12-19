@@ -92,6 +92,7 @@
 		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
 		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
 		ACC8D72E2950300900BA76A9 /* ScaleChangeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */; };
+		ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72F2950321F00BA76A9 /* DiagramView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,6 +180,7 @@
 		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
 		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
 		ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleChangeableView.swift; sourceTree = "<group>"; };
+		ACC8D72F2950321F00BA76A9 /* DiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +399,7 @@
 				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
 				AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */,
 				AC34B35B2940FBE30029479C /* MonitorView.swift */,
+				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
 				ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */,
 			);
 			path = View;
@@ -547,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */,
 				AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */,
 				ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
