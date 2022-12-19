@@ -19,8 +19,8 @@ struct GetTextsMaxWidthView: View {
                 Text(string)
                     .lineLimit(1)
                     .font(.system(size: fontSize))
-//                    .foregroundColor(.clear)
-//                    .background(.clear)
+                    .foregroundColor(.clear)
+                    .background(.clear)
             } // ForEach(strings, id: \.self)
         } // VStack
         .background() {
