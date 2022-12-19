@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MonitorView: View {
-//    @ObservedObject var monitor = BuildFileMonitor()
     @EnvironmentObject var monitor: BuildFileMonitor
     
     @State private var importerPresented = false
@@ -23,6 +22,7 @@ struct MonitorView: View {
         
         VStack {
             ScrollView([.vertical, .horizontal]) {
+                // 図形を描画する
                 DiagramView()
                     .scaleEffect(0.3)
             } // ScrollView
