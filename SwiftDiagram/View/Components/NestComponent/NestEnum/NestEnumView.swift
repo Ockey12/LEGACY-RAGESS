@@ -62,6 +62,10 @@ struct NestEnumView: View {
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             
             NestEnumFrame(holder: holder, bodyWidth: outsideWidth)
+                .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
+                .foregroundColor(.white)
+            
+            NestEnumFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())

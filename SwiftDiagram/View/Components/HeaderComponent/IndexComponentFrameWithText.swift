@@ -47,7 +47,7 @@ struct IndexComponentFrameWithText: View {
     var body: some View {
         ZStack {
             IndexComponentFrame()
-                .fill(.gray)
+                .fill(Color(red: 180/256, green: 180/256, blue: 180/256))
                 .frame(width: width, height: height)
             
             IndexComponentFrame()

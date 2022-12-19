@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MonitorView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
-//    @ObservedObject var diagramViewScaler = DiagramViewScaler()
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -17,9 +16,14 @@ struct MonitorView: View {
     @State private var buildFileURL = FileManager.default.temporaryDirectory
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
-    @State var diagramViewSize = CGSize(width: 1000, height: 1000)
-    @State var scale: CGFloat = 0.3
+    @State private var diagramViewSize = CGSize(width: 1000, height: 1000)
+    @State private var diagramViewScale: CGFloat = 0.2
     
+    let minScale: CGFloat = 0.1
+    let maxScale: CGFloat = 0.95
+    
+    // DiagramView()の周囲の余白
+    // .frame()のwidthとheightに加算する
     let diagramViewPadding: CGFloat = 300
     
     var body: some View {
@@ -28,6 +32,7 @@ struct MonitorView: View {
             GeometryReader { geometry in
                 ScrollView([.vertical, .horizontal]) {
                     DiagramView()
+                        
                     .background() {
                         GeometryReader { geometry in
                             Path { path in
@@ -39,18 +44,21 @@ struct MonitorView: View {
                             } // Path
                         } // GeometryReader
                     } // .background()
-                    .scaleEffect(scale)
-                    .frame(width: diagramViewSize.width*scale,
-                           height: diagramViewSize.height*scale)
+                    .scaleEffect(diagramViewScale)
+                    .frame(width: diagramViewSize.width*diagramViewScale,
+                           height: diagramViewSize.height*diagramViewScale)
                 } // ScrollView
-                .background(.white)
+                .background(Color(red: 248/256, green: 239/256, blue: 226/256))
             } // GeometryReader
+            
             
             Divider()
             
             HStack {
-                Text("拡大率: \(scale)")
-                Slider(value: $scale, in: 0.1...1)
+                Text("拡大率: \(diagramViewScale)")
+                    .padding(.leading)
+                Slider(value: $diagramViewScale, in: minScale...maxScale)
+                    .padding(.trailing)
             }
             
             HStack {

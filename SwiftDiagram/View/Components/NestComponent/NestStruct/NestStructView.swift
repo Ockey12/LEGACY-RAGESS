@@ -58,6 +58,10 @@ struct NestStructView: View {
             GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
             
             NestStructFrame(holder: holder, bodyWidth: outsideWidth)
+                .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
+                .foregroundColor(.white)
+            
+            NestStructFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)
                 .fill(.black)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())

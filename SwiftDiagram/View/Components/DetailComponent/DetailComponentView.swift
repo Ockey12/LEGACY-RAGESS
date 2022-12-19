@@ -69,6 +69,9 @@ struct DetailComponentView: View {
     var body: some View {
         ZStack {
             DetailComponentFrame(bodyWidth: bodyWidth, numberOfItems: strings.count)
+                .foregroundColor(.white)
+            
+            DetailComponentFrame(bodyWidth: bodyWidth, numberOfItems: strings.count)
                 .stroke(lineWidth: borderWidth)
                 .fill(.black)
             
