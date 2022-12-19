@@ -20,7 +20,7 @@ struct MonitorView: View {
     @State private var diagramViewScale: CGFloat = 0.2
     
     let minScale: CGFloat = 0.1
-    let maxScale: CGFloat = 0.95
+    let maxScale: CGFloat = 0.7
     
     // DiagramView()の周囲の余白
     // .frame()のwidthとheightに加算する

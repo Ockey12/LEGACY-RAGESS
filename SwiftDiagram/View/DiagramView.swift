@@ -40,35 +40,37 @@ struct DiagramView: View {
                     .foregroundColor(.clear)
             } // VStack
             
-            // Class
-            VStack(alignment: .leading) {
-                HStack(alignment: .top) {
-                    ForEach(monitor.convertedClassHolders, id: \.self) { holder in
-                        ClassView(holder: holder)
-                            .padding()
-                    }
-                } // HStack
-                Rectangle()
-                    .frame(height: connectionHeight)
-                    .foregroundColor(.clear)
-            } // VStack
-            
-            // Enum
-            VStack(alignment: .leading) {
-                HStack(alignment: .top) {
-                    ForEach(monitor.convertedEnumHolders, id: \.self) { holder in
-                        EnumView(holder: holder)
-                            .padding()
-                    }
-                } // HStack
-                Rectangle()
-                    .frame(height: connectionHeight)
-                    .foregroundColor(.clear)
-            } // VStack
-            
+            // ClassとEnumはStructより少ない傾向があると考えられるのでHStackでまとめる
+            HStack(alignment: .top) {
+                // Class
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        ForEach(monitor.convertedClassHolders, id: \.self) { holder in
+                            ClassView(holder: holder)
+                                .padding()
+                        }
+                    } // HStack
+                    Rectangle()
+                        .frame(height: connectionHeight)
+                        .foregroundColor(.clear)
+                } // VStack
+                
+                // Enum
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        ForEach(monitor.convertedEnumHolders, id: \.self) { holder in
+                            EnumView(holder: holder)
+                                .padding()
+                        }
+                    } // HStack
+                    Rectangle()
+                        .frame(height: connectionHeight)
+                        .foregroundColor(.clear)
+                } // VStack
+            } // HStack
         } // VStack
-    }
-}
+    } // var body
+} // struct DiagramView
 
 //struct DiagramView_Previews: PreviewProvider {
 //    static var previews: some View {
