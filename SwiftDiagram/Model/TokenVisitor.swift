@@ -331,7 +331,7 @@ final class TokenVisitor: SyntaxRewriter {
                 // classの名前を宣言しているとき
                 resultArray.append(SyntaxTag.ClassName.string + SyntaxTag.Space.string + token.text)
                 classNameArray.append(token.text)
-                printClassNameArray()
+//                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumの名前を宣言しているとき
@@ -360,7 +360,7 @@ final class TokenVisitor: SyntaxRewriter {
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocolの名前を宣言しているとき
                 resultArray.append(SyntaxTag.ProtocolName.string + SyntaxTag.Space.string + token.text)
-                printClassNameArray()
+//                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.associatedtypeDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocol内の連想型を宣言しているとき

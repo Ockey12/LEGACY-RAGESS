@@ -852,7 +852,7 @@ struct SyntaxArrayParser {
         } else {
             // 親となるSuperHolderがないとき
             resultStructHolders.append(structHolder)
-            print("resultStructHolders.append(structHolder) " + structHolder.name)
+//            print("resultStructHolders.append(structHolder) " + structHolder.name)
         }
         
         popHolderTypeStackArray()

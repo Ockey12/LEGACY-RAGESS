@@ -24,6 +24,19 @@ struct IndexComponentFrameWithText: View {
         }
     }
     
+    var indexColor: Color {
+        switch headerComponentIndexType {
+        case .struct:
+            return Color("StructIndex")
+        case .class:
+            return Color("ClassIndex")
+        case .enum:
+            return Color("EnumIndex")
+        case .protocol:
+            return Color("ProtocolIndex")
+        }
+    }
+    
     enum IndexType {
         case `struct`
         case `class`
@@ -47,7 +60,8 @@ struct IndexComponentFrameWithText: View {
     var body: some View {
         ZStack {
             IndexComponentFrame()
-                .fill(Color(red: 180/256, green: 180/256, blue: 180/256))
+//                .fill(Color(red: 180/256, green: 180/256, blue: 180/256))
+                .fill(indexColor)
                 .frame(width: width, height: height)
             
             IndexComponentFrame()

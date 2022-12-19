@@ -93,6 +93,10 @@
 		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
 		ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72F2950321F00BA76A9 /* DiagramView.swift */; };
 		ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */; };
+		ACC8D7342950AF4500BA76A9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACC8D7332950AF4500BA76A9 /* Colors.xcassets */; };
+		ACC8D7362950CFBD00BA76A9 /* DirectoryHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */; };
+		ACC8D7382950D21F00BA76A9 /* FileChangeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D7372950D21F00BA76A9 /* FileChangeMonitor.swift */; };
+		ACC8D73A2950D9E500BA76A9 /* FileChangeMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +185,10 @@
 		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
 		ACC8D72F2950321F00BA76A9 /* DiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
 		ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewScaler.swift; sourceTree = "<group>"; };
+		ACC8D7332950AF4500BA76A9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryHolder.swift; sourceTree = "<group>"; };
+		ACC8D7372950D21F00BA76A9 /* FileChangeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChangeMonitor.swift; sourceTree = "<group>"; };
+		ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChangeMonitorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +382,7 @@
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
+				ACC8D7372950D21F00BA76A9 /* FileChangeMonitor.swift */,
 				ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */,
 				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 			);
@@ -401,6 +410,8 @@
 				AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */,
 				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
+				ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */,
+				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -432,6 +443,7 @@
 				AC34B3652945035C0029479C /* GenericHolder.swift */,
 				AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */,
 				AC34B3672945B9F70029479C /* TypealiasHolder.swift */,
+				ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */,
 			);
 			path = Holder;
 			sourceTree = "<group>";
@@ -538,6 +550,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACC8D7342950AF4500BA76A9 /* Colors.xcassets in Resources */,
 				AC3BF41D2922277A0096810E /* Preview Assets.xcassets in Resources */,
 				AC3BF41A2922277A0096810E /* Assets.xcassets in Resources */,
 			);
@@ -556,6 +569,7 @@
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
 				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
+				ACC8D7382950D21F00BA76A9 /* FileChangeMonitor.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */,
@@ -563,6 +577,7 @@
 				AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
 				AC34B3B2294B173C0029479C /* GetTextWidthView.swift in Sources */,
+				ACC8D7362950CFBD00BA76A9 /* DirectoryHolder.swift in Sources */,
 				AC34B3882947B2760029479C /* ProtocolHolderToStringConverter.swift in Sources */,
 				ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */,
 				AC5F0059293DB7BB001221C2 /* FunctionHolder.swift in Sources */,
@@ -615,6 +630,7 @@
 				ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */,
 				AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */,
 				ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */,
+				ACC8D73A2950D9E500BA76A9 /* FileChangeMonitorView.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
 				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,

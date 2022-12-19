@@ -80,7 +80,7 @@ struct NestEnumView: View {
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
-                                    indexType: .struct,
+                                    indexType: .enum,
                                     nameOfType: holder.name,
                                     bodyWidth: bodyWidth)
                 .offset(x: 0, y: 2)

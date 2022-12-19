@@ -1,19 +1,16 @@
 //
-//  ObservableMonitor.swift
+//  FileChangeMonitor.swift
 //  SwiftDiagram
 //
-//  Created by オナガ・ハルキ on 2022/12/08.
+//  Created by オナガ・ハルキ on 2022/12/20.
 //
 
 import Foundation
 import SwiftSyntax
 import SwiftSyntaxParser
 
-class BuildFileMonitor: ObservableObject {
-    @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
-    @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
-    @Published var convertedEnumHolders = [ConvertedToStringEnumHolder]()
-    @Published var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
+class FileChangeMonitor: ObservableObject {
+    @Published var directoryHolder = DirectoryHolder()
     @Published var changeDate = ""
     
     private var monitoredFolderFileDescriptor: CInt = -1
@@ -44,33 +41,17 @@ class BuildFileMonitor: ObservableObject {
             print("\(dateFormatter.string(from: dt)): \(self!.buildFileURL) did change")
             // プロジェクトディレクトリのURLを表示する
             print("Project Directory: \(self!.projectDirectoryURL)")
-            //  プロジェクトディレクトリ下にあるSwiftファイルのURLを表示する
-//            self!.printSubFiles(url: self!.projectDirectoryURL)
             
             DispatchQueue.main.async {
-                // 配列を空にする
-                self!.convertedStructHolders.removeAll()
-                self!.convertedClassHolders.removeAll()
-                self!.convertedEnumHolders.removeAll()
-                self!.convertedProtocolHolders.removeAll()
+                // directoryHolderを初期化する
+                self!.directoryHolder = DirectoryHolder()
                 
-                self!.parseSwiftFiles(url: self!.projectDirectoryURL)
+                self!.parseSwiftFiles(url: self!.projectDirectoryURL, superDirectory: &self!.directoryHolder)
                 
                 self!.changeDate = "\(dateFormatter.string(from: dt))"
                 
                 // ビルドされた時間を追加することで、値の変更がpublishされる
-                for i in 0..<self!.convertedStructHolders.count {
-                    self!.convertedStructHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
-                }
-                for i in 0..<self!.convertedClassHolders.count {
-                    self!.convertedClassHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
-                }
-                for i in 0..<self!.convertedEnumHolders.count {
-                    self!.convertedEnumHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
-                }
-                for i in 0..<self!.convertedProtocolHolders.count {
-                    self!.convertedProtocolHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
-                }
+                self!.changeHoldersChangeDate(directoryHolder: &self!.directoryHolder)
             } // DispatchQueue.main.async
         } // buildFileMonitorSource?.setEventHandler { [weak self] in
         
@@ -92,33 +73,20 @@ class BuildFileMonitor: ObservableObject {
         buildFileMonitorSource?.cancel()
     }
     
-    private func printSubFiles(url: URL) {
-        do {
-            let tempDirContentsUrls = try FileManager.default.contentsOfDirectory(at: url,
-                                                                                  includingPropertiesForKeys: nil,
-                                                                                  options: [.skipsHiddenFiles])
-
-            tempDirContentsUrls.forEach { url in
-                if url.pathExtension == "swift" {
-                    print(url)
-                } else if url.hasDirectoryPath {
-                    printSubFiles(url: url)
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-    } // func printSubFiles(url: URL)
-    
-    private func parseSwiftFiles(url: URL) {
+    private func parseSwiftFiles(url: URL, superDirectory: inout DirectoryHolder) {
+        var directoryHolder = DirectoryHolder()
+        directoryHolder.url = url
         do {
             let tempDirContentsUrls = try FileManager.default.contentsOfDirectory(at: url,
                                                                                   includingPropertiesForKeys: nil,
                                                                                   options: [.skipsHiddenFiles])
             tempDirContentsUrls.forEach { url in
                 if url.pathExtension == "swift" {
+                    // urlがSwiftファイルを示すとき
                     print("Swift File URL: \(url)")
-
+                    directoryHolder.haveSwiftFileFlag = true
+                    superDirectory.haveSwiftFileFlag = true
+                    
                     let parsedContent = try! SyntaxParser.parse(url)
                     let visitor = TokenVisitor()
                     _ = visitor.visit(parsedContent)
@@ -130,15 +98,15 @@ class BuildFileMonitor: ObservableObject {
                     for structHolder in resultStructHolders {
                         let converter = StructHolderToStringConverter()
                         let convertedStructHolder = converter.convertToString(structHolder: structHolder)
-                        convertedStructHolders.append(convertedStructHolder)
+                        directoryHolder.convertedStructHolders.append(convertedStructHolder)
                     }
-
+                    
                     // Class
                     let resultClassHolders = syntaxArrayParser.getResultClassHolders()
                     for classHolder in resultClassHolders {
                         let converter = ClassHolderToStringConverter()
                         let convertedClassHolder = converter.convertToString(classHolder: classHolder)
-                        convertedClassHolders.append(convertedClassHolder)
+                        directoryHolder.convertedClassHolders.append(convertedClassHolder)
                     }
 
                     // Enum
@@ -146,7 +114,7 @@ class BuildFileMonitor: ObservableObject {
                     for enumHolder in resultEnumHolders {
                         let converter = EnumHolderToStringConverter()
                         let convertedEnumHolder = converter.convertToString(enumHolder: enumHolder)
-                        convertedEnumHolders.append(convertedEnumHolder)
+                        directoryHolder.convertedEnumHolders.append(convertedEnumHolder)
                     }
 
                     // Protocol
@@ -154,15 +122,41 @@ class BuildFileMonitor: ObservableObject {
                     for protocolHolder in resultProtocolHolders {
                         let converter = ProtocolHolderToStringConverter()
                         let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
-                        convertedProtocolHolders.append(convertedProtocolHolder)
+                        directoryHolder.convertedProtocolHolders.append(convertedProtocolHolder)
                     }
                 } else if url.hasDirectoryPath {
+                    // urlがディレクトリを示すとき
                     print("Directory URL: \(url)")
-                    parseSwiftFiles(url: url)
+                    parseSwiftFiles(url: url, superDirectory: &directoryHolder)
                 }
-            }
+            } // tempDirContentsUrls.forEach
+            
+            superDirectory.subDirectorys.append(directoryHolder)
         } catch {
             print(error.localizedDescription)
         }
     } // func parseSwiftFiles(url: URL)
-} // class BuildFileMonitor
+    
+    func changeHoldersChangeDate(directoryHolder: inout DirectoryHolder) {
+        let dt = Date()
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+        let date = "\(dateFormatter.string(from: dt))"
+        
+        for i in 0..<directoryHolder.convertedStructHolders.count {
+            directoryHolder.convertedStructHolders[i].changeDate = date
+        }
+        for i in 0..<directoryHolder.convertedClassHolders.count {
+            directoryHolder.convertedClassHolders[i].changeDate = date
+        }
+        for i in 0..<directoryHolder.convertedEnumHolders.count {
+            directoryHolder.convertedEnumHolders[i].changeDate = date
+        }
+        for i in 0..<directoryHolder.convertedProtocolHolders.count {
+            directoryHolder.convertedProtocolHolders[i].changeDate = date
+        }
+        for i in 0..<directoryHolder.subDirectorys.count {
+            changeHoldersChangeDate(directoryHolder: &directoryHolder.subDirectorys[i])
+        }
+    } // func changeHoldersChangeDate(directoryHolder: inout DirectoryHolder)
+} // class FileChangeMonitor
