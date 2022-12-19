@@ -91,6 +91,7 @@
 		ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D725294F13B100BA76A9 /* ProtocolView.swift */; };
 		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
 		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
+		ACC8D72E2950300900BA76A9 /* ScaleChangeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,6 +178,7 @@
 		ACC8D725294F13B100BA76A9 /* ProtocolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolView.swift; sourceTree = "<group>"; };
 		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
 		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
+		ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleChangeableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +397,7 @@
 				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
 				AC34B3532940DE9D0029479C /* MonitorAndGetSourceFilesView.swift */,
 				AC34B35B2940FBE30029479C /* MonitorView.swift */,
+				ACC8D72D2950300900BA76A9 /* ScaleChangeableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
 				ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
+				ACC8D72E2950300900BA76A9 /* ScaleChangeableView.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
 				AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
