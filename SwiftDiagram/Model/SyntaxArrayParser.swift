@@ -148,7 +148,8 @@ struct SyntaxArrayParser {
                 allTypeNames.append(name)
             case .RawvalueType:
                 let rawvalueType = parsedElementArray[1]
-                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+//                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+                extractDependence(affectingTypeName: rawvalueType, componentKind: .rawvalueType)
                 enumHolderStackArray[positionInEnumHolderStackArray].rawvalueType = rawvalueType
 //                extractingDependencies(affectingTypeName: rawvalueType, affectedTypeName: enumName)
             case .StartEnumCaseElementSyntax:
@@ -162,8 +163,9 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].rawvalue = rawvalue
             case .CaseAssociatedValue:
                 let associatedValueType = parsedElementArray[1]
-                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
-                let caseName = enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName
+//                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+//                let caseName = enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName
+                extractDependence(affectingTypeName: associatedValueType, componentKind: .associatedType)
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
 //                extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
             case .EndEnumCaseElementSyntax:
@@ -766,6 +768,9 @@ struct SyntaxArrayParser {
                 break
             case .case:
                 index = enumHolderStackArray[positionInEnumHolderStackArray].cases.count
+            case .associatedType:
+                // 既にcaseが.append()されているため、1減らす
+                index = enumHolderStackArray[positionInEnumHolderStackArray].cases.count - 1
             default:
                 fatalError()
             }

@@ -21,6 +21,13 @@ final class TokenVisitor: SyntaxRewriter {
     // getResultArray()で出力する
     private var resultArray = [String]()
     
+    // enumの連想値の型を宣言しているとき、":"より後が連想値の型
+    // ":"より前の文字列を抽出しないために使う
+    // このフラグがtrueのときだけ型を抽出する
+    // visitPre()でfalseに初期化する
+    // visit()内で複数の連想値を区別する "," を検査したときもfalseに初期化する
+    private var passedColonOfEnumAssociatedValueFlag = false
+    
     // variableの@Stateなどの文字列を一時的に保存する
     // @Stateの場合、@とStateが別のtokenなため
     // visitPre()で""に初期化する
@@ -123,6 +130,7 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (currentSyntaxNodeType == SyntaxNodeType.parameterClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
                 // enumのcaseの連想値の型を宣言開始
+                passedColonOfEnumAssociatedValueFlag = false
                 pushSyntaxNodeTypeStack(SyntaxNodeType.parameterClauseSyntax)
             } else if (currentSyntaxNodeType == SyntaxNodeType.initializerClauseSyntax.string) &&
                         (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumCaseElementSyntax) {
@@ -350,12 +358,26 @@ final class TokenVisitor: SyntaxRewriter {
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.parameterClauseSyntax) &&
                         (syntaxNodeTypeStack[currentPositionInStack - 1] == SyntaxNodeType.enumCaseElementSyntax) {
                 // enumのcaseの連想値の型を宣言しているとき
-                if (tokenKind != TokenKind.leftParen.string) &&
-                    (tokenKind != TokenKind.comma.string) &&
-                    (tokenKind != TokenKind.rightParen.string) {
-                    // "(", commma, ")"以外を抽出する
-                    resultArray.append(SyntaxTag.CaseAssociatedValue.string + SyntaxTag.Space.string + token.text)
+                if passedColonOfEnumAssociatedValueFlag {
+                    // 既に":"を検査した後
+                    if (tokenKind != TokenKind.comma.string) &&
+                        (tokenKind != TokenKind.rightParen.string) {
+                        resultArray.append(SyntaxTag.CaseAssociatedValue.string + SyntaxTag.Space.string + token.text)
+                    } else if tokenKind == TokenKind.comma.string {
+                        passedColonOfEnumAssociatedValueFlag = false
+                    }
+                } else {
+                    // まだ":"を検査していないとき
+                    if tokenKind == TokenKind.colon.string {
+                        passedColonOfEnumAssociatedValueFlag = true
+                    }
                 }
+//                if (tokenKind != TokenKind.leftParen.string) &&
+//                    (tokenKind != TokenKind.comma.string) &&
+//                    (tokenKind != TokenKind.rightParen.string) {
+//                    // "(", commma, ")"以外を抽出する
+//                    resultArray.append(SyntaxTag.CaseAssociatedValue.string + SyntaxTag.Space.string + token.text)
+//                }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocolの名前を宣言しているとき
