@@ -220,7 +220,7 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
             case .ConformedProtocolByProtocol:
                 let conformedProtocol = parsedElementArray[1]
-                let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
+//                let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
                 extractDependence(affectingTypeName: conformedProtocol, componentKind: .conform)
                 protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.append(conformedProtocol)
             case .EndInheritedTypeListSyntax:
@@ -246,16 +246,16 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .StartArrayTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndArrayTypeSyntaxOfVariable:
@@ -264,14 +264,14 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndDictionaryTypeSyntaxOfVariable:
@@ -280,16 +280,16 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
-                let superTypeName = getSuperTypeName(reducePosition: 1)
-                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
+//                let superTypeName = getSuperTypeName(reducePosition: 1)
+//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .opaqueResultType
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractDependence(affectingTypeName: protocolName, componentKind: .property)
@@ -1015,7 +1015,7 @@ struct SyntaxArrayParser {
         
         // typealias
         for (index, aliase) in extensionHolder.typealiases.enumerated() {
-            var affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+            let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
                                                              affectedTypeName: affectedTypeName,
                                                              numberOfExtension: numberOfExtension,
                                                              componentKind: .typealias,
@@ -1034,8 +1034,34 @@ struct SyntaxArrayParser {
                 }
             default:
                 fatalError()
-            }
+            } // switch aliase.variableKind
         } // for (index, aliase) in extensionHolder.typealiases.enumerated()
+        
+        // initializer
+        for (index, initializer) in extensionHolder.initializers.enumerated() {
+            let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                             affectedTypeName: affectedTypeName,
+                                                             numberOfExtension: numberOfExtension,
+                                                             componentKind: .initializer,
+                                                             numberOfComponent: index)
+            for parameterHolder in initializer.parameters {
+                switch parameterHolder.kind {
+                case .literal:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.literalType!, affectedType: affectedType)
+                case .array:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.arrayType!, affectedType: affectedType)
+                case .dictionary:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.dictionaryKeyType!, affectedType: affectedType)
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.dictionaryValueType!, affectedType: affectedType)
+                case .tuple:
+                    for tupleTypeName in parameterHolder.tupleTypes {
+                        addAffectedTypeToRecultDependenceHolders(affectingTypeName: tupleTypeName, affectedType: affectedType)
+                    }
+                default:
+                    fatalError()
+                } // switch parameterHolder.kind
+            } // for parameterHolder in initializer.parameters
+        } // for (index, initializer) in extensionHolder.initializers.enumerated()
     } // func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int)
     
     // そのvariableやfunctionを保有している型の名前を返す
