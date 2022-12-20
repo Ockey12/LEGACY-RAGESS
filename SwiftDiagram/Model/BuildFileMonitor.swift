@@ -175,6 +175,9 @@ class BuildFileMonitor: ObservableObject {
                             text += "affectingTypeName: " + dependency.affectingTypeName + "\n"
                             text += "affectedTypeKind: \(affectedType.affectedTypeKind)\n"
                             text += "affectedTypeName: " + affectedType.affectedTypeName + "\n"
+                            if let numberOfExtension = affectedType.numberOfExtension {
+                                text += "  numberOfExtension: \(numberOfExtension)\n"
+                            }
                             text += "componentKind: \(affectedType.componentKind)\n"
                             text += "numberOfComponent: \(affectedType.numberOfComponent)\n"
                             print(text)

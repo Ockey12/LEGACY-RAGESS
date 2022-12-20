@@ -481,9 +481,9 @@ struct SyntaxArrayParser {
                 let name = parsedElementArray[1]
                 extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName = name
             case .ConformedProtocolByExtension:
-                let extensionedTypeName = extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
+//                let extensionedTypeName = extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
                 let protocolName = parsedElementArray[1]
-//                extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
+                extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
 //                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
             case .EndExtensionDeclSyntax:
                 let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
@@ -564,6 +564,8 @@ struct SyntaxArrayParser {
                 break
             } // end switch syntaxTag
         } // end for element in resultArray
+        
+        // 拡張される型よりextensionが先に検査される可能性がるので、extensionは全ての型を検査した後に各Holderへ格納する
         addExtensionHoldersToSuperHolder()
 //        print("---------------------------------------")
         
@@ -750,6 +752,11 @@ struct SyntaxArrayParser {
                                                          numberOfComponent: newIndex)
         
         // 抽出した依存関係をresultDependenceHoldersに格納する
+        addAffectedTypeToRecultDependenceHolders(affectingTypeName: affectingTypeName, affectedType: affectedType)
+    } // func extractDependence(affectingTypeName: String, componentKind: DetailComponentView.ComponentKind)
+    
+    // 抽出した依存関係をresultDependenceHoldersに格納する
+    mutating private func addAffectedTypeToRecultDependenceHolders(affectingTypeName: String, affectedType: DependenceHolder.AffectedType) {
         if let _ = resultDependenceHolders[affectingTypeName] {
             // affectingTypeNameをKeyとする要素が既に存在するとき
             resultDependenceHolders[affectingTypeName]!.affectedTypes.append(affectedType)
@@ -758,7 +765,7 @@ struct SyntaxArrayParser {
             let dependenceHolder = DependenceHolder(affectingTypeName: affectingTypeName, affectedTypes: [affectedType])
             resultDependenceHolders[affectingTypeName] = dependenceHolder
         }
-    } // func extractDependence(affectingTypeName: String, componentKind: DetailComponentView.ComponentKind)
+    } // func addAffectedTypeToRecultDependenceHolders(affectingTypeName: String, affectedType: DependenceHolder.AffectedType)
     
     private func getNewIndexOfComponent(typKind: DependenceHolder.TypeKind, componentKind: DetailComponentView.ComponentKind) -> Int {
         var index = 0
@@ -956,6 +963,8 @@ struct SyntaxArrayParser {
             for (index, structHolder) in resultStructHolders.enumerated() {
                 if structHolder.name == extensionedTypeName {
                     resultStructHolders[index].extensions.append(extensionHolder)
+                    let numberOfExtension = resultStructHolders[index].extensions.count
+                    extractDependenceOfExtension(affectedTypeKind: .struct, extensionHolder: extensionHolder, numberOfExtension: numberOfExtension)
                     continue forExtensionHolder
                 }
             }
@@ -981,6 +990,20 @@ struct SyntaxArrayParser {
             }
         }
     } // func addExtensionHolderToSuperHolder()
+    
+    mutating private func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int) {
+        let affectedTypeName = extensionHolder.extensionedTypeName!
+        let numberOfExtension = num - 1
+        
+        for (index, protocolName) in extensionHolder.conformingProtocolNames.enumerated() {
+            let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                             affectedTypeName: affectedTypeName,
+                                                             numberOfExtension: numberOfExtension,
+                                                             componentKind: .conform,
+                                                             numberOfComponent: index)
+            addAffectedTypeToRecultDependenceHolders(affectingTypeName: protocolName, affectedType: affectedType)
+        }
+    }
     
     // そのvariableやfunctionを保有している型の名前を返す
     private func getSuperTypeName(reducePosition: Int) -> String {

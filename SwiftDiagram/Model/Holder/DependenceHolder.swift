@@ -22,6 +22,7 @@ struct DependenceHolder {
     struct AffectedType {
         var affectedTypeKind: TypeKind
         var affectedTypeName: String
+        var numberOfExtension: Int? = nil
         var componentKind: DetailComponentView.ComponentKind
         var numberOfComponent: Int
     }
