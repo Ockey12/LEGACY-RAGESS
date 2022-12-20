@@ -205,9 +205,9 @@ struct SyntaxArrayParser {
             case .ConformedProtocolByStruct:
                 let protocolName = parsedElementArray[1]
                 let structName = structHolderStackArray[positionInStructHolderStackArray].name
+                extractDependence(affectingTypeName: protocolName, componentKind: .conform)
                 structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.append(protocolName)
 //                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: structName)
-                extractDependence(affectingTypeName: protocolName, componentKind: .conform)
             case .ConformedProtocolOrInheritedClassByClass:
                 let protocolName = parsedElementArray[1]
                 let className = classHolderStackArray[positionInClassHolderStackArray].name
