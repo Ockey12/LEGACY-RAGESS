@@ -249,7 +249,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
-//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+                extractDependence(affectingTypeName: type, componentKind: .property)
             case .StartArrayTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
@@ -257,7 +257,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
-//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+                extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndArrayTypeSyntaxOfVariable:
                 break
             case .StartDictionaryTypeSyntaxOfVariable:
@@ -267,13 +267,13 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
-//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+                extractDependence(affectingTypeName: type, componentKind: .property)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
-//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+                extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndDictionaryTypeSyntaxOfVariable:
                 break
             case .StartTupleTypeSyntaxOfVariable:
@@ -283,7 +283,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
-//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+                extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
@@ -666,6 +666,20 @@ struct SyntaxArrayParser {
             affectedTypeKind = .enum
         case .protocol:
             affectedTypeKind = .protocol
+        case .variable:
+            let superTypeKind = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch superTypeKind {
+            case .struct:
+                break
+            case .class:
+                affectedTypeKind = .class
+            case .enum:
+                affectedTypeKind = .enum
+            case .protocol:
+                affectedTypeKind = .protocol
+            default:
+                fatalError()
+            }
         default:
             fatalError()
         }
