@@ -970,8 +970,8 @@ struct SyntaxArrayParser {
             
             for (index, structHolder) in resultStructHolders.enumerated() {
                 if structHolder.name == extensionedTypeName {
-                    resultStructHolders[index].extensions.append(extensionHolder)
                     let numberOfExtension = resultStructHolders[index].extensions.count
+                    resultStructHolders[index].extensions.append(extensionHolder)
                     extractDependenceOfExtension(affectedTypeKind: .struct, extensionHolder: extensionHolder, numberOfExtension: numberOfExtension)
                     continue forExtensionHolder
                 }
@@ -979,29 +979,35 @@ struct SyntaxArrayParser {
             
             for (index, classHolder) in resultClassHolders.enumerated() {
                 if classHolder.name == extensionedTypeName {
+                    let numberOfExtension = resultClassHolders[index].extensions.count
                     resultClassHolders[index].extensions.append(extensionHolder)
+                    extractDependenceOfExtension(affectedTypeKind: .class, extensionHolder: extensionHolder, numberOfExtension: numberOfExtension)
                     continue forExtensionHolder
                 }
             }
             
             for (index, enumHolder) in resultEnumHolders.enumerated() {
                 if enumHolder.name == extensionedTypeName {
+                    let numberOfExtension = resultEnumHolders[index].extensions.count
                     resultEnumHolders[index].extensions.append(extensionHolder)
+                    extractDependenceOfExtension(affectedTypeKind: .enum, extensionHolder: extensionHolder, numberOfExtension: numberOfExtension)
                     continue forExtensionHolder
                 }
             }
         
             for (index, protocolHolder) in resultProtocolHolders.enumerated() {
                 if protocolHolder.name == extensionedTypeName {
+                    let numberOfExtension = resultProtocolHolders[index].extensions.count
                     resultProtocolHolders[index].extensions.append(extensionHolder)
+                    extractDependenceOfExtension(affectedTypeKind: .protocol, extensionHolder: extensionHolder, numberOfExtension: numberOfExtension)
                 }
             }
-        }
+        } // forExtensionHolder: for extensionHolder in resultExtensionHolders
     } // func addExtensionHolderToSuperHolder()
     
-    mutating private func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int) {
+    mutating private func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension: Int) {
         let affectedTypeName = extensionHolder.extensionedTypeName!
-        let numberOfExtension = num - 1
+//        let numberOfExtension = num - 1
         
         // プロトコルへの準拠
         for (index, protocolName) in extensionHolder.conformingProtocolNames.enumerated() {
