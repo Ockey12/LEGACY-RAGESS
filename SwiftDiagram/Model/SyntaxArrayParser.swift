@@ -22,7 +22,6 @@ struct SyntaxArrayParser {
     private var resultExtensionHolders = [ExtensionHolder]()
     
     // 型の依存関係を保持する
-//    private var whomThisTypeAffectDict = [String: WhomThisTypeAffect]()
     private var resultDependenceHolders = [String: DependenceHolder]()
     
     // 抽出した全ての型の名前を保持する
@@ -220,7 +219,6 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
             case .ConformedProtocolByProtocol:
                 let conformedProtocol = parsedElementArray[1]
-//                let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
                 extractDependence(affectingTypeName: conformedProtocol, componentKind: .conform)
                 protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.append(conformedProtocol)
             case .EndInheritedTypeListSyntax:
@@ -246,16 +244,12 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .StartArrayTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndArrayTypeSyntaxOfVariable:
@@ -264,14 +258,10 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndDictionaryTypeSyntaxOfVariable:
@@ -280,16 +270,12 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
-//                let superTypeName = getSuperTypeName(reducePosition: 1)
-//                let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .opaqueResultType
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractDependence(affectingTypeName: protocolName, componentKind: .property)
@@ -481,10 +467,8 @@ struct SyntaxArrayParser {
                 let name = parsedElementArray[1]
                 extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName = name
             case .ConformedProtocolByExtension:
-//                let extensionedTypeName = extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
                 let protocolName = parsedElementArray[1]
                 extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
-//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
             case .EndExtensionDeclSyntax:
                 let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
                 resultExtensionHolders.append(extensionHolder)
@@ -595,14 +579,6 @@ struct SyntaxArrayParser {
         return resultProtocolHolders
     }
     
-//    func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
-//        var array = [WhomThisTypeAffect]()
-//        for dict in whomThisTypeAffectDict {
-//            array.append(dict.value)
-//        }
-//        return array
-//    }
-    
     func getResultDependenceHolders() -> [DependenceHolder] {
         var array = [DependenceHolder]()
         for dict in resultDependenceHolders {
@@ -621,29 +597,7 @@ struct SyntaxArrayParser {
         positionInHolderTypeStackArray -= 1
     }
     
-    // 型の依存関係を抽出する
-    // affectingTypeName: 影響を及ぼす側の型の名前
-    // affectedTypeName: 影響を受ける側の型の名前
-//    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil) {
-//        if let _ = whomThisTypeAffectDict[affectingTypeName] {
-//            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyに既に登録されているとき
-//            // affectingTypeNameをKeyに持つ要素のaffectedTypesNameに、affectedTypeNameを追加する
-//            if let element = affectedElementName {
-//                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element))
-//            } else {
-//                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName))
-//            }
-//        } else {
-//            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyにまだ登録されていないとき
-//            // affectingTypeNameをKeyとした、新しい要素を追加する
-//            if let element = affectedElementName {
-//                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element)])
-//            } else {
-//                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName)])
-//            }
-//        }
-//    } // func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil)
-    
+    // 依存関係を抽出する
     mutating private func extractDependence(affectingTypeName: String, componentKind: DetailComponentView.ComponentKind) {
         var affectedTypeKind = DependenceHolder.TypeKind.struct
         let declaringTypeKind = holderTypeStackArray[positionInHolderTypeStackArray]
@@ -775,6 +729,7 @@ struct SyntaxArrayParser {
         }
     } // func addAffectedTypeToRecultDependenceHolders(affectingTypeName: String, affectedType: DependenceHolder.AffectedType)
     
+    // 依存関係を抽出するとき、宣言中の要素が型のコンポーネント内で何番目かのインデックスを返す
     private func getNewIndexOfComponent(typKind: DependenceHolder.TypeKind, componentKind: DetailComponentView.ComponentKind) -> Int {
         var index = 0
         
@@ -859,22 +814,6 @@ struct SyntaxArrayParser {
         } // switch typKind
         return index
     } // func getNewIndexOfComponent(typKind: DependenceHolder.TypeKind, componentKind: DetailComponentView.ComponentKind) -> Int
-    
-    
-//    // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
-//    mutating private func extractingDependenciesOfFunction(affectingTypeName: String) {
-//        let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
-//        let superHolderName = getSuperTypeName(reducePosition: 1)
-//        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
-//    }
-    
-//    // initializer宣言中に依存関係を抽出したとき、"影響を及ぼす型->initializerを持つHolder.init"の依存関係を保存する
-//    // initializerは名前を持たないので、affectedElementNameには、そのinitializerが型内で何番目かの数字を渡す
-//    mutating private func extractingDependenciesOfInitializer(affectingTypeName: String) {
-//        let num = numberOfInitializer
-//        let superHolderName = getSuperTypeName(reducePosition: 1)
-//        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "init \(num)")
-//    }
     
     // VariableHolderを、親のvariablesプロパティに追加する
     // variableの宣言終了を検出したときに呼び出す
@@ -1005,9 +944,9 @@ struct SyntaxArrayParser {
         } // forExtensionHolder: for extensionHolder in resultExtensionHolders
     } // func addExtensionHolderToSuperHolder()
     
+    // extension宣言中の依存関係を抽出する
     mutating private func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension: Int) {
         let affectedTypeName = extensionHolder.extensionedTypeName!
-//        let numberOfExtension = num - 1
         
         // プロトコルへの準拠
         for (index, protocolName) in extensionHolder.conformingProtocolNames.enumerated() {
