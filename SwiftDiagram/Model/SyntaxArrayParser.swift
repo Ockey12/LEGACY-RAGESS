@@ -436,14 +436,12 @@ struct SyntaxArrayParser {
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
-//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfInitializer:
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .array
             case .ArrayTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].arrayType = type
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
-//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfInitializer:
                 break
             case .StartDictionaryTypeSyntaxOfInitializer:
@@ -452,12 +450,10 @@ struct SyntaxArrayParser {
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryKeyType = type
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
-//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .DictionaryValueTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryValueType = type
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
-//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfInitializer:
                 break
             case .StartTupleTypeSyntaxOfInitializer:
@@ -466,7 +462,6 @@ struct SyntaxArrayParser {
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].tupleTypes.append(type)
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
-//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfInitializer:
                 break
             case .InitialValueOfInitializerParameter:
