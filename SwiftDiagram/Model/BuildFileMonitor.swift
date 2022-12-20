@@ -157,14 +157,26 @@ class BuildFileMonitor: ObservableObject {
                         convertedProtocolHolders.append(convertedProtocolHolder)
                     }
                     
-                    let dependencies = syntaxArrayParser.getWhomThisTypeAffectArray()
+//                    let dependencies = syntaxArrayParser.getWhomThisTypeAffectArray()
+//                    for dependency in dependencies {
+//                        for affectedType in dependency.affectedTypesName {
+//                            var text = dependency.affectingTypeName
+//                            text += " -> " + affectedType.typeName
+//                            if let element = affectedType.elementName {
+//                                text += "." + element
+//                            }
+//                            print(text)
+//                        }
+//                    }
+                    let dependencies = syntaxArrayParser.getResultDependenceHolders()
                     for dependency in dependencies {
-                        for affectedType in dependency.affectedTypesName {
-                            var text = dependency.affectingTypeName
-                            text += " -> " + affectedType.typeName
-                            if let element = affectedType.elementName {
-                                text += "." + element
-                            }
+                        for affectedType in dependency.affectedTypes {
+                            var text = "---Dependence---\n"
+                            text += "affectingTypeName: " + dependency.affectingTypeName + "\n"
+                            text += "affectedTypeKind: \(affectedType.affectedTypeKind)\n"
+                            text += "affectedTypeName: " + affectedType.affectedTypeName + "\n"
+                            text += "componentKind: \(affectedType.componentKind)\n"
+                            text += "numberOfComponent: \(affectedType.numberOfComponent)\n"
                             print(text)
                         }
                     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailComponentView: View {
-    let componentType: ComponentType
+    let componentType: ComponentKind
     let strings: [String]
     let bodyWidth: CGFloat
     var widthFromLeftEdgeToConnection: CGFloat {
@@ -23,7 +23,7 @@ struct DetailComponentView: View {
     let borderWidth = ComponentSettingValues.borderWidth
     let fontSize = ComponentSettingValues.fontSize
     
-    enum ComponentType {
+    enum ComponentKind {
         case generic
         case conform
         case `typealias`

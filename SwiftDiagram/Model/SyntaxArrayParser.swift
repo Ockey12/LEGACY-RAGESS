@@ -22,7 +22,8 @@ struct SyntaxArrayParser {
     private var resultExtensionHolders = [ExtensionHolder]()
     
     // 型の依存関係を保持する
-    private var whomThisTypeAffectDict = [String: WhomThisTypeAffect]()
+//    private var whomThisTypeAffectDict = [String: WhomThisTypeAffect]()
+    private var resultDependenceHolders = [String: DependenceHolder]()
     
     // 抽出した全ての型の名前を保持する
     private var allTypeNames = [String]()
@@ -149,7 +150,7 @@ struct SyntaxArrayParser {
                 let rawvalueType = parsedElementArray[1]
                 let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
                 enumHolderStackArray[positionInEnumHolderStackArray].rawvalueType = rawvalueType
-                extractingDependencies(affectingTypeName: rawvalueType, affectedTypeName: enumName)
+//                extractingDependencies(affectingTypeName: rawvalueType, affectedTypeName: enumName)
             case .StartEnumCaseElementSyntax:
                 enumHolderStackArray[positionInEnumHolderStackArray].cases.append(EnumHolder.CaseHolder())
                 positionInCasesOfEnumHolder += 1
@@ -164,7 +165,7 @@ struct SyntaxArrayParser {
                 let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
                 let caseName = enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
-                extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
+//                extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
             case .EndEnumCaseElementSyntax:
                 break
             case .EndEnumDeclSyntax:
@@ -205,29 +206,30 @@ struct SyntaxArrayParser {
                 let protocolName = parsedElementArray[1]
                 let structName = structHolderStackArray[positionInStructHolderStackArray].name
                 structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.append(protocolName)
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: structName)
+//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: structName)
+                extractDependence(affectingTypeName: protocolName, componentKind: .conform)
             case .ConformedProtocolOrInheritedClassByClass:
                 let protocolName = parsedElementArray[1]
                 let className = classHolderStackArray[positionInClassHolderStackArray].name
                 for superClass in classNameArray {
                     if protocolName == superClass {
                         classHolderStackArray[positionInClassHolderStackArray].superClassName = protocolName
-                        extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
+//                        extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
                         break superSwitch
                     }
                 }
                 classHolderStackArray[positionInClassHolderStackArray].conformingProtocolNames.append(protocolName)
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
+//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
             case .ConformedProtocolByEnum:
                 let protocolName = parsedElementArray[1]
                 let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
                 enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: enumName)
+//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: enumName)
             case .ConformedProtocolByProtocol:
                 let conformedProtocol = parsedElementArray[1]
                 let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
                 protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.append(conformedProtocol)
-                extractingDependencies(affectingTypeName: conformedProtocol, affectedTypeName: conformingProtocol)
+//                extractingDependencies(affectingTypeName: conformedProtocol, affectedTypeName: conformingProtocol)
             case .EndInheritedTypeListSyntax:
                 break
             // variableの宣言
@@ -254,7 +256,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .StartArrayTypeSyntaxOfVariable:
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
             case .ArrayTypeOfVariable:
@@ -262,7 +264,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndArrayTypeSyntaxOfVariable:
                 break
             case .StartDictionaryTypeSyntaxOfVariable:
@@ -272,13 +274,13 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .DictionaryValueTypeOfVariable:
                 let type = parsedElementArray[1]
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryValueType = type
-                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndDictionaryTypeSyntaxOfVariable:
                 break
             case .StartTupleTypeSyntaxOfVariable:
@@ -288,7 +290,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
-                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: type, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .EndTupleTypeSyntaxOfVariable:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
@@ -297,7 +299,7 @@ struct SyntaxArrayParser {
                 let variableName = variableHolderStackArray[positionInVariableHolderStackArray].name
                 variableHolderStackArray[positionInVariableHolderStackArray].kind = .opaqueResultType
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
+//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: superTypeName, affectedElementName: variableName)
             case .InitialValueOfVariable:
                 let initialValue = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].initialValue = initialValue
@@ -345,13 +347,13 @@ struct SyntaxArrayParser {
             case .FunctionParameterType:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].literalType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfFunctionParameter:
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .array
             case .ArrayTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].arrayType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfFunctionParameter:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionParameter:
@@ -359,11 +361,11 @@ struct SyntaxArrayParser {
             case .DictionaryKeyTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryKeyType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .DictionaryValueTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryValueType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfFunctionParameter:
                 break
             case .StartTupleTypeSyntaxOfFunctionParameter:
@@ -371,7 +373,7 @@ struct SyntaxArrayParser {
             case .TupleTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].tupleTypes.append(type)
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionParameter:
                 break
             case .InitialValueOfFunctionParameter:
@@ -384,13 +386,13 @@ struct SyntaxArrayParser {
             case .FunctionReturnValueType:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.literalType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfFunctionReturnValue:
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .array
             case .ArrayTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.arrayType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
@@ -398,11 +400,11 @@ struct SyntaxArrayParser {
             case .DictionaryKeyTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryKeyType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .DictionaryValueTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryValueType = type
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartTupleTypeSyntaxOfFunctionReturnValue:
@@ -410,7 +412,7 @@ struct SyntaxArrayParser {
             case .TupleTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.tupleTypes.append(type)
-                extractingDependenciesOfFunction(affectingTypeName: type)
+//                extractingDependenciesOfFunction(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfFunctionReturnValue:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
@@ -440,13 +442,13 @@ struct SyntaxArrayParser {
             case .InitializerParameterType:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].literalType = type
-                extractingDependenciesOfInitializer(affectingTypeName: type)
+//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .StartArrayTypeSyntaxOfInitializer:
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .array
             case .ArrayTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].arrayType = type
-                extractingDependenciesOfInitializer(affectingTypeName: type)
+//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndArrayTypeSyntaxOfInitializer:
                 break
             case .StartDictionaryTypeSyntaxOfInitializer:
@@ -454,11 +456,11 @@ struct SyntaxArrayParser {
             case .DictionaryKeyTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryKeyType = type
-                extractingDependenciesOfInitializer(affectingTypeName: type)
+//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .DictionaryValueTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryValueType = type
-                extractingDependenciesOfInitializer(affectingTypeName: type)
+//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndDictionaryTypeSyntaxOfInitializer:
                 break
             case .StartTupleTypeSyntaxOfInitializer:
@@ -466,7 +468,7 @@ struct SyntaxArrayParser {
             case .TupleTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].tupleTypes.append(type)
-                extractingDependenciesOfInitializer(affectingTypeName: type)
+//                extractingDependenciesOfInitializer(affectingTypeName: type)
             case .EndTupleTypeSyntaxOfInitializer:
                 break
             case .InitialValueOfInitializerParameter:
@@ -489,7 +491,7 @@ struct SyntaxArrayParser {
                 let extensionedTypeName = extensionHolderStackArray[positionInExtensionHolderStackArray].extensionedTypeName!
                 let protocolName = parsedElementArray[1]
                 extensionHolderStackArray[positionInExtensionHolderStackArray].conformingProtocolNames.append(protocolName)
-                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
+//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: extensionedTypeName)
             case .EndExtensionDeclSyntax:
                 let extensionHolder = extensionHolderStackArray[positionInExtensionHolderStackArray]
                 resultExtensionHolders.append(extensionHolder)
@@ -530,7 +532,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].literalType = literalType
-                extractingDependencies(affectingTypeName: literalType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
+//                extractingDependencies(affectingTypeName: literalType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .StartArrayTypeSyntaxOfTypealias:
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].variableKind = .array
             case .ArrayTypeOfTypealias:
@@ -538,7 +540,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].arrayType = arrayType
-                extractingDependencies(affectingTypeName: arrayType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
+//                extractingDependencies(affectingTypeName: arrayType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndArrayTypeSyntaxOfTypealias:
                 break
             case .StartDictionaryTypeSyntaxOfTypealias:
@@ -548,13 +550,13 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].dictionaryKeyType = keyType
-                extractingDependencies(affectingTypeName: keyType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
+//                extractingDependencies(affectingTypeName: keyType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .DictionaryValueTypeOfTypealias:
                 let valueType = parsedElementArray[1]
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].dictionaryValueType = valueType
-                extractingDependencies(affectingTypeName: valueType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
+//                extractingDependencies(affectingTypeName: valueType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndDictionaryTypeSyntaxOfTypealias:
                 break
             case .StartTupleTypeSyntaxOfTypealias:
@@ -564,7 +566,7 @@ struct SyntaxArrayParser {
                 let superTypeName = getSuperTypeName(reducePosition: 1)
                 let associatedTypeName = typealiasHolderStackArray[positionInTypealiasHolderStackArray].associatedTypeName!
                 typealiasHolderStackArray[positionInTypealiasHolderStackArray].tupleTypes.append(tupleType)
-                extractingDependencies(affectingTypeName: tupleType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
+//                extractingDependencies(affectingTypeName: tupleType, affectedTypeName: superTypeName, affectedElementName: associatedTypeName)
             case .EndTupleTypeSyntaxOfTypealias:
                 break
             case .EndTypealiasDecl:
@@ -607,9 +609,17 @@ struct SyntaxArrayParser {
         return resultProtocolHolders
     }
     
-    func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
-        var array = [WhomThisTypeAffect]()
-        for dict in whomThisTypeAffectDict {
+//    func getWhomThisTypeAffectArray() -> [WhomThisTypeAffect] {
+//        var array = [WhomThisTypeAffect]()
+//        for dict in whomThisTypeAffectDict {
+//            array.append(dict.value)
+//        }
+//        return array
+//    }
+    
+    func getResultDependenceHolders() -> [DependenceHolder] {
+        var array = [DependenceHolder]()
+        for dict in resultDependenceHolders {
             array.append(dict.value)
         }
         return array
@@ -628,41 +638,173 @@ struct SyntaxArrayParser {
     // 型の依存関係を抽出する
     // affectingTypeName: 影響を及ぼす側の型の名前
     // affectedTypeName: 影響を受ける側の型の名前
-    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil) {
-        if let _ = whomThisTypeAffectDict[affectingTypeName] {
-            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyに既に登録されているとき
-            // affectingTypeNameをKeyに持つ要素のaffectedTypesNameに、affectedTypeNameを追加する
-            if let element = affectedElementName {
-                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element))
-            } else {
-                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName))
-            }
-        } else {
-            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyにまだ登録されていないとき
-            // affectingTypeNameをKeyとした、新しい要素を追加する
-            if let element = affectedElementName {
-                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element)])
-            } else {
-                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName)])
-            }
+//    mutating private func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil) {
+//        if let _ = whomThisTypeAffectDict[affectingTypeName] {
+//            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyに既に登録されているとき
+//            // affectingTypeNameをKeyに持つ要素のaffectedTypesNameに、affectedTypeNameを追加する
+//            if let element = affectedElementName {
+//                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element))
+//            } else {
+//                whomThisTypeAffectDict[affectingTypeName]!.affectedTypesName.append(WhomThisTypeAffect.Element(typeName: affectedTypeName))
+//            }
+//        } else {
+//            // 影響を及ぼす側の型の名前が、whomThisTypeAffectDictのKeyにまだ登録されていないとき
+//            // affectingTypeNameをKeyとした、新しい要素を追加する
+//            if let element = affectedElementName {
+//                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName, elementName: element)])
+//            } else {
+//                whomThisTypeAffectDict[affectingTypeName] = WhomThisTypeAffect(affectingTypeName: affectingTypeName, affectedTypesName: [WhomThisTypeAffect.Element(typeName: affectedTypeName)])
+//            }
+//        }
+//    } // func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil)
+    
+    mutating private func extractDependence(affectingTypeName: String, componentKind: DetailComponentView.ComponentKind) {
+        var affectedTypeKind = DependenceHolder.TypeKind.struct
+        let declaringTypeKind = holderTypeStackArray[positionInHolderTypeStackArray]
+        var declaringTypeName = ""
+        
+        // 宣言中の型の種類を取得する
+        switch declaringTypeKind {
+        case .struct:
+            break
+        case .class:
+            affectedTypeKind = .class
+        case .enum:
+            affectedTypeKind = .enum
+        case .protocol:
+            affectedTypeKind = .protocol
+        default:
+            fatalError()
         }
-    } // func extractingDependencies(affectingTypeName: String, affectedTypeName: String, affectedElementName: String? = nil)
+        
+        // 宣言中の型の名前を取得する
+        switch affectedTypeKind {
+        case .struct:
+            declaringTypeName = structHolderStackArray[positionInStructHolderStackArray].name
+        case .class:
+            declaringTypeName = classHolderStackArray[positionInClassHolderStackArray].name
+        case .enum:
+            declaringTypeName = enumHolderStackArray[positionInEnumHolderStackArray].name
+        case .protocol:
+            declaringTypeName = protocolHolderStackArray[positionInProtocolHolderStackArray].name
+        }
+        
+        // 現在宣言中の要素が、型の中で何番目になるかを取得する
+        let newIndex = getNewIndexOfComponent(typKind: affectedTypeKind, componentKind: componentKind)
+        
+        let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                         affectedTypeName: declaringTypeName,
+                                                         componentKind: componentKind,
+                                                         numberOfComponent: newIndex)
+        
+        // 抽出した依存関係をresultDependenceHoldersに格納する
+        if let _ = resultDependenceHolders[affectingTypeName] {
+            // affectingTypeNameをKeyとする要素が既に存在するとき
+            resultDependenceHolders[affectingTypeName]!.affectedTypes.append(affectedType)
+        } else {
+            // affectingTypeNameをKeyとする要素がまだないとき
+            let dependenceHolder = DependenceHolder(affectingTypeName: affectingTypeName, affectedTypes: [affectedType])
+            resultDependenceHolders[affectingTypeName] = dependenceHolder
+        }
+    } // func extractDependence(affectingTypeName: String, componentKind: DetailComponentView.ComponentKind)
+    
+    private func getNewIndexOfComponent(typKind: DependenceHolder.TypeKind, componentKind: DetailComponentView.ComponentKind) -> Int {
+        var index = 0
+        
+        switch typKind {
+        case .struct:
+            switch componentKind {
+            case .generic:
+                index = structHolderStackArray[positionInStructHolderStackArray].generics.count
+            case .conform:
+                index = structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.count
+            case .typealias:
+                index = structHolderStackArray[positionInStructHolderStackArray].typealiases.count
+            case .initializer:
+                index = structHolderStackArray[positionInStructHolderStackArray].initializers.count
+            case .property:
+                index = structHolderStackArray[positionInStructHolderStackArray].variables.count
+            case .method:
+                index = structHolderStackArray[positionInStructHolderStackArray].functions.count
+            default:
+                fatalError()
+            }
+        case .class:
+            switch componentKind {
+            case .generic:
+                index = classHolderStackArray[positionInClassHolderStackArray].generics.count
+            case .conform:
+                index = classHolderStackArray[positionInClassHolderStackArray].conformingProtocolNames.count
+            case .typealias:
+                index = classHolderStackArray[positionInClassHolderStackArray].typealiases.count
+            case .initializer:
+                index = classHolderStackArray[positionInClassHolderStackArray].initializers.count
+            case .property:
+                index = classHolderStackArray[positionInClassHolderStackArray].variables.count
+            case .method:
+                index = classHolderStackArray[positionInClassHolderStackArray].functions.count
+            case .superClass:
+                break
+            default:
+                fatalError()
+            }
+        case .enum:
+            switch componentKind {
+            case .generic:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].generics.count
+            case .conform:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.count
+            case .typealias:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].typealiases.count
+            case .initializer:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].initializers.count
+            case .property:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].variables.count
+            case .method:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].functions.count
+            case .rawvalueType:
+                break
+            case .case:
+                index = enumHolderStackArray[positionInEnumHolderStackArray].cases.count
+            default:
+                fatalError()
+            }
+        case .protocol:
+            switch componentKind {
+            case .conform:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.count
+            case .typealias:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].typealiases.count
+            case .initializer:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].initializers.count
+            case .property:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].variables.count
+            case .method:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].functions.count
+            case .associatedType:
+                index = protocolHolderStackArray[positionInProtocolHolderStackArray].associatedTypes.count
+            default:
+                fatalError()
+            }
+        } // switch typKind
+        return index
+    } // func getNewIndexOfComponent(typKind: DependenceHolder.TypeKind, componentKind: DetailComponentView.ComponentKind) -> Int
     
     
-    // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
-    mutating private func extractingDependenciesOfFunction(affectingTypeName: String) {
-        let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
-        let superHolderName = getSuperTypeName(reducePosition: 1)
-        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
-    }
+//    // function宣言中に依存関係を抽出したとき、"影響を及ぼす型->functionを持つHolder.function"の依存関係を保存する
+//    mutating private func extractingDependenciesOfFunction(affectingTypeName: String) {
+//        let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
+//        let superHolderName = getSuperTypeName(reducePosition: 1)
+//        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: functionName)
+//    }
     
-    // initializer宣言中に依存関係を抽出したとき、"影響を及ぼす型->initializerを持つHolder.init"の依存関係を保存する
-    // initializerは名前を持たないので、affectedElementNameには、そのinitializerが型内で何番目かの数字を渡す
-    mutating private func extractingDependenciesOfInitializer(affectingTypeName: String) {
-        let num = numberOfInitializer
-        let superHolderName = getSuperTypeName(reducePosition: 1)
-        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "init \(num)")
-    }
+//    // initializer宣言中に依存関係を抽出したとき、"影響を及ぼす型->initializerを持つHolder.init"の依存関係を保存する
+//    // initializerは名前を持たないので、affectedElementNameには、そのinitializerが型内で何番目かの数字を渡す
+//    mutating private func extractingDependenciesOfInitializer(affectingTypeName: String) {
+//        let num = numberOfInitializer
+//        let superHolderName = getSuperTypeName(reducePosition: 1)
+//        extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "init \(num)")
+//    }
     
     // VariableHolderを、親のvariablesプロパティに追加する
     // variableの宣言終了を検出したときに呼び出す
@@ -942,26 +1084,26 @@ struct SyntaxArrayParser {
             let structName = structHolderStackArray[positionInStructHolderStackArray].name
             structHolderStackArray[positionInStructHolderStackArray].generics.append(generic)
             if affectingTypeName != "" {
-                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: structName, affectedElementName: "generic \(positionInGenericParameter)")
+//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: structName, affectedElementName: "generic \(positionInGenericParameter)")
             }
         case .class:
             let className = classHolderStackArray[positionInClassHolderStackArray].name
             classHolderStackArray[positionInClassHolderStackArray].generics.append(generic)
             if affectingTypeName != "" {
-                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: className, affectedElementName: "generic \(positionInGenericParameter)")
+//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: className, affectedElementName: "generic \(positionInGenericParameter)")
             }
         case .enum:
             let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
             enumHolderStackArray[positionInEnumHolderStackArray].generics.append(generic)
             if affectingTypeName != "" {
-                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: enumName, affectedElementName: "generic \(positionInGenericParameter)")
+//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: enumName, affectedElementName: "generic \(positionInGenericParameter)")
             }
         case .function:
             let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
             let superHolderName = getSuperTypeName(reducePosition: 2)
             functionHolderStackArray[positionInFunctionHolderStackArray].generics.append(generic)
             if affectingTypeName != "" {
-                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "\(functionName)")
+//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "\(functionName)")
             }
         default:
             fatalError()
