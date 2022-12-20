@@ -148,10 +148,8 @@ struct SyntaxArrayParser {
                 allTypeNames.append(name)
             case .RawvalueType:
                 let rawvalueType = parsedElementArray[1]
-//                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
                 extractDependence(affectingTypeName: rawvalueType, componentKind: .rawvalueType)
                 enumHolderStackArray[positionInEnumHolderStackArray].rawvalueType = rawvalueType
-//                extractingDependencies(affectingTypeName: rawvalueType, affectedTypeName: enumName)
             case .StartEnumCaseElementSyntax:
                 enumHolderStackArray[positionInEnumHolderStackArray].cases.append(EnumHolder.CaseHolder())
                 positionInCasesOfEnumHolder += 1
@@ -163,11 +161,8 @@ struct SyntaxArrayParser {
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].rawvalue = rawvalue
             case .CaseAssociatedValue:
                 let associatedValueType = parsedElementArray[1]
-//                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
-//                let caseName = enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].caseName
                 extractDependence(affectingTypeName: associatedValueType, componentKind: .associatedType)
                 enumHolderStackArray[positionInEnumHolderStackArray].cases[positionInCasesOfEnumHolder].associatedValueTypes.append(associatedValueType)
-//                extractingDependencies(affectingTypeName: associatedValueType, affectedTypeName: enumName, affectedElementName: caseName)
             case .EndEnumCaseElementSyntax:
                 break
             case .EndEnumDeclSyntax:
@@ -206,32 +201,28 @@ struct SyntaxArrayParser {
                 break
             case .ConformedProtocolByStruct:
                 let protocolName = parsedElementArray[1]
-                let structName = structHolderStackArray[positionInStructHolderStackArray].name
                 extractDependence(affectingTypeName: protocolName, componentKind: .conform)
                 structHolderStackArray[positionInStructHolderStackArray].conformingProtocolNames.append(protocolName)
-//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: structName)
             case .ConformedProtocolOrInheritedClassByClass:
                 let protocolName = parsedElementArray[1]
-                let className = classHolderStackArray[positionInClassHolderStackArray].name
                 for superClass in classNameArray {
                     if protocolName == superClass {
+                        extractDependence(affectingTypeName: protocolName, componentKind: .superClass)
                         classHolderStackArray[positionInClassHolderStackArray].superClassName = protocolName
-//                        extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
                         break superSwitch
                     }
                 }
+                extractDependence(affectingTypeName: protocolName, componentKind: .conform)
                 classHolderStackArray[positionInClassHolderStackArray].conformingProtocolNames.append(protocolName)
-//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: className)
             case .ConformedProtocolByEnum:
                 let protocolName = parsedElementArray[1]
-                let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
+                extractDependence(affectingTypeName: protocolName, componentKind: .conform)
                 enumHolderStackArray[positionInEnumHolderStackArray].conformingProtocolNames.append(protocolName)
-//                extractingDependencies(affectingTypeName: protocolName, affectedTypeName: enumName)
             case .ConformedProtocolByProtocol:
                 let conformedProtocol = parsedElementArray[1]
                 let conformingProtocol = protocolHolderStackArray[positionInProtocolHolderStackArray].name
+                extractDependence(affectingTypeName: conformedProtocol, componentKind: .conform)
                 protocolHolderStackArray[positionInProtocolHolderStackArray].conformingProtocolNames.append(conformedProtocol)
-//                extractingDependencies(affectingTypeName: conformedProtocol, affectedTypeName: conformingProtocol)
             case .EndInheritedTypeListSyntax:
                 break
             // variableの宣言
