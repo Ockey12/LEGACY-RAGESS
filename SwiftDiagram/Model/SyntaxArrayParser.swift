@@ -502,6 +502,7 @@ struct SyntaxArrayParser {
                 genericHolderStackArray[positionInGenericHolderStackArray].parameterType = type
             case .ConformedProtocolOrInheritedClassByGenerics:
                 let protocolName = parsedElementArray[1]
+                extractDependence(affectingTypeName: protocolName, componentKind: .generic)
                 for superClass in classNameArray {
                     if protocolName == superClass {
                         genericHolderStackArray[positionInGenericHolderStackArray].inheritedClassName = superClass
@@ -712,6 +713,18 @@ struct SyntaxArrayParser {
             default:
                 fatalError()
             }
+        case .generic:
+            let superTypeKind = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch superTypeKind {
+            case .struct:
+                break
+            case .class:
+                affectedTypeKind = .class
+            case .enum:
+                affectedTypeKind = .enum
+            default:
+                fatalError()
+            }
         default:
             fatalError()
         }
@@ -765,8 +778,6 @@ struct SyntaxArrayParser {
                 index = structHolderStackArray[positionInStructHolderStackArray].variables.count
             case .method:
                 index = structHolderStackArray[positionInStructHolderStackArray].functions.count
-            case .typealias:
-                index = structHolderStackArray[positionInStructHolderStackArray].typealiases.count
             default:
                 fatalError()
             }
