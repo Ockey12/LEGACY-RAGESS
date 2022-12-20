@@ -1086,6 +1086,50 @@ struct SyntaxArrayParser {
                 addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.conformedProtocolByOpaqueResultType!, affectedType: affectedType)
             } // switch variable.kind
         } // for (index, variable) in extensionHolder.variables.enumerated()
+        
+        // function
+        for (index, function) in extensionHolder.functions.enumerated() {
+            let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                             affectedTypeName: affectedTypeName,
+                                                             numberOfExtension: numberOfExtension,
+                                                             componentKind: .method,
+                                                             numberOfComponent: index)
+            for parameterHolder in function.parameters {
+                switch parameterHolder.kind {
+                case .literal:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.literalType!, affectedType: affectedType)
+                case .array:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.arrayType!, affectedType: affectedType)
+                case .dictionary:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.dictionaryKeyType!, affectedType: affectedType)
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.dictionaryValueType!, affectedType: affectedType)
+                case .tuple:
+                    for tupleTypeName in parameterHolder.tupleTypes {
+                        addAffectedTypeToRecultDependenceHolders(affectingTypeName: tupleTypeName, affectedType: affectedType)
+                    }
+                default:
+                    fatalError()
+                } // switch parameterHolder.kind
+            } // for parameterHolder in function.parameters
+            
+            if let returnValue = function.returnValue {
+                switch returnValue.kind {
+                case .literal:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.literalType!, affectedType: affectedType)
+                case .array:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.arrayType!, affectedType: affectedType)
+                case .dictionary:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.dictionaryKeyType!, affectedType: affectedType)
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.dictionaryValueType!, affectedType: affectedType)
+                case .tuple:
+                    for tupleTypeName in returnValue.tupleTypes {
+                        addAffectedTypeToRecultDependenceHolders(affectingTypeName: tupleTypeName, affectedType: affectedType)
+                    }
+                case .opaqueResultType:
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.conformedProtocolByOpaqueResultTypeOfReturnValue!, affectedType: affectedType)
+                } // switch returnValue.kind
+            } // if let returnValue = function.returnValue
+        } // for (index, function) in extensionHolder.functions.enumerated()
     } // func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int)
     
     // そのvariableやfunctionを保有している型の名前を返す
