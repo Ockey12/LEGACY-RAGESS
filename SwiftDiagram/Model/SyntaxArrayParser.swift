@@ -579,7 +579,7 @@ struct SyntaxArrayParser {
             } // end switch syntaxTag
         } // end for element in resultArray
         addExtensionHoldersToSuperHolder()
-        print("---------------------------------------")
+//        print("---------------------------------------")
         
         // parsedElementArray[1]に格納されている文字列を、AccessLevel型にキャストして返す
         func convertParsedElementToAccessLevel() -> AccessLevel {

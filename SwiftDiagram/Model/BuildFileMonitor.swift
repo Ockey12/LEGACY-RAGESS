@@ -117,7 +117,7 @@ class BuildFileMonitor: ObservableObject {
                                                                                   options: [.skipsHiddenFiles])
             tempDirContentsUrls.forEach { url in
                 if url.pathExtension == "swift" {
-                    print("Swift File URL: \(url)")
+//                    print("Swift File URL: \(url)")
 
                     let parsedContent = try! SyntaxParser.parse(url)
                     let visitor = TokenVisitor()
@@ -156,8 +156,20 @@ class BuildFileMonitor: ObservableObject {
                         let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
                         convertedProtocolHolders.append(convertedProtocolHolder)
                     }
+                    
+                    let dependencies = syntaxArrayParser.getWhomThisTypeAffectArray()
+                    for dependency in dependencies {
+                        for affectedType in dependency.affectedTypesName {
+                            var text = dependency.affectingTypeName
+                            text += " -> " + affectedType.typeName
+                            if let element = affectedType.elementName {
+                                text += "." + element
+                            }
+                            print(text)
+                        }
+                    }
                 } else if url.hasDirectoryPath {
-                    print("Directory URL: \(url)")
+//                    print("Directory URL: \(url)")
                     parseSwiftFiles(url: url)
                 }
             }
