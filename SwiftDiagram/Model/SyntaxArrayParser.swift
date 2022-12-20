@@ -1062,6 +1062,30 @@ struct SyntaxArrayParser {
                 } // switch parameterHolder.kind
             } // for parameterHolder in initializer.parameters
         } // for (index, initializer) in extensionHolder.initializers.enumerated()
+        
+        // variable
+        for (index, variable) in extensionHolder.variables.enumerated() {
+            let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                             affectedTypeName: affectedTypeName,
+                                                             numberOfExtension: numberOfExtension,
+                                                             componentKind: .property,
+                                                             numberOfComponent: index)
+            switch variable.kind {
+            case .literal:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.literalType!, affectedType: affectedType)
+            case .array:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.arrayType!, affectedType: affectedType)
+            case .dictionary:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.dictionaryKeyType!, affectedType: affectedType)
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.dictionaryValueType!, affectedType: affectedType)
+            case .tuple:
+                for tupleTypeName in variable.tupleTypes {
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: tupleTypeName, affectedType: affectedType)
+                }
+            case .opaqueResultType:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.conformedProtocolByOpaqueResultType!, affectedType: affectedType)
+            } // switch variable.kind
+        } // for (index, variable) in extensionHolder.variables.enumerated()
     } // func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int)
     
     // そのvariableやfunctionを保有している型の名前を返す
