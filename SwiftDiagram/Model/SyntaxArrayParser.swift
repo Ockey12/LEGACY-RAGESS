@@ -1126,40 +1126,16 @@ struct SyntaxArrayParser {
     // ジェネリック型のとき、"型制約のスーパークラスまたはプロトコル" -> "ジェネリック型" . "何番目の型引数かを表すインデックス"の依存関係を抽出する
     // ジェネリック関数のとき、"型制約のスーパークラスまたはプロトコル" -> "ジェネリック型" . "関数名"の依存関係を抽出する
     mutating private func addGenericToSuperHolder(generic: GenericHolder) {
-        var affectingTypeName = ""
-        if let protocolName = generic.conformedProtocolName {
-            affectingTypeName = protocolName
-        } else if let superClassName = generic.inheritedClassName {
-            affectingTypeName = superClassName
-        }
-        
         let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
         switch holderType {
         case .struct:
-            let structName = structHolderStackArray[positionInStructHolderStackArray].name
             structHolderStackArray[positionInStructHolderStackArray].generics.append(generic)
-            if affectingTypeName != "" {
-//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: structName, affectedElementName: "generic \(positionInGenericParameter)")
-            }
         case .class:
-            let className = classHolderStackArray[positionInClassHolderStackArray].name
             classHolderStackArray[positionInClassHolderStackArray].generics.append(generic)
-            if affectingTypeName != "" {
-//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: className, affectedElementName: "generic \(positionInGenericParameter)")
-            }
         case .enum:
-            let enumName = enumHolderStackArray[positionInEnumHolderStackArray].name
             enumHolderStackArray[positionInEnumHolderStackArray].generics.append(generic)
-            if affectingTypeName != "" {
-//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: enumName, affectedElementName: "generic \(positionInGenericParameter)")
-            }
         case .function:
-            let functionName = functionHolderStackArray[positionInFunctionHolderStackArray].name
-            let superHolderName = getSuperTypeName(reducePosition: 2)
             functionHolderStackArray[positionInFunctionHolderStackArray].generics.append(generic)
-            if affectingTypeName != "" {
-//                extractingDependencies(affectingTypeName: affectingTypeName, affectedTypeName: superHolderName, affectedElementName: "\(functionName)")
-            }
         default:
             fatalError()
         }
