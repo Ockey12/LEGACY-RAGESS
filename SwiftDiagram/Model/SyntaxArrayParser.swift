@@ -670,6 +670,8 @@ struct SyntaxArrayParser {
                 affectedTypeKind = .enum
             case .protocol:
                 affectedTypeKind = .protocol
+            case .extension:
+                return
             default:
                 fatalError()
             }
@@ -684,6 +686,8 @@ struct SyntaxArrayParser {
                 affectedTypeKind = .enum
             case .protocol:
                 affectedTypeKind = .protocol
+            case .extension:
+                return
             default:
                 fatalError()
             }
@@ -698,6 +702,8 @@ struct SyntaxArrayParser {
                 affectedTypeKind = .enum
             case .protocol:
                 affectedTypeKind = .protocol
+            case .extension:
+                return
             default:
                 fatalError()
             }
@@ -712,6 +718,8 @@ struct SyntaxArrayParser {
                 affectedTypeKind = .enum
             case .protocol:
                 affectedTypeKind = .protocol
+            case .extension:
+                return
             default:
                 fatalError()
             }
@@ -995,6 +1003,7 @@ struct SyntaxArrayParser {
         let affectedTypeName = extensionHolder.extensionedTypeName!
         let numberOfExtension = num - 1
         
+        // プロトコルへの準拠
         for (index, protocolName) in extensionHolder.conformingProtocolNames.enumerated() {
             let affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
                                                              affectedTypeName: affectedTypeName,
@@ -1003,7 +1012,31 @@ struct SyntaxArrayParser {
                                                              numberOfComponent: index)
             addAffectedTypeToRecultDependenceHolders(affectingTypeName: protocolName, affectedType: affectedType)
         }
-    }
+        
+        // typealias
+        for (index, aliase) in extensionHolder.typealiases.enumerated() {
+            var affectedType = DependenceHolder.AffectedType(affectedTypeKind: affectedTypeKind,
+                                                             affectedTypeName: affectedTypeName,
+                                                             numberOfExtension: numberOfExtension,
+                                                             componentKind: .typealias,
+                                                             numberOfComponent: index)
+            switch aliase.variableKind {
+            case .literal:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: aliase.literalType!, affectedType: affectedType)
+            case .array:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: aliase.arrayType!, affectedType: affectedType)
+            case .dictionary:
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: aliase.dictionaryKeyType!, affectedType: affectedType)
+                addAffectedTypeToRecultDependenceHolders(affectingTypeName: aliase.dictionaryValueType!, affectedType: affectedType)
+            case .tuple:
+                for tupleTypeName in aliase.tupleTypes {
+                    addAffectedTypeToRecultDependenceHolders(affectingTypeName: tupleTypeName, affectedType: affectedType)
+                }
+            default:
+                fatalError()
+            }
+        } // for (index, aliase) in extensionHolder.typealiases.enumerated()
+    } // func extractDependenceOfExtension(affectedTypeKind: DependenceHolder.TypeKind, extensionHolder: ExtensionHolder, numberOfExtension num: Int)
     
     // そのvariableやfunctionを保有している型の名前を返す
     private func getSuperTypeName(reducePosition: Int) -> String {
