@@ -340,13 +340,13 @@ struct SyntaxArrayParser {
             case .FunctionParameterType:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].literalType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .StartArrayTypeSyntaxOfFunctionParameter:
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .array
             case .ArrayTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].arrayType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndArrayTypeSyntaxOfFunctionParameter:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionParameter:
@@ -354,11 +354,11 @@ struct SyntaxArrayParser {
             case .DictionaryKeyTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryKeyType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .DictionaryValueTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryValueType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndDictionaryTypeSyntaxOfFunctionParameter:
                 break
             case .StartTupleTypeSyntaxOfFunctionParameter:
@@ -366,7 +366,7 @@ struct SyntaxArrayParser {
             case .TupleTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].tupleTypes.append(type)
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndTupleTypeSyntaxOfFunctionParameter:
                 break
             case .InitialValueOfFunctionParameter:
@@ -379,13 +379,13 @@ struct SyntaxArrayParser {
             case .FunctionReturnValueType:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.literalType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .StartArrayTypeSyntaxOfFunctionReturnValue:
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .array
             case .ArrayTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.arrayType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndArrayTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
@@ -393,11 +393,11 @@ struct SyntaxArrayParser {
             case .DictionaryKeyTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryKeyType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .DictionaryValueTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryValueType = type
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartTupleTypeSyntaxOfFunctionReturnValue:
@@ -405,7 +405,7 @@ struct SyntaxArrayParser {
             case .TupleTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.tupleTypes.append(type)
-//                extractingDependenciesOfFunction(affectingTypeName: type)
+                extractDependence(affectingTypeName: type, componentKind: .method)
             case .EndTupleTypeSyntaxOfFunctionReturnValue:
                 break
             case .ConformedProtocolByOpaqueResultTypeOfFunctionReturnValue:
@@ -667,6 +667,20 @@ struct SyntaxArrayParser {
         case .protocol:
             affectedTypeKind = .protocol
         case .variable:
+            let superTypeKind = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+            switch superTypeKind {
+            case .struct:
+                break
+            case .class:
+                affectedTypeKind = .class
+            case .enum:
+                affectedTypeKind = .enum
+            case .protocol:
+                affectedTypeKind = .protocol
+            default:
+                fatalError()
+            }
+        case .function:
             let superTypeKind = holderTypeStackArray[positionInHolderTypeStackArray - 1]
             switch superTypeKind {
             case .struct:
