@@ -14,6 +14,7 @@ class BuildFileMonitor: ObservableObject {
     @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
     @Published var convertedEnumHolders = [ConvertedToStringEnumHolder]()
     @Published var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
+    @Published var dependenceHolders = [DependenceHolder]()
     @Published var changeDate = ""
     
     var allTypeNames = [String]()
@@ -55,9 +56,15 @@ class BuildFileMonitor: ObservableObject {
                 self!.convertedClassHolders.removeAll()
                 self!.convertedEnumHolders.removeAll()
                 self!.convertedProtocolHolders.removeAll()
+                self!.dependenceHolders.removeAll()
                 self!.allTypeNames.removeAll()
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
+                
+                // 抽出した依存関係をフィルタリングする
+                // 組み込まれている型が影響を与える依存関係を取り除く
+                self!.dependenceHolders = self!.filterDependence(allTypeNames: self!.allTypeNames, dependenceHolders: self!.dependenceHolders)
+                self!.printDependencies(self!.dependenceHolders)
                 
                 print("---All Type Name---")
                 for name in self!.allTypeNames {
@@ -79,6 +86,8 @@ class BuildFileMonitor: ObservableObject {
                 for i in 0..<self!.convertedProtocolHolders.count {
                     self!.convertedProtocolHolders[i].changeDate = "\(dateFormatter.string(from: dt))"
                 }
+                
+                print("-----------------------------------------------------")
             } // DispatchQueue.main.async
         } // buildFileMonitorSource?.setEventHandler { [weak self] in
         
@@ -166,21 +175,7 @@ class BuildFileMonitor: ObservableObject {
                     }
 
                     // dependence
-                    let dependencies = syntaxArrayParser.getResultDependenceHolders()
-                    for dependency in dependencies {
-                        for affectedType in dependency.affectedTypes {
-                            var text = "---Dependence---\n"
-                            text += "affectingTypeName: " + dependency.affectingTypeName + "\n"
-                            text += "affectedTypeKind: \(affectedType.affectedTypeKind)\n"
-                            text += "affectedTypeName: " + affectedType.affectedTypeName + "\n"
-                            if let numberOfExtension = affectedType.numberOfExtension {
-                                text += "  numberOfExtension: \(numberOfExtension)\n"
-                            }
-                            text += "componentKind: \(affectedType.componentKind)\n"
-                            text += "numberOfComponent: \(affectedType.numberOfComponent)\n"
-                            print(text)
-                        }
-                    } // for dependency in dependencies
+                    self.dependenceHolders += syntaxArrayParser.getResultDependenceHolders()
                     
                     // 宣言された全ての型の名前を取得する
                     var currentAllTypeNames = syntaxArrayParser.getAllTypeNames()
@@ -197,4 +192,37 @@ class BuildFileMonitor: ObservableObject {
             print(error.localizedDescription)
         }
     } // func parseSwiftFiles(url: URL)
+    
+    // allTypeNamesに格納された、コード内で宣言された型がaffectingTypeな依存関係のみにフィルタリングする
+    private func filterDependence(allTypeNames: [String], dependenceHolders: [DependenceHolder]) -> [DependenceHolder] {
+        var newArray = [DependenceHolder]()
+        
+        for typeName in allTypeNames {
+            for dependenceHolder in dependenceHolders {
+                if typeName == dependenceHolder.affectingTypeName {
+//                    print("typeName: \(typeName), affectingTypeName: \(dependenceHolder.affectingTypeName)")
+                    newArray.append(dependenceHolder)
+                }
+            } // for dependenceHolder in dependenceHolders
+        } // for typeName in allTypeNames
+        
+        return newArray
+    } // func filterDependence(allTypeNames: [String], dependenceHolders: [DependenceHolder]) -> [DependenceHolder]
+    
+    private func printDependencies(_ dependenceHolder: [DependenceHolder]) {
+        for dependency in dependenceHolder {
+            for affectedType in dependency.affectedTypes {
+                var text = "---Dependence---\n"
+                text += "affectingTypeName: " + dependency.affectingTypeName + "\n"
+                text += "affectedTypeKind: \(affectedType.affectedTypeKind)\n"
+                text += "affectedTypeName: " + affectedType.affectedTypeName + "\n"
+                if let numberOfExtension = affectedType.numberOfExtension {
+                    text += "  numberOfExtension: \(numberOfExtension)\n"
+                }
+                text += "componentKind: \(affectedType.componentKind)\n"
+                text += "numberOfComponent: \(affectedType.numberOfComponent)\n"
+                print(text)
+            }
+        } // for dependency in dependencies
+    } // func printDependencies(_ dependenceHolder: [DependenceHolder])
 } // class BuildFileMonitor
