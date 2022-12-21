@@ -587,6 +587,10 @@ struct SyntaxArrayParser {
         return array
     }
     
+    func getAllTypeNames() -> [String] {
+        return allTypeNames
+    }
+    
     mutating func pushHolderTypeStackArray(_ holderType: HolderType) {
         holderTypeStackArray.append(holderType)
         positionInHolderTypeStackArray += 1

@@ -16,6 +16,8 @@ class BuildFileMonitor: ObservableObject {
     @Published var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
     @Published var changeDate = ""
     
+    var allTypeNames = [String]()
+    
     private var monitoredFolderFileDescriptor: CInt = -1
     private let folderMonitorQueue = DispatchQueue(label: "BuildFileMonitorQueue", attributes: .concurrent)
     private var buildFileMonitorSource: DispatchSourceFileSystemObject?
@@ -53,8 +55,14 @@ class BuildFileMonitor: ObservableObject {
                 self!.convertedClassHolders.removeAll()
                 self!.convertedEnumHolders.removeAll()
                 self!.convertedProtocolHolders.removeAll()
+                self!.allTypeNames.removeAll()
                 
                 self!.parseSwiftFiles(url: self!.projectDirectoryURL)
+                
+                print("---All Type Name---")
+                for name in self!.allTypeNames {
+                    print(name)
+                }
                 
                 self!.changeDate = "\(dateFormatter.string(from: dt))"
                 
@@ -156,18 +164,8 @@ class BuildFileMonitor: ObservableObject {
                         let convertedProtocolHolder = converter.convertToString(protocolHolder: protocolHolder)
                         convertedProtocolHolders.append(convertedProtocolHolder)
                     }
-                    
-//                    let dependencies = syntaxArrayParser.getWhomThisTypeAffectArray()
-//                    for dependency in dependencies {
-//                        for affectedType in dependency.affectedTypesName {
-//                            var text = dependency.affectingTypeName
-//                            text += " -> " + affectedType.typeName
-//                            if let element = affectedType.elementName {
-//                                text += "." + element
-//                            }
-//                            print(text)
-//                        }
-//                    }
+
+                    // dependence
                     let dependencies = syntaxArrayParser.getResultDependenceHolders()
                     for dependency in dependencies {
                         for affectedType in dependency.affectedTypes {
@@ -182,7 +180,14 @@ class BuildFileMonitor: ObservableObject {
                             text += "numberOfComponent: \(affectedType.numberOfComponent)\n"
                             print(text)
                         }
-                    }
+                    } // for dependency in dependencies
+                    
+                    // 宣言された全ての型の名前を取得する
+                    var currentAllTypeNames = syntaxArrayParser.getAllTypeNames()
+                    // 応急処置
+                    // @main struct の main attributeを取り除く
+                    currentAllTypeNames.removeAll(where: {$0 == "main"})
+                    allTypeNames += currentAllTypeNames
                 } else if url.hasDirectoryPath {
 //                    print("Directory URL: \(url)")
                     parseSwiftFiles(url: url)
