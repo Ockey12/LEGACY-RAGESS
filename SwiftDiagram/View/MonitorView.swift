@@ -32,7 +32,6 @@ struct MonitorView: View {
             GeometryReader { geometry in
                 ScrollView([.vertical, .horizontal]) {
                     DiagramView()
-                        
                     .background() {
                         GeometryReader { geometry in
                             Path { path in
@@ -48,7 +47,7 @@ struct MonitorView: View {
                     .frame(width: diagramViewSize.width*diagramViewScale,
                            height: diagramViewSize.height*diagramViewScale)
                 } // ScrollView
-                .background(Color(red: 248/256, green: 239/256, blue: 226/256))
+                .background(Color("Background"))
             } // GeometryReader
             
             
