@@ -24,7 +24,7 @@ struct MonitorView: View {
     
     // DiagramView()の周囲の余白
     // .frame()のwidthとheightに加算する
-    let diagramViewPadding: CGFloat = 300
+    let diagramViewPadding: CGFloat = 0
     
     var body: some View {
         
@@ -53,11 +53,8 @@ struct MonitorView: View {
                            height: diagramViewSize.height*diagramViewScale)
                     
                 } // ScrollView
-//                .background(Color("Background"))
-                .background(.white)
+                .background(Color("Background"))
             } // GeometryReader
-            
-            Divider()
             
             HStack {
                 Text("拡大率: \(diagramViewScale)")
