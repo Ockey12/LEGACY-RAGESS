@@ -46,7 +46,11 @@ struct MonitorView: View {
                             } // GeometryReader
                         } // .background()
 
-                        ArrowView(start: CGPoint(x: 200, y: 200), end: CGPoint(x: 1000, y: 1000))
+//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1650))
+//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1660))
+                        ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
+//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1680))
+//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1690))
                     } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,
