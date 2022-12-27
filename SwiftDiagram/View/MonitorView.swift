@@ -31,25 +31,31 @@ struct MonitorView: View {
         VStack {
             GeometryReader { geometry in
                 ScrollView([.vertical, .horizontal]) {
-                    DiagramView()
-                    .background() {
-                        GeometryReader { geometry in
-                            Path { path in
-                                let width = geometry.size.width
-                                let height = geometry.size.height
-                                DispatchQueue.main.async {
-                                    self.diagramViewSize = CGSize(width: width + diagramViewPadding, height: height + diagramViewPadding)
-                                } // DispatchQueue
-                            } // Path
-                        } // GeometryReader
-                    } // .background()
+                    
+                    ZStack {
+                        DiagramView()
+                        .background() {
+                            GeometryReader { geometry in
+                                Path { path in
+                                    let width = geometry.size.width
+                                    let height = geometry.size.height
+                                    DispatchQueue.main.async {
+                                        self.diagramViewSize = CGSize(width: width + diagramViewPadding, height: height + diagramViewPadding)
+                                    } // DispatchQueue
+                                } // Path
+                            } // GeometryReader
+                        } // .background()
+
+                        ArrowView(start: CGPoint(x: 200, y: 200), end: CGPoint(x: 1000, y: 1000))
+                    } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,
                            height: diagramViewSize.height*diagramViewScale)
+                    
                 } // ScrollView
-                .background(Color("Background"))
+//                .background(Color("Background"))
+                .background(.white)
             } // GeometryReader
-            
             
             Divider()
             

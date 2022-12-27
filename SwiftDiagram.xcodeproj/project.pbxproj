@@ -99,6 +99,9 @@
 		ACC8D73A2950D9E500BA76A9 /* FileChangeMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */; };
 		ACC8D73C2951853900BA76A9 /* DependenceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73B2951853900BA76A9 /* DependenceHolder.swift */; };
 		ACC8D73E29518AAA00BA76A9 /* IgnoreAffectingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */; };
+		ACC8D74C295AC00F00BA76A9 /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74B295AC00F00BA76A9 /* ArrowView.swift */; };
+		ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74D295AC01A00BA76A9 /* ArrowLineView.swift */; };
+		ACC8D750295AC02700BA76A9 /* ArrowHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -193,6 +196,9 @@
 		ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileChangeMonitorView.swift; sourceTree = "<group>"; };
 		ACC8D73B2951853900BA76A9 /* DependenceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenceHolder.swift; sourceTree = "<group>"; };
 		ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoreAffectingType.swift; sourceTree = "<group>"; };
+		ACC8D74B295AC00F00BA76A9 /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
+		ACC8D74D295AC01A00BA76A9 /* ArrowLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowLineView.swift; sourceTree = "<group>"; };
+		ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowHeadView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +413,7 @@
 			children = (
 				AC34B38E2949CA240029479C /* Components */,
 				AC34B3A3294A40480029479C /* TypeView */,
+				ACC8D74A295ABFE200BA76A9 /* Arrow */,
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
@@ -488,6 +495,16 @@
 				ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		ACC8D74A295ABFE200BA76A9 /* Arrow */ = {
+			isa = PBXGroup;
+			children = (
+				ACC8D74B295AC00F00BA76A9 /* ArrowView.swift */,
+				ACC8D74D295AC01A00BA76A9 /* ArrowLineView.swift */,
+				ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */,
+			);
+			path = Arrow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,6 +589,7 @@
 				ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */,
 				AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */,
 				ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */,
+				ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
 				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
@@ -621,6 +639,7 @@
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
+				ACC8D750295AC02700BA76A9 /* ArrowHeadView.swift in Sources */,
 				ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
@@ -634,6 +653,7 @@
 				ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */,
 				AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				ACC8D74C295AC00F00BA76A9 /* ArrowView.swift in Sources */,
 				ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */,
 				AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */,
 				ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */,
