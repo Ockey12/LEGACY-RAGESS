@@ -13,6 +13,7 @@ struct SwiftDiagramApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(BuildFileMonitor())
+                .environmentObject(ArrowPoint())
         }
     }
 }

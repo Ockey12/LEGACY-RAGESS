@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MonitorView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
+    @EnvironmentObject var arrowPoint: ArrowPoint
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -51,6 +52,11 @@ struct MonitorView: View {
                         ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1680))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1690))
+                        
+                        Circle()
+                            .frame(width: 30, height: 30)
+                            .position(x: arrowPoint.currentX, y: arrowPoint.currentY)
+                            .foregroundColor(.red)
                     } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,

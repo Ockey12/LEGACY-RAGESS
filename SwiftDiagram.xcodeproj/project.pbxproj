@@ -100,6 +100,8 @@
 		ACC8D74C295AC00F00BA76A9 /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74B295AC00F00BA76A9 /* ArrowView.swift */; };
 		ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74D295AC01A00BA76A9 /* ArrowLineView.swift */; };
 		ACC8D750295AC02700BA76A9 /* ArrowHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */; };
+		ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */; };
+		ACC8D754295AF73D00BA76A9 /* ClosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D753295AF73D00BA76A9 /* ClosureView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,6 +197,8 @@
 		ACC8D74B295AC00F00BA76A9 /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		ACC8D74D295AC01A00BA76A9 /* ArrowLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowLineView.swift; sourceTree = "<group>"; };
 		ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowHeadView.swift; sourceTree = "<group>"; };
+		ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowPoint.swift; sourceTree = "<group>"; };
+		ACC8D753295AF73D00BA76A9 /* ClosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +394,7 @@
 				ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */,
 				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 				ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */,
+				ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
 				ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */,
+				ACC8D753295AF73D00BA76A9 /* ClosureView.swift */,
 				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
 			);
 			path = View;
@@ -620,6 +626,7 @@
 				AC5F006F293F1BB5001221C2 /* SyntaxArrayParserView.swift in Sources */,
 				ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
+				ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
@@ -663,6 +670,7 @@
 				AC34B3BC294C374B0029479C /* NestClassView.swift in Sources */,
 				AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */,
 				AC34B3542940DE9D0029479C /* MonitorAndGetSourceFilesView.swift in Sources */,
+				ACC8D754295AF73D00BA76A9 /* ClosureView.swift in Sources */,
 				AC34B36B2946F4890029479C /* StructHolderToStringConverter.swift in Sources */,
 				AC34B3952949CD070029479C /* IndexComponentFrameWithText.swift in Sources */,
 				AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */,

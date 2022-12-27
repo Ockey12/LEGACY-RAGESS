@@ -40,6 +40,9 @@ struct DiagramView: View {
                         .padding(.init(top: 300, leading: 300, bottom: 300, trailing: 300))
                 }
             } // HStack
+//            .onAppear {
+//                print("bbbbbbbbbb")
+//            }
             
             // Class
             HStack(alignment: .top, spacing: 0) {

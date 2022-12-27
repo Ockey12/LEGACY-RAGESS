@@ -12,6 +12,8 @@ struct StructView: View {
     let holder: ConvertedToStringStructHolder
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
+    @EnvironmentObject var arrowPoint: ArrowPoint
+    
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
