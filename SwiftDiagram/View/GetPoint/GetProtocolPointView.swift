@@ -40,7 +40,7 @@ struct GetProtocolPointView: View {
                             }
                             
                             if let maxWidth = maxWidthHolder.maxWidthDict[protocolHolder.name] {
-                                let newCurrentX = arrowPoint.getCurrent().x + maxWidth + textTrailPadding + arrowTerminalWidth*2 + 300 + 300
+                                let newCurrentX = arrowPoint.getCurrent().x + maxWidth + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
                                 arrowPoint.setCurrentX(newCurrentX)
                             }
     //                        let newCurrentX = arrowPoint.getCurrent().x + maxWidthHolder.maxWidthDict[protocolHolder.name]! + textTrailPadding + arrowTerminalWidth + 300 + 300
