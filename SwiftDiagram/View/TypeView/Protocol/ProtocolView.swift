@@ -10,8 +10,8 @@ import SwiftUI
 struct ProtocolView: View {
     let holder: ConvertedToStringProtocolHolder
     
-//    @EnvironmentObject var monitor: BuildFileMonitor
-//    @EnvironmentObject var arrowPoint: ArrowPoint
+    @EnvironmentObject var monitor: BuildFileMonitor
+    @EnvironmentObject var arrowPoint: ArrowPoint
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
@@ -26,61 +26,8 @@ struct ProtocolView: View {
     let extensionHeightCalculater = ExtensionFrameHeightCalculater()
     
     var allStrings: [String] {
-        var strings = [holder.name]
-        strings += holder.conformingProtocolNames
-        strings += holder.associatedTypes
-        strings += holder.typealiases
-        strings += holder.initializers
-        strings += holder.variables
-        strings += holder.functions
-        
-        let extensions = holder.extensions
-        for extensionHolder in extensions {
-            strings += extensionHolder.conformingProtocolNames
-            strings += extensionHolder.typealiases
-            strings += extensionHolder.initializers
-            strings += extensionHolder.variables
-            strings += extensionHolder.functions
-
-            let nestedStructs = extensionHolder.nestingConvertedToStringStructHolders
-            for nestedStruct in nestedStructs {
-                strings += nestedStruct.generics
-                strings += nestedStruct.conformingProtocolNames
-                strings += nestedStruct.typealiases
-                strings += nestedStruct.initializers
-                strings += nestedStruct.variables
-                strings += nestedStruct.functions
-            }
-
-            let nestedClasses = extensionHolder.nestingConvertedToStringClassHolders
-            for nestedClass in nestedClasses {
-                strings += nestedClass.generics
-                if let superClass = nestedClass.superClassName {
-                    strings.append(superClass)
-                }
-                strings += nestedClass.conformingProtocolNames
-                strings += nestedClass.typealiases
-                strings += nestedClass.initializers
-                strings += nestedClass.variables
-                strings += nestedClass.functions
-            }
-
-            let nestedEnums = extensionHolder.nestingConvertedToStringEnumHolders
-            for nestedEnum in nestedEnums {
-                strings += nestedEnum.generics
-                if let rawvalueType = nestedEnum.rawvalueType {
-                    strings.append(rawvalueType)
-                }
-                strings += nestedEnum.conformingProtocolNames
-                strings += nestedEnum.typealiases
-                strings += nestedEnum.initializers
-                strings += nestedEnum.cases
-                strings += nestedEnum.variables
-                strings += nestedEnum.functions
-            }
-        } // for extensionHolder in extensions
-        
-        return strings
+        let allStringOfHolder = AllStringOfHolder()
+        return allStringOfHolder.ofProtocol(holder)
     } // var allStrings
     
     var bodyWidth: Double {

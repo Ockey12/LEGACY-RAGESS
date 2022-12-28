@@ -103,6 +103,8 @@
 		ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */; };
 		ACC8D754295AF73D00BA76A9 /* ClosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D753295AF73D00BA76A9 /* ClosureView.swift */; };
 		ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */; };
+		ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */; };
+		ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +203,8 @@
 		ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowPoint.swift; sourceTree = "<group>"; };
 		ACC8D753295AF73D00BA76A9 /* ClosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureView.swift; sourceTree = "<group>"; };
 		ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArrowsPointView.swift; sourceTree = "<group>"; };
+		ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProtocolPointView.swift; sourceTree = "<group>"; };
+		ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStringOfHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +401,7 @@
 				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 				ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */,
 				ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */,
+				ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				AC34B38E2949CA240029479C /* Components */,
 				AC34B3A3294A40480029479C /* TypeView */,
 				ACC8D74A295ABFE200BA76A9 /* Arrow */,
+				ACC8D759295C25DF00BA76A9 /* GetPoint */,
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5F006E293F1BB5001221C2 /* SyntaxArrayParserView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
@@ -425,7 +431,6 @@
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
 				ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */,
 				ACC8D753295AF73D00BA76A9 /* ClosureView.swift */,
-				ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */,
 				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
 			);
 			path = View;
@@ -508,6 +513,15 @@
 				ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */,
 			);
 			path = Arrow;
+			sourceTree = "<group>";
+		};
+		ACC8D759295C25DF00BA76A9 /* GetPoint */ = {
+			isa = PBXGroup;
+			children = (
+				ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */,
+				ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */,
+			);
+			path = GetPoint;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -611,12 +625,14 @@
 				AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
+				ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */,
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,
 				AC34B376294791270029479C /* GenericHolderToStringConverter.swift in Sources */,
 				ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */,
 				AC5BAD2A2928C7C000A24BDD /* SampleCode.swift in Sources */,
 				AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */,
 				AC34B37E294797E10029479C /* FunctionHolderToStringConverter.swift in Sources */,
+				ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */,
 				ACC8D73C2951853900BA76A9 /* DependenceHolder.swift in Sources */,
 				AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */,
 				AC34B37C294796880029479C /* VariableHolderToStringConverter.swift in Sources */,
