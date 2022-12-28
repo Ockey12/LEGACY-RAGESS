@@ -102,6 +102,7 @@
 		ACC8D750295AC02700BA76A9 /* ArrowHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */; };
 		ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */; };
 		ACC8D754295AF73D00BA76A9 /* ClosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D753295AF73D00BA76A9 /* ClosureView.swift */; };
+		ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,6 +200,7 @@
 		ACC8D74F295AC02700BA76A9 /* ArrowHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowHeadView.swift; sourceTree = "<group>"; };
 		ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowPoint.swift; sourceTree = "<group>"; };
 		ACC8D753295AF73D00BA76A9 /* ClosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureView.swift; sourceTree = "<group>"; };
+		ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArrowsPointView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +425,7 @@
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
 				ACC8D7392950D9E500BA76A9 /* FileChangeMonitorView.swift */,
 				ACC8D753295AF73D00BA76A9 /* ClosureView.swift */,
+				ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */,
 				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
 			);
 			path = View;
@@ -664,6 +667,7 @@
 				AC34B3662945035C0029479C /* GenericHolder.swift in Sources */,
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,
 				AC34B3C4294CAB6F0029479C /* ExtensionFrame.swift in Sources */,
+				ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */,
 				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,

@@ -10,8 +10,8 @@ import SwiftUI
 struct ProtocolView: View {
     let holder: ConvertedToStringProtocolHolder
     
-    @EnvironmentObject var monitor: BuildFileMonitor
-    @EnvironmentObject var arrowPoint: ArrowPoint
+//    @EnvironmentObject var monitor: BuildFileMonitor
+//    @EnvironmentObject var arrowPoint: ArrowPoint
     @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
@@ -110,42 +110,42 @@ struct ProtocolView: View {
                 .offset(x: 0, y: 2)
                 .frame(width: frameWidth ,
                        height: headerItemHeight)
-                .onAppear {
-                    for dependence in monitor.dependenceHolders {
-                        // 依存関係
-                        if dependence.affectingTypeName == holder.name {
-                            // この型が影響を与える側の依存関係
-                            for affectedType in dependence.affectedTypes {
-                                // 影響を受ける型とその要素の情報
-                                
-                                // 検索用の辞書のKey
-                                var key = ""
-                                if let numOfExtension = affectedType.numberOfExtension {
-                                    // extensionで宣言されているとき
-                                    // 影響を受ける側の型の何番目のextensionかを区別する番号をKeyに含める
-                                    key = holder.name + "->" + affectedType.affectedTypeName + "\(affectedType.affectedTypeKind)" + "\(numOfExtension)" + "-" + "\(affectedType.numberOfComponent)"
-                                } else {
-                                    key = holder.name + "->" + affectedType.affectedTypeName + "\(affectedType.affectedTypeKind)" + "\(affectedType.numberOfComponent)"
-                                }
-                                
-                                // 現在のx座標とy座標
-                                let x = arrowPoint.currentX
-                                let y = arrowPoint.currentY
-                                
-                                // 座標を登録する
-                                if let _ = arrowPoint.points[key] {
-                                    // 影響を受ける側の型を描画するときに既に登録されているとき
-                                    // 始点の座標を追加する
-                                    arrowPoint.points[key]!.start = CGPoint(x: x, y: y)
-                                } else {
-                                    // まだ登録されていないとき
-                                    // 始点の座標を登録する
-                                    arrowPoint.points[key] = ArrowPoint.Point(start: CGPoint(x: x, y: y))
-                                }
-                            }
-                        }
-                    }
-                }
+//                .onAppear {
+//                    for dependence in monitor.dependenceHolders {
+//                        // 依存関係
+//                        if dependence.affectingTypeName == holder.name {
+//                            // この型が影響を与える側の依存関係
+//                            for affectedType in dependence.affectedTypes {
+//                                // 影響を受ける型とその要素の情報
+//                                
+//                                // 検索用の辞書のKey
+//                                var key = ""
+//                                if let numOfExtension = affectedType.numberOfExtension {
+//                                    // extensionで宣言されているとき
+//                                    // 影響を受ける側の型の何番目のextensionかを区別する番号をKeyに含める
+//                                    key = holder.name + "->" + affectedType.affectedTypeName + "\(affectedType.affectedTypeKind)" + "\(numOfExtension)" + "-" + "\(affectedType.numberOfComponent)"
+//                                } else {
+//                                    key = holder.name + "->" + affectedType.affectedTypeName + "\(affectedType.affectedTypeKind)" + "\(affectedType.numberOfComponent)"
+//                                }
+//                                
+//                                // 現在のx座標とy座標
+//                                let x = arrowPoint.currentX
+//                                let y = arrowPoint.currentY
+//                                
+//                                // 座標を登録する
+//                                if let _ = arrowPoint.points[key] {
+//                                    // 影響を受ける側の型を描画するときに既に登録されているとき
+//                                    // 始点の座標を追加する
+//                                    arrowPoint.points[key]!.start = CGPoint(x: x, y: y)
+//                                } else {
+//                                    // まだ登録されていないとき
+//                                    // 始点の座標を登録する
+//                                    arrowPoint.points[key] = ArrowPoint.Point(start: CGPoint(x: x, y: y))
+//                                }
+//                            } // for affectedType in dependence.affectedTypes
+//                        } // if dependence.affectingTypeName == holder.name
+//                    } // for dependence in monitor.dependenceHolders
+//                } // onAppear
                 
                 // DetailComponent
                 ProtocolDetailView(holder: holder,

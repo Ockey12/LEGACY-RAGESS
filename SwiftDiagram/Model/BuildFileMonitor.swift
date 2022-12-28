@@ -226,3 +226,14 @@ class BuildFileMonitor: ObservableObject {
         } // for dependency in dependencies
     } // func printDependencies(_ dependenceHolder: [DependenceHolder])
 } // class BuildFileMonitor
+
+extension BuildFileMonitor: Equatable {
+    static func == (lhs: BuildFileMonitor, rhs: BuildFileMonitor) -> Bool {
+        return (lhs.convertedStructHolders == rhs.convertedStructHolders) &&
+                (lhs.convertedClassHolders == rhs.convertedClassHolders) &&
+                (lhs.convertedEnumHolders == rhs.convertedEnumHolders) &&
+                (lhs.convertedProtocolHolders == rhs.convertedProtocolHolders) &&
+                (lhs.dependenceHolders == rhs.dependenceHolders) &&
+                (lhs.changeDate == rhs.changeDate)
+    }
+}

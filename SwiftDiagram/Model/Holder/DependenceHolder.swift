@@ -19,11 +19,18 @@ struct DependenceHolder {
         case `protocol`
     }
     
-    struct AffectedType {
+    struct AffectedType: Equatable {
         var affectedTypeKind: TypeKind
         var affectedTypeName: String
         var numberOfExtension: Int? = nil
         var componentKind: DetailComponentView.ComponentKind
         var numberOfComponent: Int
+    }
+}
+
+extension DependenceHolder: Equatable {
+    static func == (lhs: DependenceHolder, rhs: DependenceHolder) -> Bool {
+        return (lhs.affectingTypeName == rhs.affectingTypeName) &&
+                (lhs.affectedTypes == rhs.affectedTypes)
     }
 }

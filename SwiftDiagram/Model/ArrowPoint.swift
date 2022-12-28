@@ -16,11 +16,11 @@ class ArrowPoint: ObservableObject {
     
     @Published var maxY: CGFloat = 300 + 90 + 45
     
-    // 矢印の始点と終点を保存する辞書
-    @Published var points = [String: Point]()
+    // 矢印の始点と終点を保存する配列
+    @Published var points = [Point]()
     struct Point {
-//        let affecter: String
-//        let affecteder: String
+        let affecter: String
+        let affecteder: String
         var start: CGPoint?
         var end: CGPoint?
     }
