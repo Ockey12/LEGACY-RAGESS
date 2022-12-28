@@ -10,12 +10,12 @@ import SwiftSyntax
 import SwiftSyntaxParser
 
 class BuildFileMonitor: ObservableObject {
-    @Published var convertedStructHolders = [ConvertedToStringStructHolder]()
-    @Published var convertedClassHolders = [ConvertedToStringClassHolder]()
-    @Published var convertedEnumHolders = [ConvertedToStringEnumHolder]()
-    @Published var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
-    @Published var dependenceHolders = [DependenceHolder]()
-    @Published var changeDate = ""
+    @Published private var convertedStructHolders = [ConvertedToStringStructHolder]()
+    @Published private var convertedClassHolders = [ConvertedToStringClassHolder]()
+    @Published private var convertedEnumHolders = [ConvertedToStringEnumHolder]()
+    @Published private var convertedProtocolHolders = [ConvertedToStringProtocolHolder]()
+    @Published private var dependenceHolders = [DependenceHolder]()
+    @Published private var changeDate = ""
     
     var allTypeNames = [String]()
     
@@ -225,6 +225,30 @@ class BuildFileMonitor: ObservableObject {
             }
         } // for dependency in dependencies
     } // func printDependencies(_ dependenceHolder: [DependenceHolder])
+    
+    func getStruct() -> [ConvertedToStringStructHolder] {
+        return convertedStructHolders
+    }
+    
+    func getClass() -> [ConvertedToStringClassHolder] {
+        return convertedClassHolders
+    }
+    
+    func getEnum() -> [ConvertedToStringEnumHolder] {
+        return convertedEnumHolders
+    }
+    
+    func getProtocol() -> [ConvertedToStringProtocolHolder] {
+        return convertedProtocolHolders
+    }
+    
+    func getDependence() -> [DependenceHolder] {
+        return dependenceHolders
+    }
+    
+    func getChangeDate() -> String {
+        return changeDate
+    }
 } // class BuildFileMonitor
 
 extension BuildFileMonitor: Equatable {

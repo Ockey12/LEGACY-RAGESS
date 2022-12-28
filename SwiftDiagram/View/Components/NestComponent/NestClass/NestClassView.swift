@@ -58,7 +58,7 @@ struct NestClassView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
             
             NestClassFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())

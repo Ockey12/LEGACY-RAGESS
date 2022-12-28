@@ -36,11 +36,11 @@ struct HeaderComponentView: View {
                 .offset(x: 0, y: itemHeight)
                 
         } // ZStack
-        .onAppear {
-            print("aaaaaaaaaaaaaa")
-//            arrowPoint.currentX = 300
-            arrowPoint.currentY = arrowPoint.currentY + 90
-        }
+//        .onAppear {
+//            print("aaaaaaaaaaaaaa")
+////            arrowPoint.currentX = 300
+//            arrowPoint.currentY = arrowPoint.currentY + 90
+//        }
     } // var body
 } // struct HeaderComponentView
 

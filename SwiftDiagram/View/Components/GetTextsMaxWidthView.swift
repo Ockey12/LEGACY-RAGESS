@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct GetTextsMaxWidthView: View {
+    var holderName: String
     var strings: [String]
+    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     @Binding var maxWidth: Double
     @State private var textSize: CGSize = CGSize()
     let fontSize = ComponentSettingValues.fontSize
@@ -30,7 +32,9 @@ struct GetTextsMaxWidthView: View {
                     DispatchQueue.main.async {
                         if maxWidth < width {
                             maxWidth = width
+                            print("e")
                         }
+                        maxWidthHolder.maxWidthDict[holderName] = maxWidth
                     }
                 } // Path
             } // GeometryReader

@@ -105,6 +105,7 @@
 		ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */; };
 		ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */; };
 		ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */; };
+		ACC8D75F295C39E100BA76A9 /* MaxWidthHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +206,7 @@
 		ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArrowsPointView.swift; sourceTree = "<group>"; };
 		ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProtocolPointView.swift; sourceTree = "<group>"; };
 		ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStringOfHolder.swift; sourceTree = "<group>"; };
+		ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxWidthHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,6 +467,7 @@
 				AC34B3672945B9F70029479C /* TypealiasHolder.swift */,
 				ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */,
 				ACC8D73B2951853900BA76A9 /* DependenceHolder.swift */,
+				ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */,
 			);
 			path = Holder;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,
 				AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */,
 				ACC8D750295AC02700BA76A9 /* ArrowHeadView.swift in Sources */,
+				ACC8D75F295C39E100BA76A9 /* MaxWidthHolder.swift in Sources */,
 				ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */,
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,

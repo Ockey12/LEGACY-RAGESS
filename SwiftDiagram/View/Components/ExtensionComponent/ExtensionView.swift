@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExtensionView: View {
+    let superHolderName: String
     let holder: ConvertedToStringExtensionHolder
     let outsideFrameWidth: CGFloat
 
@@ -93,7 +94,7 @@ struct ExtensionView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            GetTextsMaxWidthView(holderName: superHolderName, strings: allStrings, maxWidth: $maxTextWidth)
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)

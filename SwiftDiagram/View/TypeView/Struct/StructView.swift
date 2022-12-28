@@ -136,7 +136,7 @@ struct StructView: View {
                 .foregroundColor(.clear)
                 .background(.clear)
 
-            GetTextsMaxWidthView(strings: allStrings, maxWidth: $maxTextWidth)
+            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
             
             VStack(spacing: 0) {
                 // Header
@@ -174,7 +174,7 @@ struct StructView: View {
                 // extension
                 ForEach(holder.extensions, id: \.self) { extensionHolder in
                     let height = extensionHeightCalculater.calculateExtensionFrameHeight(holder: extensionHolder)
-                    ExtensionView(holder: extensionHolder, outsideFrameWidth: maxTextWidth)
+                    ExtensionView(superHolderName: holder.name, holder: extensionHolder, outsideFrameWidth: maxTextWidth)
                         .frame(width: bodyWidth + extensionOutsidePadding*2,
                                height: height)
                 }

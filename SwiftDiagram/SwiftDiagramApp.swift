@@ -14,6 +14,7 @@ struct SwiftDiagramApp: App {
             ContentView()
                 .environmentObject(BuildFileMonitor())
                 .environmentObject(ArrowPoint())
+                .environmentObject(MaxWidthHolder())
         }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct MonitorView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
     @EnvironmentObject var arrowPoint: ArrowPoint
+    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -54,10 +55,10 @@ struct MonitorView: View {
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1680))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1690))
                         
-                        Circle()
-                            .frame(width: 30, height: 30)
-                            .position(x: arrowPoint.currentX, y: arrowPoint.currentY)
-                            .foregroundColor(.red)
+//                        Circle()
+//                            .frame(width: 30, height: 30)
+//                            .position(x: arrowPoint.currentX, y: arrowPoint.currentY)
+//                            .foregroundColor(.red)
                     } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,
@@ -66,6 +67,10 @@ struct MonitorView: View {
                 } // ScrollView
                 .background(Color("Background"))
             } // GeometryReader
+            
+            List(maxWidthHolder.array, id: \.self) { element in
+                Text(element.name + ": \(element.width)")
+            }
             
             HStack {
                 Text("拡大率: \(diagramViewScale)")
@@ -105,7 +110,7 @@ struct MonitorView: View {
                     Spacer()
                 }
                 HStack {
-                    Text("Change Date: \(monitor.changeDate)")
+                    Text("Change Date: \(monitor.getChangeDate())")
                     Spacer()
                 }
             } // VStack
