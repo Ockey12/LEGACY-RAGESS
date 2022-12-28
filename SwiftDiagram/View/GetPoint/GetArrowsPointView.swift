@@ -53,8 +53,8 @@ struct GetArrowsPointView: View {
     } // var body
 } // struct GetArrowsPointView
 
-struct GetArrowsPointView_Previews: PreviewProvider {
-    static var previews: some View {
-        GetArrowsPointView()
-    }
-}
+//struct GetArrowsPointView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GetArrowsPointView()
+//    }
+//}

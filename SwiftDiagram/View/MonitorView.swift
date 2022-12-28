@@ -49,9 +49,23 @@ struct MonitorView: View {
                         } // .background()
 
                         GetArrowsPointView()
+                        ForEach(arrowPoint.points, id: \.self) { point in
+                            if let startRight = point.startRight {
+                                Circle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: startRight.x, y: startRight.y)
+                                    .foregroundColor(.red)
+                            }
+                            if let startLeft = point.startLeft {
+                                Circle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: startLeft.x, y: startLeft.y)
+                                    .foregroundColor(.blue)
+                            }
+                        }
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1650))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1660))
-                        ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
+//                        ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1680))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1690))
                         

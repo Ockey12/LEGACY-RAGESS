@@ -106,6 +106,7 @@
 		ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */; };
 		ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */; };
 		ACC8D75F295C39E100BA76A9 /* MaxWidthHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */; };
+		ACC8D761295CC02A00BA76A9 /* HashableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -207,6 +208,7 @@
 		ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProtocolPointView.swift; sourceTree = "<group>"; };
 		ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStringOfHolder.swift; sourceTree = "<group>"; };
 		ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxWidthHolder.swift; sourceTree = "<group>"; };
+		ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 			children = (
 				AC3BF415292227770096810E /* SwiftDiagramApp.swift */,
 				AC3BF417292227770096810E /* ContentView.swift */,
+				ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */,
 				AC5BAD2E2928C9B000A24BDD /* View */,
 				AC5BAD1E29276D1D00A24BDD /* Model */,
 				AC5BAD2B2928C85F00A24BDD /* Sample */,
@@ -681,6 +684,7 @@
 				ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */,
 				ACC8D73A2950D9E500BA76A9 /* FileChangeMonitorView.swift in Sources */,
 				ACC8D73E29518AAA00BA76A9 /* IgnoreAffectingType.swift in Sources */,
+				ACC8D761295CC02A00BA76A9 /* HashableExtension.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
 				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,
