@@ -164,6 +164,30 @@ struct GetProtocolPointView: View {
                                 currentPoint.y += connectionHeight
                             }
                             
+                            // MARK: - Method Component
+                            if 0 < protocolHolder.functions.count {
+                                currentPoint.y += itemHeight/2
+                            }
+                            for num in 0..<protocolHolder.functions.count {
+                                for (index, point) in arrowPoint.points.enumerated() {
+                                    if (point.affectedName == protocolHolder.name) &&
+                                        (point.affectedComponentKind == .method) &&
+                                        (point.numberOfAffectedComponent == num) {
+                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
+                                        arrowPoint.points[index].endLeft = currentPoint
+                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                    }
+                                } // for (index, point) in arrowPoint.points.enumerated()
+                                if num != protocolHolder.functions.count - 1 {
+                                    currentPoint.y += itemHeight
+                                }
+                            } // for num in 0..<protocolHolder.variables.count
+                            if 0 < protocolHolder.functions.count {
+                                currentPoint.y += itemHeight/2
+                                currentPoint.y += bottomPaddingForLastText
+                                currentPoint.y += connectionHeight
+                            }
+                            
                             if let maxWidth = maxWidthHolder.maxWidthDict[protocolHolder.name] {
                                 var newCurrentX = currentPoint.x + maxWidth + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
                                 if 0 < protocolHolder.extensions.count {
