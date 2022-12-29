@@ -87,6 +87,18 @@ struct MonitorView: View {
                                     .position(x: startLeft.x, y: startLeft.y)
                                     .foregroundColor(.blue)
                             }
+                            if let endRight = point.endRight {
+                                Circle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: endRight.x, y: endRight.y)
+                                    .foregroundColor(.red)
+                            }
+                            if let endLeft = point.endLeft {
+                                Circle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: endLeft.x, y: endLeft.y)
+                                    .foregroundColor(.blue)
+                            }
                         }
 //                        ForEach(arrowPoint.points, id: \.self) { point in
 //                            if let startRight = point.startRight {

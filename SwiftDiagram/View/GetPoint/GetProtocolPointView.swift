@@ -18,6 +18,9 @@ struct GetProtocolPointView: View {
     let textTrailPadding = ComponentSettingValues.textTrailPadding
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
+    let connectionHeight = ComponentSettingValues.connectionHeight
+    let itemHeight = ComponentSettingValues.itemHeight
+    let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
     var body: some View {
         ZStack {
@@ -26,22 +29,55 @@ struct GetProtocolPointView: View {
                     DispatchQueue.main.async {
                         arrowPoint.initialize()
                         for protocolHolder in monitor.getProtocol() {
-                            var currentPoint = arrowPoint.getCurrent()
+//                            var currentPoint = arrowPoint.getCurrent()
+                            var currentPoint = arrowPoint.getStartPoint()
+                            guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
+                                continue
+                            }
                             if 0 < protocolHolder.extensions.count {
                                 // extensionが宣言されているので、extensionコンポーネントの幅を考慮する
                                 currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
                             }
+                            
                             for (index, point) in arrowPoint.points.enumerated() {
                                 if point.affecterName == protocolHolder.name {
                                     // このプロトコルが影響を与える側のとき
-                                    guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
-                                        continue
-                                    }
+//                                    guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
+//                                        continue
+//                                    }
                                     let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
                                     arrowPoint.points[index].startLeft = currentPoint
                                     arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
                                     print("startRightX: \(startRightX)")
                                 }
+                            } // for (index, point) in arrowPoint.points.enumerated()
+                            currentPoint.y += itemHeight/2
+                            currentPoint.y += bottomPaddingForLastText
+                            currentPoint.y += connectionHeight
+                            
+                            // conform
+//                            currentPoint.y += connectionHeight
+                            if 0 < protocolHolder.conformingProtocolNames.count {
+                                currentPoint.y += itemHeight/2
+                            }
+                            for num in 0..<protocolHolder.conformingProtocolNames.count {
+                                for (index, point) in arrowPoint.points.enumerated() {
+                                    if (point.affectedName == protocolHolder.name) &&
+                                        (point.affectedComponentKind == .conform) &&
+                                        (point.numberOfAffectedComponent == num) {
+                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
+                                        arrowPoint.points[index].endLeft = currentPoint
+                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                    }
+                                } // for (index, point) in arrowPoint.points.enumerated()
+                                if num != protocolHolder.conformingProtocolNames.count - 1 {
+                                    currentPoint.y += itemHeight
+                                }
+                            } // for protocolName in protocolHolder
+                            if 0 < protocolHolder.conformingProtocolNames.count {
+                                currentPoint.y += itemHeight/2
+                                currentPoint.y += bottomPaddingForLastText
+                                currentPoint.y += connectionHeight
                             }
                             
                             if let maxWidth = maxWidthHolder.maxWidthDict[protocolHolder.name] {
@@ -49,7 +85,7 @@ struct GetProtocolPointView: View {
                                 if 0 < protocolHolder.extensions.count {
                                     newCurrentX += extensionOutsidePadding - arrowTerminalWidth - 4
                                 }
-                                arrowPoint.setCurrentX(newCurrentX)
+                                arrowPoint.setStartX(newCurrentX)
                             }
                         } // for protocolHolder in monitor.getProtocol()
                     } // DispatchQueue.main.async

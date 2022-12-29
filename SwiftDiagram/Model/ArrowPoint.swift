@@ -14,8 +14,9 @@ class ArrowPoint: ObservableObject {
 //    @Published private var currentY: CGFloat = 300 + 90 + 45
     @Published private var currentPoint = CGPoint(x: 300, y: 300 + 90 + 45)
     
-    @Published private var startX: CGFloat = 300
-    @Published private var startY: CGFloat = 300 + 90 + 45
+    @Published private var startPoint = CGPoint(x: 300, y: 300 + 90 + 45)
+//    @Published private var startX: CGFloat = 300
+//    @Published private var startY: CGFloat = 300 + 90 + 45
     
     @Published private var maxY: CGFloat = 300 + 90 + 45
     
@@ -80,13 +81,20 @@ class ArrowPoint: ObservableObject {
         return currentPoint
     }
     
+    func getStartPoint() -> CGPoint {
+        return startPoint
+    }
+    
     func initialize() {
-        startX = 300
-        startY = 300 + 90 + 45
+        startPoint = CGPoint(x: 300, y: 300 + 90 + 45)
         currentPoint = CGPoint(x: 300, y: 300 + 90 + 45)
     }
     
     func setCurrentX(_ x: CGFloat) {
         currentPoint.x = x
+    }
+    
+    func setStartX(_ x: CGFloat) {
+        startPoint.x = x
     }
 }
