@@ -33,16 +33,9 @@ struct GetProtocolPointView: View {
                             }
                             for (index, point) in arrowPoint.points.enumerated() {
                                 if point.affecter == protocolHolder.name {
-                                    // TODO<extensionも考慮>
-//                                    var currentPoint = arrowPoint.getCurrent()
-//                                    if 0 < protocolHolder.extensions.count {
-//                                        // extensionが宣言されているので、extensionコンポーネントの幅を考慮する
-//                                        currentPoint.x += extensionOutsidePadding
-//                                    }
                                     guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
                                         continue
                                     }
-    //                                let width = maxWidthHolder.maxWidthDict[protocolHolder.name]!
                                     let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
                                     arrowPoint.points[index].startLeft = currentPoint
                                     arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
@@ -58,10 +51,6 @@ struct GetProtocolPointView: View {
                                 arrowPoint.setCurrentX(newCurrentX)
                             }
                         } // for protocolHolder in monitor.getProtocol()
-//                        monitor.objectWillChange.send()
-//                        arrowPoint.changeDate = monitor.getChangeDate()
-                        print("<DEBUG>GetProtocolPointView")
-//                        arrowPoint.refreshFlag.toggle()
                     } // DispatchQueue.main.async
                 } // .onChange(of: monitor.getChangeDate())
         } // ZStack
