@@ -29,7 +29,6 @@ struct GetProtocolPointView: View {
                     DispatchQueue.main.async {
                         arrowPoint.initialize()
                         for protocolHolder in monitor.getProtocol() {
-//                            var currentPoint = arrowPoint.getCurrent()
                             var currentPoint = arrowPoint.getStartPoint()
                             guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
                                 continue
@@ -42,9 +41,6 @@ struct GetProtocolPointView: View {
                             for (index, point) in arrowPoint.points.enumerated() {
                                 if point.affecterName == protocolHolder.name {
                                     // このプロトコルが影響を与える側のとき
-//                                    guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
-//                                        continue
-//                                    }
                                     let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
                                     arrowPoint.points[index].startLeft = currentPoint
                                     arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
@@ -56,7 +52,6 @@ struct GetProtocolPointView: View {
                             currentPoint.y += connectionHeight
                             
                             // conform
-//                            currentPoint.y += connectionHeight
                             if 0 < protocolHolder.conformingProtocolNames.count {
                                 currentPoint.y += itemHeight/2
                             }
