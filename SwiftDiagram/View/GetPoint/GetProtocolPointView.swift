@@ -188,13 +188,6 @@ struct GetProtocolPointView: View {
                                 currentPoint.y += connectionHeight
                             }
                             
-//                            if let maxWidth = maxWidthHolder.maxWidthDict[protocolHolder.name] {
-//                                var newCurrentX = currentPoint.x + maxWidth + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
-//                                if 0 < protocolHolder.extensions.count {
-//                                    newCurrentX += extensionOutsidePadding - arrowTerminalWidth - 4
-//                                }
-//                                arrowPoint.setStartX(newCurrentX)
-//                            }
                             var newCurrentX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
                             if 0 < protocolHolder.extensions.count {
                                 newCurrentX += extensionOutsidePadding - arrowTerminalWidth - 4

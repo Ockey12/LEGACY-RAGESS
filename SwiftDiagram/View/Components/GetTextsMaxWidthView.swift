@@ -56,14 +56,6 @@ struct GetTextsMaxWidthView: View {
                         } else {
                             maxWidthHolder.maxWidthDict[holderName] = MaxWidthHolder.Value(maxWidth: maxWidth)
                         }
-//                        if isExtension {
-//                            // extensionコンポーネント内のコンポーネントの幅は、superHolderの幅より小さくなる可能性がある
-//                            if maxWidthHolder.maxWidthDict[holderName]?.maxWidth < maxWidth {
-//                                maxWidthHolder.maxWidthDict[holderName]?.maxWidth = maxWidth
-//                            }
-//                        } else {
-//                            maxWidthHolder.maxWidthDict[holderName]?.maxWidth = maxWidth
-//                        }
                         print("<DEBUG>GetTextsMaxWidthView: " + holderName)
                         print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
                     }
