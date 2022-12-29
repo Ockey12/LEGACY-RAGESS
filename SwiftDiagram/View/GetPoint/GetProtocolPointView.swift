@@ -251,9 +251,54 @@ struct GetProtocolPointView: View {
                                 }
                                 
                                 // Property Component
-                                
+                                if 0 < extensionHolder.variables.count {
+                                    currentPoint.y += itemHeight/2
+                                }
+                                for num in 0..<extensionHolder.variables.count {
+                                    for (index, point) in arrowPoint.points.enumerated() {
+                                        if (point.affectedName == protocolHolder.name) &&
+                                            (point.numberOfAffectedExtension == numOfExtension) &&
+                                            (point.affectedComponentKind == .property) &&
+                                            (point.numberOfAffectedComponent == num) {
+                                            let startRightX = extensionX + extensionWidth + textTrailPadding + arrowTerminalWidth*2
+                                            arrowPoint.points[index].endLeft = CGPoint(x: extensionX, y: currentPoint.y)
+                                            arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                        }
+                                    } // for (index, point) in arrowPoint.points.enumerated()
+                                    if num != extensionHolder.variables.count - 1 {
+                                        currentPoint.y += itemHeight
+                                    }
+                                } // for num in 0..<protocolHolder.typealiases.count
+                                if 0 < extensionHolder.variables.count {
+                                    currentPoint.y += itemHeight/2
+                                    currentPoint.y += bottomPaddingForLastText
+                                    currentPoint.y += connectionHeight
+                                }
                                 
                                 // Method Component
+                                if 0 < extensionHolder.functions.count {
+                                    currentPoint.y += itemHeight/2
+                                }
+                                for num in 0..<extensionHolder.functions.count {
+                                    for (index, point) in arrowPoint.points.enumerated() {
+                                        if (point.affectedName == protocolHolder.name) &&
+                                            (point.numberOfAffectedExtension == numOfExtension) &&
+                                            (point.affectedComponentKind == .method) &&
+                                            (point.numberOfAffectedComponent == num) {
+                                            let startRightX = extensionX + extensionWidth + textTrailPadding + arrowTerminalWidth*2
+                                            arrowPoint.points[index].endLeft = CGPoint(x: extensionX, y: currentPoint.y)
+                                            arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                        }
+                                    } // for (index, point) in arrowPoint.points.enumerated()
+                                    if num != extensionHolder.functions.count - 1 {
+                                        currentPoint.y += itemHeight
+                                    }
+                                } // for num in 0..<protocolHolder.typealiases.count
+                                if 0 < extensionHolder.functions.count {
+                                    currentPoint.y += itemHeight/2
+                                    currentPoint.y += bottomPaddingForLastText
+                                    currentPoint.y += connectionHeight
+                                }
                                 
                             } // for num in 0..<protocolHolder.extensions.count
                             if 0 < protocolHolder.extensions.count {
