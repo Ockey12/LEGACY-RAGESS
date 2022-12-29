@@ -94,7 +94,7 @@ struct ExtensionView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(holderName: superHolderName, strings: allStrings, maxWidth: $maxTextWidth)
+            GetTextsMaxWidthView(holderName: superHolderName, strings: allStrings, maxWidth: $maxTextWidth, isExtension: true)
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)

@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct GetTextsMaxWidthView: View {
-    @EnvironmentObject var arrowPoint: ArrowPoint
     var holderName: String
     var strings: [String]
-    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     @Binding var maxWidth: Double
+    var isExtension = false
+    
+    @EnvironmentObject var arrowPoint: ArrowPoint
+    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
+    
     @State private var textSize: CGSize = CGSize()
     let fontSize = ComponentSettingValues.fontSize
     
@@ -40,7 +43,14 @@ struct GetTextsMaxWidthView: View {
                         }
 //                        arrowPoint.refreshFlag.toggle()
                         arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-                        maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                        if isExtension {
+                            // extensionコンポーネント内のコンポーネントの幅は、superHolderの幅より小さくなる可能性がある
+                            if maxWidthHolder.maxWidthDict[holderName]! < maxWidth {
+                                maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                            }
+                        } else {
+                            maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                        }
                         print("<DEBUG>GetTextsMaxWidthView: " + holderName)
                         print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
                     }
