@@ -21,14 +21,14 @@ struct GetProtocolPointView: View {
     var body: some View {
         ZStack {
             Text("")
-                .onChange(of: monitor.getChangeDate()) { _ in
+                .onChange(of: arrowPoint.changeDate) { _ in
                     DispatchQueue.main.async {
                         arrowPoint.initialize()
                         for protocolHolder in monitor.getProtocol() {
                             for (index, point) in arrowPoint.points.enumerated() {
                                 if point.affecter == protocolHolder.name {
                                     // TODO<extensionも考慮>
-                                    var currentPoint = arrowPoint.getCurrent()
+                                    let currentPoint = arrowPoint.getCurrent()
                                     guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
                                         continue
                                     }
@@ -36,6 +36,7 @@ struct GetProtocolPointView: View {
                                     let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
                                     arrowPoint.points[index].startLeft = currentPoint
                                     arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                    print("startRightX: \(startRightX)")
                                 }
                             }
                             
@@ -43,30 +44,13 @@ struct GetProtocolPointView: View {
                                 let newCurrentX = arrowPoint.getCurrent().x + maxWidth + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
                                 arrowPoint.setCurrentX(newCurrentX)
                             }
-    //                        let newCurrentX = arrowPoint.getCurrent().x + maxWidthHolder.maxWidthDict[protocolHolder.name]! + textTrailPadding + arrowTerminalWidth + 300 + 300
-    //                        arrowPoint.setCurrentX(newCurrentX)
                         } // for protocolHolder in monitor.getProtocol()
-                        print("a")
+//                        monitor.objectWillChange.send()
+//                        arrowPoint.changeDate = monitor.getChangeDate()
+                        print("<DEBUG>GetProtocolPointView")
+//                        arrowPoint.refreshFlag.toggle()
                     } // DispatchQueue.main.async
                 } // .onChange(of: monitor.getChangeDate())
-//                .onChange(of: maxWidth) { _ in
-//                    arrowPoint.initialize()
-//                    print("b")
-//                }
-//            ZStack {
-//                ForEach(monitor.getProtocol(), id: \.self) { protocolHolder in
-//                    let allString = allStringOfHolder.ofProtocol(protocolHolder)
-//                    Text("")
-//                        .onAppear {
-//                            print("c")
-//                        }
-//                    GetTextsMaxWidthView(holderName: protocolHolder.name, strings: allString, maxWidth: $maxWidth)
-//                        .onAppear {
-//                            maxWidth = ComponentSettingValues.minWidth
-//                            print("d")
-//                        }
-//                } // ForEach(monitor.getProtocol(), id: \.self)
-//            } // ZStack
         } // ZStack
     } // var body
 } // struct GetProtocolPointView

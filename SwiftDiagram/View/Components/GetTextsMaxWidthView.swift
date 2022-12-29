@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GetTextsMaxWidthView: View {
+    @EnvironmentObject var arrowPoint: ArrowPoint
     var holderName: String
     var strings: [String]
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
@@ -30,11 +31,18 @@ struct GetTextsMaxWidthView: View {
                 Path { path in
                     let width = geometry.size.width
                     DispatchQueue.main.async {
+                        let dt = Date()
+                        let dateFormatter: DateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
                         if maxWidth < width {
                             maxWidth = width
-                            print("e")
+//                            arrowPoint.refreshFlag.toggle()
                         }
+//                        arrowPoint.refreshFlag.toggle()
+                        arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
                         maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                        print("<DEBUG>GetTextsMaxWidthView: " + holderName)
+                        print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
                     }
                 } // Path
             } // GeometryReader

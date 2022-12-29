@@ -28,6 +28,25 @@ struct MonitorView: View {
     // .frame()のwidthとheightに加算する
     let diagramViewPadding: CGFloat = 0
     
+    var CircleView: some View {
+        ForEach(arrowPoint.points, id: \.self) { point in
+            ZStack {
+                if let startRight = point.startRight {
+                    Circle()
+                        .frame(width: 30, height: 30)
+                        .position(x: startRight.x, y: startRight.y)
+                        .foregroundColor(.red)
+                }
+                if let startLeft = point.startLeft {
+                    Circle()
+                        .frame(width: 30, height: 30)
+                        .position(x: startLeft.x, y: startLeft.y)
+                        .foregroundColor(.blue)
+                }
+            }
+        }
+    }
+    
     var body: some View {
         
         VStack {
@@ -49,6 +68,12 @@ struct MonitorView: View {
                         } // .background()
 
                         GetArrowsPointView()
+
+//                        if arrowPoint.refreshFlag {
+//                            CircleView
+//                        } else {
+//                            CircleView
+//                        }
                         ForEach(arrowPoint.points, id: \.self) { point in
                             if let startRight = point.startRight {
                                 Circle()
@@ -63,6 +88,26 @@ struct MonitorView: View {
                                     .foregroundColor(.blue)
                             }
                         }
+//                        ForEach(arrowPoint.points, id: \.self) { point in
+//                            if let startRight = point.startRight {
+//                                ZStack {
+//                                    Text("\(arrowPoint.changeDate)")
+//                                    Circle()
+//                                        .frame(width: 30, height: 30)
+//                                        .position(x: startRight.x, y: startRight.y)
+//                                        .foregroundColor(.red)
+//                                }
+//                            }
+//                            if let startLeft = point.startLeft {
+//                                ZStack {
+//                                    Text("\(arrowPoint.changeDate)")
+//                                    Circle()
+//                                        .frame(width: 30, height: 30)
+//                                        .position(x: startLeft.x, y: startLeft.y)
+//                                        .foregroundColor(.blue)
+//                                }
+//                            }
+//                        }
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1650))
 //                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1660))
 //                        ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
@@ -82,9 +127,9 @@ struct MonitorView: View {
                 .background(Color("Background"))
             } // GeometryReader
             
-            List(maxWidthHolder.array, id: \.self) { element in
-                Text(element.name + ": \(element.width)")
-            }
+//            List(maxWidthHolder.array, id: \.self) { element in
+//                Text(element.name + ": \(element.width)")
+//            }
             
             HStack {
                 Text("拡大率: \(diagramViewScale)")

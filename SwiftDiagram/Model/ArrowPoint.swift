@@ -8,6 +8,8 @@
 import Foundation
 
 class ArrowPoint: ObservableObject {
+    @Published var changeDate = ""
+    @Published var refreshFlag = true
 //    @Published private var currentX: CGFloat = 300
 //    @Published private var currentY: CGFloat = 300 + 90 + 45
     @Published private var currentPoint = CGPoint(x: 300, y: 300 + 90 + 45)
