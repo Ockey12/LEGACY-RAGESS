@@ -188,6 +188,58 @@ struct GetProtocolPointView: View {
                                 currentPoint.y += connectionHeight
                             }
                             
+                            // MARK: - Extension Component
+//                            if 0 < protocolHolder.extensions.count {
+//                                currentPoint.y += itemHeight/2
+//                            }
+                            for numOfExtension in 0..<protocolHolder.extensions.count {
+                                guard let extensionWidth = maxWidthHolder.maxWidthDict[protocolHolder.name]?.extensionWidth[numOfExtension] else {
+                                    continue
+                                }
+                                let extensionX = currentPoint.x + (width - extensionWidth)/2
+                                let extensionHolder = protocolHolder.extensions[numOfExtension]
+                                currentPoint.y += connectionHeight*2
+                                
+                                // Typealias Component
+                                if 0 < extensionHolder.typealiases.count {
+                                    currentPoint.y += itemHeight/2
+                                }
+                                for num in 0..<extensionHolder.typealiases.count {
+                                    for (index, point) in arrowPoint.points.enumerated() {
+                                        if (point.affectedName == protocolHolder.name) &&
+                                            (point.numberOfAffectedExtension == numOfExtension) &&
+                                            (point.affectedComponentKind == .typealias) &&
+                                            (point.numberOfAffectedComponent == num) {
+                                            let startRightX = extensionX + extensionWidth + textTrailPadding + arrowTerminalWidth*2
+                                            arrowPoint.points[index].endLeft = CGPoint(x: extensionX, y: currentPoint.y)
+                                            arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                        }
+                                    } // for (index, point) in arrowPoint.points.enumerated()
+                                    if num != extensionHolder.typealiases.count - 1 {
+                                        currentPoint.y += itemHeight
+                                    }
+                                } // for num in 0..<protocolHolder.typealiases.count
+                                if 0 < extensionHolder.typealiases.count {
+                                    currentPoint.y += itemHeight/2
+                                    currentPoint.y += bottomPaddingForLastText
+                                    currentPoint.y += connectionHeight
+                                }
+                                
+                                // Initializer Component
+                                
+                                
+                                // Property Component
+                                
+                                
+                                // Method Component
+                                
+                            } // for num in 0..<protocolHolder.extensions.count
+                            if 0 < protocolHolder.extensions.count {
+                                currentPoint.y += itemHeight/2
+                                currentPoint.y += bottomPaddingForLastText
+                                currentPoint.y += connectionHeight
+                            }
+                            
                             var newCurrentX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
                             if 0 < protocolHolder.extensions.count {
                                 newCurrentX += extensionOutsidePadding - arrowTerminalWidth - 4

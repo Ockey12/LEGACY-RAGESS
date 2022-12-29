@@ -27,7 +27,7 @@ struct GetArrowsPointView: View {
                 
                 for affectedType in dependence.affectedTypes {
                     // 影響を受ける側の名前
-                    var affecteder = affectedType.affectedTypeName
+                    let affecteder = affectedType.affectedTypeName
                     let componentKind = affectedType.componentKind
                     let numOfComponent = affectedType.numberOfComponent
                     
