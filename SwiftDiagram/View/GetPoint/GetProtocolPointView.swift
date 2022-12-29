@@ -32,7 +32,8 @@ struct GetProtocolPointView: View {
                                 currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
                             }
                             for (index, point) in arrowPoint.points.enumerated() {
-                                if point.affecter == protocolHolder.name {
+                                if point.affecterName == protocolHolder.name {
+                                    // このプロトコルが影響を与える側のとき
                                     guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name] else {
                                         continue
                                     }

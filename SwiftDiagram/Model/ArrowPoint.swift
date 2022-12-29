@@ -22,8 +22,11 @@ class ArrowPoint: ObservableObject {
     // 矢印の始点と終点を保存する配列
     @Published var points = [Point]()
     struct Point: Hashable {
-        let affecter: String
-        let affecteder: String
+        let affecterName: String
+        let affectedName: String
+        let affectedComponentKind: DetailComponentView.ComponentKind
+        let numberOfAffectedComponent: Int
+        var numberOfAffectedExtension: Int?
         var startRight: CGPoint?
         var startLeft: CGPoint?
         var endRight: CGPoint?

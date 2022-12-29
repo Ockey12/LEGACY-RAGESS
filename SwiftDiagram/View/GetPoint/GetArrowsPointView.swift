@@ -28,16 +28,18 @@ struct GetArrowsPointView: View {
                 for affectedType in dependence.affectedTypes {
                     // 影響を受ける側の名前
                     var affecteder = affectedType.affectedTypeName
-                    if let numOfExtension = affectedType.numberOfExtension {
-                        // extension内で宣言されている要素のとき
-                        affecteder += ".\(numOfExtension)"
-                    }
-                    affecteder += ".\(affectedType.componentKind)"
-                    affecteder += ".\(affectedType.numberOfComponent)"
+                    let componentKind = affectedType.componentKind
+                    let numOfComponent = affectedType.numberOfComponent
                     
                     // Pointインスタンスに、影響を与える側と影響を受ける側の名前だけを登録する
-                    let point = ArrowPoint.Point(affecter: affectingTypeName, affecteder: affecteder)
-                    
+                    var point = ArrowPoint.Point(affecterName: affectingTypeName,
+                                                 affectedName: affecteder,
+                                                 affectedComponentKind: componentKind,
+                                                 numberOfAffectedComponent: numOfComponent)
+                    if let numOfExtension = affectedType.numberOfExtension {
+                        // extension内で宣言されている要素のとき
+                        point.numberOfAffectedExtension = numOfExtension
+                    }
                     arrowPoint.points.append(point)
                 } // for affectedType in dependence.affectedTypes
             } // for dependence in dependences
@@ -45,8 +47,8 @@ struct GetArrowsPointView: View {
             // debug
             print("============ GetArrowsPointView.onChange =============")
             for point in arrowPoint.points {
-                print("affecter: " + point.affecter)
-                print("affecteder: " + point.affecteder)
+                print("affecter: " + point.affecterName)
+                print("affecteder: " + point.affectedName)
                 print("-------------------------")
             }
         } // onAppear
