@@ -172,9 +172,16 @@ struct StructView: View {
                 }
                 
                 // extension
-                ForEach(holder.extensions, id: \.self) { extensionHolder in
+//                ForEach(holder.extensions, id: \.self) { extensionHolder in
+//                    let height = extensionHeightCalculater.calculateExtensionFrameHeight(holder: extensionHolder)
+//                    ExtensionView(superHolderName: holder.name, holder: extensionHolder, outsideFrameWidth: maxTextWidth)
+//                        .frame(width: bodyWidth + extensionOutsidePadding*2,
+//                               height: height)
+//                }
+                ForEach(0..<holder.extensions.count, id: \.self) { index in
+                    let extensionHolder = holder.extensions[index]
                     let height = extensionHeightCalculater.calculateExtensionFrameHeight(holder: extensionHolder)
-                    ExtensionView(superHolderName: holder.name, holder: extensionHolder, outsideFrameWidth: maxTextWidth)
+                    ExtensionView(superHolderName: holder.name, numberOfExtension: index, holder: extensionHolder, outsideFrameWidth: maxTextWidth)
                         .frame(width: bodyWidth + extensionOutsidePadding*2,
                                height: height)
                 }

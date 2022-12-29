@@ -11,7 +11,7 @@ struct GetTextsMaxWidthView: View {
     var holderName: String
     var strings: [String]
     @Binding var maxWidth: Double
-    var isExtension = false
+    var numberOfExtension: Int?
     
     @EnvironmentObject var arrowPoint: ArrowPoint
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
@@ -43,14 +43,27 @@ struct GetTextsMaxWidthView: View {
                         }
 //                        arrowPoint.refreshFlag.toggle()
                         arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-                        if isExtension {
-                            // extensionコンポーネント内のコンポーネントの幅は、superHolderの幅より小さくなる可能性がある
-                            if maxWidthHolder.maxWidthDict[holderName]! < maxWidth {
-                                maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                        if let value = maxWidthHolder.maxWidthDict[holderName] {
+                            if let numOfExtension = numberOfExtension {
+                                maxWidthHolder.maxWidthDict[holderName]?.extensionWidth[numOfExtension] = maxWidth
+                                // extensionコンポーネント内のコンポーネントの幅は、superHolderの幅より小さくなる可能性がある
+                                if value.maxWidth < maxWidth {
+                                    maxWidthHolder.maxWidthDict[holderName]!.maxWidth = maxWidth
+                                }
+                            } else {
+                                maxWidthHolder.maxWidthDict[holderName]!.maxWidth = maxWidth
                             }
                         } else {
-                            maxWidthHolder.maxWidthDict[holderName] = maxWidth
+                            maxWidthHolder.maxWidthDict[holderName] = MaxWidthHolder.Value(maxWidth: maxWidth)
                         }
+//                        if isExtension {
+//                            // extensionコンポーネント内のコンポーネントの幅は、superHolderの幅より小さくなる可能性がある
+//                            if maxWidthHolder.maxWidthDict[holderName]?.maxWidth < maxWidth {
+//                                maxWidthHolder.maxWidthDict[holderName]?.maxWidth = maxWidth
+//                            }
+//                        } else {
+//                            maxWidthHolder.maxWidthDict[holderName]?.maxWidth = maxWidth
+//                        }
                         print("<DEBUG>GetTextsMaxWidthView: " + holderName)
                         print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
                     }
