@@ -38,6 +38,7 @@ struct GetProtocolPointView: View {
                                 currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
                             }
                             
+                            // MARK: - Header Component
                             for (index, point) in arrowPoint.points.enumerated() {
                                 if point.affecterName == protocolHolder.name {
                                     // このプロトコルが影響を与える側のとき
@@ -51,7 +52,7 @@ struct GetProtocolPointView: View {
                             currentPoint.y += bottomPaddingForLastText
                             currentPoint.y += connectionHeight
                             
-                            // conform
+                            // MARK: - Conform Component
                             if 0 < protocolHolder.conformingProtocolNames.count {
                                 currentPoint.y += itemHeight/2
                             }
@@ -64,12 +65,52 @@ struct GetProtocolPointView: View {
                                         arrowPoint.points[index].endLeft = currentPoint
                                         arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
                                     }
-                                } // for (index, point) in arrowPoint.points.enumerated()
+                                } // for num in 0..<protocolHolder.conformingProtocolNames.count
                                 if num != protocolHolder.conformingProtocolNames.count - 1 {
                                     currentPoint.y += itemHeight
                                 }
                             } // for protocolName in protocolHolder
                             if 0 < protocolHolder.conformingProtocolNames.count {
+                                currentPoint.y += itemHeight/2
+                                currentPoint.y += bottomPaddingForLastText
+                                currentPoint.y += connectionHeight
+                            }
+                            
+                            // MARK: - AssociatedType Component
+                            // associatedtypeは新しく名前を宣言するだけで、他の型に依存しない
+                            if 0 < protocolHolder.associatedTypes.count {
+                                currentPoint.y += itemHeight/2
+                            }
+                            for num in 0..<protocolHolder.associatedTypes.count {
+                                if num != protocolHolder.associatedTypes.count - 1 {
+                                    currentPoint.y += itemHeight
+                                }
+                            }
+                            if 0 < protocolHolder.associatedTypes.count {
+                                currentPoint.y += itemHeight/2
+                                currentPoint.y += bottomPaddingForLastText
+                                currentPoint.y += connectionHeight
+                            }
+                            
+                            // MARK: - Typealias Component
+                            if 0 < protocolHolder.typealiases.count {
+                                currentPoint.y += itemHeight/2
+                            }
+                            for num in 0..<protocolHolder.typealiases.count {
+                                for (index, point) in arrowPoint.points.enumerated() {
+                                    if (point.affectedName == protocolHolder.name) &&
+                                        (point.affectedComponentKind == .typealias) &&
+                                        (point.numberOfAffectedComponent == num) {
+                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
+                                        arrowPoint.points[index].endLeft = currentPoint
+                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
+                                    }
+                                } // for num in 0..<protocolHolder.conformingProtocolNames.count
+                                if num != protocolHolder.typealiases.count - 1 {
+                                    currentPoint.y += itemHeight
+                                }
+                            } // for num in 0..<protocolHolder.typealiases.count
+                            if 0 < protocolHolder.typealiases.count {
                                 currentPoint.y += itemHeight/2
                                 currentPoint.y += bottomPaddingForLastText
                                 currentPoint.y += connectionHeight
