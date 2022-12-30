@@ -9,16 +9,12 @@ import Foundation
 
 class ArrowPoint: ObservableObject {
     @Published var changeDate = ""
-    @Published var refreshFlag = true
-//    @Published private var currentX: CGFloat = 300
-//    @Published private var currentY: CGFloat = 300 + 90 + 45
-//    @Published private var currentPoint = CGPoint(x: 300, y: 300 + 90 + 45)
-    
     @Published private var startPoint = CGPoint(x: 300, y: 300 + 90 + 45)
-//    @Published private var startX: CGFloat = 300
-//    @Published private var startY: CGFloat = 300 + 90 + 45
-    
     @Published var maxY: CGFloat = 300 + 90 + 45
+    
+    let textTrailPadding = ComponentSettingValues.textTrailPadding
+    let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
+    let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
     
     // 矢印の始点と終点を保存する配列
     @Published var points = [Point]()
@@ -77,17 +73,12 @@ class ArrowPoint: ObservableObject {
         } // var end
     } // struct Point
     
-//    func getCurrent() -> CGPoint {
-//        return currentPoint
-//    }
-    
     func getStartPoint() -> CGPoint {
         return startPoint
     }
     
     func initialize() {
         startPoint = CGPoint(x: 300, y: 300 + 90 + 45)
-//        currentPoint = CGPoint(x: 300, y: 300 + 90 + 45)
     }
     
     func moveToDownerHStack() {
@@ -95,9 +86,17 @@ class ArrowPoint: ObservableObject {
         startPoint.y += maxY + 45
     }
     
-//    func setCurrentX(_ x: CGFloat) {
-//        currentPoint.x = x
-//    }
+    func moveToNextType(currentPoint: CGPoint, width: Double, numberOfExtensin: Int) {
+        var newCurrentX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2 + 300 + 300 + 4
+        if 0 < numberOfExtensin {
+            newCurrentX += extensionOutsidePadding - arrowTerminalWidth - 4
+        }
+        startPoint.x = newCurrentX
+        
+        if maxY < currentPoint.y {
+            maxY = currentPoint.y
+        }
+    }
     
     func setStartX(_ x: CGFloat) {
         startPoint.x = x
