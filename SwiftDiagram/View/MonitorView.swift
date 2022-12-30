@@ -21,6 +21,8 @@ struct MonitorView: View {
     @State private var diagramViewSize = CGSize(width: 1000, height: 1000)
     @State private var diagramViewScale: CGFloat = 0.2
     
+    @State private var arrowOpacity = 1.0
+    
     let minScale: CGFloat = 0.1
     let maxScale: CGFloat = 0.7
     
@@ -69,85 +71,13 @@ struct MonitorView: View {
 
                         GetArrowsPointView()
 
-//                        if arrowPoint.refreshFlag {
-//                            CircleView
-//                        } else {
-//                            CircleView
-//                        }
                         ForEach(arrowPoint.points, id: \.self) { point in
-//                            if let startRight = point.startRight {
-//                                Circle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: startRight.x, y: startRight.y)
-//                                    .foregroundColor(.red)
-//                            }
-//                            if let startLeft = point.startLeft {
-//                                Circle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: startLeft.x, y: startLeft.y)
-//                                    .foregroundColor(.blue)
-//                            }
-//                            if let endRight = point.endRight {
-//                                Circle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: endRight.x, y: endRight.y)
-//                                    .foregroundColor(.red)
-//                            }
-//                            if let endLeft = point.endLeft {
-//                                Circle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: endLeft.x, y: endLeft.y)
-//                                    .foregroundColor(.blue)
-//                            }
-//
-//                            if let start = point.start {
-//                                Rectangle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: start.x, y: start.y)
-//                                    .foregroundColor(.green)
-//                            }
-//
-//                            if let end = point.end {
-//                                Rectangle()
-//                                    .frame(width: 30, height: 30)
-//                                    .position(x: end.x, y: end.y)
-//                                    .foregroundColor(.orange)
-//                            }
                             if let start = point.start,
                                let end = point.end {
                                 ArrowView(start: start, end: end)
+                                    .opacity(arrowOpacity)
                             }
                         }
-//                        ForEach(arrowPoint.points, id: \.self) { point in
-//                            if let startRight = point.startRight {
-//                                ZStack {
-//                                    Text("\(arrowPoint.changeDate)")
-//                                    Circle()
-//                                        .frame(width: 30, height: 30)
-//                                        .position(x: startRight.x, y: startRight.y)
-//                                        .foregroundColor(.red)
-//                                }
-//                            }
-//                            if let startLeft = point.startLeft {
-//                                ZStack {
-//                                    Text("\(arrowPoint.changeDate)")
-//                                    Circle()
-//                                        .frame(width: 30, height: 30)
-//                                        .position(x: startLeft.x, y: startLeft.y)
-//                                        .foregroundColor(.blue)
-//                                }
-//                            }
-//                        }
-//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1650))
-//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1660))
-//                        ArrowView(start: CGPoint(x: 1230, y: 440), end: CGPoint(x: 5045, y: 1675))
-//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1680))
-//                        ArrowView(start: CGPoint(x: 1230, y: 430), end: CGPoint(x: 5050, y: 1690))
-                        
-//                        Circle()
-//                            .frame(width: 30, height: 30)
-//                            .position(x: arrowPoint.currentX, y: arrowPoint.currentY)
-//                            .foregroundColor(.red)
                     } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,
@@ -157,14 +87,17 @@ struct MonitorView: View {
                 .background(Color("Background"))
             } // GeometryReader
             
-//            List(maxWidthHolder.array, id: \.self) { element in
-//                Text(element.name + ": \(element.width)")
-//            }
-            
             HStack {
-                Text("拡大率: \(diagramViewScale)")
+                Text("Scale: \(diagramViewScale)")
                     .padding(.leading)
                 Slider(value: $diagramViewScale, in: minScale...maxScale)
+                    .padding(.trailing)
+            }
+            
+            HStack {
+                Text("Arrow Opacity: \(arrowOpacity)")
+                    .padding(.leading)
+                Slider(value: $arrowOpacity, in: 0...1.0)
                     .padding(.trailing)
             }
             
@@ -235,9 +168,3 @@ struct MonitorView: View {
         case none
     }
 }
-
-//struct MonitorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MonitorView()
-//    }
-//}
