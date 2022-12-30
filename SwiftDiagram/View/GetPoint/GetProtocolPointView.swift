@@ -143,6 +143,10 @@ struct GetProtocolPointView: View {
                             skipNestedStruct(nestedStructs: structHolder.nestingConvertedToStringStructHolders,
                                              currentPoint: &currentPoint)
                             
+                            // Nested Class
+                            skipNestedClass(nestedClasses: structHolder.nestingConvertedToStringClassHolders,
+                                            currentPoint: &currentPoint)
+                            
                             // Extension Component
                             getPointOfExtension(holderName: name,
                                                 extensionHolders: structHolder.extensions,
@@ -244,6 +248,26 @@ struct GetProtocolPointView: View {
         }
     } // func skipNestedStruct(nestedStruct: ConvertedToStringStructHolder, currentPoint: inout CGPoint)
     
+    private func skipNestedClass(nestedClasses: [ConvertedToStringClassHolder], currentPoint: inout CGPoint) {
+        for nestedClass in nestedClasses {
+            currentPoint.y += nestTopPaddingWithConnectionHeight
+            currentPoint.y += itemHeight/2
+            skipComponent(elements: nestedClass.generics, currentPoint: &currentPoint)
+            if let superClass = nestedClass.superClassName {
+                skipComponent(elements: [superClass], currentPoint: &currentPoint)
+            }
+            skipComponent(elements: nestedClass.conformingProtocolNames, currentPoint: &currentPoint)
+            skipComponent(elements: nestedClass.typealiases, currentPoint: &currentPoint)
+            skipComponent(elements: nestedClass.initializers, currentPoint: &currentPoint)
+            skipComponent(elements: nestedClass.variables, currentPoint: &currentPoint)
+            skipComponent(elements: nestedClass.functions, currentPoint: &currentPoint)
+            currentPoint.y += itemHeight/2
+            currentPoint.y += bottomPaddingForLastText
+            currentPoint.y += connectionHeight
+            currentPoint.y += nestBottomPadding
+        }
+    } // func skipNestedClass(nestedClasses: [ConvertedToStringClassHolder], currentPoint: inout CGPoint)
+    
     private func skipComponent(elements: [String], currentPoint: inout CGPoint) {
         if 0 < elements.count {
             currentPoint.y += itemHeight/2
@@ -310,6 +334,10 @@ struct GetProtocolPointView: View {
             // Nested Struct
             skipNestedStruct(nestedStructs: extensionHolder.nestingConvertedToStringStructHolders,
                              currentPoint: &currentPoint)
+            
+            // Nested Class
+            skipNestedClass(nestedClasses: extensionHolder.nestingConvertedToStringClassHolders,
+                            currentPoint: &currentPoint)
         } // for numOfExtension in 0..<extensionHolders.count
         if 0 < extensionHolders.count {
             currentPoint.y += itemHeight/2
