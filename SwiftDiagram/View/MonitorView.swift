@@ -75,44 +75,44 @@ struct MonitorView: View {
 //                            CircleView
 //                        }
                         ForEach(arrowPoint.points, id: \.self) { point in
-                            if let startRight = point.startRight {
-                                Circle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: startRight.x, y: startRight.y)
-                                    .foregroundColor(.red)
-                            }
-                            if let startLeft = point.startLeft {
-                                Circle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: startLeft.x, y: startLeft.y)
-                                    .foregroundColor(.blue)
-                            }
-                            if let endRight = point.endRight {
-                                Circle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: endRight.x, y: endRight.y)
-                                    .foregroundColor(.red)
-                            }
-                            if let endLeft = point.endLeft {
-                                Circle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: endLeft.x, y: endLeft.y)
-                                    .foregroundColor(.blue)
-                            }
-
-                            if let start = point.start {
-                                Rectangle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: start.x, y: start.y)
-                                    .foregroundColor(.green)
-                            }
-
-                            if let end = point.end {
-                                Rectangle()
-                                    .frame(width: 30, height: 30)
-                                    .position(x: end.x, y: end.y)
-                                    .foregroundColor(.orange)
-                            }
+//                            if let startRight = point.startRight {
+//                                Circle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: startRight.x, y: startRight.y)
+//                                    .foregroundColor(.red)
+//                            }
+//                            if let startLeft = point.startLeft {
+//                                Circle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: startLeft.x, y: startLeft.y)
+//                                    .foregroundColor(.blue)
+//                            }
+//                            if let endRight = point.endRight {
+//                                Circle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: endRight.x, y: endRight.y)
+//                                    .foregroundColor(.red)
+//                            }
+//                            if let endLeft = point.endLeft {
+//                                Circle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: endLeft.x, y: endLeft.y)
+//                                    .foregroundColor(.blue)
+//                            }
+//
+//                            if let start = point.start {
+//                                Rectangle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: start.x, y: start.y)
+//                                    .foregroundColor(.green)
+//                            }
+//
+//                            if let end = point.end {
+//                                Rectangle()
+//                                    .frame(width: 30, height: 30)
+//                                    .position(x: end.x, y: end.y)
+//                                    .foregroundColor(.orange)
+//                            }
                             if let start = point.start,
                                let end = point.end {
                                 ArrowView(start: start, end: end)

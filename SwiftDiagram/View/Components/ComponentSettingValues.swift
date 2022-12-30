@@ -42,4 +42,10 @@ struct ComponentSettingValues {
     static let extensionOutsidePadding: CGFloat = 90
     static let extensionTopPadding: CGFloat = 180
     static let extensionBottomPadding: CGFloat = 180
+    
+    // Struct
+    static let protocolIndent: CGFloat = 1000
+    static let structIndent: CGFloat = 0
+    static let classIndent: CGFloat = 1500
+    static let enumIndent: CGFloat = 700
 }

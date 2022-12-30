@@ -11,6 +11,10 @@ struct DiagramView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
     
     let connectionHeight = ComponentSettingValues.connectionHeight
+    let protocolIndent = ComponentSettingValues.protocolIndent
+    let structIndent = ComponentSettingValues.structIndent
+    let classIndent = ComponentSettingValues.classIndent
+    let enumIndent = ComponentSettingValues.enumIndent
     
     @State var x: CGFloat = 0
     @State var y: CGFloat = 0
@@ -27,6 +31,9 @@ struct DiagramView: View {
             
             // Protocol
             HStack(alignment: .top, spacing: 0) {
+                Rectangle()
+                    .frame(width: protocolIndent)
+                    .foregroundColor(.clear)
                 ForEach(monitor.getProtocol(), id: \.self) { holder in
                     ProtocolView(holder: holder)
                         .padding(.init(top: 300, leading: 300, bottom: 300, trailing: 300))
@@ -35,17 +42,20 @@ struct DiagramView: View {
             
             // Struct
             HStack(alignment: .top, spacing: 0) {
+                Rectangle()
+                    .frame(width: structIndent)
+                    .foregroundColor(.clear)
                 ForEach(monitor.getStruct(), id: \.self) { holder in
                     StructView(holder: holder)
                         .padding(.init(top: 300, leading: 300, bottom: 300, trailing: 300))
                 }
             } // HStack
-//            .onAppear {
-//                print("bbbbbbbbbb")
-//            }
             
             // Class
             HStack(alignment: .top, spacing: 0) {
+                Rectangle()
+                    .frame(width: classIndent)
+                    .foregroundColor(.clear)
                 ForEach(monitor.getClass(), id: \.self) { holder in
                     ClassView(holder: holder)
                         .padding(.init(top: 300, leading: 300, bottom: 300, trailing: 300))
@@ -54,6 +64,9 @@ struct DiagramView: View {
 
             // Enum
             HStack(alignment: .top, spacing: 0) {
+                Rectangle()
+                    .frame(width: enumIndent)
+                    .foregroundColor(.clear)
                 ForEach(monitor.getEnum(), id: \.self) { holder in
                     EnumView(holder: holder)
                         .padding(.init(top: 300, leading: 300, bottom: 300, trailing: 300))

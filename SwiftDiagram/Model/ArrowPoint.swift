@@ -18,6 +18,10 @@ class ArrowPoint: ObservableObject {
     let connectionHeight = ComponentSettingValues.connectionHeight
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
+    let protocolIndent = ComponentSettingValues.protocolIndent
+    let structIndent = ComponentSettingValues.structIndent
+    let classIndent = ComponentSettingValues.classIndent
+    let enumIndent = ComponentSettingValues.enumIndent
     
     // 矢印の始点と終点を保存する配列
     @Published var points = [Point]()
@@ -96,12 +100,23 @@ class ArrowPoint: ObservableObject {
     }
     
     func initialize() {
-        startPoint = CGPoint(x: 300, y: 300 + 90 + 45)
+        startPoint = CGPoint(x: 300 + protocolIndent, y: 300 + 90 + 45)
         maxY = 300 + 90 + 45
     }
     
-    func moveToDownerHStack() {
+    func moveToDownerHStack(typeKind: HolderType) {
         startPoint.x = 300
+        switch typeKind {
+        case .struct:
+            startPoint.x += structIndent
+        case .class:
+            startPoint.x += classIndent
+        case .enum:
+            startPoint.x += enumIndent
+        default:
+            fatalError()
+        }
+        
         startPoint.y = maxY + 300 + 90 + 45 + 45
     }
     

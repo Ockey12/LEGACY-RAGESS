@@ -90,7 +90,7 @@ struct GetArrowsPointView: View {
                         } // for protocolHolder in monitor.getProtocol()
                         
                         // MARK: - Struct
-                        arrowPoint.moveToDownerHStack()
+                        arrowPoint.moveToDownerHStack(typeKind: .struct)
                         for structHolder in monitor.getStruct() {
                             let name = structHolder.name
                             guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
@@ -163,7 +163,7 @@ struct GetArrowsPointView: View {
                         } // for structHolder in monitor.getStruct()
                         
                         // MARK: - Class
-                        arrowPoint.moveToDownerHStack()
+                        arrowPoint.moveToDownerHStack(typeKind: .class)
                         for classHolder in monitor.getClass() {
                             let name = classHolder.name
                             guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
@@ -244,7 +244,7 @@ struct GetArrowsPointView: View {
                         } // for classHolder in monitor.getClass()
                         
                         // MARK: - Enum
-                        arrowPoint.moveToDownerHStack()
+                        arrowPoint.moveToDownerHStack(typeKind: .enum)
                         for enumHolder in monitor.getEnum() {
                             let name = enumHolder.name
                             guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
