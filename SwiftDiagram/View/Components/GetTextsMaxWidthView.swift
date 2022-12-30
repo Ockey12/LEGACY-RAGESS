@@ -56,8 +56,8 @@ struct GetTextsMaxWidthView: View {
                         } else {
                             maxWidthHolder.maxWidthDict[holderName] = MaxWidthHolder.Value(maxWidth: maxWidth)
                         }
-                        print("<DEBUG>GetTextsMaxWidthView: " + holderName)
-                        print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
+//                        print("<DEBUG>GetTextsMaxWidthView: " + holderName)
+//                        print("<DEBUG>GetTextsMaxWidthView: \(dateFormatter.string(from: dt))")
                     }
                 } // Path
             } // GeometryReader
