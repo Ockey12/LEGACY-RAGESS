@@ -14,7 +14,7 @@ struct GetArrowsPointView: View {
     var body: some View {
         ZStack {
             GetProtocolPointView()
-            GetStructPointView()
+//            GetStructPointView()
         }
         .onChange(of: monitor.getChangeDate()) { _ in
             // 座標を保持している配列を空にする

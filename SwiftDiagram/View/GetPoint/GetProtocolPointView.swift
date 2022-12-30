@@ -21,18 +21,22 @@ struct GetProtocolPointView: View {
     let connectionHeight = ComponentSettingValues.connectionHeight
     let itemHeight = ComponentSettingValues.itemHeight
     let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
+    let nestTopPaddingWithConnectionHeight = ComponentSettingValues.nestTopPaddingWithConnectionHeight
+    let nestBottomPadding = ComponentSettingValues.nestBottomPadding
     
     var body: some View {
         ZStack {
             Text("")
                 .onChange(of: arrowPoint.changeDate) { _ in
                     DispatchQueue.main.async {
+                        
+                        // MARK: - Protocol
                         arrowPoint.initialize()
                         for protocolHolder in monitor.getProtocol() {
-                            guard let width = maxWidthHolder.maxWidthDict[protocolHolder.name]?.maxWidth else {
+                            let name = protocolHolder.name
+                            guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
                                 continue
                             }
-                            let name = protocolHolder.name
                             var currentPoint = arrowPoint.getStartPoint()
 
                             // Header Component
@@ -80,8 +84,75 @@ struct GetProtocolPointView: View {
                                                 currentPoint: &currentPoint)
                             
                             // 右隣の型に移動する
-                            arrowPoint.moveToNextType(currentPoint: currentPoint, width: width, numberOfExtensin: protocolHolder.extensions.count)
+                            arrowPoint.moveToNextType(currentPoint: currentPoint,
+                                                      width: width,
+                                                      numberOfExtensin: protocolHolder.extensions.count)
                         } // for protocolHolder in monitor.getProtocol()
+                        
+                        // MARK: - Struct
+                        arrowPoint.moveToDownerHStack()
+                        for structHolder in monitor.getStruct() {
+                            let name = structHolder.name
+                            guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
+                                continue
+                            }
+                            var currentPoint = arrowPoint.getStartPoint()
+                            
+                            // Header Component
+                            getPointOfHeader(holderName: name,
+                                             numberOfExtension: structHolder.extensions.count,
+                                             currentPoint: &currentPoint)
+                            
+                            // Generic Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.generics,
+                                                componentKind: .generic,
+                                                currentPoint: &currentPoint)
+
+                            // Conform Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.conformingProtocolNames,
+                                                componentKind: .conform,
+                                                currentPoint: &currentPoint)
+
+                            // Typealias Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.typealiases,
+                                                componentKind: .typealias,
+                                                currentPoint: &currentPoint)
+
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.initializers,
+                                                componentKind: .initializer,
+                                                currentPoint: &currentPoint)
+
+                            // Property Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.variables,
+                                                componentKind: .property,
+                                                currentPoint: &currentPoint)
+
+                            // Method Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.functions,
+                                                componentKind: .method,
+                                                currentPoint: &currentPoint)
+
+                            // Nested Struct
+                            skipNestedStruct(nestedStructs: structHolder.nestingConvertedToStringStructHolders,
+                                             currentPoint: &currentPoint)
+                            
+                            // Extension Component
+                            getPointOfExtension(holderName: name,
+                                                extensionHolders: structHolder.extensions,
+                                                currentPoint: &currentPoint)
+                            
+                            // 右隣の型に移動する
+                            arrowPoint.moveToNextType(currentPoint: currentPoint,
+                                                      width: width,
+                                                      numberOfExtensin: structHolder.extensions.count)
+                        } // for structHolder in monitor.getStruct()
                     } // DispatchQueue.main.async
                 } // .onChange(of: monitor.getChangeDate())
         } // ZStack
@@ -92,7 +163,7 @@ struct GetProtocolPointView: View {
             return
         }
         if 0 < numberOfExtension {
-            // extensionが宣言されているので、extensionコンポーネントの幅を考慮する
+            // extensionが宣言されていたら、extensionコンポーネントの幅を考慮する
             currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
         }
         
@@ -156,6 +227,39 @@ struct GetProtocolPointView: View {
         }
     } // func getPointOfAssociatedType(numberOfAssociatedType: Int, currentPoint: inout CGPoint)
     
+    private func skipNestedStruct(nestedStructs: [ConvertedToStringStructHolder], currentPoint: inout CGPoint) {
+        for nestedStruct in nestedStructs {
+            currentPoint.y += nestTopPaddingWithConnectionHeight
+            currentPoint.y += itemHeight/2
+            skipComponent(elements: nestedStruct.generics, currentPoint: &currentPoint)
+            skipComponent(elements: nestedStruct.conformingProtocolNames, currentPoint: &currentPoint)
+            skipComponent(elements: nestedStruct.typealiases, currentPoint: &currentPoint)
+            skipComponent(elements: nestedStruct.initializers, currentPoint: &currentPoint)
+            skipComponent(elements: nestedStruct.variables, currentPoint: &currentPoint)
+            skipComponent(elements: nestedStruct.functions, currentPoint: &currentPoint)
+            currentPoint.y += itemHeight/2
+            currentPoint.y += bottomPaddingForLastText
+            currentPoint.y += connectionHeight
+            currentPoint.y += nestBottomPadding
+        }
+    } // func skipNestedStruct(nestedStruct: ConvertedToStringStructHolder, currentPoint: inout CGPoint)
+    
+    private func skipComponent(elements: [String], currentPoint: inout CGPoint) {
+        if 0 < elements.count {
+            currentPoint.y += itemHeight/2
+        }
+        for num in 0..<elements.count {
+            if num != elements.count - 1 {
+                currentPoint.y += itemHeight
+            }
+        }
+        if 0 < elements.count {
+            currentPoint.y += itemHeight/2
+            currentPoint.y += bottomPaddingForLastText
+            currentPoint.y += connectionHeight
+        }
+    } // func skipComponent(elements: [String])
+    
     private func getPointOfExtension(holderName: String, extensionHolders: [ConvertedToStringExtensionHolder], currentPoint: inout CGPoint) {
         guard let width = maxWidthHolder.maxWidthDict[holderName]?.maxWidth else {
             return
@@ -167,6 +271,13 @@ struct GetProtocolPointView: View {
             let extensionX = currentPoint.x + (width - extensionWidth)/2
             let extensionHolder = extensionHolders[numOfExtension]
             currentPoint.y += connectionHeight*2
+            
+            // Conform Component
+            getPointOfComponent(elements: extensionHolder.conformingProtocolNames,
+                                numOfExtension: numOfExtension,
+                                extensionX: extensionX,
+                                extensionWidth: extensionWidth,
+                                componentKind: .conform)
             
             // Typealias Component
             getPointOfComponent(elements: extensionHolder.typealiases,
@@ -195,6 +306,10 @@ struct GetProtocolPointView: View {
                                 extensionX: extensionX,
                                 extensionWidth: extensionWidth,
                                 componentKind: .method)
+            
+            // Nested Struct
+            skipNestedStruct(nestedStructs: extensionHolder.nestingConvertedToStringStructHolders,
+                             currentPoint: &currentPoint)
         } // for numOfExtension in 0..<extensionHolders.count
         if 0 < extensionHolders.count {
             currentPoint.y += itemHeight/2
