@@ -401,3 +401,4 @@ struct GetProtocolPointView: View {
         } // func getPointOfComponent(elements: [String], numOfExtension: Int, extensionX: Double, extensionWidth: Double)
     } // func getPointOfExtension(holderName: String, extensionHolders: [ConvertedToStringExtensionHolder], currentPoint: inout CGPoint)
 } // struct GetProtocolPointView
+
