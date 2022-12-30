@@ -242,6 +242,93 @@ struct GetProtocolPointView: View {
                                                       width: width,
                                                       numberOfExtensin: classHolder.extensions.count)
                         } // for classHolder in monitor.getClass()
+                        
+                        // MARK: - Enum
+                        arrowPoint.moveToDownerHStack()
+                        for enumHolder in monitor.getEnum() {
+                            let name = enumHolder.name
+                            guard let width = maxWidthHolder.maxWidthDict[name]?.maxWidth else {
+                                continue
+                            }
+                            var currentPoint = arrowPoint.getStartPoint()
+                            
+                            // Header Component
+                            getPointOfHeader(holderName: name,
+                                             numberOfExtension: enumHolder.extensions.count,
+                                             currentPoint: &currentPoint)
+                            
+                            // Generic Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.generics,
+                                                componentKind: .generic,
+                                                currentPoint: &currentPoint)
+                            
+                            // Rawvalue Type Component
+                            if let rawvalue = enumHolder.rawvalueType {
+                                getPointOfComponent(holderName: name,
+                                                    elementNames: [rawvalue],
+                                                    componentKind: .rawvalueType,
+                                                    currentPoint: &currentPoint)
+                            }
+                            
+                            // Conform Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.conformingProtocolNames,
+                                                componentKind: .conform,
+                                                currentPoint: &currentPoint)
+                            
+                            // Typealias Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.typealiases,
+                                                componentKind: .typealias,
+                                                currentPoint: &currentPoint)
+
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.initializers,
+                                                componentKind: .initializer,
+                                                currentPoint: &currentPoint)
+                            
+                            // Case Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.cases,
+                                                componentKind: .case,
+                                                currentPoint: &currentPoint)
+
+                            // Property Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.variables,
+                                                componentKind: .property,
+                                                currentPoint: &currentPoint)
+
+                            // Method Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.functions,
+                                                componentKind: .method,
+                                                currentPoint: &currentPoint)
+                            
+                            // Nested Struct
+                            skipNestedStruct(nestedStructs: enumHolder.nestingConvertedToStringStructHolders,
+                                             currentPoint: &currentPoint)
+                            
+                            // Nested Class
+                            skipNestedClass(nestedClasses: enumHolder.nestingConvertedToStringClassHolders,
+                                            currentPoint: &currentPoint)
+                            
+                            // Nested Enum
+                            skipNestedEnum(nestedEnums: enumHolder.nestingConvertedToStringEnumHolders,
+                                           currentPoint: &currentPoint)
+                            
+                            // Extension Component
+                            getPointOfExtension(holderName: name,
+                                                extensionHolders: enumHolder.extensions,
+                                                currentPoint: &currentPoint)
+                            
+                            // 右隣の型に移動する
+                            arrowPoint.moveToNextType(currentPoint: currentPoint,
+                                                      width: width,
+                                                      numberOfExtensin: enumHolder.extensions.count)
+                        } // for enumHolder in monitor.getEnum()
                     } // DispatchQueue.main.async
                 } // .onChange(of: monitor.getChangeDate())
         } // ZStack
