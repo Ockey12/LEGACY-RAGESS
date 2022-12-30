@@ -15,6 +15,9 @@ class ArrowPoint: ObservableObject {
     let textTrailPadding = ComponentSettingValues.textTrailPadding
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let extensionOutsidePadding = ComponentSettingValues.extensionOutsidePadding
+    let connectionHeight = ComponentSettingValues.connectionHeight
+    let itemHeight = ComponentSettingValues.itemHeight
+    let bottomPaddingForLastText = ComponentSettingValues.bottomPaddingForLastText
     
     // 矢印の始点と終点を保存する配列
     @Published var points = [Point]()
@@ -109,8 +112,14 @@ class ArrowPoint: ObservableObject {
         }
         startPoint.x = newCurrentX
         
-        if maxY < currentPoint.y {
-            maxY = currentPoint.y
+        var currentY = currentPoint.y
+        if numberOfExtensin == 0 {
+            currentY += itemHeight/2
+            currentY += bottomPaddingForLastText
+            currentY += connectionHeight
+        }
+        if maxY < currentY {
+            maxY = currentY
         }
     }
     
