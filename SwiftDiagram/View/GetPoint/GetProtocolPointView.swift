@@ -53,158 +53,35 @@ struct GetProtocolPointView: View {
                             currentPoint.y += bottomPaddingForLastText
                             currentPoint.y += connectionHeight
                             
-                            // MARK: - Conform Component
-//                            if 0 < protocolHolder.conformingProtocolNames.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.conformingProtocolNames.count {
-//                                for (index, point) in arrowPoint.points.enumerated() {
-//                                    if (point.affectedName == protocolHolder.name) &&
-//                                        (point.affectedComponentKind == .conform) &&
-//                                        (point.numberOfAffectedComponent == num) {
-//                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-//                                        arrowPoint.points[index].endLeft = currentPoint
-//                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
-//                                    }
-//                                } // for (index, point) in arrowPoint.points.enumerated()
-//                                if num != protocolHolder.conformingProtocolNames.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            } // for protocolName in protocolHolder
-//                            if 0 < protocolHolder.conformingProtocolNames.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
                             // Conform Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.conformingProtocolNames,
                                                 componentKind: .conform,
                                                 currentPoint: &currentPoint)
                             
-                            // MARK: - AssociatedType Component
-                            // associatedtypeは新しく名前を宣言するだけで、他の型に依存しない
-//                            if 0 < protocolHolder.associatedTypes.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.associatedTypes.count {
-//                                if num != protocolHolder.associatedTypes.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            }
-//                            if 0 < protocolHolder.associatedTypes.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
-//
-//                            // MARK: - Typealias Component
-//                            if 0 < protocolHolder.typealiases.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.typealiases.count {
-//                                for (index, point) in arrowPoint.points.enumerated() {
-//                                    if (point.affectedName == protocolHolder.name) &&
-//                                        (point.affectedComponentKind == .typealias) &&
-//                                        (point.numberOfAffectedComponent == num) {
-//                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-//                                        arrowPoint.points[index].endLeft = currentPoint
-//                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
-//                                    }
-//                                } // for (index, point) in arrowPoint.points.enumerated()
-//                                if num != protocolHolder.typealiases.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            } // for num in 0..<protocolHolder.typealiases.count
-//                            if 0 < protocolHolder.typealiases.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
+                            // Associated Type Component
+                            getPointOfAssociatedType(numberOfAssociatedType: protocolHolder.associatedTypes.count,
+                                                     currentPoint: &currentPoint)
+
+                            // Typealias Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.typealiases,
                                                 componentKind: .typealias,
                                                 currentPoint: &currentPoint)
                             
-                            // MARK: - Initializer Component
-//                            if 0 < protocolHolder.initializers.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.initializers.count {
-//                                for (index, point) in arrowPoint.points.enumerated() {
-//                                    if (point.affectedName == protocolHolder.name) &&
-//                                        (point.affectedComponentKind == .initializer) &&
-//                                        (point.numberOfAffectedComponent == num) {
-//                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-//                                        arrowPoint.points[index].endLeft = currentPoint
-//                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
-//                                    }
-//                                } // for (index, point) in arrowPoint.points.enumerated()
-//                                if num != protocolHolder.initializers.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            } // for num in 0..<protocolHolder.initializers.count
-//                            if 0 < protocolHolder.initializers.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
+                            // Initializer Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.initializers,
                                                 componentKind: .initializer,
                                                 currentPoint: &currentPoint)
                             
-                            // MARK: - Property Component
-//                            if 0 < protocolHolder.variables.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.variables.count {
-//                                for (index, point) in arrowPoint.points.enumerated() {
-//                                    if (point.affectedName == protocolHolder.name) &&
-//                                        (point.affectedComponentKind == .property) &&
-//                                        (point.numberOfAffectedComponent == num) {
-//                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-//                                        arrowPoint.points[index].endLeft = currentPoint
-//                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
-//                                    }
-//                                } // for (index, point) in arrowPoint.points.enumerated()
-//                                if num != protocolHolder.variables.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            } // for num in 0..<protocolHolder.variables.count
-//                            if 0 < protocolHolder.variables.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
+                            // Property Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.variables,
                                                 componentKind: .property,
                                                 currentPoint: &currentPoint)
                             
-                            // MARK: - Method Component
-//                            if 0 < protocolHolder.functions.count {
-//                                currentPoint.y += itemHeight/2
-//                            }
-//                            for num in 0..<protocolHolder.functions.count {
-//                                for (index, point) in arrowPoint.points.enumerated() {
-//                                    if (point.affectedName == protocolHolder.name) &&
-//                                        (point.affectedComponentKind == .method) &&
-//                                        (point.numberOfAffectedComponent == num) {
-//                                        let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-//                                        arrowPoint.points[index].endLeft = currentPoint
-//                                        arrowPoint.points[index].endRight = CGPoint(x: startRightX, y: currentPoint.y)
-//                                    }
-//                                } // for (index, point) in arrowPoint.points.enumerated()
-//                                if num != protocolHolder.functions.count - 1 {
-//                                    currentPoint.y += itemHeight
-//                                }
-//                            } // for num in 0..<protocolHolder.variables.count
-//                            if 0 < protocolHolder.functions.count {
-//                                currentPoint.y += itemHeight/2
-//                                currentPoint.y += bottomPaddingForLastText
-//                                currentPoint.y += connectionHeight
-//                            }
+                            // Method Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.functions,
                                                 componentKind: .method,
@@ -371,4 +248,21 @@ struct GetProtocolPointView: View {
             currentPoint.y += connectionHeight
         }
     } // func getPointOfComponent(holderName: String, elementNames: [String], componentKind: DetailComponentView.ComponentKind, currentPoint: inout CGPoint)
+    
+    private func getPointOfAssociatedType(numberOfAssociatedType: Int, currentPoint: inout CGPoint) {
+        // associatedtypeは新しく名前を宣言するだけで、他の型に依存しない
+        if 0 < numberOfAssociatedType {
+            currentPoint.y += itemHeight/2
+        }
+        for num in 0..<numberOfAssociatedType {
+            if num != numberOfAssociatedType - 1 {
+                currentPoint.y += itemHeight
+            }
+        }
+        if 0 < numberOfAssociatedType {
+            currentPoint.y += itemHeight/2
+            currentPoint.y += bottomPaddingForLastText
+            currentPoint.y += connectionHeight
+        }
+    } // func getPointOfAssociatedType(numberOfAssociatedType: Int, currentPoint: inout CGPoint)
 } // struct GetProtocolPointView
