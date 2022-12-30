@@ -34,24 +34,11 @@ struct GetProtocolPointView: View {
                             }
                             let name = protocolHolder.name
                             var currentPoint = arrowPoint.getStartPoint()
-                            if 0 < protocolHolder.extensions.count {
-                                // extensionが宣言されているので、extensionコンポーネントの幅を考慮する
-                                currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
-                            }
-                            
-                            // MARK: - Header Component
-                            for (index, point) in arrowPoint.points.enumerated() {
-                                if point.affecterName == protocolHolder.name {
-                                    // このプロトコルが影響を与える側のとき
-                                    let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
-                                    arrowPoint.points[index].startLeft = currentPoint
-                                    arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
-                                    print("startRightX: \(startRightX)")
-                                }
-                            } // for (index, point) in arrowPoint.points.enumerated()
-                            currentPoint.y += itemHeight/2
-                            currentPoint.y += bottomPaddingForLastText
-                            currentPoint.y += connectionHeight
+
+                            // Header Component
+                            getPointOfHeader(holderName: name,
+                                             numberOfExtension: protocolHolder.extensions.count,
+                                             currentPoint: &currentPoint)
                             
                             // Conform Component
                             getPointOfComponent(holderName: name,
@@ -220,6 +207,30 @@ struct GetProtocolPointView: View {
                 } // .onChange(of: monitor.getChangeDate())
         } // ZStack
     } // var body
+    
+    private func getPointOfHeader(holderName: String, numberOfExtension: Int, currentPoint: inout CGPoint) {
+        guard let width = maxWidthHolder.maxWidthDict[holderName]?.maxWidth else {
+            return
+        }
+        if 0 < numberOfExtension {
+            // extensionが宣言されているので、extensionコンポーネントの幅を考慮する
+            currentPoint.x += extensionOutsidePadding - arrowTerminalWidth
+        }
+        
+        // MARK: - Header Component
+        for (index, point) in arrowPoint.points.enumerated() {
+            if point.affecterName == holderName {
+                // このプロトコルが影響を与える側のとき
+                let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
+                arrowPoint.points[index].startLeft = currentPoint
+                arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
+//                print("startRightX: \(startRightX)")
+            }
+        } // for (index, point) in arrowPoint.points.enumerated()
+        currentPoint.y += itemHeight/2
+        currentPoint.y += bottomPaddingForLastText
+        currentPoint.y += connectionHeight
+    }
     
     private func getPointOfComponent(holderName: String, elementNames: [String], componentKind: DetailComponentView.ComponentKind, currentPoint: inout CGPoint) {
         guard let width = maxWidthHolder.maxWidthDict[holderName]?.maxWidth else {

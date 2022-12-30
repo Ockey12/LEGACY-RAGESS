@@ -45,7 +45,7 @@ struct GetStructPointView: View {
                                     let startRightX = currentPoint.x + width + textTrailPadding + arrowTerminalWidth*2
                                     arrowPoint.points[index].startLeft = currentPoint
                                     arrowPoint.points[index].startRight = CGPoint(x: startRightX, y: currentPoint.y)
-                                    print("startRightX: \(startRightX)")
+//                                    print("startRightX: \(startRightX)")
                                 }
                             } // for (index, point) in arrowPoint.points.enumerated()
                             currentPoint.y += itemHeight/2
