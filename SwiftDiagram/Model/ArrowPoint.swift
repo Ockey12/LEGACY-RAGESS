@@ -29,45 +29,60 @@ class ArrowPoint: ObservableObject {
         var endRight: CGPoint?
         var endLeft: CGPoint?
         
-        var start: CGPoint {
-            var startPoint = startRight!
+        var start: CGPoint? {
+            guard let startR = startRight,
+                  let startL = startLeft,
+                  let endR = endRight,
+                  let endL = endLeft
+            else {
+                      return nil
+                  }
+            
+            var startPoint = startR
             // 右から右
-            var length = sqrt(pow(startRight!.x - endRight!.x, 2) + pow(startRight!.y - endRight!.y, 2))
-            if sqrt(pow(startRight!.x - endLeft!.x, 2) + pow(startRight!.y - endLeft!.y, 2)) < length {
+            var length = sqrt(pow(startR.x - endR.x, 2) + pow(startR.y - endR.y, 2))
+            if sqrt(pow(startR.x - endL.x, 2) + pow(startR.y - endL.y, 2)) < length {
                 // 右から左
-                length = sqrt(pow(startRight!.x - endLeft!.x, 2) + pow(startRight!.y - endLeft!.y, 2))
+                length = sqrt(pow(startR.x - endL.x, 2) + pow(startR.y - endL.y, 2))
             }
-            if sqrt(pow(startLeft!.x - endRight!.x, 2) + pow(startLeft!.y - endRight!.y, 2)) < length {
+            if sqrt(pow(startL.x - endR.x, 2) + pow(startL.y - endR.y, 2)) < length {
                 // 左から右
-                startPoint = startLeft!
-                length = sqrt(pow(startLeft!.x - endRight!.x, 2) + pow(startLeft!.y - endRight!.y, 2))
+                startPoint = startL
+                length = sqrt(pow(startL.x - endR.x, 2) + pow(startL.y - endR.y, 2))
             }
-            if sqrt(pow(startLeft!.x - endLeft!.x, 2) + pow(startLeft!.y - endLeft!.y, 2)) < length {
+            if sqrt(pow(startL.x - endL.x, 2) + pow(startL.y - endL.y, 2)) < length {
                 // 左から左
-                startPoint = startLeft!
-                length = sqrt(pow(startLeft!.x - endLeft!.x, 2) + pow(startLeft!.y - endLeft!.y, 2))
+                startPoint = startL
+                length = sqrt(pow(startL.x - endL.x, 2) + pow(startL.y - endL.y, 2))
             }
             return startPoint
         } // var start
         
-        var end: CGPoint {
-            var endPoint = endRight!
+        var end: CGPoint? {
+            guard let startR = startRight,
+                  let startL = startLeft,
+                  let endR = endRight,
+                  let endL = endLeft
+            else {
+                      return nil
+                  }
+            var endPoint = endR
             // 右から右
-            var length = sqrt(pow(startRight!.x - endRight!.x, 2) + pow(startRight!.y - endRight!.y, 2))
-            if sqrt(pow(startRight!.x - endLeft!.x, 2) + pow(startRight!.y - endLeft!.y, 2)) < length {
+            var length = sqrt(pow(startR.x - endR.x, 2) + pow(startR.y - endR.y, 2))
+            if sqrt(pow(startR.x - endL.x, 2) + pow(startR.y - endL.y, 2)) < length {
                 // 右から左
-                endPoint = endLeft!
-                length = sqrt(pow(startRight!.x - endLeft!.x, 2) + pow(startRight!.y - endLeft!.y, 2))
+                endPoint = endL
+                length = sqrt(pow(startR.x - endL.x, 2) + pow(startR.y - endL.y, 2))
             }
-            if sqrt(pow(startLeft!.x - endRight!.x, 2) + pow(startLeft!.y - endRight!.y, 2)) < length {
+            if sqrt(pow(startL.x - endR.x, 2) + pow(startL.y - endR.y, 2)) < length {
                 // 左から右
                 endPoint = endRight!
-                length = sqrt(pow(startLeft!.x - endRight!.x, 2) + pow(startLeft!.y - endRight!.y, 2))
+                length = sqrt(pow(startL.x - endR.x, 2) + pow(startL.y - endR.y, 2))
             }
-            if sqrt(pow(startLeft!.x - endLeft!.x, 2) + pow(startLeft!.y - endLeft!.y, 2)) < length {
+            if sqrt(pow(startL.x - endL.x, 2) + pow(startL.y - endL.y, 2)) < length {
                 // 左から左
                 endPoint = endLeft!
-                length = sqrt(pow(startLeft!.x - endLeft!.x, 2) + pow(startLeft!.y - endLeft!.y, 2))
+                length = sqrt(pow(startL.x - endL.x, 2) + pow(startL.y - endL.y, 2))
             }
             return endPoint
         } // var end

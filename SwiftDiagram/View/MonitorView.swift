@@ -99,6 +99,24 @@ struct MonitorView: View {
                                     .position(x: endLeft.x, y: endLeft.y)
                                     .foregroundColor(.blue)
                             }
+
+                            if let start = point.start {
+                                Rectangle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: start.x, y: start.y)
+                                    .foregroundColor(.green)
+                            }
+
+                            if let end = point.end {
+                                Rectangle()
+                                    .frame(width: 30, height: 30)
+                                    .position(x: end.x, y: end.y)
+                                    .foregroundColor(.orange)
+                            }
+                            if let start = point.start,
+                               let end = point.end {
+                                ArrowView(start: start, end: end)
+                            }
                         }
 //                        ForEach(arrowPoint.points, id: \.self) { point in
 //                            if let startRight = point.startRight {
