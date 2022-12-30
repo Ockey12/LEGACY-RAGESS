@@ -147,6 +147,10 @@ struct GetProtocolPointView: View {
                             skipNestedClass(nestedClasses: structHolder.nestingConvertedToStringClassHolders,
                                             currentPoint: &currentPoint)
                             
+                            // Nested Enum
+                            skipNestedEnum(nestedEnums: structHolder.nestingConvertedToStringEnumHolders,
+                                           currentPoint: &currentPoint)
+                            
                             // Extension Component
                             getPointOfExtension(holderName: name,
                                                 extensionHolders: structHolder.extensions,
@@ -268,6 +272,27 @@ struct GetProtocolPointView: View {
         }
     } // func skipNestedClass(nestedClasses: [ConvertedToStringClassHolder], currentPoint: inout CGPoint)
     
+    private func skipNestedEnum(nestedEnums: [ConvertedToStringEnumHolder], currentPoint: inout CGPoint) {
+        for nestedEnum in nestedEnums {
+            currentPoint.y += nestTopPaddingWithConnectionHeight
+            currentPoint.y += itemHeight/2
+            skipComponent(elements: nestedEnum.generics, currentPoint: &currentPoint)
+            if let rawvalue = nestedEnum.rawvalueType {
+                skipComponent(elements: [rawvalue], currentPoint: &currentPoint)
+            }
+            skipComponent(elements: nestedEnum.conformingProtocolNames, currentPoint: &currentPoint)
+            skipComponent(elements: nestedEnum.typealiases, currentPoint: &currentPoint)
+            skipComponent(elements: nestedEnum.initializers, currentPoint: &currentPoint)
+            skipComponent(elements: nestedEnum.cases, currentPoint: &currentPoint)
+            skipComponent(elements: nestedEnum.variables, currentPoint: &currentPoint)
+            skipComponent(elements: nestedEnum.functions, currentPoint: &currentPoint)
+            currentPoint.y += itemHeight/2
+            currentPoint.y += bottomPaddingForLastText
+            currentPoint.y += connectionHeight
+            currentPoint.y += nestBottomPadding
+        }
+    } // func skipNestedEnum(nestedEnums: [ConvertedToStringEnumHolder], currentPoint: inout CGPoint)
+    
     private func skipComponent(elements: [String], currentPoint: inout CGPoint) {
         if 0 < elements.count {
             currentPoint.y += itemHeight/2
@@ -338,6 +363,10 @@ struct GetProtocolPointView: View {
             // Nested Class
             skipNestedClass(nestedClasses: extensionHolder.nestingConvertedToStringClassHolders,
                             currentPoint: &currentPoint)
+            
+            // Nested Enum
+            skipNestedEnum(nestedEnums: extensionHolder.nestingConvertedToStringEnumHolders,
+                           currentPoint: &currentPoint)
         } // for numOfExtension in 0..<extensionHolders.count
         if 0 < extensionHolders.count {
             currentPoint.y += itemHeight/2
@@ -370,5 +399,5 @@ struct GetProtocolPointView: View {
                 currentPoint.y += connectionHeight
             }
         } // func getPointOfComponent(elements: [String], numOfExtension: Int, extensionX: Double, extensionWidth: Double)
-    }
+    } // func getPointOfExtension(holderName: String, extensionHolders: [ConvertedToStringExtensionHolder], currentPoint: inout CGPoint)
 } // struct GetProtocolPointView
