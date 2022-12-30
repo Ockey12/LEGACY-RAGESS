@@ -84,7 +84,7 @@ class ArrowPoint: ObservableObject {
     
     func moveToDownerHStack() {
         startPoint.x = 300
-        startPoint.y += maxY + 45
+        startPoint.y = maxY + 300 + 90 + 45 + 45
     }
     
     func moveToNextType(currentPoint: CGPoint, width: Double, numberOfExtensin: Int) {
