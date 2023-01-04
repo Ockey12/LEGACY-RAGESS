@@ -84,19 +84,6 @@ struct ExtensionView: View {
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)
-                .onChange(of: monitor.getChangeDate()) { newValue in
-                    DispatchQueue.main.async {
-                        if let _ = maxWidthHolder.maxWidthDict[superHolderName] {
-                            maxWidthHolder.maxWidthDict[superHolderName]!.maxWidth = maxTextWidth
-                        } else {
-                            maxWidthHolder.maxWidthDict[superHolderName] = MaxWidthHolder.Value(maxWidth: maxTextWidth)
-                        }
-                        let dt = Date()
-                        let dateFormatter: DateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-                        arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-                    }
-                }
             
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)

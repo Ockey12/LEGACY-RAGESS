@@ -71,19 +71,6 @@ struct StructView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.clear)
                 .background(.clear)
-//                .onChange(of: monitor.getChangeDate()) { newValue in
-//                    DispatchQueue.main.async {
-//                        if let _ = maxWidthHolder.maxWidthDict[holder.name] {
-//                            maxWidthHolder.maxWidthDict[holder.name]!.maxWidth = maxTextWidth
-//                        } else {
-//                            maxWidthHolder.maxWidthDict[holder.name] = MaxWidthHolder.Value(maxWidth: maxTextWidth)
-//                        }
-//                        let dt = Date()
-//                        let dateFormatter: DateFormatter = DateFormatter()
-//                        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-//                        arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-//                    }
-//                }
 
             VStack(spacing: 0) {
                 // Header
