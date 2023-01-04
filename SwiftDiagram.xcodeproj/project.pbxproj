@@ -82,14 +82,12 @@
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
 		ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D719294EEEC700BA76A9 /* ClassView.swift */; };
 		ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */; };
-		ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */; };
 		ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D720294F0F2900BA76A9 /* EnumView.swift */; };
 		ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */; };
 		ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D725294F13B100BA76A9 /* ProtocolView.swift */; };
 		ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */; };
 		ACC8D72C294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */; };
 		ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D72F2950321F00BA76A9 /* DiagramView.swift */; };
-		ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */; };
 		ACC8D7342950AF4500BA76A9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACC8D7332950AF4500BA76A9 /* Colors.xcassets */; };
 		ACC8D7362950CFBD00BA76A9 /* DirectoryHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */; };
 		ACC8D73C2951853900BA76A9 /* DependenceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D73B2951853900BA76A9 /* DependenceHolder.swift */; };
@@ -179,14 +177,12 @@
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
 		ACC8D719294EEEC700BA76A9 /* ClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassView.swift; sourceTree = "<group>"; };
 		ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
-		ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldersPropertysPrinter.swift; sourceTree = "<group>"; };
 		ACC8D720294F0F2900BA76A9 /* EnumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumView.swift; sourceTree = "<group>"; };
 		ACC8D722294F0F3E00BA76A9 /* EnumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumDetailView.swift; sourceTree = "<group>"; };
 		ACC8D725294F13B100BA76A9 /* ProtocolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolView.swift; sourceTree = "<group>"; };
 		ACC8D727294F13BC00BA76A9 /* ProtocolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolDetailView.swift; sourceTree = "<group>"; };
 		ACC8D72B294F6AB200BA76A9 /* ExtensionFrameHeightCalculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrameHeightCalculater.swift; sourceTree = "<group>"; };
 		ACC8D72F2950321F00BA76A9 /* DiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
-		ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramViewScaler.swift; sourceTree = "<group>"; };
 		ACC8D7332950AF4500BA76A9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		ACC8D7352950CFBD00BA76A9 /* DirectoryHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryHolder.swift; sourceTree = "<group>"; };
 		ACC8D73B2951853900BA76A9 /* DependenceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenceHolder.swift; sourceTree = "<group>"; };
@@ -389,8 +385,6 @@
 				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
 				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
 				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
-				ACC8D73129503A7700BA76A9 /* DiagramViewScaler.swift */,
-				ACC8D71D294EF12900BA76A9 /* HoldersPropertysPrinter.swift */,
 				ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */,
 				ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */,
 				ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */,
@@ -588,7 +582,6 @@
 			files = (
 				ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */,
 				AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */,
-				ACC8D71E294EF12900BA76A9 /* HoldersPropertysPrinter.swift in Sources */,
 				ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
@@ -622,7 +615,6 @@
 				AC34B3C1294C40A00029479C /* NestEnumView.swift in Sources */,
 				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
-				ACC8D73229503A7700BA76A9 /* DiagramViewScaler.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
 				ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
