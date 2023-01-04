@@ -105,7 +105,6 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPre(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
-//        print("PRE-> \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
             (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
@@ -298,7 +297,6 @@ final class TokenVisitor: SyntaxRewriter {
     } // func visitPre(_ node: Syntax)
     
     override func visit(_ token: TokenSyntax) -> Syntax {
-//        print("      text: \(token.text)")
         let tokenKind = "\(token.tokenKind)"
         
         if (1 < currentPositionInStack) &&
@@ -339,7 +337,6 @@ final class TokenVisitor: SyntaxRewriter {
                 // classの名前を宣言しているとき
                 resultArray.append(SyntaxTag.ClassName.string + SyntaxTag.Space.string + token.text)
                 classNameArray.append(token.text)
-//                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.enumDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // enumの名前を宣言しているとき
@@ -372,17 +369,10 @@ final class TokenVisitor: SyntaxRewriter {
                         passedColonOfEnumAssociatedValueFlag = true
                     }
                 }
-//                if (tokenKind != TokenKind.leftParen.string) &&
-//                    (tokenKind != TokenKind.comma.string) &&
-//                    (tokenKind != TokenKind.rightParen.string) {
-//                    // "(", commma, ")"以外を抽出する
-//                    resultArray.append(SyntaxTag.CaseAssociatedValue.string + SyntaxTag.Space.string + token.text)
-//                }
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.protocolDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocolの名前を宣言しているとき
                 resultArray.append(SyntaxTag.ProtocolName.string + SyntaxTag.Space.string + token.text)
-//                printClassNameArray()
             } else if (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.associatedtypeDeclSyntax) &&
                         (tokenKind.hasPrefix(TokenKind.identifier.string)) {
                 // protocol内の連想型を宣言しているとき
@@ -723,7 +713,6 @@ final class TokenVisitor: SyntaxRewriter {
     
     override func visitPost(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
-//        print("POST<- \(currentSyntaxNodeType)")
         
         if (1 < currentPositionInStack) &&
             (syntaxNodeTypeStack[currentPositionInStack] == SyntaxNodeType.codeBlockSyntax) {
@@ -937,8 +926,6 @@ final class TokenVisitor: SyntaxRewriter {
                     fatalError()
                 }
                 resultArray.append(SyntaxTag.IsOptionalType.string + SyntaxTag.Space.string + type)
-//                resultArray.append("syntaxNodeTypeStack[currentPositionInStack]: \(syntaxNodeTypeStack[currentPositionInStack])")
-//                resultArray.append("syntaxNodeTypeStack[currentPositionInStack - 1]: \(syntaxNodeTypeStack[currentPositionInStack - 1])")
             } else if currentSyntaxNodeType == SyntaxNodeType.typealiasDeclSyntax.string {
                 // typealiasの宣言終了
                 resultArray.append(SyntaxTag.EndTypealiasDecl.string)
@@ -965,14 +952,12 @@ final class TokenVisitor: SyntaxRewriter {
     private func pushSyntaxNodeTypeStack(_ element: SyntaxNodeType) {
         self.syntaxNodeTypeStack.append(element)
         currentPositionInStack += 1
-//        printSyntaxNodeTypeStack()
     }
     
     // syntaxStack配列の最後の要素を削除し、ポップする
     private func popSyntaxNodeTypeStack() {
         self.syntaxNodeTypeStack.removeLast()
         currentPositionInStack -= 1
-//        printSyntaxNodeTypeStack()
     }
     
     // addAccessLevelToResultArrayDependOnType()を呼び出して、resultArrayにアクセスレベルのタグを追加する
