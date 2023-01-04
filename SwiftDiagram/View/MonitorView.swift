@@ -11,6 +11,8 @@ struct MonitorView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
     @EnvironmentObject var arrowPoint: ArrowPoint
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
+    @EnvironmentObject var redrawCounter: RedrawCounter
+    @EnvironmentObject var canDrawArrowFlag: CanDrawArrowFlag
     
     @State private var importerPresented = false
     @State private var importType = ImportType.none
@@ -57,6 +59,10 @@ struct MonitorView: View {
                     
                     ZStack {
                         DiagramView()
+                        .onChange(of: monitor.getChangeDate(), perform: { _ in
+                            redrawCounter.reset()
+                            canDrawArrowFlag.flag = false
+                        })
                         .background() {
                             GeometryReader { geometry in
                                 Path { path in
@@ -71,11 +77,13 @@ struct MonitorView: View {
 
                         GetArrowsPointView()
 
-                        ForEach(arrowPoint.points, id: \.self) { point in
-                            if let start = point.start,
-                               let end = point.end {
-                                ArrowView(start: start, end: end)
-                                    .opacity(arrowOpacity)
+                        if canDrawArrowFlag.flag {
+                            ForEach(arrowPoint.points, id: \.self) { point in
+                                if let start = point.start,
+                                   let end = point.end {
+                                    ArrowView(start: start, end: end)
+                                        .opacity(arrowOpacity)
+                                }
                             }
                         }
                     } // ZStack

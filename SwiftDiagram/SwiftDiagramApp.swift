@@ -15,6 +15,8 @@ struct SwiftDiagramApp: App {
                 .environmentObject(BuildFileMonitor())
                 .environmentObject(ArrowPoint())
                 .environmentObject(MaxWidthHolder())
+                .environmentObject(RedrawCounter())
+                .environmentObject(CanDrawArrowFlag())
         }
     }
 }

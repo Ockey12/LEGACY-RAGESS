@@ -141,4 +141,8 @@ class ArrowPoint: ObservableObject {
     func setStartX(_ x: CGFloat) {
         startPoint.x = x
     }
+    
+    func numberOfDependence() -> Int {
+        points.count
+    }
 }

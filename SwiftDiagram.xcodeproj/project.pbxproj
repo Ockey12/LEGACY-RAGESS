@@ -81,6 +81,8 @@
 		AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */; };
 		AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */; };
 		AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F007829403272001221C2 /* BuildFileMonitorView.swift */; };
+		AC62F9372964832600D9BA32 /* RedrawCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F9362964832600D9BA32 /* RedrawCounter.swift */; };
+		AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */; };
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
 		ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D719294EEEC700BA76A9 /* ClassView.swift */; };
 		ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */; };
@@ -184,6 +186,8 @@
 		AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveTypeHolder.swift; sourceTree = "<group>"; };
 		AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhomThisTypeAffect.swift; sourceTree = "<group>"; };
 		AC5F007829403272001221C2 /* BuildFileMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFileMonitorView.swift; sourceTree = "<group>"; };
+		AC62F9362964832600D9BA32 /* RedrawCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedrawCounter.swift; sourceTree = "<group>"; };
+		AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanDrawArrowFlag.swift; sourceTree = "<group>"; };
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
 		ACC8D719294EEEC700BA76A9 /* ClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassView.swift; sourceTree = "<group>"; };
 		ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 				ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */,
 				ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */,
 				ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */,
+				AC62F9362964832600D9BA32 /* RedrawCounter.swift */,
+				AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -649,6 +655,7 @@
 				ACC8D763295F0EF500BA76A9 /* GetStructPointView.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
+				AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */,
 				AC34B3C1294C40A00029479C /* NestEnumView.swift in Sources */,
 				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
@@ -663,6 +670,7 @@
 				AC34B3822947A62C0029479C /* EnumHolderToStringConverter.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
+				AC62F9372964832600D9BA32 /* RedrawCounter.swift in Sources */,
 				ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
 				AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */,

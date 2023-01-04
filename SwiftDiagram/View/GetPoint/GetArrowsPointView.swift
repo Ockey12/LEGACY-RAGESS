@@ -12,6 +12,10 @@ struct GetArrowsPointView: View {
     @EnvironmentObject var arrowPoint: ArrowPoint
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     
+    @EnvironmentObject var canDrawArrowFlag: CanDrawArrowFlag
+    
+    @EnvironmentObject var redrawCounter: RedrawCounter
+    
     @State private var maxWidth: Double = ComponentSettingValues.minWidth
     private let allStringOfHolder = AllStringOfHolder()
     
@@ -27,7 +31,7 @@ struct GetArrowsPointView: View {
     var body: some View {
         ZStack {
             Text("")
-                .onChange(of: arrowPoint.changeDate) { _ in
+                .onChange(of: redrawCounter.count) { _ in
                     DispatchQueue.main.async {
                         
                         // MARK: - Protocol
@@ -329,6 +333,15 @@ struct GetArrowsPointView: View {
                                                       width: width,
                                                       numberOfExtensin: enumHolder.extensions.count)
                         } // for enumHolder in monitor.getEnum()
+                        
+//                        ForEach(arrowPoint.points, id: \.self) { point in
+//                            if let start = point.start,
+//                               let end = point.end {
+//                                ArrowView(start: start, end: end)
+////                                    .opacity(arrowOpacity)
+//                            }
+//                        }
+                        canDrawArrowFlag.flag = true
                     } // DispatchQueue.main.async
                 } // .onChange(of: monitor.getChangeDate())
         } // ZStack

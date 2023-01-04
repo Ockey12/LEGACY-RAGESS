@@ -17,7 +17,7 @@ class BuildFileMonitor: ObservableObject {
     @Published private var dependenceHolders = [DependenceHolder]()
     @Published private var changeDate = ""
     
-    var allTypeNames = [String]()
+    private var allTypeNames = [String]()
     
     private var monitoredFolderFileDescriptor: CInt = -1
     private let folderMonitorQueue = DispatchQueue(label: "BuildFileMonitorQueue", attributes: .concurrent)
@@ -248,6 +248,10 @@ class BuildFileMonitor: ObservableObject {
     
     func getChangeDate() -> String {
         return changeDate
+    }
+    
+    func numerOfAllType() -> Int {
+        allTypeNames.count
     }
 } // class BuildFileMonitor
 
