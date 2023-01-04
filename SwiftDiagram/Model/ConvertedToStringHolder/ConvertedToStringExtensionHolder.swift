@@ -32,10 +32,6 @@ extension ConvertedToStringExtensionHolder: Hashable {
 //        return lhs.conformingProtocolNames == rhs.conformingProtocolNames
     }
 
-//    var hashValue: Int {
-//        return self.name.hashValue
-//    }
-
     func hash(into hasher: inout Hasher) {
         conformingProtocolNames.hash(into: &hasher)
         typealiases.hash(into: &hasher)

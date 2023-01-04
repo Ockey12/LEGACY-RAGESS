@@ -31,10 +31,6 @@ extension ConvertedToStringProtocolHolder: Hashable {
         return (lhs.name == rhs.name) && (lhs.changeDate == rhs.changeDate)
     }
 
-//    var hashValue: Int {
-//        return self.name.hashValue
-//    }
-
     func hash(into hasher: inout Hasher) {
         name.hash(into: &hasher)
         changeDate.hash(into: &hasher)

@@ -8,7 +8,6 @@
 import Foundation
 
 struct DependenceHolder {
-//    var affectingTypeKind: TypeKind
     var affectingTypeName: String
     var affectedTypes: [AffectedType]
     

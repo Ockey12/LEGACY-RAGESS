@@ -19,15 +19,6 @@ struct HeaderComponentView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-//            ClosureView {
-//                print("aaaaaaaaaaaaaa")
-//                arrowPoint.currentX = 300
-//                arrowPoint.currentY = 300 + 90 + 45
-//                DispatchQueue.main.async {
-//
-//                }
-//            }
-            
             IndexComponentFrameWithText(accessLevelIcon: accessLevelIcon,
                                         headerComponentIndexType: indexType)
                 .offset(x: arrowTerminalWidth, y: 0)
@@ -36,11 +27,6 @@ struct HeaderComponentView: View {
                 .offset(x: 0, y: itemHeight)
                 
         } // ZStack
-//        .onAppear {
-//            print("aaaaaaaaaaaaaa")
-////            arrowPoint.currentX = 300
-//            arrowPoint.currentY = arrowPoint.currentY + 90
-//        }
     } // var body
 } // struct HeaderComponentView
 

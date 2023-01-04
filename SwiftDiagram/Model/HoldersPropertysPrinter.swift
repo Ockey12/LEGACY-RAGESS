@@ -10,7 +10,6 @@ import Foundation
 struct HoldersPropertysPrinter {
     
     private func addStructToContent(structHolders: [StructHolder]) -> String {
-//        let converter = StructHolderToStringConverter()
         var content = ""
         for structHolder in structHolders {
             content += "-----Struct-----\n"
@@ -35,9 +34,6 @@ struct HoldersPropertysPrinter {
             
             content += addExtensionToContent(extensionHolders: structHolder.extensions)
             content += "\n"
-            
-//            let convertedStructHolder = converter.convertToString(structHolder: structHolder)
-//            addStringStructToConvertedContent(stringStructHolder: convertedStructHolder)
         } // for structHolder
         return content
     } // func addStructToContent(structHolders: [StructHolder]) -> String

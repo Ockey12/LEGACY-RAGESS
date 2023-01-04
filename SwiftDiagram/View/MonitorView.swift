@@ -21,11 +21,11 @@ struct MonitorView: View {
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
     @State private var diagramViewSize = CGSize(width: 1000, height: 1000)
-    @State private var diagramViewScale: CGFloat = 0.2
+    @State private var diagramViewScale: CGFloat = 0.1
     
     @State private var arrowOpacity = 1.0
     
-    let minScale: CGFloat = 0.1
+    let minScale: CGFloat = 0.05
     let maxScale: CGFloat = 0.7
     
     // DiagramView()の周囲の余白
@@ -75,8 +75,6 @@ struct MonitorView: View {
                                 } // Path
                             } // GeometryReader
                         } // .background()
-
-//                        GetArrowsPointView()
 
                         ForEach(arrowPoint.points, id: \.self) { point in
                             if let start = point.start,

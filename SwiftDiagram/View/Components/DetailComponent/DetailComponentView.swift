@@ -98,26 +98,7 @@ struct DetailComponentView: View {
                     .frame(width: bodyWidth, alignment: .leading)
                     .position(x: (bodyWidth + textLeadingPadding )/2 + arrowTerminalWidth,
                               y: connectionHeight + itemHeight*CGFloat(numberOfString) + itemHeight/2)
-//                    .background() {
-//                        GeometryReader { geometry in
-//                            Path { path in
-//                                DispatchQueue.main.async {
-//                                    let point = Point(x: geometry.frame(in: .global).minX,
-//                                                      y: geometry.frame(in: .global).minY)
-//                                    points.append(point)
-//                                }
-//                            } // Path
-//                        } // GeometryReader
-//                    } // .background()
             } // ForEach(0..<strings.count, id: \.self)
-            
-//            ForEach(points, id: \.self) { point in
-//                Circle()
-//                    .frame(width: 30, height: 30)
-//                    .foregroundColor(.red)
-//                    .position(x: point.x, y: point.y)
-//            }
-            
         } // ZStack
     } // var body
 } // struct DetailComponentView
