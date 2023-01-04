@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ClassView: View {
     let holder: ConvertedToStringClassHolder
-    @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -23,102 +22,19 @@ struct ClassView: View {
     let extensionHeightCalculater = ExtensionFrameHeightCalculater()
     
     var allStrings: [String] {
-        var strings = [holder.name]
-        strings += holder.generics
-        if let superClass = holder.superClassName {
-            strings.append(superClass)
-        }
-        strings += holder.conformingProtocolNames
-        strings += holder.typealiases
-        strings += holder.initializers
-        strings += holder.variables
-        strings += holder.functions
-        
-        let nestedStructs = holder.nestingConvertedToStringStructHolders
-        for nestedStruct in nestedStructs {
-            strings += nestedStruct.generics
-            strings += nestedStruct.conformingProtocolNames
-            strings += nestedStruct.typealiases
-            strings += nestedStruct.initializers
-            strings += nestedStruct.variables
-            strings += nestedStruct.functions
-        }
-        
-        let nestedClasses = holder.nestingConvertedToStringClassHolders
-        for nestedClass in nestedClasses {
-            strings += nestedClass.generics
-            if let superClass = nestedClass.superClassName {
-                strings.append(superClass)
-            }
-            strings += nestedClass.conformingProtocolNames
-            strings += nestedClass.typealiases
-            strings += nestedClass.initializers
-            strings += nestedClass.variables
-            strings += nestedClass.functions
-        }
-        
-        let nestedEnums = holder.nestingConvertedToStringEnumHolders
-        for nestedEnum in nestedEnums {
-            strings += nestedEnum.generics
-            if let rawvalueType = nestedEnum.rawvalueType {
-                strings.append(rawvalueType)
-            }
-            strings += nestedEnum.conformingProtocolNames
-            strings += nestedEnum.typealiases
-            strings += nestedEnum.initializers
-            strings += nestedEnum.cases
-            strings += nestedEnum.variables
-            strings += nestedEnum.functions
-        }
-        
-        let extensions = holder.extensions
-        for extensionHolder in extensions {
-            strings += extensionHolder.conformingProtocolNames
-            strings += extensionHolder.typealiases
-            strings += extensionHolder.initializers
-            strings += extensionHolder.variables
-            strings += extensionHolder.functions
-
-            let nestedStructs = extensionHolder.nestingConvertedToStringStructHolders
-            for nestedStruct in nestedStructs {
-                strings += nestedStruct.generics
-                strings += nestedStruct.conformingProtocolNames
-                strings += nestedStruct.typealiases
-                strings += nestedStruct.initializers
-                strings += nestedStruct.variables
-                strings += nestedStruct.functions
-            }
-
-            let nestedClasses = extensionHolder.nestingConvertedToStringClassHolders
-            for nestedClass in nestedClasses {
-                strings += nestedClass.generics
-                if let superClass = nestedClass.superClassName {
-                    strings.append(superClass)
-                }
-                strings += nestedClass.conformingProtocolNames
-                strings += nestedClass.typealiases
-                strings += nestedClass.initializers
-                strings += nestedClass.variables
-                strings += nestedClass.functions
-            }
-
-            let nestedEnums = extensionHolder.nestingConvertedToStringEnumHolders
-            for nestedEnum in nestedEnums {
-                strings += nestedEnum.generics
-                if let rawvalueType = nestedEnum.rawvalueType {
-                    strings.append(rawvalueType)
-                }
-                strings += nestedEnum.conformingProtocolNames
-                strings += nestedEnum.typealiases
-                strings += nestedEnum.initializers
-                strings += nestedEnum.cases
-                strings += nestedEnum.variables
-                strings += nestedEnum.functions
-            }
-        } // for extensionHolder in extensions
-        
-        return strings
+        let allStringOfHolder = AllStringOfHolder()
+        return allStringOfHolder.ofClass(holder)
     } // var allStrings
+    
+    var maxTextWidth: Double {
+        let calculator = MaxTextWidthCalculator()
+        let width = calculator.getMaxWidth(allStrings)
+        if ComponentSettingValues.minWidth < width {
+            return width
+        } else {
+            return ComponentSettingValues.minWidth
+        }
+    }
     
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
@@ -136,8 +52,6 @@ struct ClassView: View {
                 .foregroundColor(.clear)
                 .background(.clear)
 
-            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
-            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -183,9 +97,3 @@ struct ClassView: View {
         } // ZStack
     } // var body
 } // struct ClassView
-
-//struct ClassView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ClassView()
-//    }
-//}

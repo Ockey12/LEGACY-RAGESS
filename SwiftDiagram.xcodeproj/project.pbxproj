@@ -83,6 +83,8 @@
 		AC5F007929403272001221C2 /* BuildFileMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F007829403272001221C2 /* BuildFileMonitorView.swift */; };
 		AC62F9372964832600D9BA32 /* RedrawCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F9362964832600D9BA32 /* RedrawCounter.swift */; };
 		AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */; };
+		AC7A8E2A29654C59004F198B /* CharacterWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8E2929654C59004F198B /* CharacterWidth.swift */; };
+		AC7A8E2C29654CE7004F198B /* MaxTextWidthCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8E2B29654CE7004F198B /* MaxTextWidthCalculator.swift */; };
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
 		ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D719294EEEC700BA76A9 /* ClassView.swift */; };
 		ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */; };
@@ -188,6 +190,8 @@
 		AC5F007829403272001221C2 /* BuildFileMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFileMonitorView.swift; sourceTree = "<group>"; };
 		AC62F9362964832600D9BA32 /* RedrawCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedrawCounter.swift; sourceTree = "<group>"; };
 		AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanDrawArrowFlag.swift; sourceTree = "<group>"; };
+		AC7A8E2929654C59004F198B /* CharacterWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWidth.swift; sourceTree = "<group>"; };
+		AC7A8E2B29654CE7004F198B /* MaxTextWidthCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxTextWidthCalculator.swift; sourceTree = "<group>"; };
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
 		ACC8D719294EEEC700BA76A9 /* ClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassView.swift; sourceTree = "<group>"; };
 		ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -415,6 +419,7 @@
 				ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */,
 				AC62F9362964832600D9BA32 /* RedrawCounter.swift */,
 				AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */,
+				AC7A8E2829654C36004F198B /* TextWidthCalculator */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -481,6 +486,15 @@
 				ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */,
 			);
 			path = Holder;
+			sourceTree = "<group>";
+		};
+		AC7A8E2829654C36004F198B /* TextWidthCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				AC7A8E2929654C59004F198B /* CharacterWidth.swift */,
+				AC7A8E2B29654CE7004F198B /* MaxTextWidthCalculator.swift */,
+			);
+			path = TextWidthCalculator;
 			sourceTree = "<group>";
 		};
 		ACC8D717294EEE4B00BA76A9 /* Struct */ = {
@@ -670,6 +684,7 @@
 				AC34B3822947A62C0029479C /* EnumHolderToStringConverter.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
+				AC7A8E2A29654C59004F198B /* CharacterWidth.swift in Sources */,
 				AC62F9372964832600D9BA32 /* RedrawCounter.swift in Sources */,
 				ACC8D728294F13BC00BA76A9 /* ProtocolDetailView.swift in Sources */,
 				AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */,
@@ -690,6 +705,7 @@
 				ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */,
 				AC34B39B294A1B130029479C /* HeaderComponentFrameWithText.swift in Sources */,
 				AC5F0069293DD418001221C2 /* HolderType.swift in Sources */,
+				AC7A8E2C29654CE7004F198B /* MaxTextWidthCalculator.swift in Sources */,
 				ACC8D74C295AC00F00BA76A9 /* ArrowView.swift in Sources */,
 				ACC8D726294F13B100BA76A9 /* ProtocolView.swift in Sources */,
 				AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */,

@@ -12,7 +12,6 @@ struct ProtocolView: View {
     
     @EnvironmentObject var monitor: BuildFileMonitor
     @EnvironmentObject var arrowPoint: ArrowPoint
-    @State private var maxTextWidth = ComponentSettingValues.minWidth
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -30,6 +29,16 @@ struct ProtocolView: View {
         return allStringOfHolder.ofProtocol(holder)
     } // var allStrings
     
+    var maxTextWidth: Double {
+        let calculator = MaxTextWidthCalculator()
+        let width = calculator.getMaxWidth(allStrings)
+        if ComponentSettingValues.minWidth < width {
+            return width
+        } else {
+            return ComponentSettingValues.minWidth
+        }
+    }
+    
     var bodyWidth: Double {
         return maxTextWidth + textTrailPadding
     }
@@ -46,8 +55,6 @@ struct ProtocolView: View {
                 .foregroundColor(.clear)
                 .background(.clear)
 
-            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
-            
             VStack(spacing: 0) {
                 // Header
                 HeaderComponentView(accessLevelIcon: holder.accessLevelIcon,
@@ -75,9 +82,3 @@ struct ProtocolView: View {
         } // ZStack
     } // var body
 } // struct ProtocolView
-
-//struct ProtocolView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProtocolView()
-//    }
-//}

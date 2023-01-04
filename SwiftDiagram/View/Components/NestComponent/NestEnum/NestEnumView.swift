@@ -11,8 +11,6 @@ struct NestEnumView: View {
     let holder: ConvertedToStringEnumHolder
     let outsideFrameWidth: CGFloat
 
-    @State private var maxTextWidth = ComponentSettingValues.minWidth
-    
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
@@ -31,18 +29,18 @@ struct NestEnumView: View {
     let fontSize = ComponentSettingValues.fontSize
     
     var allStrings: [String] {
-        var strings = [holder.name]
-        strings += holder.generics
-        if let rawvalueType = holder.rawvalueType {
-            strings.append(rawvalueType)
+        let allStringOfHolder = AllStringOfHolder()
+        return allStringOfHolder.ofNestEnum(holder)
+    }
+    
+    var maxTextWidth: Double {
+        let calculator = MaxTextWidthCalculator()
+        let width = calculator.getMaxWidth(allStrings)
+        if ComponentSettingValues.minWidth < width {
+            return width
+        } else {
+            return ComponentSettingValues.minWidth
         }
-        strings += holder.conformingProtocolNames
-        strings += holder.typealiases
-        strings += holder.initializers
-        strings += holder.cases
-        strings += holder.variables
-        strings += holder.functions
-        return strings
     }
     
     var bodyWidth: Double {
@@ -59,8 +57,6 @@ struct NestEnumView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
-            
             NestEnumFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)
@@ -234,9 +230,3 @@ struct NestEnumView: View {
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
 } // struct NestEnumView
-
-//struct NestEnumView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NestEnumView()
-//    }
-//}

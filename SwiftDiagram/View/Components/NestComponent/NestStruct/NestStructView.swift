@@ -11,8 +11,6 @@ struct NestStructView: View {
     let holder: ConvertedToStringStructHolder
     let outsideFrameWidth: CGFloat
 
-    @State private var maxTextWidth = ComponentSettingValues.minWidth
-    
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
     let textTrailPadding = ComponentSettingValues.textTrailPadding
@@ -31,14 +29,18 @@ struct NestStructView: View {
     let fontSize = ComponentSettingValues.fontSize
     
     var allStrings: [String] {
-        var strings = [holder.name]
-        strings += holder.generics
-        strings += holder.conformingProtocolNames
-        strings += holder.typealiases
-        strings += holder.initializers
-        strings += holder.variables
-        strings += holder.functions
-        return strings
+        let allStringOfHolder = AllStringOfHolder()
+        return allStringOfHolder.ofNestStruct(holder)
+    }
+    
+    var maxTextWidth: Double {
+        let calculator = MaxTextWidthCalculator()
+        let width = calculator.getMaxWidth(allStrings)
+        if ComponentSettingValues.minWidth < width {
+            return width
+        } else {
+            return ComponentSettingValues.minWidth
+        }
     }
     
     var bodyWidth: Double {
@@ -55,8 +57,6 @@ struct NestStructView: View {
     
     var body: some View {
         ZStack {
-            GetTextsMaxWidthView(holderName: holder.name, strings: allStrings, maxWidth: $maxTextWidth)
-            
             NestStructFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + arrowTerminalWidth*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)
@@ -198,9 +198,3 @@ struct NestStructView: View {
         return height
     } // func calculateDetailComponentFrameHeight(numberOfItems: Int) -> CGFloat
 } // struct NestStructView
-
-//struct NestStructView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NestStructView()
-//    }
-//}
