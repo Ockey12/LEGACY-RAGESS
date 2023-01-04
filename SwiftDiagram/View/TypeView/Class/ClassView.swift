@@ -13,6 +13,7 @@ struct ClassView: View {
     @EnvironmentObject var arrowPoint: ArrowPoint
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     @EnvironmentObject var monitor: BuildFileMonitor
+    @EnvironmentObject var redrawCounter: RedrawCounter
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -36,17 +37,20 @@ struct ClassView: View {
         if width < ComponentSettingValues.minWidth {
             width = ComponentSettingValues.minWidth
         }
-//        DispatchQueue.main.async {
-//            if let _ = maxWidthHolder.maxWidthDict[holder.name] {
-//                maxWidthHolder.maxWidthDict[holder.name]!.maxWidth = width
-//            } else {
-//                maxWidthHolder.maxWidthDict[holder.name] = MaxWidthHolder.Value(maxWidth: width)
-//            }
-////            let dt = Date()
-////            let dateFormatter: DateFormatter = DateFormatter()
-////            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-////            arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-//        }
+        if redrawCounter.getCount() < (monitor.numerOfAllType() + arrowPoint.numberOfDependence())*10 {
+            DispatchQueue.main.async {
+                if let _ = maxWidthHolder.maxWidthDict[holder.name] {
+                    maxWidthHolder.maxWidthDict[holder.name]!.maxWidth = width
+                } else {
+                    maxWidthHolder.maxWidthDict[holder.name] = MaxWidthHolder.Value(maxWidth: width)
+                }
+                let dt = Date()
+                let dateFormatter: DateFormatter = DateFormatter()
+                dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+                arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
+                redrawCounter.increment()
+            }
+        }
         
         return width
     }
