@@ -107,11 +107,9 @@
 		ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */; };
 		ACC8D754295AF73D00BA76A9 /* ClosureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D753295AF73D00BA76A9 /* ClosureView.swift */; };
 		ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */; };
-		ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */; };
 		ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */; };
 		ACC8D75F295C39E100BA76A9 /* MaxWidthHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */; };
 		ACC8D761295CC02A00BA76A9 /* HashableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */; };
-		ACC8D763295F0EF500BA76A9 /* GetStructPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D762295F0EF500BA76A9 /* GetStructPointView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -214,11 +212,9 @@
 		ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowPoint.swift; sourceTree = "<group>"; };
 		ACC8D753295AF73D00BA76A9 /* ClosureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureView.swift; sourceTree = "<group>"; };
 		ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArrowsPointView.swift; sourceTree = "<group>"; };
-		ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProtocolPointView.swift; sourceTree = "<group>"; };
 		ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStringOfHolder.swift; sourceTree = "<group>"; };
 		ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxWidthHolder.swift; sourceTree = "<group>"; };
 		ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableExtension.swift; sourceTree = "<group>"; };
-		ACC8D762295F0EF500BA76A9 /* GetStructPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStructPointView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,8 +543,6 @@
 			isa = PBXGroup;
 			children = (
 				ACC8D757295C148100BA76A9 /* GetArrowsPointView.swift */,
-				ACC8D75A295C25F500BA76A9 /* GetProtocolPointView.swift */,
-				ACC8D762295F0EF500BA76A9 /* GetStructPointView.swift */,
 			);
 			path = GetPoint;
 			sourceTree = "<group>";
@@ -654,7 +648,6 @@
 				AC34B3B4294B62330029479C /* NestStructFrame.swift in Sources */,
 				AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */,
 				AC34B39D294A1E1C0029479C /* HeaderComponentView.swift in Sources */,
-				ACC8D75B295C25F500BA76A9 /* GetProtocolPointView.swift in Sources */,
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,
 				AC34B376294791270029479C /* GenericHolderToStringConverter.swift in Sources */,
 				ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */,
@@ -666,7 +659,6 @@
 				AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */,
 				AC34B37C294796880029479C /* VariableHolderToStringConverter.swift in Sources */,
 				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
-				ACC8D763295F0EF500BA76A9 /* GetStructPointView.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
 				AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */,

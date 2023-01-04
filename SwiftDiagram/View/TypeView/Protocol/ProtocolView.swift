@@ -12,6 +12,7 @@ struct ProtocolView: View {
     
     @EnvironmentObject var monitor: BuildFileMonitor
     @EnvironmentObject var arrowPoint: ArrowPoint
+    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
     
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -31,12 +32,23 @@ struct ProtocolView: View {
     
     var maxTextWidth: Double {
         let calculator = MaxTextWidthCalculator()
-        let width = calculator.getMaxWidth(allStrings)
-        if ComponentSettingValues.minWidth < width {
-            return width
-        } else {
-            return ComponentSettingValues.minWidth
+        var width = calculator.getMaxWidth(allStrings)
+        if width < ComponentSettingValues.minWidth {
+            width = ComponentSettingValues.minWidth
         }
+        DispatchQueue.main.async {
+            if let _ = maxWidthHolder.maxWidthDict[holder.name] {
+                maxWidthHolder.maxWidthDict[holder.name]!.maxWidth = width
+            } else {
+                maxWidthHolder.maxWidthDict[holder.name] = MaxWidthHolder.Value(maxWidth: width)
+            }
+//            let dt = Date()
+//            let dateFormatter: DateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+//            arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
+        }
+        
+        return width
     }
     
     var bodyWidth: Double {

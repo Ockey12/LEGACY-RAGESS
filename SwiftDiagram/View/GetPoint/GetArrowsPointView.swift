@@ -31,7 +31,7 @@ struct GetArrowsPointView: View {
     var body: some View {
         ZStack {
             Text("")
-                .onChange(of: redrawCounter.count) { _ in
+                .onChange(of: monitor.getChangeDate()) { _ in
                     DispatchQueue.main.async {
                         
                         // MARK: - Protocol

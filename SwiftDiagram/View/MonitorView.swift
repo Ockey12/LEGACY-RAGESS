@@ -77,13 +77,11 @@ struct MonitorView: View {
 
                         GetArrowsPointView()
 
-                        if canDrawArrowFlag.flag {
-                            ForEach(arrowPoint.points, id: \.self) { point in
-                                if let start = point.start,
-                                   let end = point.end {
-                                    ArrowView(start: start, end: end)
-                                        .opacity(arrowOpacity)
-                                }
+                        ForEach(arrowPoint.points, id: \.self) { point in
+                            if let start = point.start,
+                               let end = point.end {
+                                ArrowView(start: start, end: end)
+                                    .opacity(arrowOpacity)
                             }
                         }
                     } // ZStack

@@ -12,6 +12,8 @@ struct ExtensionView: View {
     let numberOfExtension: Int
     let holder: ConvertedToStringExtensionHolder
     let outsideFrameWidth: CGFloat
+    
+    @EnvironmentObject var maxWidthHolder: MaxWidthHolder
 
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -39,12 +41,24 @@ struct ExtensionView: View {
     
     var maxTextWidth: Double {
         let calculator = MaxTextWidthCalculator()
-        let width = calculator.getMaxWidth(allStrings)
-        if ComponentSettingValues.minWidth < width {
-            return width
-        } else {
-            return ComponentSettingValues.minWidth
+        var width = calculator.getMaxWidth(allStrings)
+        if width < ComponentSettingValues.minWidth {
+            width = ComponentSettingValues.minWidth
         }
+        DispatchQueue.main.async {
+            if let superHolderWidth = maxWidthHolder.maxWidthDict[superHolderName] {
+                maxWidthHolder.maxWidthDict[superHolderName]!.extensionWidth[numberOfExtension] = width
+                if superHolderWidth.maxWidth < width {
+                    maxWidthHolder.maxWidthDict[superHolderName]!.maxWidth = width
+                }
+            }
+//            let dt = Date()
+//            let dateFormatter: DateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+//            arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
+        }
+        
+        return width
     }
     
     var bodyWidth: Double {
