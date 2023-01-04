@@ -13,7 +13,9 @@ struct ExtensionView: View {
     let holder: ConvertedToStringExtensionHolder
     let outsideFrameWidth: CGFloat
     
+    @EnvironmentObject var arrowPoint: ArrowPoint
     @EnvironmentObject var maxWidthHolder: MaxWidthHolder
+    @EnvironmentObject var monitor: BuildFileMonitor
 
     let borderWidth = ComponentSettingValues.borderWidth
     let arrowTerminalWidth = ComponentSettingValues.arrowTerminalWidth
@@ -45,18 +47,18 @@ struct ExtensionView: View {
         if width < ComponentSettingValues.minWidth {
             width = ComponentSettingValues.minWidth
         }
-        DispatchQueue.main.async {
-            if let superHolderWidth = maxWidthHolder.maxWidthDict[superHolderName] {
-                maxWidthHolder.maxWidthDict[superHolderName]!.extensionWidth[numberOfExtension] = width
-                if superHolderWidth.maxWidth < width {
-                    maxWidthHolder.maxWidthDict[superHolderName]!.maxWidth = width
-                }
-            }
-//            let dt = Date()
-//            let dateFormatter: DateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
-//            arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
-        }
+//        DispatchQueue.main.async {
+//            if let superHolderWidth = maxWidthHolder.maxWidthDict[superHolderName] {
+//                maxWidthHolder.maxWidthDict[superHolderName]!.extensionWidth[numberOfExtension] = width
+//                if superHolderWidth.maxWidth < width {
+//                    maxWidthHolder.maxWidthDict[superHolderName]!.maxWidth = width
+//                }
+//            }
+////            let dt = Date()
+////            let dateFormatter: DateFormatter = DateFormatter()
+////            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+////            arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
+//        }
         
         return width
     }
@@ -78,6 +80,19 @@ struct ExtensionView: View {
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .frame(width: outsideWidth + extensionOutsidePadding*2 + CGFloat(4), height: calculateFrameHeight())
                 .foregroundColor(.white)
+                .onChange(of: monitor.getChangeDate()) { newValue in
+                    DispatchQueue.main.async {
+                        if let _ = maxWidthHolder.maxWidthDict[superHolderName] {
+                            maxWidthHolder.maxWidthDict[superHolderName]!.maxWidth = maxTextWidth
+                        } else {
+                            maxWidthHolder.maxWidthDict[superHolderName] = MaxWidthHolder.Value(maxWidth: maxTextWidth)
+                        }
+                        let dt = Date()
+                        let dateFormatter: DateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMdHms", options: 0, locale: Locale(identifier: "ja_JP"))
+                        arrowPoint.changeDate = "\(dateFormatter.string(from: dt))"
+                    }
+                }
             
             ExtensionFrame(holder: holder, bodyWidth: outsideWidth)
                 .stroke(lineWidth: ComponentSettingValues.borderWidth)

@@ -58,6 +58,7 @@ struct MonitorView: View {
                 ScrollView([.vertical, .horizontal]) {
                     
                     ZStack {
+                        GetArrowsPointView()
                         DiagramView()
                         .onChange(of: monitor.getChangeDate(), perform: { _ in
                             redrawCounter.reset()
@@ -75,7 +76,7 @@ struct MonitorView: View {
                             } // GeometryReader
                         } // .background()
 
-                        GetArrowsPointView()
+//                        GetArrowsPointView()
 
                         ForEach(arrowPoint.points, id: \.self) { point in
                             if let start = point.start,
