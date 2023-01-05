@@ -111,6 +111,7 @@ struct MonitorView: View {
             HStack {
                 Spacer()
                 
+                // すべての依存関係を表示するボタン
                 Button {
                     for i in 0..<arrowPoint.points.count {
                         arrowPoint.points[i].isVisible = true
