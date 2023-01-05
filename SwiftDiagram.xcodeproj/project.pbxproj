@@ -405,8 +405,8 @@
 				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
-				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
+				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
 			);
 			path = View;
