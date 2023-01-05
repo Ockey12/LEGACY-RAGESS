@@ -22,14 +22,18 @@ struct HeaderComponentView: View {
             IndexComponentFrameWithText(accessLevelIcon: accessLevelIcon,
                                         headerComponentIndexType: indexType)
                 .offset(x: arrowTerminalWidth, y: 0)
+                .onTapGesture {
+                    hideAllDependence()
+                    showThisTypeAffects(name: nameOfType)
+                }
             
             HeaderComponentFrameWithText(nameOfType: nameOfType, bodyWidth: bodyWidth)
                 .offset(x: 0, y: itemHeight)
+                .onTapGesture {
+                    hideAllDependence()
+                    showThisTypeAffects(name: nameOfType)
+                }
         } // ZStack
-        .onTapGesture {
-            hideAllDependence()
-            showThisTypeAffects(name: nameOfType)
-        }
     } // var body
     
     private func hideAllDependence() {

@@ -102,7 +102,7 @@ class ArrowPoint: ObservableObject {
     
     func initialize() {
         startPoint = CGPoint(x: 300 + protocolIndent, y: 300 + 90 + 45)
-        maxY = 300 + 90 + 45
+        maxY = -45
     }
     
     func moveToDownerHStack(typeKind: HolderType) {
