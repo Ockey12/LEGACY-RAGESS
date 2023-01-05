@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DiagramView: View {
     @EnvironmentObject var monitor: BuildFileMonitor
+    @EnvironmentObject var arrowPoint: ArrowPoint
     
     let connectionHeight = ComponentSettingValues.connectionHeight
     let protocolIndent = ComponentSettingValues.protocolIndent

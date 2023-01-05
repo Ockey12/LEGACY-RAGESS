@@ -77,10 +77,12 @@ struct MonitorView: View {
                         } // .background()
 
                         ForEach(arrowPoint.points, id: \.self) { point in
-                            if let start = point.start,
-                               let end = point.end {
-                                ArrowView(start: start, end: end)
-                                    .opacity(arrowOpacity)
+                            if point.isVisible {
+                                if let start = point.start,
+                                   let end = point.end {
+                                    ArrowView(start: start, end: end)
+                                        .opacity(arrowOpacity)
+                                }
                             }
                         }
                     } // ZStack
@@ -107,6 +109,18 @@ struct MonitorView: View {
             }
             
             HStack {
+                Spacer()
+                
+                Button {
+                    for i in 0..<arrowPoint.points.count {
+                        arrowPoint.points[i].isVisible = true
+                    }
+                } label: {
+                    Text("Show All Dependency")
+                }
+                .padding()
+                
+                Spacer()
                 // プロジェクトのディレクトリを選択するボタン
                 Button {
                     importerPresented = true
@@ -124,6 +138,8 @@ struct MonitorView: View {
                     Text("Select Build File")
                 }
                 .padding()
+                
+                Spacer()
             } // HStack
             
             // ビルドファイルとプロジェクトディレクトリのURL、ビルドされた時間を表示する

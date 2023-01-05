@@ -25,9 +25,27 @@ struct HeaderComponentView: View {
             
             HeaderComponentFrameWithText(nameOfType: nameOfType, bodyWidth: bodyWidth)
                 .offset(x: 0, y: itemHeight)
-                
         } // ZStack
+        .onTapGesture {
+            hideAllDependence()
+            showThisTypeAffects(name: nameOfType)
+        }
     } // var body
+    
+    private func hideAllDependence() {
+        for i in 0..<arrowPoint.points.count {
+            arrowPoint.points[i].isVisible = false
+        }
+    }
+    
+    private func showThisTypeAffects(name: String) {
+        for (index, point) in arrowPoint.points.enumerated() {
+            if point.affecterName == name {
+                arrowPoint.points[index].isVisible = true
+                showThisTypeAffects(name: point.affectedName)
+            }
+        }
+    } // func tappedTypePerform(name: String)
 } // struct HeaderComponentView
 
 //struct HeaderComponentView_Previews: PreviewProvider {

@@ -35,6 +35,7 @@ class ArrowPoint: ObservableObject {
         var startLeft: CGPoint?
         var endRight: CGPoint?
         var endLeft: CGPoint?
+        var isVisible = true
         
         var start: CGPoint? {
             guard let startR = startRight,
