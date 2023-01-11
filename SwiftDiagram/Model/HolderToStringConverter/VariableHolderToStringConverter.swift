@@ -13,10 +13,10 @@ struct VariableHolderToStringConverter {
         
         for variable in variableHolders {
             let icon = variable.accessLevel.icon
-            var stringVar = icon
-            if icon != AccessLevel.internal.icon {
-                stringVar += " "
-            }
+            var stringVar = icon + " "
+//            if icon != AccessLevel.internal.icon {
+//                stringVar += " "
+//            }
             
             if let attribute = variable.customAttribute {
                 stringVar += attribute + " "

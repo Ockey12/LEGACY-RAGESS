@@ -13,10 +13,10 @@ struct FunctionHolderToStringConverter {
         
         for function in functionHolders {
             let icon = function.accessLevel.icon
-            var stringFunc = icon
-            if icon != AccessLevel.internal.icon {
-                stringFunc += " "
-            }
+            var stringFunc = icon + " "
+//            if icon != AccessLevel.internal.icon {
+//                stringFunc += " "
+//            }
             
             if function.isStatic {
                 stringFunc += "static "

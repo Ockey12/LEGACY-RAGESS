@@ -17,11 +17,15 @@ struct IndexComponentFrameWithText: View {
     let fontSize = ComponentSettingValues.fontSize
     
     var text: String {
-        if accessLevelIcon == AccessLevel.internal.icon {
-            return headerComponentIndexType.string
-        } else {
-            return accessLevelIcon + "  " + headerComponentIndexType.string
+        var content = ""
+        // accessLevelIconから、位置調整用の" "を取り除く
+        for char in accessLevelIcon {
+            if char != " " {
+                content += String(char)
+            }
         }
+        content += " " + headerComponentIndexType.string
+        return content
     }
     
     var indexColor: Color {

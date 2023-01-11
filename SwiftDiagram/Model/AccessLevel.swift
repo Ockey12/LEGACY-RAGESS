@@ -36,11 +36,11 @@ enum AccessLevel: String {
         case .public:
             return "●"
         case .internal:
-            return ""
+            return " - "
         case .fileprivate:
-            return "△"
+            return "△ "
         case .private:
-            return "▲"
+            return "▲ "
         }
     }
 }

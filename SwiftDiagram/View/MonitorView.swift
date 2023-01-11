@@ -31,25 +31,7 @@ struct MonitorView: View {
     // DiagramView()の周囲の余白
     // .frame()のwidthとheightに加算する
     let diagramViewPadding: CGFloat = 0
-    
-    var CircleView: some View {
-        ForEach(arrowPoint.points, id: \.self) { point in
-            ZStack {
-                if let startRight = point.startRight {
-                    Circle()
-                        .frame(width: 30, height: 30)
-                        .position(x: startRight.x, y: startRight.y)
-                        .foregroundColor(.red)
-                }
-                if let startLeft = point.startLeft {
-                    Circle()
-                        .frame(width: 30, height: 30)
-                        .position(x: startLeft.x, y: startLeft.y)
-                        .foregroundColor(.blue)
-                }
-            }
-        }
-    }
+
     
     var body: some View {
         
@@ -91,7 +73,8 @@ struct MonitorView: View {
                            height: diagramViewSize.height*diagramViewScale)
                     
                 } // ScrollView
-                .background(Color("Background"))
+                .background(.white)
+//                .background(Color("Background"))
             } // GeometryReader
             
             HStack {
