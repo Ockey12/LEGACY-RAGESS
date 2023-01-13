@@ -64,16 +64,16 @@ struct GetArrowsPointView: View {
                                                 componentKind: .typealias,
                                                 currentPoint: &currentPoint)
                             
-                            // Initializer Component
-                            getPointOfComponent(holderName: name,
-                                                elementNames: protocolHolder.initializers,
-                                                componentKind: .initializer,
-                                                currentPoint: &currentPoint)
-                            
                             // Property Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: protocolHolder.variables,
                                                 componentKind: .property,
+                                                currentPoint: &currentPoint)
+                            
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: protocolHolder.initializers,
+                                                componentKind: .initializer,
                                                 currentPoint: &currentPoint)
                             
                             // Method Component
@@ -125,18 +125,18 @@ struct GetArrowsPointView: View {
                                                 componentKind: .typealias,
                                                 currentPoint: &currentPoint)
 
-                            // Initializer Component
-                            getPointOfComponent(holderName: name,
-                                                elementNames: structHolder.initializers,
-                                                componentKind: .initializer,
-                                                currentPoint: &currentPoint)
-
                             // Property Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: structHolder.variables,
                                                 componentKind: .property,
                                                 currentPoint: &currentPoint)
 
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: structHolder.initializers,
+                                                componentKind: .initializer,
+                                                currentPoint: &currentPoint)
+                            
                             // Method Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: structHolder.functions,
@@ -206,18 +206,18 @@ struct GetArrowsPointView: View {
                                                 componentKind: .typealias,
                                                 currentPoint: &currentPoint)
 
-                            // Initializer Component
-                            getPointOfComponent(holderName: name,
-                                                elementNames: classHolder.initializers,
-                                                componentKind: .initializer,
-                                                currentPoint: &currentPoint)
-
                             // Property Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: classHolder.variables,
                                                 componentKind: .property,
                                                 currentPoint: &currentPoint)
 
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: classHolder.initializers,
+                                                componentKind: .initializer,
+                                                currentPoint: &currentPoint)
+                            
                             // Method Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: classHolder.functions,
@@ -287,12 +287,6 @@ struct GetArrowsPointView: View {
                                                 componentKind: .typealias,
                                                 currentPoint: &currentPoint)
 
-                            // Initializer Component
-                            getPointOfComponent(holderName: name,
-                                                elementNames: enumHolder.initializers,
-                                                componentKind: .initializer,
-                                                currentPoint: &currentPoint)
-                            
                             // Case Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: enumHolder.cases,
@@ -305,6 +299,12 @@ struct GetArrowsPointView: View {
                                                 componentKind: .property,
                                                 currentPoint: &currentPoint)
 
+                            // Initializer Component
+                            getPointOfComponent(holderName: name,
+                                                elementNames: enumHolder.initializers,
+                                                componentKind: .initializer,
+                                                currentPoint: &currentPoint)
+                            
                             // Method Component
                             getPointOfComponent(holderName: name,
                                                 elementNames: enumHolder.functions,

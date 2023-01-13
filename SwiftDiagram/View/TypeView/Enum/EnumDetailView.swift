@@ -54,15 +54,6 @@ struct EnumDetailView: View {
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.typealiases.count))
             } // if 0 < holder.typealiases.count
             
-            // initializer
-            if 0 < holder.initializers.count {
-                DetailComponentView(componentType: .initializer,
-                                    strings: holder.initializers,
-                                    bodyWidth: bodyWidth)
-                .frame(width: frameWidth,
-                       height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
-            } // if 0 < holder.initializers.count
-            
             // case
             if 0 < holder.cases.count {
                 DetailComponentView(componentType: .case,
@@ -80,6 +71,15 @@ struct EnumDetailView: View {
                 .frame(width: frameWidth,
                        height: calculateDetailComponentFrameHeight(numberOfItems: holder.variables.count))
             } // if 0 < holder.variables.count
+            
+            // initializer
+            if 0 < holder.initializers.count {
+                DetailComponentView(componentType: .initializer,
+                                    strings: holder.initializers,
+                                    bodyWidth: bodyWidth)
+                .frame(width: frameWidth,
+                       height: calculateDetailComponentFrameHeight(numberOfItems: holder.initializers.count))
+            } // if 0 < holder.initializers.count
             
             // method
             if 0 < holder.functions.count {
