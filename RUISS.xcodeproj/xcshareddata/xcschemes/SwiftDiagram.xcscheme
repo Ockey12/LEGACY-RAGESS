@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AC3BF411292227770096810E"
-               BuildableName = "SwiftDiagram.app"
-               BlueprintName = "SwiftDiagram"
+               BuildableName = "RUISS.app"
+               BlueprintName = "RUISS"
                ReferencedContainer = "container:RUISS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AC3BF411292227770096810E"
-            BuildableName = "SwiftDiagram.app"
-            BlueprintName = "SwiftDiagram"
+            BuildableName = "RUISS.app"
+            BlueprintName = "RUISS"
             ReferencedContainer = "container:RUISS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AC3BF411292227770096810E"
-            BuildableName = "SwiftDiagram.app"
-            BlueprintName = "SwiftDiagram"
+            BuildableName = "RUISS.app"
+            BlueprintName = "RUISS"
             ReferencedContainer = "container:RUISS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

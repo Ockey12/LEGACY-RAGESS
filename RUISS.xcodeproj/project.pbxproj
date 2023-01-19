@@ -142,7 +142,7 @@
 		AC34B3C3294CAB6F0029479C /* ExtensionFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrame.swift; sourceTree = "<group>"; };
 		AC34B3C5294CAFAC0029479C /* ExtensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
-		AC3BF412292227770096810E /* SwiftDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3BF412292227770096810E /* RUISS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RUISS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
 		AC3BF417292227770096810E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC3BF4192922277A0096810E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 		AC3BF413292227770096810E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC3BF412292227770096810E /* SwiftDiagram.app */,
+				AC3BF412292227770096810E /* RUISS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -504,9 +504,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AC3BF411292227770096810E /* SwiftDiagram */ = {
+		AC3BF411292227770096810E /* RUISS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "SwiftDiagram" */;
+			buildConfigurationList = AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RUISS" */;
 			buildPhases = (
 				AC3BF40E292227770096810E /* Sources */,
 				AC3BF40F292227770096810E /* Frameworks */,
@@ -516,14 +516,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftDiagram;
+			name = RUISS;
 			packageProductDependencies = (
 				AC5BAD1829276B0300A24BDD /* SwiftSyntax */,
 				AC5BAD1A29276B0300A24BDD /* SwiftSyntaxBuilder */,
 				AC5BAD1C29276B0300A24BDD /* SwiftSyntaxParser */,
 			);
 			productName = SwiftDiagram;
-			productReference = AC3BF412292227770096810E /* SwiftDiagram.app */;
+			productReference = AC3BF412292227770096810E /* RUISS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -557,7 +557,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC3BF411292227770096810E /* SwiftDiagram */,
+				AC3BF411292227770096810E /* RUISS */,
 			);
 		};
 /* End PBXProject section */
@@ -802,6 +802,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftDiagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -829,6 +830,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftDiagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -854,7 +856,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "SwiftDiagram" */ = {
+		AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RUISS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC3BF4222922277A0096810E /* Debug */,
