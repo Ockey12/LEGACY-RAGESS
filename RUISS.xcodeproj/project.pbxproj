@@ -541,7 +541,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AC3BF40D292227770096810E /* Build configuration list for PBXProject "SwiftDiagram" */;
+			buildConfigurationList = AC3BF40D292227770096810E /* Build configuration list for PBXProject "RUISS" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -845,7 +845,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AC3BF40D292227770096810E /* Build configuration list for PBXProject "SwiftDiagram" */ = {
+		AC3BF40D292227770096810E /* Build configuration list for PBXProject "RUISS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC3BF41F2922277A0096810E /* Debug */,

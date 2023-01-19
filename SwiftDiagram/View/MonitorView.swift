@@ -74,21 +74,26 @@ struct MonitorView: View {
                     
                 } // ScrollView
                 .background(.white)
-//                .background(Color("Background"))
+                .background(Color("Background"))
             } // GeometryReader
             
             HStack {
-                Text("Scale: \(diagramViewScale)")
-                    .padding(.leading)
-                Slider(value: $diagramViewScale, in: minScale...maxScale)
-                    .padding(.trailing)
-            }
-            
-            HStack {
-                Text("Arrow Opacity: \(arrowOpacity)")
-                    .padding(.leading)
-                Slider(value: $arrowOpacity, in: 0...1.0)
-                    .padding(.trailing)
+                Spacer()
+                    .frame(width: 50)
+                HStack {
+                    Text("Scale")
+                    Slider(value: $diagramViewScale, in: minScale...maxScale)
+                        .padding(.trailing)
+                }
+                Spacer()
+                    .frame(width: 50)
+                HStack {
+                    Text("Arrow Opacity")
+                    Slider(value: $arrowOpacity, in: 0...1.0)
+                        .padding(.trailing)
+                }
+                Spacer()
+                    .frame(width: 50)
             }
             
             HStack {
@@ -101,6 +106,7 @@ struct MonitorView: View {
                     }
                 } label: {
                     Text("Show All Dependency")
+                        .padding()
                 }
                 .padding()
                 
@@ -111,6 +117,7 @@ struct MonitorView: View {
                     importType = .projectDirectory
                 } label: {
                     Text("Select Project Directory")
+                        .padding()
                 }
                 .padding()
                 
@@ -120,6 +127,7 @@ struct MonitorView: View {
                     importType = .buildFile
                 } label: {
                     Text("Select Build File")
+                        .padding()
                 }
                 .padding()
                 
@@ -129,15 +137,30 @@ struct MonitorView: View {
             // ビルドファイルとプロジェクトディレクトリのURL、ビルドされた時間を表示する
             VStack {
                 HStack {
-                    Text("Build File URL: \(buildFileURL)")
+                    HStack {
+                        Spacer()
+                        Text("Build File URL: ")
+                    }
+                    .frame(width: 150)
+                    Text("\(buildFileURL)")
                     Spacer()
                 }
                 HStack {
-                    Text("Project Directory URL: \(projectDirectoryURL)")
+                    HStack {
+                        Spacer()
+                        Text("Project Directory URL: ")
+                    }
+                    .frame(width: 150)
+                    Text("\(projectDirectoryURL)")
                     Spacer()
                 }
                 HStack {
-                    Text("Change Date: \(monitor.getChangeDate())")
+                    HStack {
+                        Spacer()
+                        Text("Change Date: ")
+                    }
+                    .frame(width: 150)
+                    Text("\(monitor.getChangeDate())")
                     Spacer()
                 }
             } // VStack
