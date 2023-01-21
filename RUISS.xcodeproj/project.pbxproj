@@ -211,6 +211,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC26D931297C594000CCA48E /* MonitoringSection */ = {
+			isa = PBXGroup;
+			children = (
+				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
+			);
+			path = MonitoringSection;
+			sourceTree = "<group>";
+		};
+		AC26D932297C596500CCA48E /* AnalysisSection */ = {
+			isa = PBXGroup;
+			children = (
+				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
+				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
+				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
+				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
+				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
+			);
+			path = AnalysisSection;
+			sourceTree = "<group>";
+		};
 		AC34B3692946F45D0029479C /* HolderToStringConverter */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,18 +393,14 @@
 		AC5BAD1E29276D1D00A24BDD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC26D931297C594000CCA48E /* MonitoringSection */,
+				AC26D932297C596500CCA48E /* AnalysisSection */,
 				AC5F0051293DB781001221C2 /* Holder */,
 				AC34B3692946F45D0029479C /* HolderToStringConverter */,
 				AC34B36C2946F5150029479C /* ConvertedToStringHolder */,
 				AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */,
 				AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */,
-				AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */,
 				AC34B36329448C180029479C /* OptionalTypeKind.swift */,
-				AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */,
-				AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */,
-				AC5BAD25292778CD00A24BDD /* TokenKind.swift */,
-				AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */,
-				AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */,
 				ACC8D73D29518AAA00BA76A9 /* IgnoreAffectingType.swift */,
 				ACC8D751295AEACC00BA76A9 /* ArrowPoint.swift */,
 				ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */,

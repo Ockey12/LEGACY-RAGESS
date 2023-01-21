@@ -21,12 +21,12 @@ struct MonitorView: View {
     @State private var projectDirectoryURL = FileManager.default.temporaryDirectory
     
     @State private var diagramViewSize = CGSize(width: 1000, height: 1000)
-    @State private var diagramViewScale: CGFloat = 0.1
+    @State private var diagramViewScale: CGFloat = 0.2
     
     @State private var arrowOpacity = 1.0
     
-    let minScale: CGFloat = 0.05
-    let maxScale: CGFloat = 0.7
+    let minScale: CGFloat = 0.02
+    let maxScale: CGFloat = 0.6
     
     // DiagramView()の周囲の余白
     // .frame()のwidthとheightに加算する
@@ -101,6 +101,7 @@ struct MonitorView: View {
                 
                 // すべての依存関係を表示するボタン
                 Button {
+                    arrowOpacity = 1.0
                     for i in 0..<arrowPoint.points.count {
                         arrowPoint.points[i].isVisible = true
                     }
