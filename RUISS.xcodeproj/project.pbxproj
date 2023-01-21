@@ -56,7 +56,6 @@
 		AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */; };
 		AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */; };
 		AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD25292778CD00A24BDD /* TokenKind.swift */; };
-		AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */; };
 		AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */; };
 		AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */; };
 		AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */; };
@@ -151,7 +150,6 @@
 		AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxTag.swift; sourceTree = "<group>"; };
 		AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxNodeType.swift; sourceTree = "<group>"; };
 		AC5BAD25292778CD00A24BDD /* TokenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKind.swift; sourceTree = "<group>"; };
-		AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitorView.swift; sourceTree = "<group>"; };
 		AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScrollView.swift; sourceTree = "<group>"; };
 		AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
 		AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParser.swift; sourceTree = "<group>"; };
@@ -418,7 +416,6 @@
 				AC34B3A3294A40480029479C /* TypeView */,
 				ACC8D74A295ABFE200BA76A9 /* Arrow */,
 				ACC8D759295C25DF00BA76A9 /* GetPoint */,
-				AC5BAD272928C78800A24BDD /* TokenVisitorView.swift */,
 				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 				AC34B351294082EC0029479C /* GetFilesListOfDirectoryView.swift */,
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
@@ -674,7 +671,6 @@
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,
 				AC34B3C4294CAB6F0029479C /* ExtensionFrame.swift in Sources */,
 				ACC8D758295C148100BA76A9 /* GetArrowsPointView.swift in Sources */,
-				AC5BAD282928C78800A24BDD /* TokenVisitorView.swift in Sources */,
 				AC35A68729292A3E00F0FA30 /* TokenVisitor.swift in Sources */,
 				AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */,
 				AC34B3BC294C374B0029479C /* NestClassView.swift in Sources */,
