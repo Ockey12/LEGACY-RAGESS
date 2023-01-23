@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenericHolder {
+struct GenericHolder: Holder {
     var parameterType: String?
     var conformedProtocolName: String?
     var inheritedClassName: String?

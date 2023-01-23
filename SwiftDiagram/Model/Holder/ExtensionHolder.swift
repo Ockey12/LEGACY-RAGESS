@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExtensionHolder: Holder {
+struct ExtensionHolder: TypeHolder, Nestable {
     var extensionedTypeName: String?
     
     var conformingProtocolNames = [String]()

@@ -35,7 +35,7 @@ struct VariableHolderToStringConverter {
             stringVar += variable.name
             stringVar += ": "
             
-            switch variable.kind {
+            switch variable.variableKind {
             case .literal:
                 stringVar += variable.literalType!
             case .array:

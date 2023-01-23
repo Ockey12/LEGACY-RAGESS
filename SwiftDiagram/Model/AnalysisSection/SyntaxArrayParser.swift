@@ -247,7 +247,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .property)
             case .StartArrayTypeSyntaxOfVariable:
-                variableHolderStackArray[positionInVariableHolderStackArray].kind = .array
+                variableHolderStackArray[positionInVariableHolderStackArray].variableKind = .array
             case .ArrayTypeOfVariable:
                 let type = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].arrayType = type
@@ -255,7 +255,7 @@ struct SyntaxArrayParser {
             case .EndArrayTypeSyntaxOfVariable:
                 break
             case .StartDictionaryTypeSyntaxOfVariable:
-                variableHolderStackArray[positionInVariableHolderStackArray].kind = .dictionary
+                variableHolderStackArray[positionInVariableHolderStackArray].variableKind = .dictionary
             case .DictionaryKeyTypeOfVariable:
                 let type = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].dictionaryKeyType = type
@@ -267,7 +267,7 @@ struct SyntaxArrayParser {
             case .EndDictionaryTypeSyntaxOfVariable:
                 break
             case .StartTupleTypeSyntaxOfVariable:
-                variableHolderStackArray[positionInVariableHolderStackArray].kind = .tuple
+                variableHolderStackArray[positionInVariableHolderStackArray].variableKind = .tuple
             case .TupleTypeOfVariable:
                 let type = parsedElementArray[1]
                 variableHolderStackArray[positionInVariableHolderStackArray].tupleTypes.append(type)
@@ -276,7 +276,7 @@ struct SyntaxArrayParser {
                 break
             case .ConformedProtocolByOpaqueResultTypeOfVariable:
                 let protocolName = parsedElementArray[1]
-                variableHolderStackArray[positionInVariableHolderStackArray].kind = .opaqueResultType
+                variableHolderStackArray[positionInVariableHolderStackArray].variableKind = .opaqueResultType
                 variableHolderStackArray[positionInVariableHolderStackArray].conformedProtocolByOpaqueResultType = protocolName
                 extractDependence(affectingTypeName: protocolName, componentKind: .property)
             case .InitialValueOfVariable:
@@ -328,7 +328,7 @@ struct SyntaxArrayParser {
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .method)
             case .StartArrayTypeSyntaxOfFunctionParameter:
-                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .array
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].variableKind = .array
             case .ArrayTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].arrayType = type
@@ -336,7 +336,7 @@ struct SyntaxArrayParser {
             case .EndArrayTypeSyntaxOfFunctionParameter:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionParameter:
-                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .dictionary
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].variableKind = .dictionary
             case .DictionaryKeyTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].dictionaryKeyType = type
@@ -348,7 +348,7 @@ struct SyntaxArrayParser {
             case .EndDictionaryTypeSyntaxOfFunctionParameter:
                 break
             case .StartTupleTypeSyntaxOfFunctionParameter:
-                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].kind = .tuple
+                functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].variableKind = .tuple
             case .TupleTypeOfFunctionParameter:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].parameters[positionInFunctionParameters].tupleTypes.append(type)
@@ -367,7 +367,7 @@ struct SyntaxArrayParser {
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .method)
             case .StartArrayTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .array
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.variableKind = .array
             case .ArrayTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.arrayType = type
@@ -375,7 +375,7 @@ struct SyntaxArrayParser {
             case .EndArrayTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartDictionaryTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .dictionary
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.variableKind = .dictionary
             case .DictionaryKeyTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.dictionaryKeyType = type
@@ -387,7 +387,7 @@ struct SyntaxArrayParser {
             case .EndDictionaryTypeSyntaxOfFunctionReturnValue:
                 break
             case .StartTupleTypeSyntaxOfFunctionReturnValue:
-                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.kind = .tuple
+                functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.variableKind = .tuple
             case .TupleTypeOfFunctionReturnValue:
                 let type = parsedElementArray[1]
                 functionHolderStackArray[positionInFunctionHolderStackArray].returnValue!.tupleTypes.append(type)
@@ -423,7 +423,7 @@ struct SyntaxArrayParser {
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].literalType = type
                 extractDependence(affectingTypeName: type, componentKind: .initializer)
             case .StartArrayTypeSyntaxOfInitializer:
-                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .array
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].variableKind = .array
             case .ArrayTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].arrayType = type
@@ -431,7 +431,7 @@ struct SyntaxArrayParser {
             case .EndArrayTypeSyntaxOfInitializer:
                 break
             case .StartDictionaryTypeSyntaxOfInitializer:
-                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .dictionary
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].variableKind = .dictionary
             case .DictionaryKeyTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].dictionaryKeyType = type
@@ -443,7 +443,7 @@ struct SyntaxArrayParser {
             case .EndDictionaryTypeSyntaxOfInitializer:
                 break
             case .StartTupleTypeSyntaxOfInitializer:
-                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].kind = .tuple
+                initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].variableKind = .tuple
             case .TupleTypeOfInitializer:
                 let type = parsedElementArray[1]
                 initializerHolderStackArray[positionInInitializerHolderStackArray].parameters[positionInInitializerParameters].tupleTypes.append(type)
@@ -994,7 +994,7 @@ struct SyntaxArrayParser {
                                                              componentKind: .initializer,
                                                              numberOfComponent: index)
             for parameterHolder in initializer.parameters {
-                switch parameterHolder.kind {
+                switch parameterHolder.variableKind {
                 case .literal:
                     addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.literalType!, affectedType: affectedType)
                 case .array:
@@ -1019,7 +1019,7 @@ struct SyntaxArrayParser {
                                                              numberOfExtension: numberOfExtension,
                                                              componentKind: .property,
                                                              numberOfComponent: index)
-            switch variable.kind {
+            switch variable.variableKind {
             case .literal:
                 addAffectedTypeToRecultDependenceHolders(affectingTypeName: variable.literalType!, affectedType: affectedType)
             case .array:
@@ -1044,7 +1044,7 @@ struct SyntaxArrayParser {
                                                              componentKind: .method,
                                                              numberOfComponent: index)
             for parameterHolder in function.parameters {
-                switch parameterHolder.kind {
+                switch parameterHolder.variableKind {
                 case .literal:
                     addAffectedTypeToRecultDependenceHolders(affectingTypeName: parameterHolder.literalType!, affectedType: affectedType)
                 case .array:
@@ -1062,7 +1062,7 @@ struct SyntaxArrayParser {
             } // for parameterHolder in function.parameters
             
             if let returnValue = function.returnValue {
-                switch returnValue.kind {
+                switch returnValue.variableKind {
                 case .literal:
                     addAffectedTypeToRecultDependenceHolders(affectingTypeName: returnValue.literalType!, affectedType: affectedType)
                 case .array:

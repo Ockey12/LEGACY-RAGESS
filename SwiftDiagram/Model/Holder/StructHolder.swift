@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StructHolder: TypeHolder {
+struct StructHolder: Nameable, AccessControllable, TypeHolder, Nestable, Extensionable {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
@@ -28,7 +28,4 @@ struct StructHolder: TypeHolder {
     var nestingEnums = [EnumHolder]()
     
     var extensions = [ExtensionHolder]()
-    
-    var nestSuperTypeName: String? = nil
 }
-

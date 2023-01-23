@@ -12,9 +12,9 @@ struct InitializerHolder: Holder {
     var isFailable = false
     var parameters = [ParameterHolder]()
     
-    struct ParameterHolder: Holder {
+    struct ParameterHolder: Holder, Typeable {
         var name: String?
-        var kind: VariableKind = .literal
+        var variableKind: VariableKind = .literal
         var literalType: String?
         var arrayType: String?
         var dictionaryKeyType: String?

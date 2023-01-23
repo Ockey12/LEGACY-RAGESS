@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProtocolHolder: HaveNameAndAccessLevelHolder {
+struct ProtocolHolder: Nameable {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     

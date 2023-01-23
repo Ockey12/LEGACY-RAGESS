@@ -23,7 +23,7 @@ struct InitializerHolderToStringConverter {
             stringInit += "("
             for (index, param) in initializer.parameters.enumerated() {
                 stringInit += param.name! + ": "
-                switch param.kind {
+                switch param.variableKind {
                 case .literal:
                     stringInit += param.literalType!
                 case .array:

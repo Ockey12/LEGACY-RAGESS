@@ -68,11 +68,10 @@
 		AC5F005F293DB7E6001221C2 /* ExtensionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */; };
 		AC5F0063293DCAD9001221C2 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0062293DCAD9001221C2 /* Holder.swift */; };
 		AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0064293DCAE9001221C2 /* TypeHolder.swift */; };
-		AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0066293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift */; };
+		AC5F0067293DCCCC001221C2 /* Nameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0066293DCCCC001221C2 /* Nameable.swift */; };
 		AC5F0069293DD418001221C2 /* HolderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0068293DD418001221C2 /* HolderType.swift */; };
 		AC5F006B293E44A0001221C2 /* InitializerHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F006A293E44A0001221C2 /* InitializerHolder.swift */; };
 		AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0070293F7B53001221C2 /* VariableKind.swift */; };
-		AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */; };
 		AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */; };
 		AC62F9372964832600D9BA32 /* RedrawCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F9362964832600D9BA32 /* RedrawCounter.swift */; };
 		AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */; };
@@ -99,6 +98,10 @@
 		ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */; };
 		ACC8D75F295C39E100BA76A9 /* MaxWidthHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */; };
 		ACC8D761295CC02A00BA76A9 /* HashableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */; };
+		ACDA20FC297EF77F0009F27F /* AccessControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA20FB297EF77F0009F27F /* AccessControllable.swift */; };
+		ACDA20FE297EF8030009F27F /* Nestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA20FD297EF8030009F27F /* Nestable.swift */; };
+		ACDA2102297EFA570009F27F /* Typeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2101297EFA570009F27F /* Typeable.swift */; };
+		ACDA2104297EFEC10009F27F /* Extensionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2103297EFEC10009F27F /* Extensionable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,11 +165,10 @@
 		AC5F005E293DB7E6001221C2 /* ExtensionHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHolder.swift; sourceTree = "<group>"; };
 		AC5F0062293DCAD9001221C2 /* Holder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		AC5F0064293DCAE9001221C2 /* TypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeHolder.swift; sourceTree = "<group>"; };
-		AC5F0066293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveNameAndAccessLevelHolder.swift; sourceTree = "<group>"; };
+		AC5F0066293DCCCC001221C2 /* Nameable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nameable.swift; sourceTree = "<group>"; };
 		AC5F0068293DD418001221C2 /* HolderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolderType.swift; sourceTree = "<group>"; };
 		AC5F006A293E44A0001221C2 /* InitializerHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerHolder.swift; sourceTree = "<group>"; };
 		AC5F0070293F7B53001221C2 /* VariableKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableKind.swift; sourceTree = "<group>"; };
-		AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveTypeHolder.swift; sourceTree = "<group>"; };
 		AC5F0074293F80DD001221C2 /* WhomThisTypeAffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhomThisTypeAffect.swift; sourceTree = "<group>"; };
 		AC62F9362964832600D9BA32 /* RedrawCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedrawCounter.swift; sourceTree = "<group>"; };
 		AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanDrawArrowFlag.swift; sourceTree = "<group>"; };
@@ -193,6 +195,10 @@
 		ACC8D75C295C2B7900BA76A9 /* AllStringOfHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStringOfHolder.swift; sourceTree = "<group>"; };
 		ACC8D75E295C39E100BA76A9 /* MaxWidthHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxWidthHolder.swift; sourceTree = "<group>"; };
 		ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableExtension.swift; sourceTree = "<group>"; };
+		ACDA20FB297EF77F0009F27F /* AccessControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessControllable.swift; sourceTree = "<group>"; };
+		ACDA20FD297EF8030009F27F /* Nestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nestable.swift; sourceTree = "<group>"; };
+		ACDA2101297EFA570009F27F /* Typeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typeable.swift; sourceTree = "<group>"; };
+		ACDA2103297EFEC10009F27F /* Extensionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensionable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,9 +437,12 @@
 				AC5F0068293DD418001221C2 /* HolderType.swift */,
 				AC5F0070293F7B53001221C2 /* VariableKind.swift */,
 				AC5F0062293DCAD9001221C2 /* Holder.swift */,
-				AC5F0066293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift */,
-				AC5F0072293F7CCF001221C2 /* HaveTypeHolder.swift */,
+				AC5F0066293DCCCC001221C2 /* Nameable.swift */,
+				ACDA20FB297EF77F0009F27F /* AccessControllable.swift */,
 				AC5F0064293DCAE9001221C2 /* TypeHolder.swift */,
+				ACDA20FD297EF8030009F27F /* Nestable.swift */,
+				ACDA2103297EFEC10009F27F /* Extensionable.swift */,
+				ACDA2101297EFA570009F27F /* Typeable.swift */,
 				AC5F0052293DB794001221C2 /* StructHolder.swift */,
 				AC5F0054293DB7A0001221C2 /* ClassHolder.swift */,
 				AC5F0056293DB7AE001221C2 /* EnumHolder.swift */,
@@ -598,7 +607,7 @@
 				ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
-				AC5F0067293DCCCC001221C2 /* HaveNameAndAccessLevelHolder.swift in Sources */,
+				AC5F0067293DCCCC001221C2 /* Nameable.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */,
@@ -616,23 +625,25 @@
 				AC34B3842947B2250029479C /* ExtensionHolderToStringConverter.swift in Sources */,
 				AC34B376294791270029479C /* GenericHolderToStringConverter.swift in Sources */,
 				ACC8D723294F0F3E00BA76A9 /* EnumDetailView.swift in Sources */,
+				ACDA2102297EFA570009F27F /* Typeable.swift in Sources */,
 				AC34B37E294797E10029479C /* FunctionHolderToStringConverter.swift in Sources */,
 				ACC8D75D295C2B7900BA76A9 /* AllStringOfHolder.swift in Sources */,
 				ACC8D73C2951853900BA76A9 /* DependenceHolder.swift in Sources */,
 				AC34B3702946F8730029479C /* ConvertedToStringClassHolder.swift in Sources */,
 				AC34B37C294796880029479C /* VariableHolderToStringConverter.swift in Sources */,
+				ACDA20FE297EF8030009F27F /* Nestable.swift in Sources */,
 				AC5F0075293F80DD001221C2 /* WhomThisTypeAffect.swift in Sources */,
 				AC5F0055293DB7A0001221C2 /* ClassHolder.swift in Sources */,
 				AC5F005B293DB7CA001221C2 /* VariableHolder.swift in Sources */,
 				AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */,
 				AC34B3C1294C40A00029479C /* NestEnumView.swift in Sources */,
-				AC5F0073293F7CCF001221C2 /* HaveTypeHolder.swift in Sources */,
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
 				ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
+				ACDA2104297EFEC10009F27F /* Extensionable.swift in Sources */,
 				AC34B3822947A62C0029479C /* EnumHolderToStringConverter.swift in Sources */,
 				AC5F005D293DB7D8001221C2 /* ProtocolHolder.swift in Sources */,
 				AC34B378294793150029479C /* TypealiasHolderToStringConverter.swift in Sources */,
@@ -648,6 +659,7 @@
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
 				AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */,
+				ACDA20FC297EF77F0009F27F /* AccessControllable.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC34B3C6294CAFAC0029479C /* ExtensionView.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,

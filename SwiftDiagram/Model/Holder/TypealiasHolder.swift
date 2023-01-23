@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TypealiasHolder {
+struct TypealiasHolder: Holder, Typeable {
     var associatedTypeName: String?
     var variableKind = VariableKind.literal
     

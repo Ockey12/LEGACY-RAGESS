@@ -58,7 +58,7 @@ struct FunctionHolderToStringConverter {
                     stringFunc += "inout "
                 }
                 
-                switch param.kind {
+                switch param.variableKind {
                 case .literal:
                     stringFunc += param.literalType!
                 case .array:
@@ -98,7 +98,7 @@ struct FunctionHolderToStringConverter {
             
             if let returnValue = function.returnValue {
                 stringFunc += " -> "
-                switch returnValue.kind {
+                switch returnValue.variableKind {
                 case .literal:
                     stringFunc += returnValue.literalType!
                 case .array:

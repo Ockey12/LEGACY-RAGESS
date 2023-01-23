@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct VariableHolder: HaveNameAndAccessLevelHolder {
+struct VariableHolder: Nameable, Typeable {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
-    var kind: VariableKind = .literal
+    var variableKind: VariableKind = .literal
     
     var customAttribute: String?
     var isStatic = false
@@ -33,7 +33,4 @@ struct VariableHolder: HaveNameAndAccessLevelHolder {
     var haveDidSet = false
     var haveGetter = false
     var haveSetter = false
-    
-    // これに影響を及ぼす型の名前
-    var typeThatAffectsThis = [String]()
 }

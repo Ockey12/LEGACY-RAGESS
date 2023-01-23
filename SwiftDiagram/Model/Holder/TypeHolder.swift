@@ -7,21 +7,19 @@
 
 import Foundation
 
-protocol TypeHolder: HaveNameAndAccessLevelHolder {
+protocol TypeHolder: Holder {
     // この型が準拠しているプロトコル
     var conformingProtocolNames: [String] { get set }
+    
+    // typealias
+    var typealiases: [TypealiasHolder] { get set }
+    
+    // イニシャライザ
+    var initializers: [InitializerHolder] { get set }
     
     // プロパティ
     var variables: [VariableHolder] { get set }
     
     // メソッド
     var functions: [FunctionHolder] { get set }
-    
-    // この型がネストしている型
-    var nestingStructs: [StructHolder] { get set }
-    var nestingClasses: [ClassHolder] { get set }
-    var nestingEnums: [EnumHolder] { get set }
-    
-    // この型をネストしている型
-    var nestSuperTypeName: String? { get set }
 }

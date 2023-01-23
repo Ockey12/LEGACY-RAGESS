@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FunctionHolder: HaveNameAndAccessLevelHolder {
+struct FunctionHolder: Nameable {
     var name: String = ""
     var accessLevel: AccessLevel = .internal
     
@@ -21,13 +21,13 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
 
     var returnValue: ReturnValueHolder?
     
-    struct ParameterHolder: Holder {
+    struct ParameterHolder: Holder, Typeable {
         var externalName: String?
         var internalName: String?
         var haveInoutKeyword = false
         var isVariadic = false
         
-        var kind: VariableKind = .literal
+        var variableKind: VariableKind = .literal
         var literalType: String?
         var arrayType: String?
         var dictionaryKeyType: String?
@@ -39,8 +39,8 @@ struct FunctionHolder: HaveNameAndAccessLevelHolder {
         var initialValue: String?
     }
     
-    struct ReturnValueHolder: Holder {
-        var kind: VariableKind = .literal
+    struct ReturnValueHolder: Holder, Typeable {
+        var variableKind: VariableKind = .literal
         var literalType: String?
         var arrayType: String?
         var dictionaryKeyType: String?
