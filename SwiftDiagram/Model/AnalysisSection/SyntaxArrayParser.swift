@@ -241,6 +241,7 @@ struct SyntaxArrayParser {
                 variableHolderStackArray[positionInVariableHolderStackArray].isConstant = true
             case .VariableName:
                 let name = parsedElementArray[1]
+                print(name)
                 variableHolderStackArray[positionInVariableHolderStackArray].name = name
             case .VariableType:
                 let type = parsedElementArray[1]
@@ -826,6 +827,7 @@ struct SyntaxArrayParser {
     mutating private func addVariableHolderToSuperHolder() {
         let variableHolder = variableHolderStackArray[positionInVariableHolderStackArray]
         let holderType = holderTypeStackArray[positionInHolderTypeStackArray - 1]
+        print("HolderType: \(holderType)")
         
         switch holderType {
         case .struct:
@@ -838,6 +840,8 @@ struct SyntaxArrayParser {
             protocolHolderStackArray[positionInProtocolHolderStackArray].variables.append(variableHolder)
         case .extension:
             extensionHolderStackArray[positionInExtensionHolderStackArray].variables.append(variableHolder)
+        case .function:
+            print("\(functionHolderStackArray[positionInFunctionHolderStackArray].name)")
         default:
             fatalError("ERROR: holderTypeStackArray[positionInHolderTypeStackArray] hasn't variables property")
         }

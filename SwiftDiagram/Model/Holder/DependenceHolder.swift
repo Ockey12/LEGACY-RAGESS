@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DependenceHolder {
+struct DependenceHolder: Holder {
     var affectingTypeName: String
     var affectedTypes: [AffectedType]
     

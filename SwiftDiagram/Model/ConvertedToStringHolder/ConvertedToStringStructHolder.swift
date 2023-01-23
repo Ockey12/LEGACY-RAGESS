@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConvertedToStringStructHolder {
+struct ConvertedToStringStructHolder: HaveChangeDate, Nameable, ConvertedAccessControllable, ConvertedTypeHolder, ConvertedNestable, ConvertedExtensionable {
     var changeDate = ""
     
     var name = ""

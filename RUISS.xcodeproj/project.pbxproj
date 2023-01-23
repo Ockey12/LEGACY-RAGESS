@@ -102,6 +102,12 @@
 		ACDA20FE297EF8030009F27F /* Nestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA20FD297EF8030009F27F /* Nestable.swift */; };
 		ACDA2102297EFA570009F27F /* Typeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2101297EFA570009F27F /* Typeable.swift */; };
 		ACDA2104297EFEC10009F27F /* Extensionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2103297EFEC10009F27F /* Extensionable.swift */; };
+		ACDA2161297F4EF80009F27F /* ConvertedToStringHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2160297F4EF80009F27F /* ConvertedToStringHolder.swift */; };
+		ACDA2163297F4F430009F27F /* ConvertedTypeHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2162297F4F430009F27F /* ConvertedTypeHolder.swift */; };
+		ACDA2167297F4FEF0009F27F /* ConvertedAccessControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2166297F4FEF0009F27F /* ConvertedAccessControllable.swift */; };
+		ACDA2169297F50C30009F27F /* ConvertedNestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA2168297F50C30009F27F /* ConvertedNestable.swift */; };
+		ACDA216B297F51150009F27F /* ConvertedExtensionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA216A297F51150009F27F /* ConvertedExtensionable.swift */; };
+		ACDA216D297F51A10009F27F /* HaveChangeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA216C297F51A10009F27F /* HaveChangeDate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,6 +205,12 @@
 		ACDA20FD297EF8030009F27F /* Nestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nestable.swift; sourceTree = "<group>"; };
 		ACDA2101297EFA570009F27F /* Typeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typeable.swift; sourceTree = "<group>"; };
 		ACDA2103297EFEC10009F27F /* Extensionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensionable.swift; sourceTree = "<group>"; };
+		ACDA2160297F4EF80009F27F /* ConvertedToStringHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedToStringHolder.swift; sourceTree = "<group>"; };
+		ACDA2162297F4F430009F27F /* ConvertedTypeHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedTypeHolder.swift; sourceTree = "<group>"; };
+		ACDA2166297F4FEF0009F27F /* ConvertedAccessControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedAccessControllable.swift; sourceTree = "<group>"; };
+		ACDA2168297F50C30009F27F /* ConvertedNestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedNestable.swift; sourceTree = "<group>"; };
+		ACDA216A297F51150009F27F /* ConvertedExtensionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedExtensionable.swift; sourceTree = "<group>"; };
+		ACDA216C297F51A10009F27F /* HaveChangeDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveChangeDate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,11 +267,17 @@
 		AC34B36C2946F5150029479C /* ConvertedToStringHolder */ = {
 			isa = PBXGroup;
 			children = (
+				ACDA2160297F4EF80009F27F /* ConvertedToStringHolder.swift */,
+				ACDA2166297F4FEF0009F27F /* ConvertedAccessControllable.swift */,
+				ACDA2162297F4F430009F27F /* ConvertedTypeHolder.swift */,
+				ACDA2168297F50C30009F27F /* ConvertedNestable.swift */,
+				ACDA216A297F51150009F27F /* ConvertedExtensionable.swift */,
 				AC34B36D2946F54F0029479C /* ConvertedToStringStructHolder.swift */,
 				AC34B36F2946F8730029479C /* ConvertedToStringClassHolder.swift */,
 				AC34B3712946F87E0029479C /* ConvertedToStringEnumHolder.swift */,
 				AC34B3852947B2510029479C /* ConvertedToStringProtocolHolder.swift */,
 				AC34B3732946F8E50029479C /* ConvertedToStringExtensionHolder.swift */,
+				ACDA216C297F51A10009F27F /* HaveChangeDate.swift */,
 			);
 			path = ConvertedToStringHolder;
 			sourceTree = "<group>";
@@ -605,6 +623,7 @@
 				ACC8D7302950321F00BA76A9 /* DiagramView.swift in Sources */,
 				AC34B3A2294A34E80029479C /* DetailComponentView.swift in Sources */,
 				ACC8D74E295AC01A00BA76A9 /* ArrowLineView.swift in Sources */,
+				ACDA2167297F4FEF0009F27F /* ConvertedAccessControllable.swift in Sources */,
 				AC34B3912949CB2F0029479C /* ComponentSettingValues.swift in Sources */,
 				ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */,
 				AC5F0067293DCCCC001221C2 /* Nameable.swift in Sources */,
@@ -640,6 +659,7 @@
 				AC34B3862947B2510029479C /* ConvertedToStringProtocolHolder.swift in Sources */,
 				AC34B37A294794830029479C /* InitializerHolderToStringConverter.swift in Sources */,
 				ACC8D752295AEACC00BA76A9 /* ArrowPoint.swift in Sources */,
+				ACDA2169297F50C30009F27F /* ConvertedNestable.swift in Sources */,
 				AC3BF418292227770096810E /* ContentView.swift in Sources */,
 				AC34B3722946F87E0029479C /* ConvertedToStringEnumHolder.swift in Sources */,
 				AC5F0071293F7B53001221C2 /* VariableKind.swift in Sources */,
@@ -659,11 +679,13 @@
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
 				AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */,
+				ACDA2163297F4F430009F27F /* ConvertedTypeHolder.swift in Sources */,
 				ACDA20FC297EF77F0009F27F /* AccessControllable.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
 				AC34B3C6294CAFAC0029479C /* ExtensionView.swift in Sources */,
 				AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */,
 				AC34B3932949CBBA0029479C /* IndexComponentFrame.swift in Sources */,
+				ACDA2161297F4EF80009F27F /* ConvertedToStringHolder.swift in Sources */,
 				AC34B38029479EDB0029479C /* ClassHolderToStringConverter.swift in Sources */,
 				AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */,
 				ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */,
@@ -675,9 +697,11 @@
 				AC34B3BA294C36810029479C /* NestClassFrame.swift in Sources */,
 				ACC8D721294F0F2900BA76A9 /* EnumView.swift in Sources */,
 				ACC8D73E29518AAA00BA76A9 /* IgnoreAffectingType.swift in Sources */,
+				ACDA216D297F51A10009F27F /* HaveChangeDate.swift in Sources */,
 				ACC8D761295CC02A00BA76A9 /* HashableExtension.swift in Sources */,
 				AC34B36E2946F54F0029479C /* ConvertedToStringStructHolder.swift in Sources */,
 				AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */,
+				ACDA216B297F51150009F27F /* ConvertedExtensionable.swift in Sources */,
 				AC34B3682945B9F70029479C /* TypealiasHolder.swift in Sources */,
 				AC34B3662945035C0029479C /* GenericHolder.swift in Sources */,
 				AC34B352294082EC0029479C /* GetFilesListOfDirectoryView.swift in Sources */,

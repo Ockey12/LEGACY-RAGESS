@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConvertedToStringExtensionHolder {
+struct ConvertedToStringExtensionHolder: ConvertedTypeHolder, ConvertedNestable {
     var conformingProtocolNames = [String]()
     var typealiases = [String]()
     var initializers = [String]()

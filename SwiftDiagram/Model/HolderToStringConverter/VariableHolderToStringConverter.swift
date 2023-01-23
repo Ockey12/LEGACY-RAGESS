@@ -12,6 +12,7 @@ struct VariableHolderToStringConverter {
         var stringVariableArray = [String]()
         
         for variable in variableHolders {
+            print(variable.name)
             let icon = variable.accessLevel.icon
             var stringVar = icon + " "
 //            if icon != AccessLevel.internal.icon {

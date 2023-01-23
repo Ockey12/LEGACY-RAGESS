@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConvertedToStringProtocolHolder {
+struct ConvertedToStringProtocolHolder: HaveChangeDate, Nameable, ConvertedAccessControllable, ConvertedTypeHolder, ConvertedExtensionable {
     var changeDate = ""
     
     var name = ""
