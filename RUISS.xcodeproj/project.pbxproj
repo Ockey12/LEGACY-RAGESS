@@ -52,7 +52,6 @@
 		AC5BAD2229276F5D00A24BDD /* SyntaxTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */; };
 		AC5BAD242927701300A24BDD /* SyntaxNodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */; };
 		AC5BAD26292778CD00A24BDD /* TokenKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD25292778CD00A24BDD /* TokenKind.swift */; };
-		AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */; };
 		AC5BAD3329291F9B00A24BDD /* AccessLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */; };
 		AC5F0050293DB582001221C2 /* SyntaxArrayParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */; };
 		AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0052293DB794001221C2 /* StructHolder.swift */; };
@@ -158,7 +157,6 @@
 		AC5BAD2129276F5D00A24BDD /* SyntaxTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxTag.swift; sourceTree = "<group>"; };
 		AC5BAD232927701300A24BDD /* SyntaxNodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxNodeType.swift; sourceTree = "<group>"; };
 		AC5BAD25292778CD00A24BDD /* TokenKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKind.swift; sourceTree = "<group>"; };
-		AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScrollView.swift; sourceTree = "<group>"; };
 		AC5BAD3229291F9B00A24BDD /* AccessLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevel.swift; sourceTree = "<group>"; };
 		AC5F004F293DB582001221C2 /* SyntaxArrayParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxArrayParser.swift; sourceTree = "<group>"; };
 		AC5F0052293DB794001221C2 /* StructHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructHolder.swift; sourceTree = "<group>"; };
@@ -441,7 +439,6 @@
 				AC34B3A3294A40480029479C /* TypeView */,
 				ACC8D74A295ABFE200BA76A9 /* Arrow */,
 				ACC8D759295C25DF00BA76A9 /* GetPoint */,
-				AC5BAD2C2928C8F900A24BDD /* CodeScrollView.swift */,
 				ACC8D72F2950321F00BA76A9 /* DiagramView.swift */,
 				AC34B35B2940FBE30029479C /* MonitorView.swift */,
 				ACC8D7332950AF4500BA76A9 /* Colors.xcassets */,
@@ -629,7 +626,6 @@
 				AC5F0067293DCCCC001221C2 /* Nameable.swift in Sources */,
 				AC5F0057293DB7AE001221C2 /* EnumHolder.swift in Sources */,
 				ACDA21782986A3360009F27F /* HolderToStringConverter.swift in Sources */,
-				AC5BAD2D2928C8F900A24BDD /* CodeScrollView.swift in Sources */,
 				AC34B3992949CFE60029479C /* HeaderComponentFrame.swift in Sources */,
 				AC34B3742946F8E50029479C /* ConvertedToStringExtensionHolder.swift in Sources */,
 				AC5F0065293DCAE9001221C2 /* TypeHolder.swift in Sources */,
