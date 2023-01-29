@@ -51,7 +51,7 @@ struct ClassHolderToStringConverter {
         if 0 < classHolder.nestingStructs.count {
             let converter = StructHolderToStringConverter()
             for nestedStruct in classHolder.nestingStructs {
-                let convertedContent = converter.convertToString(structHolder: nestedStruct)
+                let convertedContent = converter.convertToString(holder: nestedStruct)
                 convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
             }
         }

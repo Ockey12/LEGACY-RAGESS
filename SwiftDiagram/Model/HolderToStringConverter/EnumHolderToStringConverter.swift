@@ -70,7 +70,7 @@ struct EnumHolderToStringConverter {
         if 0 < enumHolder.nestingStructs.count {
             let converter = StructHolderToStringConverter()
             for nestedStruct in enumHolder.nestingStructs {
-                let convertedContent = converter.convertToString(structHolder: nestedStruct)
+                let convertedContent = converter.convertToString(holder: nestedStruct)
                 convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
             }
         }

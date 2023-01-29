@@ -40,7 +40,7 @@ struct ExtensionHolderToStringConverter {
         if 0 < extensionHolder.nestingStructs.count {
             let converter = StructHolderToStringConverter()
             for nestedStruct in extensionHolder.nestingStructs {
-                let convertedContent = converter.convertToString(structHolder: nestedStruct)
+                let convertedContent = converter.convertToString(holder: nestedStruct)
                 convertedHolder.nestingConvertedToStringStructHolders.append(convertedContent)
             }
         }
