@@ -148,7 +148,7 @@
 		AC34B3C3294CAB6F0029479C /* ExtensionFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionFrame.swift; sourceTree = "<group>"; };
 		AC34B3C5294CAFAC0029479C /* ExtensionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionView.swift; sourceTree = "<group>"; };
 		AC35A68629292A3E00F0FA30 /* TokenVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenVisitor.swift; sourceTree = "<group>"; };
-		AC3BF412292227770096810E /* RUISS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RUISS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3BF412292227770096810E /* RAGESS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RAGESS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3BF415292227770096810E /* SwiftDiagramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDiagramApp.swift; sourceTree = "<group>"; };
 		AC3BF417292227770096810E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC3BF4192922277A0096810E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		AC3BF413292227770096810E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC3BF412292227770096810E /* RUISS.app */,
+				AC3BF412292227770096810E /* RAGESS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -541,9 +541,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AC3BF411292227770096810E /* RUISS */ = {
+		AC3BF411292227770096810E /* RAGESS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RUISS" */;
+			buildConfigurationList = AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RAGESS" */;
 			buildPhases = (
 				AC3BF40E292227770096810E /* Sources */,
 				AC3BF40F292227770096810E /* Frameworks */,
@@ -553,14 +553,14 @@
 			);
 			dependencies = (
 			);
-			name = RUISS;
+			name = RAGESS;
 			packageProductDependencies = (
 				ACDA21712986A2EA0009F27F /* SwiftSyntax */,
 				ACDA21732986A2EA0009F27F /* SwiftSyntaxBuilder */,
 				ACDA21752986A2EA0009F27F /* SwiftSyntaxParser */,
 			);
 			productName = SwiftDiagram;
-			productReference = AC3BF412292227770096810E /* RUISS.app */;
+			productReference = AC3BF412292227770096810E /* RAGESS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -578,7 +578,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AC3BF40D292227770096810E /* Build configuration list for PBXProject "RUISS" */;
+			buildConfigurationList = AC3BF40D292227770096810E /* Build configuration list for PBXProject "RAGESS" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -594,7 +594,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC3BF411292227770096810E /* RUISS */,
+				AC3BF411292227770096810E /* RAGESS */,
 			);
 		};
 /* End PBXProject section */
@@ -891,7 +891,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AC3BF40D292227770096810E /* Build configuration list for PBXProject "RUISS" */ = {
+		AC3BF40D292227770096810E /* Build configuration list for PBXProject "RAGESS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC3BF41F2922277A0096810E /* Debug */,
@@ -900,7 +900,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RUISS" */ = {
+		AC3BF4212922277A0096810E /* Build configuration list for PBXNativeTarget "RAGESS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC3BF4222922277A0096810E /* Debug */,

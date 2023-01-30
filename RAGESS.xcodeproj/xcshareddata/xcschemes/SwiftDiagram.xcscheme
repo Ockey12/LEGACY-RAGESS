@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AC3BF411292227770096810E"
-               BuildableName = "RUISS.app"
-               BlueprintName = "RUISS"
-               ReferencedContainer = "container:RUISS.xcodeproj">
+               BuildableName = "RAGESS.app"
+               BlueprintName = "RAGESS"
+               ReferencedContainer = "container:RAGESS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AC3BF411292227770096810E"
-            BuildableName = "RUISS.app"
-            BlueprintName = "RUISS"
-            ReferencedContainer = "container:RUISS.xcodeproj">
+            BuildableName = "RAGESS.app"
+            BlueprintName = "RAGESS"
+            ReferencedContainer = "container:RAGESS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AC3BF411292227770096810E"
-            BuildableName = "RUISS.app"
-            BlueprintName = "RUISS"
-            ReferencedContainer = "container:RUISS.xcodeproj">
+            BuildableName = "RAGESS.app"
+            BlueprintName = "RAGESS"
+            ReferencedContainer = "container:RAGESS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
