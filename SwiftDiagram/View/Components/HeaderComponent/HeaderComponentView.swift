@@ -52,8 +52,12 @@ struct HeaderComponentView: View {
     } // func tappedTypePerform(name: String)
 } // struct HeaderComponentView
 
-//struct HeaderComponentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HeaderComponentView()
-//    }
-//}
+struct HeaderComponentView_Previews: PreviewProvider {
+    static var previews: some View {
+        HeaderComponentView(arrowPoint: ArrowPoint(),
+                            accessLevelIcon: "-",
+                            indexType: .class,
+                            nameOfType: "SomeClass",
+                            bodyWidth: 800)
+    }
+}

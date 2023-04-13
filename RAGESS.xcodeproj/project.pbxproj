@@ -72,6 +72,7 @@
 		AC62F93929649DAC00D9BA32 /* CanDrawArrowFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */; };
 		AC7A8E2A29654C59004F198B /* CharacterWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8E2929654C59004F198B /* CharacterWidth.swift */; };
 		AC7A8E2C29654CE7004F198B /* MaxTextWidthCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8E2B29654CE7004F198B /* MaxTextWidthCalculator.swift */; };
+		ACC3122E29E820F100AE7CEE /* GitHubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3122D29E820F100AE7CEE /* GitHubTest.swift */; };
 		ACC8D714294CBBEF00BA76A9 /* StructDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */; };
 		ACC8D71A294EEEC700BA76A9 /* ClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D719294EEEC700BA76A9 /* ClassView.swift */; };
 		ACC8D71C294EEED700BA76A9 /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */; };
@@ -177,6 +178,7 @@
 		AC62F93829649DAC00D9BA32 /* CanDrawArrowFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanDrawArrowFlag.swift; sourceTree = "<group>"; };
 		AC7A8E2929654C59004F198B /* CharacterWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterWidth.swift; sourceTree = "<group>"; };
 		AC7A8E2B29654CE7004F198B /* MaxTextWidthCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxTextWidthCalculator.swift; sourceTree = "<group>"; };
+		ACC3122D29E820F100AE7CEE /* GitHubTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTest.swift; sourceTree = "<group>"; };
 		ACC8D713294CBBEF00BA76A9 /* StructDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructDetailView.swift; sourceTree = "<group>"; };
 		ACC8D719294EEEC700BA76A9 /* ClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassView.swift; sourceTree = "<group>"; };
 		ACC8D71B294EEED700BA76A9 /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				AC3BF415292227770096810E /* SwiftDiagramApp.swift */,
+				ACC3122D29E820F100AE7CEE /* GitHubTest.swift */,
 				AC3BF417292227770096810E /* ContentView.swift */,
 				ACC8D760295CC02A00BA76A9 /* HashableExtension.swift */,
 				AC5BAD2E2928C9B000A24BDD /* View */,
@@ -676,6 +679,7 @@
 				AC5F0053293DB794001221C2 /* StructHolder.swift in Sources */,
 				AC34B3B0294B154F0029479C /* NestStructView.swift in Sources */,
 				AC34B3A0294A24220029479C /* DetailComponentFrame.swift in Sources */,
+				ACC3122E29E820F100AE7CEE /* GitHubTest.swift in Sources */,
 				ACDA2163297F4F430009F27F /* ConvertedTypeHolder.swift in Sources */,
 				ACDA20FC297EF77F0009F27F /* AccessControllable.swift in Sources */,
 				AC3BF416292227770096810E /* SwiftDiagramApp.swift in Sources */,
