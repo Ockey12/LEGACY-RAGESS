@@ -710,7 +710,7 @@ final class TokenVisitor: SyntaxRewriter {
         
         return token
     } // func visit(_ token: TokenSyntax) -> TokenSyntax
-    
+
     override func visitPost(_ node: Syntax) {
         let currentSyntaxNodeType = "\(node.syntaxNodeType)"
         
