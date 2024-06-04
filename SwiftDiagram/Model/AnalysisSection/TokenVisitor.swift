@@ -297,6 +297,7 @@ final class TokenVisitor: SyntaxRewriter {
     } // func visitPre(_ node: Syntax)
 
     override func visit(_ token: TokenSyntax) -> TokenSyntax {
+        print(token.tokenKind)
         let tokenKind = "\(token.tokenKind)"
         
         if (1 < currentPositionInStack) &&

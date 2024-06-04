@@ -132,11 +132,12 @@ class BuildFileMonitor: ObservableObject {
             let tempDirContentsUrls = try FileManager.default.contentsOfDirectory(at: url,
                                                                                   includingPropertiesForKeys: nil,
                                                                                   options: [.skipsHiddenFiles])
-            tempDirContentsUrls.forEach { url in
+            try tempDirContentsUrls.forEach { url in
                 if url.pathExtension == "swift" {
 //                    print("Swift File URL: \(url)")
+                    let code = try String(contentsOf: url)
 
-                    let parsedContent = Parser.parse(source: url.path())
+                    let parsedContent = Parser.parse(source: code)
                     let visitor = TokenVisitor()
                     _ = visitor.visit(parsedContent)
                     var syntaxArrayParser = SyntaxArrayParser(classNameArray: visitor.getClassNameArray())
