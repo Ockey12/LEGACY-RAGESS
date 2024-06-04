@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC01A4282C0F21FD00BC5A7E /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = AC01A4272C0F21FD00BC5A7E /* SwiftParser */; };
 		AC34B35C2940FBE30029479C /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35B2940FBE30029479C /* MonitorView.swift */; };
 		AC34B35E2940FBFB0029479C /* BuildFileMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B35D2940FBFB0029479C /* BuildFileMonitor.swift */; };
 		AC34B36429448C180029479C /* OptionalTypeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC34B36329448C180029479C /* OptionalTypeKind.swift */; };
@@ -105,8 +106,6 @@
 		ACDA216B297F51150009F27F /* ConvertedExtensionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA216A297F51150009F27F /* ConvertedExtensionable.swift */; };
 		ACDA216D297F51A10009F27F /* HaveChangeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA216C297F51A10009F27F /* HaveChangeDate.swift */; };
 		ACDA21722986A2EA0009F27F /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = ACDA21712986A2EA0009F27F /* SwiftSyntax */; };
-		ACDA21742986A2EA0009F27F /* SwiftSyntaxBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = ACDA21732986A2EA0009F27F /* SwiftSyntaxBuilder */; };
-		ACDA21762986A2EA0009F27F /* SwiftSyntaxParser in Frameworks */ = {isa = PBXBuildFile; productRef = ACDA21752986A2EA0009F27F /* SwiftSyntaxParser */; };
 		ACDA21782986A3360009F27F /* HolderToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDA21772986A3360009F27F /* HolderToStringConverter.swift */; };
 /* End PBXBuildFile section */
 
@@ -218,15 +217,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACDA21762986A2EA0009F27F /* SwiftSyntaxParser in Frameworks */,
 				ACDA21722986A2EA0009F27F /* SwiftSyntax in Frameworks */,
-				ACDA21742986A2EA0009F27F /* SwiftSyntaxBuilder in Frameworks */,
+				AC01A4282C0F21FD00BC5A7E /* SwiftParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC01A4262C0F21FD00BC5A7E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AC26D931297C594000CCA48E /* MonitoringSection */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +384,7 @@
 			children = (
 				AC3BF414292227770096810E /* SwiftDiagram */,
 				AC3BF413292227770096810E /* Products */,
+				AC01A4262C0F21FD00BC5A7E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -559,8 +565,7 @@
 			name = RAGESS;
 			packageProductDependencies = (
 				ACDA21712986A2EA0009F27F /* SwiftSyntax */,
-				ACDA21732986A2EA0009F27F /* SwiftSyntaxBuilder */,
-				ACDA21752986A2EA0009F27F /* SwiftSyntaxParser */,
+				AC01A4272C0F21FD00BC5A7E /* SwiftParser */,
 			);
 			productName = SwiftDiagram;
 			productReference = AC3BF412292227770096810E /* RAGESS.app */;
@@ -920,27 +925,22 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-syntax";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.50700.1;
+				branch = release/5.10;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AC01A4272C0F21FD00BC5A7E /* SwiftParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACDA21702986A2EA0009F27F /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftParser;
+		};
 		ACDA21712986A2EA0009F27F /* SwiftSyntax */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ACDA21702986A2EA0009F27F /* XCRemoteSwiftPackageReference "swift-syntax" */;
 			productName = SwiftSyntax;
-		};
-		ACDA21732986A2EA0009F27F /* SwiftSyntaxBuilder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ACDA21702986A2EA0009F27F /* XCRemoteSwiftPackageReference "swift-syntax" */;
-			productName = SwiftSyntaxBuilder;
-		};
-		ACDA21752986A2EA0009F27F /* SwiftSyntaxParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ACDA21702986A2EA0009F27F /* XCRemoteSwiftPackageReference "swift-syntax" */;
-			productName = SwiftSyntaxParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
