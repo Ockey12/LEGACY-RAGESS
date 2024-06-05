@@ -58,7 +58,7 @@ struct MonitorView: View {
                             } // GeometryReader
                         } // .background()
 
-                        ForEach(arrowPoint.points, id: \.self) { point in
+                        ForEach(arrowPoint.points, id: \.id) { point in
                             if point.isVisible {
                                 if let start = point.start,
                                    let end = point.end {

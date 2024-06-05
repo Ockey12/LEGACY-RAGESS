@@ -45,8 +45,14 @@ struct HeaderComponentView: View {
     private func showThisTypeAffects(name: String) {
         for (index, point) in arrowPoint.points.enumerated() {
             if point.affecterName == name {
+                print("arrowPoint.points.count: \(arrowPoint.points.count)")
+                print("index: \(index)")
+                print("name: \(name)\n")
                 arrowPoint.points[index].isVisible = true
-                showThisTypeAffects(name: point.affectedName)
+
+                if nameOfType != name {
+                    showThisTypeAffects(name: point.affectedName)
+                }
             }
         }
     } // func tappedTypePerform(name: String)
