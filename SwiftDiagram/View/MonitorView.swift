@@ -58,15 +58,15 @@ struct MonitorView: View {
                             } // GeometryReader
                         } // .background()
 
-//                        ForEach(arrowPoint.points, id: \.self) { point in
-//                            if point.isVisible {
-//                                if let start = point.start,
-//                                   let end = point.end {
-//                                    ArrowView(start: start, end: end)
-//                                        .opacity(arrowOpacity)
-//                                }
-//                            }
-//                        }
+                        ForEach(arrowPoint.points, id: \.self) { point in
+                            if point.isVisible {
+                                if let start = point.start,
+                                   let end = point.end {
+                                    ArrowView(start: start, end: end)
+                                        .opacity(arrowOpacity)
+                                }
+                            }
+                        }
                     } // ZStack
                     .scaleEffect(diagramViewScale)
                     .frame(width: diagramViewSize.width*diagramViewScale,
